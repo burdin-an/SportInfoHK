@@ -1,0 +1,213 @@
+/**
+ * Проект "Информатор спортивных соревнований: фигурное катание на коньках"
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the MIT-LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @author    Бурдин А.Н. <support@it-sakh.net>
+ * @copyright Бурдин А.Н. <support@it-sakh.net>
+ * @link      http://www.it-sakh.info/SportInfo/
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
+ * @version	  1.0.4
+ */
+
+ /**
+ * Шаблоны для титров (Яркостный ключ, вырезаем весь черный цвет)
+ */
+/* ################################################################################################
+Основные настройки:
+*/
+ /* Делаем черный фон*/
+ html,body,#id_board {
+    background-color: #000;
+}
+
+
+/* ################################################################################################
+Шапка (заголовок) всех плашек
+*/
+.cl_board20 .TitleBG, 
+.cl_boardGroupResult .TitleBG {
+    background-image: linear-gradient(to right, rgba(36, 57, 73, 0.9) 0%, rgba(81, 127, 164, 0.9) 100%);
+    color: white;
+}
+.cl_board20 #TitleBlock, 
+.cl_boardGroupResult #TitleBlock {
+    /* Размер шрифта: % от ширины экрана  */
+    font-size: 1.7vw;
+}
+.cl_board20 #SegmentName,
+.cl_board20 #SubName,
+.cl_board0 #SegmentName,
+.cl_boardGroupResult #SegmentName,
+.cl_boardGroupResult #SubName {
+    /* Размер шрифта: % от ширины экрана  */
+    font-size: 1.5vw;
+}
+
+
+/* ################################################################################################
+Информационная панель:
+    Кнопка:Segment; - Название соревнования, группа и сегмент
+*/
+.cl_boardEvent .TitleBG {
+    background-color: rgba(9, 65, 138, 0.7); /*#8a0974*/
+    color: white;
+}
+.cl_boardEvent {
+    /* Размер шрифта: % от ширины экрана  */
+    font-size: 2.7vw;
+}
+.cl_boardEvent #SegmentName {
+    /* Размер шрифта: % от ширины экрана  */
+    font-size: 2.4vw;
+}
+
+
+/* ################################################################################################
+Шапка всех плашек
+*/
+
+.cl_board20 .TitleBG, 
+.cl_boardGroupResult .TitleBG {
+    border-radius: 1rem;
+    transform: skew(25deg);
+    margin: .2rem auto .2rem;
+    padding: .5rem 0;
+    width: 95%;
+}
+.cl_board20 #TitleBlock,
+.cl_board20 #SubTitle,
+.cl_boardGroupResult #TitleBlock,
+.cl_boardGroupResult #SubTitle {
+    text-align: center;
+    width: 95%;
+    padding: 1vh 0 1vh;
+    margin-left: 2%;
+    margin-right: 2%;
+    transform: skew(-25deg);
+}
+
+.cl_board20 #SegmentName,
+.cl_board20 #SubName,
+.cl_boardGroupResult #SegmentName,
+.cl_boardGroupResult #SubName {
+    display: inline-block;
+}
+
+/* ################################################################################################
+Информационная панель:
+    Кнопка:Segment; - Название соревнования, группа и сегмент
+*/
+.cl_boardEvent {
+    position: relative;
+    top:40%;
+    margin: 0 auto 0;
+    width: fit-content;
+    width: 90%;
+}
+.cl_boardEvent .TitleBG {
+    border-radius: 1rem;
+    transform: skew(25deg);
+    margin: .2rem auto .2rem;
+    padding: .5rem 0;
+    width: 95%;
+}
+.cl_boardEvent #TitleBlock {
+    margin-left: 2%;
+    margin-right: 2%;
+    text-align: center;
+    transform: skew(-25deg);
+    width: 95%;
+}
+.cl_boardEvent hr,
+.cl_board20 hr, 
+.cl_boardGroupResult hr {
+    width: 60%;
+    margin: 1vh auto;
+}
+ 
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_boardEvent.cl_boardIn {
+    animation: bounceInDown 2s linear 0s normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_boardEvent.cl_boardOut {
+    animation: hinge 2s linear 0s normal forwards;
+    transform-origin: top left; 
+}
+
+/* ################################################################################################
+Информационная панель:
+    Count; - Счёт
+*/
+.cl_boardCount {
+    position: absolute;
+    top: 5vh;
+    left: 40%;
+    width: 20vw;
+    margin: 0 auto;
+    color: white;
+}
+.CountClassTime {
+    border-bottom: 30px solid rgb(3, 1, 131);/*высота трапеции и её фоновый цвет*/
+    border-left: 10px solid transparent; /*наклон левой границы*/
+    border-right: 10px solid transparent;/*наклон правой границы*/
+    line-height:30px;/*высота строки текста*/
+    text-align: center;
+    margin: 0 auto;
+    width:30%;
+    height:0;
+    /*background-color: rgb(3, 1, 131);*/
+}
+.CountClassScores {
+    background-color: rgb(3, 1, 131);
+    padding: .5vh 0;
+    border-bottom-left-radius: 1vw;
+    border-top-left-radius: 1vw;
+    border-bottom-right-radius: 1vw;
+    border-top-right-radius: 1vw;
+}
+.CountClassNamePlayer1,.CountClassCountPlayer1,.CountClassNamePlayer2,.CountClassCountPlayer2,.CountClassPeriod {
+    display: inline-block;
+    text-align: center;
+}
+.CountClassNamePlayer1,.CountClassNamePlayer2 {
+    width: 5vw;
+    text-align: center;
+}
+.CountClassCountPlayer1,.CountClassCountPlayer2 {
+    width: 3vw;
+    font-size: 1.5vw;
+}
+.CountClassPeriod {
+    width: 3vw;
+}
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_boardCount.cl_boardIn {
+    animation: bounceInDown 2s linear 0s normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_boardCount.cl_boardOut {
+    animation: hinge 2s linear 0s normal forwards;
+    transform-origin: top left; 
+}
+
+
+@keyframes animation_boardIn {
+    0% {width:15%;opacity: 0;}
+    100% {width:76%;opacity: 1;}
+}
+@keyframes animation_boardOut {
+    0% {width:76%;opacity: 1;}
+    100% {width:15%;opacity: 0;}
+}
+@keyframes animation_board2In {
+    0% {height: 0%;}
+    100% {height: 90%;}
+}
+@keyframes animation_board2Out {
+    0% {height: 90%;}
+    100% {height: 0%;}
+}

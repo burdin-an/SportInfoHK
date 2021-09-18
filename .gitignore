@@ -1,0 +1,4 @@
+/SportInfoHK/vendor/*
+/SportInfoHK/logs/*
+/SportInfoHK/DB/*
+/SportInfoHK/config-local.ini
