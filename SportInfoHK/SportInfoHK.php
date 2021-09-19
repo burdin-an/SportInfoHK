@@ -37,7 +37,15 @@ if (!is_array($ini)) {
     exit;
 }
 
-$EventDB = [];
+$EventDB = [
+    'NamePlayer1' => '123',
+    'NamePlayer2' => '456',
+    'CountPlayer1' => 0,
+    'CountPlayer2' => 0,
+    'Period'       => 1,
+    'BoardCountStatus'   => 'disable',
+];
+
 $timeOldCheckAction = -1;
 //Start List (STL) Стартовый лист
 //Warm Group (WUP) Список группы разминки
@@ -184,28 +192,115 @@ function ActionReloadTV() {
 }
 
 
-function FuncWorksCalc($data_line, $connection) {
+function FuncWorks($data, $connection) {
     global $EventDB;
     global $users;
-    global $timeOldCheckAction;
-    //$data_line = preg_replace('/[]/', '', $data_line);
 
-    if (!empty($data_line)) {
-        //$xml_line = simplexml_load_string(mb_convert_encoding($data_line, "UTF-8", "cp1251"), 'SimpleXMLElement', LIBXML_NOCDATA);
+    if (!empty($data)) {
         /**************** Наполняем базу 2 ********************************/
         $ReturnJsonToWeb = [];
         
+        if ($data == "CountPlayer1Plus" || $data == "CountPlayer1Minus") {
+            if ($data == "CountPlayer1Plus") {
+                $EventDB['CountPlayer1'] = $EventDB['CountPlayer1'] + 1;
+            }
+            elseif ($data == "CountPlayer1Minus") {
+                $EventDB['CountPlayer1'] = $EventDB['CountPlayer1'] - 1;
+            }
+            $ReturnJsonToWeb = [
+                "timestamp" => time(),
+                "dAction"   => "CountPlayer1",
+                "Value"     => $EventDB['CountPlayer1'],
+            ];
+            echo "Action: " . $data .  ";\n";
+        }
+        elseif ($data == "CountPlayer2Plus" || $data == "CountPlayer2Minus") {
+            if ($data == "CountPlayer2Plus") {
+                $EventDB['CountPlayer2'] = $EventDB['CountPlayer2'] + 1;
+            }
+            elseif ($data == "CountPlayer2Minus") {
+                $EventDB['CountPlayer2'] = $EventDB['CountPlayer2'] - 1;
+            }
+            $ReturnJsonToWeb = [
+                "timestamp" => time(),
+                "dAction"   => "CountPlayer2",
+                "Value"     => $EventDB['CountPlayer2'],
+            ];
+            echo "Action: " . $data .  ";\n";
+        }
+        elseif ($data == "PeriodPlus" || $data == "PeriodMinus") {
+            if ($data == "PeriodPlus") {
+                $EventDB['Period'] = $EventDB['Period'] + 1;
+            }
+            elseif ($data == "PeriodMinus") {
+                $EventDB['Period'] = $EventDB['Period'] - 1;
+            }
+            $ReturnJsonToWeb = [
+                "timestamp" => time(),
+                "dAction"   => "Period",
+                "Value"     => $EventDB['Period'],
+            ];
+            echo "Action: " . $data .  ";\n";
+        }
+        elseif ($data == "ShowBoardCount") {
+            $EventDB['BoardCountStatus'] = 'active';
+            $ReturnJsonToWeb = [
+                "timestamp" => time(),
+                "dAction"   => $data,
+                "BoardCountStatus" => $EventDB['BoardCountStatus'],
+                "CountPlayer1"     => $EventDB['CountPlayer1'],
+                "CountPlayer2"     => $EventDB['CountPlayer2'],
+                "NamePlayer1"      => $EventDB['NamePlayer1'],
+                "NamePlayer2"      => $EventDB['NamePlayer2'],
+                "Period"           => $EventDB['Period'],
+
+            ];
+            echo "Action: " . $data .  ";\n";
+        }
+        elseif ($data == "HideBoardCount") {
+            $EventDB['BoardCountStatus'] = 'disable';
+            $ReturnJsonToWeb = [
+                "timestamp" => time(),
+                "dAction"   => $data,
+                "Value"     => $EventDB['BoardCountStatus'],
+            ];
+            echo "Action: " . $data .  ";\n";
+        }
+        elseif ($data == "Segment") {
+            echo "---------------------------------------------------------------------\n";
+            echo "ADMIN ACTION: Segment\n";
+            $ReturnJsonToWeb = ActionSegment();
+        }
+        //Очистить всё
+        elseif ($data == "Clear") {
+            echo "---------------------------------------------------------------------\n";
+            echo "ADMIN ACTION: Clear All\n";
+            $ReturnJsonToWeb = ActionClearAll();
+        }
+        //Очистить Титры
+        elseif ($data == "ClearTV") {
+            echo "---------------------------------------------------------------------\n";
+            echo "ADMIN ACTION Clear TV\n";
+            $ReturnJsonToWeb = ActionClearTV();
+        }
+        //Перезагрузка титров
+        elseif ($data == "ReloadTV") {
+            echo "---------------------------------------------------------------------\n";
+            echo "ADMIN ACTION: Reload TV\n";
+            $ReturnJsonToWeb = ActionReloadTV();
+        }
+        else {
+            echo "Нет такой команды!\n";
+        }
 
         if (array_key_exists('dAction', $ReturnJsonToWeb)) {
             foreach($users as $connection) {
                 $connection['connect']->send(json_encode($ReturnJsonToWeb));
             }
         }
-        if ($xml_line->Segment_Running->Action['Command'] != 'TIM') {
-            $DBFile = fopen(__DIR__ . '/DB/DB.json', 'w');
-            fwrite($DBFile, json_encode($EventDB, JSON_PRETTY_PRINT|JSON_HEX_APOS|JSON_HEX_QUOT));
-            fclose($DBFile);
-        }
+        $DBFile = fopen(__DIR__ . '/DB/DB.json', 'w');
+        fwrite($DBFile, json_encode($EventDB, JSON_PRETTY_PRINT|JSON_HEX_APOS|JSON_HEX_QUOT));
+        fclose($DBFile);
 
         empty($ReturnJsonToWeb);
     }
@@ -220,7 +315,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 use Workerman\Worker;
 use Workerman\Connection\AsyncTcpConnection;
 //TcpConnection::$defaultMaxSendBufferSize = 2*1024*1024;
-$ws_worker = new Worker("websocket://0.0.0.0:8000");
+$ws_worker = new Worker("websocket://0.0.0.0:" . $ini["WebSocketPort"]);
 
 // Тут храним пользовательские соединения
 $users = [];
@@ -254,83 +349,24 @@ $ws_worker->onConnect = function($connection) use (&$users, &$ini) {
 $ws_worker->onMessage = function($connection, $data) use (&$users) {
     global $EventDB;
     global $ini;
-    if ($data == "INIT" && isset($EventDB["Name"])) {
-        if (is_object($users[$connection->id]['connect'])) {
-            $ReturnJsonToWeb = [
-                "timestamp"   => time(),
-                "dAction"     => "INIT",
-                "EventName"   => $EventDB["Name"],
-                "pCategory"   => $EventDB["Category"]["Name"],
-                "pSegment"    => $EventDB["Segment"]["Name"],
-                'TimerAction' => $EventDB["TimerAction"],
-            ];
-
-            echo "---------------------------------------------------------------------\n";
-            echo "Action: INIT;\n";
-            echo "EventName: " . $ReturnJsonToWeb['EventName'] . ";\n";
-            echo "CategoryName: " . $ReturnJsonToWeb['pCategory'] . ";\n";
-            echo "SegmentName: " . $ReturnJsonToWeb['pSegment'] . ";\n";
-            echo "TimerAction: " . $ReturnJsonToWeb['TimerAction'] . ";\n";
-
-            $users[$connection->id]['connect']->send(json_encode($ReturnJsonToWeb));
-            echo "Отправка\n";
-        }
-        
-    }
-    elseif ($users[$connection->id]['admin'] == 1) {
-        echo "ADMIN ACTION Ready\n";
-        $ReturnJsonToWeb = '';
-        if (in_array('All', $users[$connection->id]['role'], true)) {
-            $AllRight = true;
-            echo "---------------------------------------------------------------------\n";
-            echo "У пользователя полные права\n";
-        }
-        else {
-            $AllRight = false;
-        }
-
-        if (in_array('None', $users[$connection->id]['role'], true)) {
+    if ($users[$connection->id]['admin'] == 1) {
+        if (in_array('None',    $users[$connection->id]['role'], true)) {
             echo "---------------------------------------------------------------------\n";
             echo "У пользователя нет никаких прав\n";
-            $ReturnJsonToWeb = '';
         }
-        elseif ($data == "Name" && ($AllRight || false !== array_search('Name', $users[$connection->id]['role']))) {
+        elseif (in_array('All', $users[$connection->id]['role'], true)) {
             echo "---------------------------------------------------------------------\n";
-            echo "ADMIN ACTION: Name\n";
+            echo "У пользователя полные права\n";
+            FuncWorks($data, $connection);
         }
-        elseif ($data == "Segment" && ($AllRight || false !== array_search('Segment', $users[$connection->id]['role']))) {
-            echo "---------------------------------------------------------------------\n";
-            echo "ADMIN ACTION: Segment\n";
-            $ReturnJsonToWeb = ActionSegment();
+        elseif (($data == "CountPlayer1Plus" || $data == "CountPlayer1Minus" || $data == "CountPlayer2Plus" || $data == "CountPlayer2Minus") && false !== array_search('CountPlayer', $users[$connection->id]['role'])) {
+            FuncWorks($data, $connection);
         }
-        //Очистить всё
-        elseif ($data == "Clear" && ($AllRight || false !== array_search('Clear', $users[$connection->id]['role']))) {
-            echo "---------------------------------------------------------------------\n";
-            echo "ADMIN ACTION: Clear All\n";
-            $ReturnJsonToWeb = ActionClearAll();
-        }
-        //Очистить Титры
-        elseif ($data == "ClearTV" && ($AllRight || false !== array_search('ClearTV', $users[$connection->id]['role']))) {
-            echo "---------------------------------------------------------------------\n";
-            echo "ADMIN ACTION Clear TV\n";
-            $ReturnJsonToWeb = ActionClearTV();
-        }
-        //Перезагрузка титров
-        elseif ($data == "ReloadTV" && ($AllRight || false !== array_search('ReloadTV', $users[$connection->id]['role']))) {
-            echo "---------------------------------------------------------------------\n";
-            echo "ADMIN ACTION: Reload TV\n";
-            $ReturnJsonToWeb = ActionReloadTV();
+        elseif (($data == "PeriodPlus" || $data == "PeriodMinus") && false !== array_search('Period', $users[$connection->id]['role'])) {
+            FuncWorks($data, $connection);
         }
         else {
             echo "У пользователя нет прав на выполнение данной команды или нет такой команды!\n";
-        }
-        if ($ReturnJsonToWeb != '') {
-            if (array_key_exists('dAction', $ReturnJsonToWeb)) {
-                foreach($users as $connection) {
-                    $connection['connect']->send(json_encode($ReturnJsonToWeb));
-                }
-            }
-            $ReturnJsonToWeb = '';
         }
     }
 };
@@ -339,34 +375,6 @@ $ws_worker->onClose = function($connection) use(&$users) {
     // unset parameter when user is disconnected
     unset($users[$connection->id]);
     echo "Клиент WebSocket Отключился, с IP:" . $connection->getRemoteIp() . "\n";
-};
-
-// it starts once when you start server.php:
-$ws_worker->onWorkerStart = function() use (&$users) {
-    global $ini;
-    $connection = new AsyncTcpConnection("tcp://" . $ini['TABLO_SERVER_IP'] . ":". $ini['TABLO_SERVER_PORT']);
-    $connection->maxSendBufferSize = 4*1024*1024;
-    $connection->onConnect = function($connection) {
-        echo "Мы подключились к Calc!\n";
-    };
-    $EventDB = [];
-    $stop = 1;
-    $NewData = '';
-    $connection->onMessage = function($connection, $data) use (&$users) {
-        global $NewData;
-        global $ini;
-        global $RawInputLogFile;
-        if ($ini['WriteRawInput'] == 1) {
-            echo $data . "\n";
-            fwrite($RawInputLogFile, $data);
-        }
-    };
-    $connection->onClose = function($connection) {
-        echo "Отключились от Calc. Подключаемся повторно через 5 секунд.\n";
-        // Подключаемся повторно через 5 секунд
-        $connection->reConnect(5);
-    };
-    $connection->connect();
 };
 
 // Run worker

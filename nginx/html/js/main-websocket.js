@@ -12,20 +12,19 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 // Порт для Web Socket
-const WebSocketPort = 8100;
+const WebSocketPort = 8200;
 var Participant = [];
 var EventDB = [];
 var JsonData;
 var boardOpen = false;
-var boardPersonalOpen = false;
+var boardCountOpen = false;
 var boardSegmentOpen = false;
 var boardGroupOpen = false;
-var boardKissAndCryOpen = false;
 var timerBoardOpen = false;
 var boardConfigure = false;
 
 // Таймер закрытия панели
-let timerCloseBoardPersonal;
+let timerCloseBoardCount;
 // Таймер закрытия панели
 let timerCloseBoardSegment;
 // Таймер закрытия панели
@@ -56,47 +55,45 @@ function connect() {
                     }
                     updateTimerBoard();
                 }
-                // Очистить табло со временем
-                else if (JsonData.dAction == 'TimerClear') {
-                    clearTimerBoard();
-                }
-                // Показать табло со временем
-                else if ((JsonData.dAction == 'TimerCountdown' || JsonData.dAction == 'TimerStart') && !timerBoardOpen) {
-                    ShowTimerBoard();
-                }
             }
             // Перезагрузить табло
             else if (JsonData.dAction == 'ReloadTablo' && ConfigShowTimer) {
                 window.location.href = window.location.href;
-                document.location.reload();                
+                document.location.reload();
             }
             // Перезагрузить титры
             else if (JsonData.dAction == 'ReloadTV' && !ConfigShowTimer) {
                 window.location.href = window.location.href;
-                document.location.reload();                
-            }
-            // Воиспроизвести: Последняя минута разминки
-            else if (JsonData.dAction == 'VoiceOneMinute' && ConfigShowTimer) {
-                var VoiceOneMinute = document.getElementById('RazminkaLastMinute').play();
-            }
-            // Воиспроизвести: Разминка завершена
-            else if (JsonData.dAction == 'VoiceWarmCompleted' && ConfigShowTimer) {
-                var VoiceWarmCompletedPlauer = document.getElementById('RazminkaStop').play();
+                document.location.reload();
             }
             // Первые данные
-            else if (JsonData.dAction == 'INIT') {
-                EventDB['EventName']    = JsonData.EventName;
-                EventDB['CategoryName'] = JsonData.pCategory;
-                EventDB['SegmentName']  = JsonData.pSegment;
-                EventDB['TimeAction']   = JsonData.TimeAction;
-                if (ConfigKissAndCry) {
-                    $("#root_boardSegment").html(FS_EventName);
-                    $("#EventName"   ).html(EventDB['EventName']);
-                    $("#CategoryName").html(EventDB['CategoryName']);
-                    $("#SegmentName" ).html(EventDB['SegmentName']);
-                    $("#boardSegment").addClass("cl_boardIn");
-                    boardSegmentOpen = true;
+            else if (JsonData.dAction == 'InitBoardCount') {
+                EventDB['CountPlayer1'] = JsonData.CountPlayer1;
+                EventDB['CountPlayer2'] = JsonData.CountPlayer2;
+                EventDB['NamePlayer1']  = JsonData.NamePlayer1;
+                EventDB['NamePlayer2']  = JsonData.NamePlayer2;
+                EventDB['Period']       = JsonData.Period;
+                EventDB['BoardCountStatus']   = JsonData.BoardCountStatus;
+                if (EventDB['BoardCountStatus'] == 'active') {
+                    /*$("#root_boardCount").html(FS_BoardCount);*/
+                    $("#CountClassCountPlayer1").html(EventDB['CountPlayer1']);
+                    $("#CountClassCountPlayer2").html(EventDB['CountPlayer2']);
+                    $("#CountClassNamePlayer1").html(EventDB['NamePlayer1']);
+                    $("#CountClassNamePlayer2").html(EventDB['NamePlayer2']);
+                    $("#CountIdPeriod"         ).html(EventDB['SegmentName']);
+                    $("#boardCount"         ).addClass("cl_boardIn");
+                    boardCountOpen = true;
                 }
+            }
+            // Прибавить гол первой команде
+            else if (JsonData.dAction == 'CountPlayer1') {
+                $("#CountClassCountPlayer1" ).html(JsonData.Value);
+            }
+            else if (JsonData.dAction == 'CountPlayer2') {
+                $("#CountClassCountPlayer2" ).html(JsonData.Value);
+            }
+            else if (JsonData.dAction == 'Period') {
+                $("#CountIdPeriod" ).html(JsonData.Value);
             }
             //Очистить экран
             else if (JsonData.dAction == 'Clear') {
@@ -109,7 +106,7 @@ function connect() {
                 if (boardGroupOpen) {
                     cleanBoardGroup();
                 }
-                if (boardPersonalOpen) {
+                if (boardCountOpen) {
                     cleanBoardPersonal();
                 }
             }
@@ -121,20 +118,22 @@ function connect() {
                 if (boardGroupOpen) {
                     cleanBoardGroup();
                 }
-                if (boardPersonalOpen) {
+                if (boardCountOpen) {
                     cleanBoardPersonal();
                 }
             }
-            //Очистить экран Табло
-            else if (JsonData.dAction == 'ClearTV' && !ConfigShowTimer && !ConfigKissAndCry) {
-                if (boardSegmentOpen) {
-                    cleanBoardSegment();
+            //Показать экран счёта
+            else if (JsonData.dAction == 'ShowBoardCount') {
+                if (debuging != false) {console.log('ShowBoardCount');};
+                if (!boardCountOpen) {
+                    showBoardCount(JsonData);
                 }
-                if (boardGroupOpen) {
-                    cleanBoardGroup();
-                }
-                if (boardPersonalOpen) {
-                    cleanBoardPersonal();
+            }
+            //Скрыть экран счёта
+            else if (JsonData.dAction == 'HideBoardCount') {
+                if (debuging != false) {console.log('HideBoardCount');};
+                if (boardCountOpen) {
+                    hideBoardCount();
                 }
             }
             // Очистить экран если панель открыта
@@ -164,17 +163,37 @@ function connect() {
         ws.close();
     };
 }
-
-function cleanBoardPersonal() {
-    if (debuging != false) {console.log('Action: Clear board personal++');};
-    $( "#boardPersonal" ).removeClass("cl_boardIn");
-    $( "#boardPersonal" ).addClass("cl_boardOut");
-    const node1 = document.getElementById('boardPersonal');
+function showBoardCount(JsonData) {
+    if (debuging != false) {console.log('Action: Show board count');};
+    EventDB['CountPlayer1'] = JsonData.CountPlayer1;
+    EventDB['CountPlayer2'] = JsonData.CountPlayer2;
+    EventDB['NamePlayer1']  = JsonData.NamePlayer1;
+    EventDB['NamePlayer2']  = JsonData.NamePlayer2;
+    EventDB['Period']       = JsonData.Period;
+    $("#root_boardCount").html(FS_BoardCount);
+    $("#CountClassCountPlayer1").html(EventDB['CountPlayer1']);
+    $("#CountClassCountPlayer2").html(EventDB['CountPlayer2']);
+    $("#CountClassNamePlayer1" ).html(EventDB['NamePlayer1']);
+    $("#CountClassNamePlayer2" ).html(EventDB['NamePlayer2']);
+    $("#CountIdPeriod"         ).html(EventDB['Period']);
+    $( "#boardCount"           ).removeClass("cl_boardOut");
+    $( "#boardCount"           ).addClass("cl_boardIn");
+    const node1 = document.getElementById('boardCount');
     function handleAnimationEnd1() {
-        if (debuging != false) {console.log('Action: Clear board personal END');};
+        if (debuging != false) {console.log('Action: Show board count END');};
+        boardCountOpen = true;
+    }
+    node1.addEventListener('animationend', handleAnimationEnd1, {once: true});
+}
+function hideBoardCount() {
+    if (debuging != false) {console.log('Action: Clear board count++');};
+    $( "#boardCount" ).removeClass("cl_boardIn");
+    $( "#boardCount" ).addClass("cl_boardOut");
+    const node1 = document.getElementById('boardCount');
+    function handleAnimationEnd1() {
+        if (debuging != false) {console.log('Action: Clear board count END');};
         node1.remove();
-        clearTimeout(timerCloseBoardPersonal);
-        boardPersonalOpen = false;
+        boardCountOpen = false;
     }
     node1.addEventListener('animationend', handleAnimationEnd1, {once: true});
 }
@@ -244,7 +263,7 @@ function updateTimerBoard() {
 			
 function updateBoard() {
     if (ConfigShowTimer && JsonData.dAction != '1SC') {
-        if (boardPersonalOpen) {
+        if (boardCountOpen) {
             cleanBoardPersonal();
         }
         if (boardGroupOpen) {
