@@ -41,12 +41,39 @@ $(document).ready(function(){
     
 
     connect();
-    $('#Name').click(function() {
-        ws.send("Name");
+    /* Показать счёт */
+    $('#ShowBoardCount').click(function() {
+        ws.send("ShowBoardCount");
     });
-    $('#Segment').click(function() {
-        ws.send("Segment");
+    /* Скрыть счёт */
+    $('#HideBoardCount').click(function() {
+        ws.send("HideBoardCount");
     });
+    /* Прибавить гол первой команде */
+    $('#CountPlayer1Plus').click(function() {
+        ws.send("CountPlayer1Plus");
+    });
+    /* Вычесть гол первой команде */
+    $('#CountPlayer1Minus').click(function() {
+        ws.send("CountPlayer1Minus");
+    });
+    /* Прибавить гол второй команде */
+    $('#CountPlayer2Plus').click(function() {
+        ws.send("CountPlayer2Plus");
+    });
+    /* Вычесть гол второй команде */
+    $('#CountPlayer2Minus').click(function() {
+        ws.send("CountPlayer2Minus");
+    });
+    /* Прибавить период */
+    $('#PeriodPlus').click(function() {
+        ws.send("PeriodPlus");
+    });
+    /* Вычесть период */
+    $('#PeriodMinus').click(function() {
+        ws.send("PeriodMinus");
+    });
+
     $('#Clear').click(function(s) {
         ws.send("Clear");
     });
@@ -55,36 +82,6 @@ $(document).ready(function(){
     });
     $('#ClearTV').click(function(s) {
         ws.send("ClearTV");
-    });
-    $('#ClearKissAndCry').click(function(s) {
-        ws.send("ClearKissAndCry");
-    });
-    $('#ResultPersonal').click(function() {
-        ws.send("ResultPersonal");
-    });
-    $('#ResultAll').click(function() {
-        ws.send("ResultAll");
-    });
-    $('#StartList').click(function() {
-        ws.send("StartList");
-    });
-    $('#WarmGroup').click(function() {
-        ws.send("WarmGroup");
-    });
-    $('#JudgeAll').click(function() {
-        ws.send("JudgeAll");
-    });
-    $('#VoiceOneMinute').click(function() {
-        ws.send("VoiceOneMinute");
-    });
-    $('#VoiceWarmCompleted').click(function() {
-        ws.send("VoiceWarmCompleted");
-    });
-    $('#VoiceStartGame').click(function() {
-        ws.send("VoiceStartGame");
-    });
-    $('#ReloadKissAndCry').click(function() {
-        ws.send("ReloadKissAndCry");
     });
     $('#ReloadTablo').click(function() {
         ws.send("ReloadTablo");
