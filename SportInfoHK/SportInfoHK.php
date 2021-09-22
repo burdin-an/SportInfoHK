@@ -80,6 +80,7 @@ function FuncWorks($data, $connection) {
     if (!empty($data)) {
         /**************** Наполняем базу 2 ********************************/
         $ReturnJsonToWeb = [];
+        $data = rtrim($data);
         $dataJson = json_decode($data, true);
 
         if (json_last_error() === JSON_ERROR_NONE) {
