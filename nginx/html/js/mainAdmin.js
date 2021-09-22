@@ -18,8 +18,7 @@ const WebSocketPort = 8200;
 // Отладочная информация
 var debuging = true;
 $(document).ready(function(){
-    $("a.ActionButton").click(function(event) {
-        var inputAction = event.target.id;
+    function SendMessage(inputAction) {
         let ws;
         ws = new WebSocket('ws://' + window.location.hostname + ':' + WebSocketPort);
         ws.onopen = function() {
@@ -31,5 +30,26 @@ $(document).ready(function(){
             if (debuging != false) {console.error('Socket encountered error: ', err.message, 'Closing socket');};
             ws.close();
         };
+    }
+    $("a.ActionButton").click(function(event) {
+        SendMessage(event.target.id);
+    });
+    $("#SendNamePlayerOne").click(function(event) {
+        var msg = {
+            Action: event.target.id,
+            Value: document.getElementById("InputNamePlayerOne").value
+        };
+        SendMessage(JSON.stringify(msg));
+        // Очистите элемент ввода текста, чтобы получить следующую строку текста от пользователя.
+        document.getElementById("InputNamePlayerOne").value = "";
+    });
+    $("#SendNamePlayerTwo").click(function(event) {
+        var msg = {
+            Action: event.target.id,
+            Value: document.getElementById("InputNamePlayerTwo").value
+        };
+        SendMessage(JSON.stringify(msg));
+        // Очистите элемент ввода текста, чтобы получить следующую строку текста от пользователя.
+        document.getElementById("InputNamePlayerTwo").value = "";
     });
 });

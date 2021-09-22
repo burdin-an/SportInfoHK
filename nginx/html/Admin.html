@@ -54,10 +54,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        Игрок 1
+                        Команда 1
                     </div>
                     <div class="col">
-                        Игрок 2
+                        Команда 2
                     </div>
                     <div class="col">
                         Период
@@ -78,6 +78,26 @@
                     </div>
                 </div>
             </div>
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col text-center">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="InputNamePlayerOne" placeholder="Название команды 1" aria-label="Название команды 1" aria-describedby="SendNamePlayerOne">
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-secondary" type="button" id="SendNamePlayerOne">Отправить</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col text-center">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="InputNamePlayerTwo" placeholder="Название команды 2" aria-label="Название команды 2" aria-describedby="SendNamePlayerOne">
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-secondary" type="button" id="SendNamePlayerTwo">Отправить</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
         <div class="tab-pane fade" id="BoardTV" role="tabpanel" aria-labelledby="BoardTV-tab"><br>
@@ -86,6 +106,9 @@
             </div>
             <div class="btn-toolbar mb-3" role="toolbar">
                 <a class="ActionButton btn btn-lg btn-warning" href="#" id="HideBoardCount" role="button" title="">Скрыть счёт</a>
+            </div>
+            <div class="btn-toolbar mb-3" role="toolbar">
+                <a class="ActionButton btn btn-lg btn-warning" href="#" id="UpdateBoardCount" role="button" title="">Обновить счёт</a>
             </div>
             <div class="btn-toolbar mb-3" role="toolbar">
                 <a class="ActionButton btn btn-lg btn-warning" href="#" id="ClearTV" role="button" title="">Очистить Титры</a>
