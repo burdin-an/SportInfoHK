@@ -205,10 +205,6 @@ function FuncWorks($data, $connection) {
     return 1;
 }
 
-if ($ini['WriteRawInput'] == 1) {
-    $RawInputLogFile = fopen(__DIR__ . '/logs/RawInput-' . date('Y-m-d') . '-' . rand() . '.log', 'w');
-}
-
 require_once __DIR__ . '/vendor/autoload.php';
 use Workerman\Worker;
 $ws_worker = new Worker("websocket://0.0.0.0:" . $ini["WebSocketPort"]);
