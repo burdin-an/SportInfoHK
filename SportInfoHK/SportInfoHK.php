@@ -84,7 +84,6 @@ function FuncWorks($data, $connection) {
 
         if (json_last_error() === JSON_ERROR_NONE) {
             // Данные в JSON формате
-            var_dump($dataJson);
             if ($dataJson['Action'] == 'SendNamePlayerOne') {
                 $EventDB['NamePlayer1'] = $dataJson['Value'];
             }
