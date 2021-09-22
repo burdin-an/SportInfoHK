@@ -43,104 +43,9 @@ $EventDB = [
     'CountPlayer1' => 0,
     'CountPlayer2' => 0,
     'Period'       => 1,
+    'Timer'        => (string)'00:00',
     'BoardCountStatus'   => 'disable',
 ];
-
-$timeOldCheckAction = -1;
-//Start List (STL) Стартовый лист
-//Warm Group (WUP) Список группы разминки
-//3nd Score (3SC) Список промежуточных результатов соревнования
-function ActionGroup($CommandAction,$ParticipantID) {
-    global $EventDB;
-    $ReturnJsonToWeb = [
-        "timestamp"    => time(),
-        "EventName"  => (string)$EventDB["Name"],
-        "pCategory"  => (string)$EventDB["Category"]["Name"],
-        "pSegment"   => (string)$EventDB["Segment"]["Name"],
-        "pParticipant" => [],
-    ];
-
-    echo "---------------------------------------------------------------------\n";
-    if ($CommandAction == 'STL') {
-        $ReturnJsonToWeb["dAction"] = 'STL';
-        echo "Action: STL;\n";
-    }
-    elseif ($CommandAction == 'WUP') {
-        $ReturnJsonToWeb["dAction"] = 'WUP';
-        $ReturnJsonToWeb["pCurrentGroup"] = (int)$EventDB['Participants']["p-" . $ParticipantID]['GroupNumber'];
-        echo "Action: WUP;\n";
-        echo "CurrentGroupNumber: "  . $ReturnJsonToWeb["pGroup"] . ";\n";
-    }
-    elseif ($CommandAction == '3SC') {
-        $ReturnJsonToWeb["dAction"] = '3SC';
-        echo "Action: 3SC;\n";
-    }
-    elseif ($CommandAction == 'IRS') {
-        $ReturnJsonToWeb["dAction"] = 'IRS';
-        echo "Action: IRS;\n";
-    }
-    elseif ($CommandAction == 'RES') {
-        $ReturnJsonToWeb["dAction"] = 'RES';
-        echo "Action: RES;\n";
-    }
-
-    echo "EventName: " . $ReturnJsonToWeb['EventName'] . ";\n";
-    echo "CategoryName: " . $ReturnJsonToWeb['pCategory'] . ";\n";
-    echo "SegmentName: " . $ReturnJsonToWeb['pSegment'] . ";\n";
-
-    foreach ($EventDB['Participants'] as $ParticipantStr) {
-        if ($CommandAction == 'STL' || $CommandAction == 'WUP') {
-            $idLine = (int)$ParticipantStr['StartNumber'];
-        }
-        elseif ($CommandAction == '3SC' || $CommandAction == 'IRS' || $CommandAction == 'RES') {
-            $idLine = (int)$ParticipantStr['TSort'];
-        }
-        //Для WUP (Группа разминки)
-        //Пропускаем участника не из своей группы разминки
-        if ($CommandAction == 'WUP' && $ReturnJsonToWeb["pCurrentGroup"] != $ParticipantStr['GroupNumber']) {
-            //echo "StartNumber: "  . $ParticipantStr['StartNumber'] . ";\n";
-            //echo "GroupNumber: "  . $ParticipantStr['GroupNumber'] . ";\n";
-            continue;
-        }
-
-        $ReturnJsonToWeb["pParticipant"][$idLine] = [
-            "ID"           => $ParticipantStr["ID"],
-            "pStartNumber" => (int)$ParticipantStr["StartNumber"],
-            "pGroupNumber" => (int)$ParticipantStr["GroupNumber"],
-            "pFullName"    => (string)$ParticipantStr["FullName"],
-            "pNation"      => (string)$ParticipantStr["Nation"],
-            "pClub"        => (string)$ParticipantStr["Club"],
-            "pCity"        => (string)$ParticipantStr["City"],
-            "pTRank"       => (int)$ParticipantStr["TRank"],
-            "pTPoint"      => (string)$ParticipantStr["TPoint"],
-            "pTSort"       => (int)$ParticipantStr["TSort"],
-            "pStatus"      => (string)$ParticipantStr["Status"],
-            "pCurrent"     => 2
-        ];
-        if ($ParticipantStr['ID'] === (int)$ParticipantID) {
-            $ReturnJsonToWeb["pParticipant"][$idLine]["pCurrent"]  = 1;
-        }
-
-        echo "-----------------\n";
-        echo "StartLine: "    . $idLine . ";\n";
-        echo "ID: "           . $ReturnJsonToWeb["pParticipant"][$idLine]['ID'] . ";\n";
-        echo "StartNumber: "  . $ReturnJsonToWeb["pParticipant"][$idLine]['pStartNumber'] . ";\n";
-        echo "GroupNumber: "  . $ReturnJsonToWeb["pParticipant"][$idLine]['pGroupNumber'] . ";\n";
-        echo "FullName: "     . $ReturnJsonToWeb["pParticipant"][$idLine]['pFullName'] . ";\n";
-        echo "Nation: "       . $ReturnJsonToWeb["pParticipant"][$idLine]['pNation'] . ";\n";
-        echo "Club: "         . $ReturnJsonToWeb["pParticipant"][$idLine]['pClub'] . ";\n";
-        echo "City: "         . $ReturnJsonToWeb["pParticipant"][$idLine]['pCity'] . ";\n";
-        echo "TRank: "        . $ReturnJsonToWeb["pParticipant"][$idLine]['pTRank'] . ";\n";
-        echo "TPoint: "       . $ReturnJsonToWeb["pParticipant"][$idLine]['pTPoint'] . ";\n";
-        echo "TSort: "        . $ReturnJsonToWeb["pParticipant"][$idLine]['pTSort'] . ";\n";
-        echo "Status: "       . $ReturnJsonToWeb["pParticipant"][$idLine]['pStatus'] . ";\n";
-        if ($CommandAction == '3SC' || $CommandAction == 'IRS' || $CommandAction == 'RES') {
-            echo "Current: "  . $ReturnJsonToWeb["pParticipant"][$idLine]["pCurrent"] . ";\n";
-        }
-    }
-    ksort($ReturnJsonToWeb["pParticipant"],0);
-    return $ReturnJsonToWeb;
-}
 
 //Очистить всё
 function ActionClearALL() {
@@ -156,30 +61,6 @@ function ActionClearTV() {
     return [
         "timestamp"    => time(),
         "dAction"      => "ClearTV",
-    ];
-}
-//Очистить титры: Персональные данные
-function ActionClearTVPersonal() {
-    echo "Очистка экрана\n";
-    return [
-        "timestamp"    => time(),
-        "dAction"      => "ClearTVPersonal",
-    ];
-}
-//Очистить титры: Группы
-function ActionClearTVGroup() {
-    echo "Очистка титры: Группы\n";
-    return [
-        "timestamp"    => time(),
-        "dAction"      => "ClearTVGroup",
-    ];
-}
-//Очистить титры: Название соревнования (Segment)
-function ActionClearTVSegment() {
-    echo "Очистка титры: Название соревнования (Segment)\n";
-    return [
-        "timestamp"    => time(),
-        "dAction"      => "ClearTVSegment",
     ];
 }
 //Перезагрузить: Титры
@@ -199,8 +80,20 @@ function FuncWorks($data, $connection) {
     if (!empty($data)) {
         /**************** Наполняем базу 2 ********************************/
         $ReturnJsonToWeb = [];
-        
-        if ($data == "CountPlayer1Plus" || $data == "CountPlayer1Minus") {
+        $dataJson = json_decode($data, true);
+
+        if (json_last_error() === JSON_ERROR_NONE) {
+            // Данные в JSON формате
+            var_dump($dataJson);
+            if ($dataJson['Action'] == 'SendNamePlayerOne') {
+                $EventDB['NamePlayer1'] = $dataJson['Value'];
+            }
+            elseif ($dataJson['Action'] == 'SendNamePlayerTwo') {
+                $EventDB['NamePlayer2'] = $dataJson['Value'];
+            }
+            echo "Action Json: " . $data .  ";\n";
+        }
+        elseif ($data == "CountPlayer1Plus" || $data == "CountPlayer1Minus") {
             if ($data == "CountPlayer1Plus") {
                 $EventDB['CountPlayer1'] = $EventDB['CountPlayer1'] + 1;
             }
@@ -253,7 +146,7 @@ function FuncWorks($data, $connection) {
                 "NamePlayer1"      => $EventDB['NamePlayer1'],
                 "NamePlayer2"      => $EventDB['NamePlayer2'],
                 "Period"           => $EventDB['Period'],
-
+                "Timer"            => $EventDB['Timer'],
             ];
             echo "Action: " . $data .  ";\n";
         }
@@ -266,27 +159,33 @@ function FuncWorks($data, $connection) {
             ];
             echo "Action: " . $data .  ";\n";
         }
-        elseif ($data == "Segment") {
-            echo "---------------------------------------------------------------------\n";
-            echo "ADMIN ACTION: Segment\n";
-            $ReturnJsonToWeb = ActionSegment();
+        elseif ($data == "UpdateBoardCount") {
+            $ReturnJsonToWeb = [
+                "timestamp"        => time(),
+                "dAction"          => $data,
+                "BoardCountStatus" => $EventDB['BoardCountStatus'],
+                "CountPlayer1"     => $EventDB['CountPlayer1'],
+                "CountPlayer2"     => $EventDB['CountPlayer2'],
+                "NamePlayer1"      => $EventDB['NamePlayer1'],
+                "NamePlayer2"      => $EventDB['NamePlayer2'],
+                "Period"           => $EventDB['Period'],
+                "Timer"            => $EventDB['Timer'],
+            ];
+            echo "Action: " . $data .  ";\n";
         }
         //Очистить всё
         elseif ($data == "Clear") {
-            echo "---------------------------------------------------------------------\n";
-            echo "ADMIN ACTION: Clear All\n";
+            echo "Action: Clear All\n";
             $ReturnJsonToWeb = ActionClearAll();
         }
         //Очистить Титры
         elseif ($data == "ClearTV") {
-            echo "---------------------------------------------------------------------\n";
-            echo "ADMIN ACTION Clear TV\n";
+            echo "Action Clear TV\n";
             $ReturnJsonToWeb = ActionClearTV();
         }
         //Перезагрузка титров
         elseif ($data == "ReloadTV") {
-            echo "---------------------------------------------------------------------\n";
-            echo "ADMIN ACTION: Reload TV\n";
+            echo "Action: Reload TV\n";
             $ReturnJsonToWeb = ActionReloadTV();
         }
         else {
@@ -313,8 +212,6 @@ if ($ini['WriteRawInput'] == 1) {
 
 require_once __DIR__ . '/vendor/autoload.php';
 use Workerman\Worker;
-use Workerman\Connection\AsyncTcpConnection;
-//TcpConnection::$defaultMaxSendBufferSize = 2*1024*1024;
 $ws_worker = new Worker("websocket://0.0.0.0:" . $ini["WebSocketPort"]);
 
 // Тут храним пользовательские соединения
@@ -343,12 +240,10 @@ $ws_worker->onConnect = function($connection) use (&$users, &$ini) {
             echo "Пользователь НЕ Администратор\n";
         }
     };
-    echo "Клиент WebSocket Подключился, с IP:" . $connection->getRemoteIp() . "\n";
+    echo "Клиент подключился, с IP:" . $connection->getRemoteIp() . "\n";
 };
 
-$ws_worker->onMessage = function($connection, $data) use (&$users) {
-    global $EventDB;
-    global $ini;
+$ws_worker->onMessage = function($connection, $data) use (&$users, &$EventDB, &$ini) {
     if ($users[$connection->id]['admin'] == 1) {
         if (in_array('None',    $users[$connection->id]['role'], true)) {
             echo "---------------------------------------------------------------------\n";
@@ -370,11 +265,18 @@ $ws_worker->onMessage = function($connection, $data) use (&$users) {
         }
     }
 };
-
+// it starts once when you start server.php:
+$ws_worker->onWorkerStart = function() use (&$EventDB) {
+    // Обрабатываем базу данных
+    if (file_exists(__DIR__ . "/DB/DB.json")) {
+        $EventDB = json_decode( file_get_contents(__DIR__ . '/DB/DB.json') , true );
+        echo "Читаем базу\n";
+    }
+};
 $ws_worker->onClose = function($connection) use(&$users) {
     // unset parameter when user is disconnected
     unset($users[$connection->id]);
-    echo "Клиент WebSocket Отключился, с IP:" . $connection->getRemoteIp() . "\n";
+    echo "Клиент отключился, с IP:" . $connection->getRemoteIp() . "\n";
 };
 
 // Run worker
