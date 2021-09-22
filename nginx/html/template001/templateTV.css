@@ -71,28 +71,10 @@
 }
 /* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 .cl_boardCount.cl_boardIn {
-    animation: bounceInDown 2s linear 0s normal backwards;
+    animation: bounceInDown 1s linear 0s normal backwards;
 }
 /* Анимация: Закрытие панели ------------------------------------------------------------- */
 .cl_boardCount.cl_boardOut {
     animation: hinge 2s linear 0s normal forwards;
     transform-origin: top left; 
-}
-
-
-@keyframes animation_boardIn {
-    0% {width:15%;opacity: 0;}
-    100% {width:76%;opacity: 1;}
-}
-@keyframes animation_boardOut {
-    0% {width:76%;opacity: 1;}
-    100% {width:15%;opacity: 0;}
-}
-@keyframes animation_board2In {
-    0% {height: 0%;}
-    100% {height: 90%;}
-}
-@keyframes animation_board2Out {
-    0% {height: 90%;}
-    100% {height: 0%;}
 }
