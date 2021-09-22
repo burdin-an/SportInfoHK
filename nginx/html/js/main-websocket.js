@@ -122,14 +122,14 @@ function connect() {
                     cleanBoardPersonal();
                 }
             }
-            //Показать экран счёта
-            else if (JsonData.dAction == 'ShowBoardCount') {
+            //Показать или обновить табло счёта
+            else if (JsonData.dAction == 'ShowBoardCount' || JsonData.dAction == 'UpdateBoardCount') {
                 if (debuging != false) {console.log('ShowBoardCount');};
-                if (!boardCountOpen) {
+                if (!boardCountOpen || (boardCountOpen && JsonData.dAction == 'UpdateBoardCount')) {
                     showBoardCount(JsonData);
                 }
             }
-            //Скрыть экран счёта
+            //Скрыть табло счёта
             else if (JsonData.dAction == 'HideBoardCount') {
                 if (debuging != false) {console.log('HideBoardCount');};
                 if (boardCountOpen) {
@@ -164,26 +164,37 @@ function connect() {
     };
 }
 function showBoardCount(JsonData) {
-    if (debuging != false) {console.log('Action: Show board count');};
+    if (debuging != false) {console.log('Action: Show or Update board count', JsonData.NamePlayer1);};
     EventDB['CountPlayer1'] = JsonData.CountPlayer1;
     EventDB['CountPlayer2'] = JsonData.CountPlayer2;
     EventDB['NamePlayer1']  = JsonData.NamePlayer1;
     EventDB['NamePlayer2']  = JsonData.NamePlayer2;
     EventDB['Period']       = JsonData.Period;
-    $("#root_boardCount").html(FS_BoardCount);
-    $("#CountClassCountPlayer1").html(EventDB['CountPlayer1']);
-    $("#CountClassCountPlayer2").html(EventDB['CountPlayer2']);
-    $("#CountClassNamePlayer1" ).html(EventDB['NamePlayer1']);
-    $("#CountClassNamePlayer2" ).html(EventDB['NamePlayer2']);
-    $("#CountIdPeriod"         ).html(EventDB['Period']);
-    $( "#boardCount"           ).removeClass("cl_boardOut");
-    $( "#boardCount"           ).addClass("cl_boardIn");
-    const node1 = document.getElementById('boardCount');
-    function handleAnimationEnd1() {
-        if (debuging != false) {console.log('Action: Show board count END');};
-        boardCountOpen = true;
+    EventDB['Timer']        = JsonData.Timer;
+    if (JsonData.dAction != 'UpdateBoardCount') {
+        $("#root_boardCount").html(FS_BoardCount({
+            'CountPlayer1': JsonData.CountPlayer1,
+            'CountPlayer2': JsonData.CountPlayer2,
+            'NamePlayer1':  JsonData.NamePlayer1,
+            'NamePlayer2':  JsonData.NamePlayer2,
+            'Period':       JsonData.Period,
+            'Timer':        JsonData.Timer
+        }));
+        $( "#boardCount"           ).removeClass("cl_boardOut");
+        $( "#boardCount"           ).addClass("cl_boardIn");
+        const node1 = document.getElementById('boardCount');
+        function handleAnimationEnd1() {
+            if (debuging != false) {console.log('Action: Show board count END');};
+            boardCountOpen = true;
+        }
+        node1.addEventListener('animationend', handleAnimationEnd1, {once: true});
     }
-    node1.addEventListener('animationend', handleAnimationEnd1, {once: true});
+    $("#CountClassCountPlayer1").html(JsonData.CountPlayer1);
+    $("#CountClassCountPlayer2").html(JsonData.CountPlayer2);
+    $("#CountClassNamePlayer1" ).html(JsonData.NamePlayer1);
+    $("#CountClassNamePlayer2" ).html(JsonData.NamePlayer2);
+    $("#CountIdPeriod"         ).html(JsonData.Period);
+    $("#CountIdTimer"          ).html(JsonData.Timer);
 }
 function hideBoardCount() {
     if (debuging != false) {console.log('Action: Clear board count++');};
