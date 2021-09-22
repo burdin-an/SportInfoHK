@@ -104,7 +104,7 @@ function FuncWorks($data, $connection) {
                 "dAction"   => "CountPlayer1",
                 "Value"     => $EventDB['CountPlayer1'],
             ];
-            echo "Action: " . $data .  ";\n";
+            echo "Action: " . $dataJson['Action'] .  ";\n";
         }
         elseif ($data == "CountPlayer2Plus" || $data == "CountPlayer2Minus") {
             if ($data == "CountPlayer2Plus") {
