@@ -78,20 +78,29 @@ function FuncWorks($data, $connection) {
     global $users;
 
     if (!empty($data)) {
-        /**************** Наполняем базу 2 ********************************/
+        /**************** Наполняем базу 2 убрали счёт ********************************/
         $ReturnJsonToWeb = [];
         $data = rtrim($data);
         $dataJson = json_decode($data, true);
 
         if (json_last_error() === JSON_ERROR_NONE) {
             // Данные в JSON формате
-            if ($dataJson['Action'] == 'SendNamePlayerOne') {
+            if ($dataJson['Action'] == 'TimerStart') {
                 $EventDB['NamePlayer1'] = $dataJson['Value'];
             }
-            elseif ($dataJson['Action'] == 'SendNamePlayerTwo') {
-                $EventDB['NamePlayer2'] = $dataJson['Value'];
+            elseif ($dataJson['Action'] == 'TimerStart') {
+                $EventDB['NamePlayer1'] = $dataJson['Value'];
             }
-            echo "Action Json: " . $data .  ";\n";
+            elseif ($dataJson['Action'] == 'SendNamePlayerOne') {
+                echo "Action Json: " . $dataJson['Action'] .  ";\n";
+                $EventDB['NamePlayer1'] = $dataJson['Value'];
+                $ReturnJsonToWeb = ActionReloadTV();
+            }
+            elseif ($dataJson['Action'] == 'SendNamePlayerTwo') {
+                echo "Action Json: " . $dataJson['Action'] .  ";\n";
+                $EventDB['NamePlayer2'] = $dataJson['Value'];
+                $ReturnJsonToWeb = ActionReloadTV();
+            }
         }
         elseif ($data == "CountPlayer1Plus" || $data == "CountPlayer1Minus") {
             if ($data == "CountPlayer1Plus") {
@@ -241,23 +250,13 @@ $ws_worker->onConnect = function($connection) use (&$users, &$ini) {
 
 $ws_worker->onMessage = function($connection, $data) use (&$users, &$EventDB, &$ini) {
     if ($users[$connection->id]['admin'] == 1) {
-        if (in_array('None',    $users[$connection->id]['role'], true)) {
-            echo "---------------------------------------------------------------------\n";
-            echo "У пользователя нет никаких прав\n";
-        }
-        elseif (in_array('All', $users[$connection->id]['role'], true)) {
+        if (in_array('All', $users[$connection->id]['role'], true)) {
             echo "---------------------------------------------------------------------\n";
             echo "У пользователя полные права\n";
             FuncWorks($data, $connection);
         }
-        elseif (($data == "CountPlayer1Plus" || $data == "CountPlayer1Minus" || $data == "CountPlayer2Plus" || $data == "CountPlayer2Minus") && false !== array_search('CountPlayer', $users[$connection->id]['role'])) {
-            FuncWorks($data, $connection);
-        }
-        elseif (($data == "PeriodPlus" || $data == "PeriodMinus") && false !== array_search('Period', $users[$connection->id]['role'])) {
-            FuncWorks($data, $connection);
-        }
         else {
-            echo "У пользователя нет прав на выполнение данной команды или нет такой команды!\n";
+            echo "У пользователя нет прав на выполнение команд!\n";
         }
     }
 };
@@ -274,6 +273,5 @@ $ws_worker->onClose = function($connection) use(&$users) {
     unset($users[$connection->id]);
     echo "Клиент отключился, с IP:" . $connection->getRemoteIp() . "\n";
 };
-
 // Run worker
 Worker::runAll();
