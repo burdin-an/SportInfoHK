@@ -1,0 +1,85 @@
+/**
+ * Проект "Информатор спортивных соревнований: фигурное катание на коньках"
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the MIT-LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @author    Бурдин А.Н. <support@it-sakh.net>
+ * @copyright Бурдин А.Н. <support@it-sakh.net>
+ * @link      http://www.it-sakh.info/SportInfo/
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
+ * @version	  1.0.4
+ */
+
+ /**
+ * Шаблоны для титров (Яркостный ключ, вырезаем весь черный цвет)
+ */
+/* ################################################################################################
+Основные настройки:
+*/
+ /* Делаем черный фон*/
+ html,body,#id_board {
+    background-color: #000;
+}
+
+/* ################################################################################################
+Информационная панель:
+    Count; - Счёт
+*/
+.cl_boardCount {
+    position: absolute;
+    top: 5vh;
+    left: 1%;
+    width: 500px;
+    margin: 0 auto;
+    color: white;
+    height: 82px;
+    background: url(img/titleFootball.png) no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+#CountClassTimer {
+    border-bottom: 30px solid rgb(3, 1, 131);/*высота трапеции и её фоновый цвет*/
+    border-left: 10px solid transparent; /*наклон левой границы*/
+    border-right: 10px solid transparent;/*наклон правой границы*/
+    line-height:30px;/*высота строки текста*/
+    text-align: center;
+    margin: 0 auto;
+    width:30%;
+    height:0;
+    /*background-color: rgb(3, 1, 131);*/
+}
+.CountClassScores {
+    /*background-color: rgb(3, 1, 131);*/
+    padding: 27px 0 0;
+    font-size: 16pt;
+}
+#CountClassNamePlayer1 {
+    margin-left: 18px;
+}
+#CountClassNamePlayer1,#CountClassCountPlayer1,#CountClassNamePlayer2,#CountClassCountPlayer2,.CountClassPeriod {
+    display: inline-block;
+    text-align: center;
+}
+#CountClassNamePlayer1,#CountClassNamePlayer2 {
+    width: 130px;
+    text-align: center;
+    color:white;
+}
+#CountClassCountPlayer2 {
+    margin-left: 50px;
+}
+#CountClassCountPlayer1,#CountClassCountPlayer2 {
+    width: 37px;
+    color:red;
+}
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_boardCount.cl_boardIn {
+    animation: bounceInDown 1s linear 0s normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_boardCount.cl_boardOut {
+    animation: hinge 2s linear 0s normal forwards;
+    transform-origin: top left; 
+}
