@@ -33,5 +33,6 @@ const FS_BoardCount = (data) => `
         <div id="CountClassCountPlayer1">${data['CountPlayer1']}</div>
         <div id="CountClassCountPlayer2">${data['CountPlayer2']}</div>
         <div id="CountClassNamePlayer2">${data['NamePlayer2']}</div>
+        <div id="CountClassTime">${data['Timer']}</div>
     </div>
 </div>`;

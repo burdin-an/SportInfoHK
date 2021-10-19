@@ -17,6 +17,11 @@
 setlocale(LC_CTYPE, 'ru_RU.UTF-8');
 error_reporting(E_ALL ^ E_WARNING);
 
+require_once __DIR__ . '/vendor/autoload.php';
+use Workerman\Worker;
+use Workerman\Lib\Timer;
+
+
 // Обрабатываем конфигурационный файл по-умолчанию: config-default.ini
 $configDefault = parse_ini_file(__DIR__ . "/config-default.ini");
 // Обрабатываем локальный конфигурационный файл: config-local.ini
@@ -36,6 +41,8 @@ if (!is_array($ini)) {
     echo "Не удалось прочитать конфигурационный файл.\n";
     exit;
 }
+
+$Start_time = 1;
 
 $EventDB = [
     'NamePlayer1' => '123',
@@ -76,22 +83,18 @@ function ActionReloadTV() {
 function FuncWorks($data, $connection) {
     global $EventDB;
     global $users;
+    global $TimerID;
+    global $Start_time;
 
     if (!empty($data)) {
         /**************** Наполняем базу 2 убрали счёт ********************************/
         $ReturnJsonToWeb = [];
         $data = rtrim($data);
         $dataJson = json_decode($data, true);
-
+        var_dump($dataJson);
         if (json_last_error() === JSON_ERROR_NONE) {
             // Данные в JSON формате
-            if ($dataJson['Action'] == 'TimerStart') {
-                $EventDB['NamePlayer1'] = $dataJson['Value'];
-            }
-            elseif ($dataJson['Action'] == 'TimerStart') {
-                $EventDB['NamePlayer1'] = $dataJson['Value'];
-            }
-            elseif ($dataJson['Action'] == 'SendNamePlayerOne') {
+            if ($dataJson['Action'] == 'SendNamePlayerOne') {
                 echo "Action Json: " . $dataJson['Action'] .  ";\n";
                 $EventDB['NamePlayer1'] = $dataJson['Value'];
                 $ReturnJsonToWeb = ActionReloadTV();
@@ -101,6 +104,62 @@ function FuncWorks($data, $connection) {
                 $EventDB['NamePlayer2'] = $dataJson['Value'];
                 $ReturnJsonToWeb = ActionReloadTV();
             }
+            else {
+                echo "Action Json: " . $dataJson['Action'] .  ";\n";
+            }
+        }
+        elseif ($data == "TimerStartFirstPeriod" || $data == "TimerStartSecondPeriod") {
+            if ($TimerID == 0) {
+                $TimerID = Timer::add(1, function()use(&$TimerID, &$users, &$Start_time, &$data, &$ini) {
+                    $timerShow = $Start_time++;
+                    if($timerShow >= 2701) {
+                        if ($ini["PrintConsoleInfo"] == 1) {echo "Timer::del($TimerID)\n";}
+                        Timer::del($TimerID);
+                        $TimerID=0;
+                    }
+                    else {
+                        if ($data == "TimerStartSecondPeriod") {
+                            $timerShow = $timerShow+2700;
+                        }
+                        $minutes = floor($timerShow / 60);
+                        if ($minutes < 10) {$minutes = "0".$minutes;} 
+                        $seconds = $timerShow % 60;
+                        if ($seconds < 10) {$seconds = "0".$seconds;} 
+                        if ($ini["PrintConsoleInfo"] == 1) {
+                            echo "Timer run ".$minutes.":".$seconds." \n";
+                        }
+                        $ReturnJsonToWeb = [
+                            "timestamp" => time(),
+                            "dAction" => "TimerUpdate",
+                            "Value"   => $minutes.":".$seconds,
+                        ];
+                        foreach($users as $connection) {
+                            $connection['connect']->send(json_encode($ReturnJsonToWeb));
+                        }
+                    }
+                });
+            }
+            echo "Action: " . $data .  ";\n";
+        }
+        elseif ($data == "TimerPause") {
+            if ($TimerID != 0) {
+                Timer::del($TimerID);
+                $TimerID=0;
+            }
+            echo "Action: " . $data .  ";\n";
+        }
+        elseif ($data == "TimerClean") {
+            if ($TimerID != 0) {
+                Timer::del($TimerID);
+                $TimerID=0;
+            }
+            $EventDB['Timer'] = (string)'00:00';
+            $ReturnJsonToWeb = [
+                "timestamp" => time(),
+                "dAction" => "TimerUpdate",
+                "Value"   => $EventDB['Timer'],
+            ];
+            echo "Action: " . $data .  ";\n";
         }
         elseif ($data == "CountPlayer1Plus" || $data == "CountPlayer1Minus") {
             if ($data == "CountPlayer1Plus") {
@@ -215,8 +274,7 @@ function FuncWorks($data, $connection) {
     return 1;
 }
 
-require_once __DIR__ . '/vendor/autoload.php';
-use Workerman\Worker;
+
 $ws_worker = new Worker("websocket://0.0.0.0:" . $ini["WebSocketPort"]);
 
 // Тут храним пользовательские соединения
@@ -237,41 +295,42 @@ $ws_worker->onConnect = function($connection) use (&$users, &$ini) {
             }
             else {
                 $users[$connection->id]['admin'] = 0;
-                echo "Пользователь НЕ Администратор\n";
+                if ($ini["PrintConsoleInfo"] == 1) {echo "Пользователь НЕ Администратор\n";}
             }
         }
         else {
             $users[$connection->id]['admin'] = 0;
-            echo "Пользователь НЕ Администратор\n";
+            if ($ini["PrintConsoleInfo"] == 1) {echo "Пользователь НЕ Администратор\n";}
         }
     };
-    echo "Клиент подключился, с IP:" . $connection->getRemoteIp() . "\n";
+    if ($ini["PrintConsoleInfo"] == 1) {echo "Клиент подключился, с IP:" . $connection->getRemoteIp() . "\n";}
 };
 
 $ws_worker->onMessage = function($connection, $data) use (&$users, &$EventDB, &$ini) {
     if ($users[$connection->id]['admin'] == 1) {
         if (in_array('All', $users[$connection->id]['role'], true)) {
-            echo "---------------------------------------------------------------------\n";
-            echo "У пользователя полные права\n";
+            if ($ini["PrintConsoleInfo"] == 1) {echo "---------------------------------------------------------------------\n";}
+            if ($ini["PrintConsoleInfo"] == 1) {echo "У пользователя полные права\n";}
             FuncWorks($data, $connection);
         }
         else {
-            echo "У пользователя нет прав на выполнение команд!\n";
+            if ($ini["PrintConsoleInfo"] == 1) {echo "У пользователя нет прав на выполнение команд!\n";}
         }
     }
 };
 // it starts once when you start server.php:
-$ws_worker->onWorkerStart = function() use (&$EventDB) {
+$ws_worker->onWorkerStart = function() use (&$EventDB, &$ini) {
     // Обрабатываем базу данных
     if (file_exists(__DIR__ . "/DB/DB.json")) {
         $EventDB = json_decode( file_get_contents(__DIR__ . '/DB/DB.json') , true );
-        echo "Читаем базу\n";
+        if ($ini["PrintConsoleInfo"] == 1) {echo "Читаем базу\n";}
     }
 };
-$ws_worker->onClose = function($connection) use(&$users) {
+$ws_worker->onClose = function($connection) use(&$users, &$ini) {
     // unset parameter when user is disconnected
     unset($users[$connection->id]);
-    echo "Клиент отключился, с IP:" . $connection->getRemoteIp() . "\n";
+    if ($ini["PrintConsoleInfo"] == 1) {echo "Клиент отключился, с IP:" . $connection->getRemoteIp() . "\n";}
 };
+
 // Run worker
 Worker::runAll();

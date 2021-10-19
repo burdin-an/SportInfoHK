@@ -44,15 +44,9 @@ function connect() {
         JsonData = JSON.parse(evt.data);
         if (JsonData) {
             //Обновить время
-            if ((JsonData.dAction).search(/^Timer/) != -1) {
-                if (ConfigShowTimer == false) {
-
-                }
-                else if (JsonData.dAction == 'Timer') {
-                    // Показать табло со временем
-                    if (!timerBoardOpen && JsonData.TimerState == 1) {
-                        ShowTimerBoard();
-                    }
+            if (JsonData.dAction == 'TimerUpdate') {
+                // Показать табло со временем
+                if (boardCountOpen) {
                     updateTimerBoard();
                 }
             }
@@ -73,6 +67,7 @@ function connect() {
                 EventDB['NamePlayer1']  = JsonData.NamePlayer1;
                 EventDB['NamePlayer2']  = JsonData.NamePlayer2;
                 EventDB['Period']       = JsonData.Period;
+                EventDB['Timer']        = JsonData.Timer;
                 EventDB['BoardCountStatus']   = JsonData.BoardCountStatus;
                 if (EventDB['BoardCountStatus'] == 'active') {
                     /*$("#root_boardCount").html(FS_BoardCount);*/
@@ -80,7 +75,7 @@ function connect() {
                     $("#CountClassCountPlayer2").html(EventDB['CountPlayer2']);
                     $("#CountClassNamePlayer1").html(EventDB['NamePlayer1']);
                     $("#CountClassNamePlayer2").html(EventDB['NamePlayer2']);
-                    $("#CountIdPeriod"         ).html(EventDB['SegmentName']);
+                    $("#CountClassTime"       ).html(EventDB['Timer']);
                     $("#boardCount"         ).addClass("cl_boardIn");
                     boardCountOpen = true;
                 }
@@ -255,20 +250,8 @@ function clearTimerBoard() {
     timerBoardOpen = false;
 }
 
-function ShowTimerBoard() {
-    $( "#id_boardTimer" ).html( FS_Timer );
-    $( "#Timer" ).html( JsonData.Time );
-    timerBoardOpen = true;
-}
-
 function updateTimerBoard() {
-    $( "#Timer" ).html( JsonData.Time );
-    if (JsonData.Time == 1.00 && JsonData.sAction == 'TimerCountdown') {
-        var VoiceOneMinute = document.getElementById('RazminkaLastMinute').play();
-    }
-    if (JsonData.Time == 0.00 && JsonData.sAction == 'TimerCountdown') {
-        var VoiceStop = document.getElementById('RazminkaStop').play();
-    }
+    $( "#CountClassTime" ).html( JsonData.Value );
 }
 		
 			

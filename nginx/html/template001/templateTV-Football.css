@@ -31,10 +31,10 @@
     position: absolute;
     top: 5vh;
     left: 1%;
-    width: 500px;
+    width: 660px;
     margin: 0 auto;
     color: white;
-    height: 82px;
+    height: 107px;
     background: url(img/titleFootball.png) no-repeat;
     background-position: center;
     background-size: cover;
@@ -52,27 +52,38 @@
 }
 .CountClassScores {
     /*background-color: rgb(3, 1, 131);*/
-    padding: 27px 0 0;
+    padding: 40px 0 0;
     font-size: 16pt;
 }
 #CountClassNamePlayer1 {
     margin-left: 18px;
 }
-#CountClassNamePlayer1,#CountClassCountPlayer1,#CountClassNamePlayer2,#CountClassCountPlayer2,.CountClassPeriod {
+#CountClassNamePlayer1,#CountClassCountPlayer1,#CountClassNamePlayer2,#CountClassCountPlayer2,.CountClassPeriod,#CountClassTime {
     display: inline-block;
     text-align: center;
 }
 #CountClassNamePlayer1,#CountClassNamePlayer2 {
-    width: 130px;
+    width: 162px;
     text-align: center;
     color:white;
+    margin-left: 26px;
 }
-#CountClassCountPlayer2 {
-    margin-left: 50px;
+#CountClassNamePlayer2 {
+    margin-left: 16px;
 }
 #CountClassCountPlayer1,#CountClassCountPlayer2 {
     width: 37px;
     color:red;
+    margin-left: 12px;
+}
+#CountClassCountPlayer2 {
+    margin-left: 80px;
+}
+#CountClassTime {
+    width: 73px;
+    margin-left: 5px;
+    color: rgb(145 24 18);
+    font-weight: bold;
 }
 /* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 .cl_boardCount.cl_boardIn {
