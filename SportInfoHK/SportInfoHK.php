@@ -85,13 +85,13 @@ function FuncWorks($data, $connection) {
     global $users;
     global $TimerID;
     global $Start_time;
+    global $ini;
 
     if (!empty($data)) {
         /**************** Наполняем базу 2 убрали счёт ********************************/
         $ReturnJsonToWeb = [];
         $data = rtrim($data);
         $dataJson = json_decode($data, true);
-        var_dump($dataJson);
         if (json_last_error() === JSON_ERROR_NONE) {
             // Данные в JSON формате
             if ($dataJson['Action'] == 'SendNamePlayerOne') {
@@ -113,7 +113,9 @@ function FuncWorks($data, $connection) {
                 $TimerID = Timer::add(1, function()use(&$TimerID, &$users, &$Start_time, &$data, &$ini) {
                     $timerShow = $Start_time++;
                     if($timerShow >= 2701) {
-                        if ($ini["PrintConsoleInfo"] == 1) {echo "Timer::del($TimerID)\n";}
+                        if ($ini["PrintConsoleInfo"] == 1) {
+                            echo "Timer::del($TimerID)\n";
+                        }
                         Timer::del($TimerID);
                         $TimerID=0;
                     }
@@ -173,7 +175,7 @@ function FuncWorks($data, $connection) {
                 "dAction"   => "CountPlayer1",
                 "Value"     => $EventDB['CountPlayer1'],
             ];
-            echo "Action: " . $dataJson['Action'] .  ";\n";
+            echo "Action: " . $data .  ";\n";
         }
         elseif ($data == "CountPlayer2Plus" || $data == "CountPlayer2Minus") {
             if ($data == "CountPlayer2Plus") {
