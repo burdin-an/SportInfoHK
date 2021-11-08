@@ -35,34 +35,62 @@
         <li class="nav-item" role="presentation">
           <a class="nav-link display-4" id="BoardTablo-tab" data-toggle="tab" href="#BoardTablo" role="tab" aria-controls="BoardTablo" aria-selected="false">Табло</a>
         </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link display-4" id="BoardConfig-tab" data-toggle="tab" href="#BoardConfig" role="tab" aria-controls="BoardConfig" aria-selected="false">Настройка</a>
+          </li>
       </ul>
       <div class="tab-content" id="myTabContent">
         <!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"><br>
-            <div class="btn-toolbar mb-3" role="toolbar">
-                <a class="ActionButton btn btn-lg btn-secondary" href="#" id="TimerStartFirstPeriod" role="button" title="">Старт первого тайма</a>
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col text-center">
+                        <div class="btn-toolbar mb-3" role="toolbar">
+                            <a class="ActionButton btn btn-lg btn-secondary" href="#" id="TimerStartFirstPeriod" role="button" title="">Старт первого тайма</a>
+                        </div>
+                    </div>
+                    <div class="col text-center">
+                        <div class="btn-toolbar mb-3" role="toolbar">
+                            <a class="ActionButton btn btn-lg btn-warning" href="#" id="TimerStartSecondPeriod" role="button" title="">Старт второго тайма</a>
+                        </div>
+                    </div>
+                    <div class="col text-center">
+                        <div class="btn-toolbar mb-3" role="toolbar">
+                            <a class="ActionButton btn btn-lg btn-danger" href="#" id="TimerPause" role="button" title="">Стоп таймер</a>
+                        </div>
+                    </div>
+                    <div class="col text-center">
+                        <div class="btn-toolbar mb-3" role="toolbar">
+                            <a class="ActionButton btn btn-lg btn-warning" href="#" id="TimerClean" role="button" title="">Обнулить таймер</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="btn-toolbar mb-3" role="toolbar">
-                <a class="ActionButton btn btn-lg btn-warning" href="#" id="TimerStartSecondPeriod" role="button" title="">Старт второго тайма</a>
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col text-center">
+                        <div class="btn-toolbar mb-3" role="toolbar">
+                            <a class="ActionButton btn btn-lg btn-warning" href="#" id="ShowBoardCount" role="button" title="">Показать счёт</a>
+                        </div>
+                    </div>
+                    <div class="col text-center">
+                        <div class="btn-toolbar mb-3" role="toolbar">
+                            <a class="ActionButton btn btn-lg btn-warning" href="#" id="HideBoardCount" role="button" title="">Скрыть счёт</a>
+                        </div>
+                    </div>
+                    <div class="col text-center">
+                        <div class="btn-toolbar mb-3" role="toolbar">
+                            <a class="ActionButton btn btn-lg btn-warning" href="#" id="UpdateBoardCount" role="button" title="">Обновить счёт</a>
+                        </div>
+                    </div>
+                    <div class="col text-center">
+                        <div class="btn-toolbar mb-3" role="toolbar">
+                            <a class="btn btn-lg btn-warning" href="#" id="Clear" role="button" title="">Очистить (Clear)</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="btn-toolbar mb-3" role="toolbar">
-                <a class="ActionButton btn btn-lg btn-danger" href="#" id="TimerPause" role="button" title="">Стоп таймер</a>
-            </div>
-            <div class="btn-toolbar mb-3" role="toolbar">
-                <a class="ActionButton btn btn-lg btn-warning" href="#" id="TimerClean" role="button" title="">Обнулить таймер</a>
-            </div>
-            <div class="btn-toolbar mb-3" role="toolbar">
-                <a class="ActionButton btn btn-lg btn-warning" href="#" id="ShowBoardCount" role="button" title="">Показать счёт</a>
-            </div>
-            <div class="btn-toolbar mb-3" role="toolbar">
-                <a class="ActionButton btn btn-lg btn-warning" href="#" id="HideBoardCount" role="button" title="">Скрыть счёт</a>
-            </div>
-            <div class="btn-toolbar mb-3" role="toolbar">
-                <a class="ActionButton btn btn-lg btn-warning" href="#" id="UpdateBoardCount" role="button" title="">Обновить счёт</a>
-            </div>
-            <div class="btn-toolbar mb-3" role="toolbar">
-                <a class="btn btn-lg btn-warning" href="#" id="Clear" role="button" title="">Очистить (Clear)</a>
-            </div>
+
             <div class="container">
                 <div class="row">
                     <div class="col">
@@ -108,6 +136,14 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col text-center">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="InputTimer" placeholder="00:00" aria-label="00:00" aria-describedby="SendTimer">
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-secondary" type="button" id="SendTimer">Отправить</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -145,6 +181,18 @@
             </div>
             <div class="btn-toolbar mb-3" role="toolbar">
                 <a class="btn btn-lg btn-danger" href="#" id="ReloadTablo" role="button" title="">Перезагрузить "Табло"</a>
+            </div>
+        </div>
+        <!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
+        <div class="tab-pane fade" id="BoardConfig" role="tabpanel" aria-labelledby="BoardConfig-tab"><br>
+            <div class="btn-toolbar mb-3" role="toolbar">
+                <a class="ActionButton btn btn-lg btn-warning" href="#" id="ReOpenINI" role="button" title="">Прочитать конфиг. файл</a>
+            </div>
+            <div class="btn-toolbar mb-3" role="toolbar">
+                <a class="ActionButton btn btn-lg btn-success" href="#" id="OpenTVHK" role="button" title="Открыть титры для Хоккея">Открыть титры для Хоккея</a>
+            </div>
+            <div class="btn-toolbar mb-3" role="toolbar">
+                <a class="ActionButton btn btn-lg btn-success" href="#" id="OpenTVFootball" role="button" title="Открыть титры для Футбола">Открыть титры для Футбола</a>
             </div>
         </div>
       </div>

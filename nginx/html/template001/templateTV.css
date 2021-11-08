@@ -35,7 +35,7 @@
     margin: 0 auto;
     color: white;
 }
-#CountClassTimer {
+#CountClassTime {
     border-bottom: 30px solid rgb(3, 1, 131);/*высота трапеции и её фоновый цвет*/
     border-left: 10px solid transparent; /*наклон левой границы*/
     border-right: 10px solid transparent;/*наклон правой границы*/

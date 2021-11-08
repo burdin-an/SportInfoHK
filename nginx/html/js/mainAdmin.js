@@ -52,4 +52,13 @@ $(document).ready(function(){
         // Очистите элемент ввода текста, чтобы получить следующую строку текста от пользователя.
         document.getElementById("InputNamePlayerTwo").value = "";
     });
+    $("#SendTimer").click(function(event) {
+        var msg = {
+            Action: event.target.id,
+            Value: document.getElementById("InputTimer").value
+        };
+        SendMessage(JSON.stringify(msg));
+        // Очистите элемент ввода текста, чтобы получить следующую строку текста от пользователя.
+        document.getElementById("InputTimer").value = "";
+    });
 });

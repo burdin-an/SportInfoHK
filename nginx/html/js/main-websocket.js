@@ -44,11 +44,9 @@ function connect() {
         JsonData = JSON.parse(evt.data);
         if (JsonData) {
             //Обновить время
-            if (JsonData.dAction == 'TimerUpdate') {
+            if (JsonData.dAction == 'TimerUpdate' && boardCountOpen) {
                 // Показать табло со временем
-                if (boardCountOpen) {
-                    updateTimerBoard();
-                }
+                $("#CountClassTime").html( JsonData.Value );
             }
             // Перезагрузить табло
             else if (JsonData.dAction == 'ReloadTablo' && ConfigShowTimer) {
@@ -59,6 +57,14 @@ function connect() {
             else if (JsonData.dAction == 'ReloadTV' && !ConfigShowTimer) {
                 window.location.href = window.location.href;
                 document.location.reload();
+            }
+            // Открыть титры для Хоккея
+            else if (JsonData.dAction == 'OpenTVHK') {
+                window.open("TV.html","_self")
+            }
+            // Открыть титры для Футбола
+            else if (JsonData.dAction == 'OpenTVFootball') {
+                window.open("TV-Football.html","_self")
             }
             // Первые данные
             else if (JsonData.dAction == 'InitBoardCount') {
@@ -73,10 +79,10 @@ function connect() {
                     /*$("#root_boardCount").html(FS_BoardCount);*/
                     $("#CountClassCountPlayer1").html(EventDB['CountPlayer1']);
                     $("#CountClassCountPlayer2").html(EventDB['CountPlayer2']);
-                    $("#CountClassNamePlayer1").html(EventDB['NamePlayer1']);
-                    $("#CountClassNamePlayer2").html(EventDB['NamePlayer2']);
-                    $("#CountClassTime"       ).html(EventDB['Timer']);
-                    $("#boardCount"         ).addClass("cl_boardIn");
+                    $("#CountClassNamePlayer1" ).html(EventDB['NamePlayer1']);
+                    $("#CountClassNamePlayer2" ).html(EventDB['NamePlayer2']);
+                    $("#CountClassTime1"       ).html(EventDB['Timer']);
+                    $("#boardCount"            ).addClass("cl_boardIn");
                     boardCountOpen = true;
                 }
             }
@@ -89,6 +95,11 @@ function connect() {
             }
             else if (JsonData.dAction == 'Period') {
                 $("#CountIdPeriod" ).html(JsonData.Value);
+            }
+            else if (JsonData.dAction == 'CountPlayerAll' && boardCountOpen) {
+                $("#CountClassCountPlayer1" ).html(JsonData.CountPlayer1);
+                $("#CountClassCountPlayer2" ).html(JsonData.CountPlayer2);
+                $("#CountIdPeriod"          ).html(JsonData.Period);
             }
             //Очистить экран
             else if (JsonData.dAction == 'Clear') {
@@ -134,10 +145,10 @@ function connect() {
             // Очистить экран если панель открыта
             /*else if (boardOpen && !ConfigKissAndCry && JsonData.dAction != '1SC') {
                 cleanBoard(1);
-            }*/
+            }
             else {
                 updateBoard();
-            }
+            }*/
             if (debuging != false) {console.log('Необходимо обновить данные ');};
         }
         else {
@@ -250,8 +261,10 @@ function clearTimerBoard() {
     timerBoardOpen = false;
 }
 
-function updateTimerBoard() {
-    $( "#CountClassTime" ).html( JsonData.Value );
+function updateTimerBoard(JsonData) {
+    if (debuging != false) {console.log('TimerUpdate1: '+ JsonData.Value);};
+    //$("#CountClassTime1").html( JsonData.Value );
+    $("#CountClassTime1").html("dfsdfsdfsdf");
 }
 		
 			
