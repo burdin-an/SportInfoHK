@@ -381,6 +381,7 @@ $ws_worker->onMessage = function($connection, $data) use (&$EventDB, &$ini, &$us
         }
     }
 };
+
 // it starts once when you start server.php:
 $ws_worker->onWorkerStart = function() use (&$EventDB, &$ini, &$users) {
     // Обрабатываем базу данных
@@ -398,10 +399,10 @@ $ws_worker->onWorkerStart = function() use (&$EventDB, &$ini, &$users) {
         $schetLeftMemory  = 0;
         $schetRightMemory = 0;
         $secondMemory = 0;
-        $connection->onMessage = function($connection, $data) use (&$EventDB, &$ini, &$users, &$schetLeftMemory, &$schetRightMemory, &$secondMemory, &$RawInputLogFile) {
+        $connection->onMessage = function($connection, $data) use (&$EventDB, &$ini, &$users, &$schetLeftMemory, &$schetRightMemory, &$secondMemory, &$LogFile) {
             $ReturnJsonToWeb = '';
             $ActionBin = unpack("h1Action",$data);
-            //print_r(unpack("h*",$data));
+            //print_r(unpack("h*",$data));          
             //Таймер
             if ($ActionBin["Action"] == 1) {
                 $byteArray = unpack("@1/hMin1/hMin2/h1Sec1/h1Sec2/h1Dol1/h1Start1/h1Start2/h1Dol4/h1Dol5/h1Dol6/h1Dol7/h1Dol8",$data);
@@ -443,6 +444,14 @@ $ws_worker->onWorkerStart = function() use (&$EventDB, &$ini, &$users) {
                 //echo $ActionBinStop['Stop'] . "\n";
                 unset($byteArray);
             }
+            if ($ActionBin["Action"] == 0) {
+                $byteArray = unpack("@1/h1Chet1/h1Chet2/h1Chet3/h1Chet4/h1Chet4/h1Chet5/h1Chet6/h1Chet7/h1Chet8",$data);
+                echo "Action: " . $ActionBin["Action"] . " -" .$byteArray['Chet1'] . "-" .$byteArray['Chet2'] . "-" .$byteArray['Chet3'] . "-" .$byteArray['Chet4'] . "-" .$byteArray['Chet5'] . "-" .$byteArray['Chet6'] . "-" .$byteArray['Chet7'] . "-" .$byteArray['Chet8'] . "-" . "\n";
+            }
+            if ($ActionBin["Action"] == 3) {
+                $byteArray = unpack("@1/h1Chet1/h1Chet2/h1Chet3/h1Chet4/h1Chet4/h1Chet5/h1Chet6/h1Chet7/h1Chet8",$data);
+                echo "Action: " . $ActionBin["Action"] . " -" .$byteArray['Chet1'] . "-" .$byteArray['Chet2'] . "-" .$byteArray['Chet3'] . "-" .$byteArray['Chet4'] . "-" .$byteArray['Chet5'] . "-" .$byteArray['Chet6'] . "-" .$byteArray['Chet7'] . "-" .$byteArray['Chet8'] . "-" . "\n";
+            }
             unset($ActionBin);
             if ($ReturnJsonToWeb != '' && array_key_exists('dAction', $ReturnJsonToWeb)) {
                 //var_dump($ReturnJsonToWeb);
@@ -454,7 +463,7 @@ $ws_worker->onWorkerStart = function() use (&$EventDB, &$ini, &$users) {
                 fclose($DBFile);
             }
             empty($ReturnJsonToWeb);
-            $connection->send("OK");
+            $connection->send("\x15\x30\x30");
         };
         $connection->onClose = function($connection) {
             echo "Отключились от Calc. Подключаемся повторно через 5 секунд.\n";
