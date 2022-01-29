@@ -1,6 +1,6 @@
 
 /**
- * Проект "Информатор спортивных соревнований: фигурное катание на коньках"
+ * Проект "Информатор спортивных соревнований: Хоккей"
  *
  * Licensed under The MIT License
  * For full copyright and license information, please see the MIT-LICENSE.txt
