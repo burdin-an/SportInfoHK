@@ -65,7 +65,7 @@ margin-bottom: 3px;
 #CountClassCountPlayer1,#CountClassCountPlayer2 {
     width: 3vw;
     font-size: 1.5vw;
-color: #00048f;
+color: #fff;
 padding-top: 3px;
 }
 .CountClassPeriod {
@@ -73,7 +73,7 @@ padding-top: 3px;
     display: inline-block;
     text-align: center;
 font-size: 1.1vw;
-color: #00048f;
+color: #fff;
 padding-top: 3px;
 }
 /* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */

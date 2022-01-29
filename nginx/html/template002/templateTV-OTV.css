@@ -20,7 +20,7 @@
 */
  /* Делаем черный фон*/
  html,body,#id_board {
-    background-color: #000;
+    background-color: #00ff00;
 }
 
 /* ################################################################################################
@@ -29,52 +29,71 @@
 */
 .cl_boardCount {
     position: absolute;
-    top: 5vh;
-    left: 3%;
-
+    top: 54px;
+    left: 112px;
+    width: 520px;
     margin: 0 auto;
     color: white;
-background-color: #c7c7c7;
-}
-#CountClassTime {
-    width: 10vw;
-    text-align: center;
-    padding-left: 10px;
-    font-size: 1.5vw;
-    background-color: white;
-color: #00048f;
-    display: inline-block;
-    padding-top: 5px;
+    height: 107px;
+    background: url(img/SCHET_OTV.png) no-repeat;
+    background-position: center;
+    background-size: contain;
 }
 .CountClassScores {
-    padding:  0;
+    padding: 12px 0 0;
+    font-size: 14pt;
+    position: relative;
 }
 #CountClassNamePlayer1,#CountClassCountPlayer1,#CountClassNamePlayer2,#CountClassCountPlayer2,.CountClassPeriod {
-    display: inline-block;
     text-align: center;
+    position: absolute;
+    top: 26px;
+    left: 0;
 }
 #CountClassNamePlayer1,#CountClassNamePlayer2 {
-    width: 10vw;
-    text-align: left;
-    padding-left: 10px;
-    font-size: 1.5vw;
-    background-color: white;
-    color: #00048f;
-margin-bottom: 3px;
+    width: 150px;
+    text-align: center;
+    color:white;
+    left:60px;
+}
+#CountClassNamePlayer2 {
+    left:308px;
+    text-align: center;
 }
 #CountClassCountPlayer1,#CountClassCountPlayer2 {
-    width: 3vw;
-    font-size: 1.5vw;
-color: #00048f;
-padding-top: 3px;
+    width: 37px;
+    color:white;
+    font-size: 20pt;
+    font-weight: 600;
+    left: 217px;
+    top: 17px;
 }
-.CountClassPeriod {
-    width: 3vw;
-    display: inline-block;
+#CountClassCountPlayer2 {
+    left: 264px;
+}
+#CountClassTime {
+    position: absolute;
+    top:71px;
+    width: 100%;
+    color:red;
+    font-size: 18pt;
+    font-weight: 600;
     text-align: center;
-font-size: 1.1vw;
-color: #00048f;
-padding-top: 3px;
+}
+#CountClassTime2 {
+    position: absolute;
+    color:#fff;
+    text-align: center;
+    font-size: 14pt;
+    font-weight: 600;
+    top: 43px;
+    left: 255px;
+}
+.CountClassCountMinus {
+    position: absolute;
+    top: 19px;
+    left: 255px;
+    font-weight: 600;
 }
 /* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 .cl_boardCount.cl_boardIn {
@@ -82,6 +101,6 @@ padding-top: 3px;
 }
 /* Анимация: Закрытие панели ------------------------------------------------------------- */
 .cl_boardCount.cl_boardOut {
-    animation: hinge 2s linear 0s normal forwards;
+    animation: bounceOutUp 1s linear 0s normal forwards;
     transform-origin: top left; 
 }

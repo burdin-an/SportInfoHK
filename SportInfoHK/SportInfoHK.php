@@ -1,6 +1,6 @@
 <?php
 /**
- * Проект "Информатор спортивных соревнований: фигурное катание на коньках"
+ * Проект "Информатор спортивных соревнований: Хоккей"
  *
  * Licensed under The MIT License
  * For full copyright and license information, please see the MIT-LICENSE.txt
@@ -9,9 +9,9 @@
  * @author    Бурдин А.Н. <support@it-sakh.net>
  * @copyright Бурдин А.Н. <support@it-sakh.net>
  * @link      http://www.it-sakh.info/SportInfo/
- * @link      https://github.com/burdin-an/SportInfoFS
+ * @link      https://github.com/burdin-an/SportInfoHK
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
- * @version   1.0.4
+ * @version   1.0.5
  */
 
 setlocale(LC_CTYPE, 'ru_RU.UTF-8');
@@ -381,7 +381,6 @@ $ws_worker->onMessage = function($connection, $data) use (&$EventDB, &$ini, &$us
         }
     }
 };
-
 // it starts once when you start server.php:
 $ws_worker->onWorkerStart = function() use (&$EventDB, &$ini, &$users) {
     // Обрабатываем базу данных
@@ -392,44 +391,67 @@ $ws_worker->onWorkerStart = function() use (&$EventDB, &$ini, &$users) {
     if ($ini['HOCKEY_CONNECT']=="y") {
         echo "Мы пытаемся подключиться к Hockey!\n";
         $connection = new AsyncTcpConnection("tcp://" . $ini['HOCKEY_IP'] . ":". $ini['HOCKEY_PORT']);
-        $connection->maxSendBufferSize = 4*1024*1024;
+        //$connection->maxSendBufferSize = 10;
         $connection->onConnect = function($connection) {
             echo "Мы подключились к Hockey!\n";
         };
         $schetLeftMemory  = 0;
         $schetRightMemory = 0;
         $secondMemory = 0;
-        $connection->onMessage = function($connection, $data) use (&$EventDB, &$ini, &$users, &$schetLeftMemory, &$schetRightMemory, &$secondMemory, &$LogFile) {
+        $connection->onMessage = function($connection, $data) use (&$EventDB, &$ini, &$users, &$schetLeftMemory, &$schetRightMemory, &$secondMemory, &$RawInputLogFile) {
             $ReturnJsonToWeb = '';
+            if ($ini["PrintConsoleInfo"] == "y") {
+                //print_r (unpack("h*",$data));
+            }
             $ActionBin = unpack("h1Action",$data);
-            //print_r(unpack("h*",$data));          
             //Таймер
             if ($ActionBin["Action"] == 1) {
                 $byteArray = unpack("@1/hMin1/hMin2/h1Sec1/h1Sec2/h1Dol1/h1Start1/h1Start2/h1Dol4/h1Dol5/h1Dol6/h1Dol7/h1Dol8",$data);
-                if ($byteArray["Sec2"] != $secondMemory && $byteArray["Start1"] == 1) {
-                    echo "Action: 1 " . "\n";
-                    //echo ($byteArray["Min1"] == "c" ? 0 : $byteArray["Min1"]) . $byteArray["Min2"] . ":" . ($byteArray["Sec1"] == "c" ? 0 : $byteArray["Sec1"]) . $byteArray["Sec2"] . "//" . $byteArray["Start1"] . "\n";
-                    $EventDB['Timer'] = ($byteArray["Min1"] == "c" ? 0 : $byteArray["Min1"]) . $byteArray["Min2"] . ":" . ($byteArray["Sec1"] == "c" ? 0 : $byteArray["Sec1"]) . $byteArray["Sec2"];
+                //if ($byteArray["Sec2"] != $secondMemory && $byteArray["Start1"] == 1) {
+                if ($byteArray["Sec2"] != $secondMemory) {
+                    if ($ini["PrintConsoleInfo"] == "y") {
+                        echo "Action: 1 " . "\n";
+                        //echo ($byteArray["Min1"] == "c" ? 0 : $byteArray["Min1"]) . $byteArray["Min2"] . ":" . ($byteArray["Sec1"] == "c" ? 0 : $byteArray["Sec1"]) . $byteArray["Sec2"] . "//" . $byteArray["Start1"] . "\n";
+                    }
+                    if ($byteArray["Min1"] == "c") {
+                        $minutesOne = "0";
+                    }
+                    elseif ($byteArray["Min1"] == "e") {
+                        $minutesOne = "";
+                    }
+                    else {
+                        $minutesOne = $byteArray["Min1"];
+                    }
+                    $EventDB['Timer'] = $minutesOne . $byteArray["Min2"] . ":" . ($byteArray["Sec1"] == "c" ? 0 : $byteArray["Sec1"]) . $byteArray["Sec2"];
+                    $EventDB['TimerPlayPause'] = $byteArray["Start1"];
                     $ReturnJsonToWeb = [
-                        "timestamp" => time(),
-                        "dAction" => "TimerUpdate",
-                        "Value"   => $EventDB['Timer'],
+                        "timestamp"      => time(),
+                        "dAction"        => "TimerUpdate",
+                        "Value"          => $EventDB['Timer'],
+			            "TimerPlayPause" => $EventDB['TimerPlayPause'],
                     ];
-                    echo "Timer: " . $EventDB['Timer'] . "\n";
+                    if ($ini["PrintConsoleInfo"] == "y") {
+                        echo "Timer: " . $EventDB['Timer'] . "\n";
+                    }
                     $secondMemory = $byteArray["Sec2"];
+                    unset($minutesOne);
                 }
                 unset($byteArray);
             }
             //
             elseif ($ActionBin["Action"] == 2) {
                 $byteArray = unpack("@1/h1ChetL1/h1ChetL2/h1ChetL3/h1Period/h1ChetR1/h1ChetR2/h1ChetR3/h1FolL/h1FolR",$data);
-                echo "Action: 2 " . "\n";
+                if ($ini["PrintConsoleInfo"] == "y") {
+                    echo "Action: 2 " . "\n";
+                }
                 if($byteArray["ChetL3"] != $schetLeftMemory || $byteArray["ChetR3"] != $schetRightMemory) {
                     $EventDB['Period'] = $byteArray["Period"];
                     $EventDB['CountPlayer1'] = ($byteArray["ChetL1"] >= 1 ? $byteArray["ChetL1"] : '') . ($byteArray["ChetL2"] >= 1 ? $byteArray["ChetL2"] : '') . $byteArray["ChetL3"];
                     $EventDB['CountPlayer2'] = ($byteArray["ChetR1"] >= 1 ? $byteArray["ChetR1"] : '') . ($byteArray["ChetR2"] >= 1 ? $byteArray["ChetR2"] : '') . $byteArray["ChetR3"];
-                    echo ($byteArray["ChetL1"] == "c" ? 0 : $byteArray["ChetL1"]) . ($byteArray["ChetL2"] == "c" ? 0 : $byteArray["ChetL2"]) . $byteArray["ChetL3"] . " - " . $byteArray["Period"] . " - " . ($byteArray["ChetR1"] == "c" ? 0 : $byteArray["ChetR1"]) . ($byteArray["ChetR2"] == "c" ? 0 : $byteArray["ChetR2"]) . $byteArray["ChetR3"] . " " . "\n";
-                    echo $byteArray["FolL"] . " " . $byteArray["FolR"] . "\n";
+                    if ($ini["PrintConsoleInfo"] == "y") {
+                        echo ($byteArray["ChetL1"] == "c" ? 0 : $byteArray["ChetL1"]) . ($byteArray["ChetL2"] == "c" ? 0 : $byteArray["ChetL2"]) . $byteArray["ChetL3"] . " - " . $byteArray["Period"] . " - " . ($byteArray["ChetR1"] == "c" ? 0 : $byteArray["ChetR1"]) . ($byteArray["ChetR2"] == "c" ? 0 : $byteArray["ChetR2"]) . $byteArray["ChetR3"] . " " . "\n";
+                        echo $byteArray["FolL"] . " " . $byteArray["FolR"] . "\n";
+                    }
                     $ReturnJsonToWeb = [
                         "timestamp"    => time(),
                         "dAction"      => "CountPlayerAll",
@@ -441,16 +463,53 @@ $ws_worker->onWorkerStart = function() use (&$EventDB, &$ini, &$users) {
                     $schetRightMemory = $byteArray["ChetR3"];
                 }
                 //$ActionBinStop = unpack("@10/h1Stop",$data);
-                //echo $ActionBinStop['Stop'] . "\n";
+                if ($ini["PrintConsoleInfo"] == "y") {
+                    //echo $ActionBinStop['Stop'] . "\n";
+                }
                 unset($byteArray);
             }
             if ($ActionBin["Action"] == 0) {
                 $byteArray = unpack("@1/h1Chet1/h1Chet2/h1Chet3/h1Chet4/h1Chet4/h1Chet5/h1Chet6/h1Chet7/h1Chet8",$data);
-                echo "Action: " . $ActionBin["Action"] . " -" .$byteArray['Chet1'] . "-" .$byteArray['Chet2'] . "-" .$byteArray['Chet3'] . "-" .$byteArray['Chet4'] . "-" .$byteArray['Chet5'] . "-" .$byteArray['Chet6'] . "-" .$byteArray['Chet7'] . "-" .$byteArray['Chet8'] . "-" . "\n";
+                if ($ini["PrintConsoleInfo"] == "y") {
+                    //echo "Action: " . $ActionBin["Action"] . " -" .$byteArray['Chet1'] . "-" .$byteArray['Chet2'] . "-" .$byteArray['Chet3'] . "-" .$byteArray['Chet4'] . "-" .$byteArray['Chet5'] . "-" .$byteArray['Chet6'] . "-" .$byteArray['Chet7'] . "-" .$byteArray['Chet8'] . "-" . "\n";
+                }
             }
             if ($ActionBin["Action"] == 3) {
-                $byteArray = unpack("@1/h1Chet1/h1Chet2/h1Chet3/h1Chet4/h1Chet4/h1Chet5/h1Chet6/h1Chet7/h1Chet8",$data);
-                echo "Action: " . $ActionBin["Action"] . " -" .$byteArray['Chet1'] . "-" .$byteArray['Chet2'] . "-" .$byteArray['Chet3'] . "-" .$byteArray['Chet4'] . "-" .$byteArray['Chet5'] . "-" .$byteArray['Chet6'] . "-" .$byteArray['Chet7'] . "-" .$byteArray['Chet8'] . "-" . "\n";
+                $byteArray = unpack("h1Chet1/h1Chet2/h1Chet3/h1Chet4/h1Chet4/h1Chet5/h1Chet6/h1Chet7/h1Chet8/h1Chet9/h1Chet10/h1Chet11/h1Chet12/h1Chet13/h1Chet14",$data,1);
+                if ($ini["PrintConsoleInfo"] == "y") {
+                    echo "Action: " . $ActionBin["Action"] . " -" .$byteArray['Chet1'] . "-" .$byteArray['Chet2'] . "-" .$byteArray['Chet3'] . "-" .$byteArray['Chet4'] . "-" .$byteArray['Chet5'] . "-" .$byteArray['Chet6'] . "-" .$byteArray['Chet7'] . "-" .$byteArray['Chet8'] . "-" . $byteArray['Chet9'] . "-" .$byteArray['Chet10'] . "-" .$byteArray['Chet11'] . "-" .$byteArray['Chet12'] . "-" .$byteArray['Chet13'] . "-" .$byteArray['Chet14'] . "\n";
+                }
+                if ($byteArray['Chet1'] ==  "b" && $byteArray['Chet3'] > 0) {
+                    if ($ini["PrintConsoleInfo"] == "y") {
+                        echo "-------------------------------------Action R1: " . "-" .$byteArray['Chet2'] . "-" .$byteArray['Chet3'] . "-" .$byteArray['Chet4'] . "-" .$byteArray['Chet5'] . "-" .$byteArray['Chet6'] . "-" .$byteArray['Chet7'] . "\n";
+                    }
+                }
+                if ($byteArray['Chet1'] ==  "c" && $byteArray['Chet3'] > 0) {
+                    if ($ini["PrintConsoleInfo"] == "y") {
+                        echo "-------------------------------------Action R2: " . "-" .$byteArray['Chet2'] . "-" .$byteArray['Chet3'] . "-" .$byteArray['Chet4'] . "-" .$byteArray['Chet5'] . "-" .$byteArray['Chet6'] . "-" .$byteArray['Chet7'] . "\n";
+                    }
+                }
+                if ($byteArray['Chet1'] ==  "d" && $byteArray['Chet3'] > 0) {
+                    if ($ini["PrintConsoleInfo"] == "y") {
+                        echo "-------------------------------------Action R3: " . "-" .$byteArray['Chet2'] . "-" .$byteArray['Chet3'] . "-" .$byteArray['Chet4'] . "-" .$byteArray['Chet5'] . "-" .$byteArray['Chet6'] . "-" .$byteArray['Chet7'] . "\n";
+                    }
+                }
+                if ($byteArray['Chet1'] ==  "5" && $byteArray['Chet3'] > 0) {
+                    if ($ini["PrintConsoleInfo"] == "y") {
+                        echo "-------------------------------------Action L1: " . "-" .$byteArray['Chet2'] . "-" .$byteArray['Chet3'] . "-" .$byteArray['Chet4'] . "-" .$byteArray['Chet5'] . "-" .$byteArray['Chet6'] . "-" .$byteArray['Chet7'] . "\n";
+                    }
+                }
+                if ($byteArray['Chet1'] ==  "6" && $byteArray['Chet3'] > 0) {
+                    if ($ini["PrintConsoleInfo"] == "y") {
+                        echo "-------------------------------------Action L2: " . "-" .$byteArray['Chet2'] . "-" .$byteArray['Chet3'] . "-" .$byteArray['Chet4'] . "-" .$byteArray['Chet5'] . "-" .$byteArray['Chet6'] . "-" .$byteArray['Chet7'] . "\n";
+                    }
+                }
+                if ($byteArray['Chet1'] ==  "7" && $byteArray['Chet3'] > 0) {
+                    if ($ini["PrintConsoleInfo"] == "y") {
+                        echo "-------------------------------------Action L3: " . "-" .$byteArray['Chet2'] . "-" .$byteArray['Chet3'] . "-" .$byteArray['Chet4'] . "-" .$byteArray['Chet5'] . "-" .$byteArray['Chet6'] . "-" .$byteArray['Chet7'] . "\n";
+                    }
+                }
+                
             }
             unset($ActionBin);
             if ($ReturnJsonToWeb != '' && array_key_exists('dAction', $ReturnJsonToWeb)) {
@@ -466,7 +525,7 @@ $ws_worker->onWorkerStart = function() use (&$EventDB, &$ini, &$users) {
             $connection->send("\x15\x30\x30");
         };
         $connection->onClose = function($connection) {
-            echo "Отключились от Calc. Подключаемся повторно через 5 секунд.\n";
+            if ($ini["PrintConsoleInfo"] == "y") { echo "Отключились от Calc. Подключаемся повторно через 5 секунд.\n"; }
             // Подключаемся повторно через 5 секунд
             $connection->reConnect(5);
         };

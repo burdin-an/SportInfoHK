@@ -814,26 +814,3 @@ function updateBoard() {
     if (debuging != false) {console.log('Play') };
 }
 connect();
-
-if (AllowFullScreen) {
-
-    function getFullscreenElement() {
-        return document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT)
-        || document.fullscreenElement   //standard property
-        || document.webkitFullscreenElement //safari/opera support
-        || document.mozFullscreenElement    //firefox support
-        || document.msFullscreenElement;    //ie/edge support
-     }
-   
-     function toggleFullscreen() {
-        if(getFullscreenElement()) {
-            document.exitFullscreen();
-
-        }else {
-            document.documentElement.requestFullscreen().catch(console.log);
-        }
-     }
-     document.addEventListener('dblclick', () => {
-        toggleFullscreen();
-     });
-}

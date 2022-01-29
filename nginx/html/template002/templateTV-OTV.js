@@ -16,8 +16,6 @@
 
 
 /* ################################################################################################
-Информационная панель:
-    Кнопка: Name; - Информация об участнике
     Переменные:
         1) ${data['NamePlayer1']}  - Название первой команды
         2) ${data['NamePlayer2']}  - Название второй команды
@@ -28,19 +26,12 @@
 */
 const FS_BoardCount = (data) => `
 <div id="boardCount" class="cl_boardCount">
-    
     <div class="CountClassScores">
-        <div>
-		<span id="CountClassNamePlayer1">${data['NamePlayer1']}</span>
-        	<span id="CountClassCountPlayer1">${data['CountPlayer1']}</span>
-	</div>
-        <div>
-        	<span id="CountClassNamePlayer2">${data['NamePlayer2']}</span>
-        	<span id="CountClassCountPlayer2">${data['CountPlayer2']}</span>
-	</div>
-        <div>
-		<span id="CountClassTime">${data['Timer']}</span>
-        	<span class="CountClassPeriod"><span id="CountIdPeriod">${data['Period']}</span>&nbsp;пер</span>
-	</div>
+        <div id="CountClassNamePlayer1">${data['NamePlayer1']}</div>
+        <div id="CountClassCountPlayer1">${data['CountPlayer1']}</div><div class="CountClassCountMinus">-</div>
+        <div id="CountClassCountPlayer2">${data['CountPlayer2']}</div>
+        <div id="CountClassNamePlayer2">${data['NamePlayer2']}</div>
+        <div id="CountClassTime">${data['Timer']}</div>
+        <div id="CountClassTime2"><span id="CountIdPeriod">${data['Period']}</span></div>
     </div>
 </div>`;
