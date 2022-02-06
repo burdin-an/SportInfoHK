@@ -95,6 +95,43 @@
     left: 255px;
     font-weight: 600;
 }
+#CountClassPause {
+    position: absolute;
+    top: 105px;
+    left: 198px;
+    font-weight: 600;
+    background-color: red;
+    text-align: center;
+    width: 120px;
+}
+.CountClassDeletePlayerLeft, .CountClassDeletePlayerRight {
+    width: 110px;
+    top: 60px;
+    position: absolute;
+    font-size: 11pt;
+}
+.CountClassDeletePlayerLeft {
+    left: 36px;
+}
+.CountClassDeletePlayerRight {
+    left: 377px;
+}
+.CountClassDeletePlayerLeft>div, .CountClassDeletePlayerRight>div {
+    background-color: red;
+    margin-bottom: 1px;
+}
+.CountClassDeletePlayerLeft>div>div, .CountClassDeletePlayerRight>div>div {
+    display: inline-block;
+    text-align: center;
+    padding: 3px 0 0;
+}
+.CountClassDeletePlayerLeft>div>.Num, .CountClassDeletePlayerRight>div>.Num {
+    width: 40%;
+    
+}
+.CountClassDeletePlayerLeft>div>.Time, .CountClassDeletePlayerRight>div>.Time {
+    width: 55%;
+}
 /* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 .cl_boardCount.cl_boardIn {
     animation: bounceInDown 1s linear 0s normal backwards;

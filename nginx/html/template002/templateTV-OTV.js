@@ -23,6 +23,8 @@
         4) ${data['CountPlayer2']} - Счёт первой команды
         5) ${data['Period']}       - Период
         6) ${data['Timer']}        - Оставшееся время до окончания периода
+        7) ${data['DeletePlayerLeft1Count']} - 
+        8) ${data['DeletePlayerLeft1Time']}  - 
 */
 const FS_BoardCount = (data) => `
 <div id="boardCount" class="cl_boardCount">
@@ -33,5 +35,34 @@ const FS_BoardCount = (data) => `
         <div id="CountClassNamePlayer2">${data['NamePlayer2']}</div>
         <div id="CountClassTime">${data['Timer']}</div>
         <div id="CountClassTime2"><span id="CountIdPeriod">${data['Period']}</span></div>
+        <div id="CountClassPause" class="d-none">Перерыв</div>
+        <div class="CountClassDeletePlayerLeft">
+            <div class="Line1 d-none">
+                <div class="Num">77</div>
+                <div class="Time">5:00</div>
+            </div>
+            <div class="Line2 d-none">
+                <div class="Num">78</div>
+                <div class="Time">5:00</div>
+            </div>
+            <div class="Line3 d-none">
+                <div class="Num">33</div>
+                <div class="Time">5:00</div>
+            </div>
+        </div>
+        <div class="CountClassDeletePlayerRight">
+            <div class="Line1 d-none">
+                <div class="Num">77</div>
+                <div class="Time">5:00</div>
+            </div>
+            <div class="Line2 d-none">
+                <div class="Num">78</div>
+                <div class="Time">5:00</div>
+            </div>
+            <div class="Line3 d-none">
+                <div class="Num">33</div>
+                <div class="Time">5:00</div>
+            </div>
+        </div>
     </div>
 </div>`;
