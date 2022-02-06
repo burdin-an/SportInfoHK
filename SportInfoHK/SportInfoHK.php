@@ -784,7 +784,9 @@ $ws_worker->onWorkerStart = function() use (&$EventDB, &$ini, &$EventsTimer, &$E
                                     fclose($fp);
                                 }
                             }
-                            echo "Events  ".$EventsExecute['Execute']. " == " . $EventsTimer[$key]['COUNT'] ."  >>>>>>>>>>>\n";
+                            if ($ini["PrintConsoleInfo"] == "y") {
+                                echo "Events  ".$EventsExecute['Execute']. " == " . $EventsTimer[$key]['COUNT'] ."  >>>>>>>>>>>\n";
+                            }
                             $EventsExecute = [
                                 "Execute" => 0,
                                 "Page" => 0,
