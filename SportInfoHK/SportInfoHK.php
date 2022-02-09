@@ -74,7 +74,6 @@ foreach($EventsTimer as $key => $value) {
         }
     }
 }
-print_r($EventsTimer);
 //---------------------------------
 
 
@@ -484,7 +483,7 @@ $ws_worker->onWorkerStart = function() use (&$EventDB, &$ini, &$EventsTimer, &$E
         if ($ini["PrintConsoleInfo"] == "y") {echo "Читаем базу\n";}
         if (is_array($tempEventDB) && $tempEventDB['DBVersion'] == $EventDB['DBVersion']) {
             $EventDB['NamePlayer1'] = $tempEventDB['NamePlayer1'];
-            $EventDB['NamePlayer2'] = $tempEventDB['NamePlayer1'];
+            $EventDB['NamePlayer2'] = $tempEventDB['NamePlayer2'];
             if ($ini["PrintConsoleInfo"] == "y") {echo "База актуальной версии!\n";}
         }
         else {
@@ -609,7 +608,7 @@ $ws_worker->onWorkerStart = function() use (&$EventDB, &$ini, &$EventsTimer, &$E
                     if (hexdec($byteArray["Chet9"]) == 7) {
                         // 1: Таймер игры минуты 1-ая цифра
                         // 2: Таймер игры минуты 2-ая цифра
-                        $TimerMinutes = (($byteArray["Chet1"] == "c" || $byteArray["Chet1"] == "e") ? "" : $byteArray["Chet1"]) . $byteArray["Chet2"];
+                        $TimerMinutes = (int)((($byteArray["Chet1"] == "c" || $byteArray["Chet1"] == "e") ? "" : $byteArray["Chet1"]) . ($byteArray["Chet2"] == "c" ? 0 : $byteArray["Chet2"]));
                         if ($EventDB['TimerMinutes'] != $TimerMinutes) {
                             if ($ini["PrintConsoleInfo"] == "y") {
                                 echo "[Timer Min] => ${TimerMinutes}\n";
@@ -655,7 +654,7 @@ $ws_worker->onWorkerStart = function() use (&$EventDB, &$ini, &$EventsTimer, &$E
                         // 1: Счет левой команды 1-ая цифра
                         // 2: Счет левой команды 2-ая цифра
                         // 3: Счет левой команды 3-ая цифра
-                        $CountPlayerLeft = ($byteArray["Chet1"] == "c" ? "" : $byteArray["Chet1"]) . ($byteArray["Chet2"] == "c" ? "" : $byteArray["Chet2"]) . $byteArray["Chet3"];
+                        $CountPlayerLeft = (int)(($byteArray["Chet1"] == "c" ? "" : $byteArray["Chet1"]) . ($byteArray["Chet2"] == "c" ? "" : $byteArray["Chet2"]) . $byteArray["Chet3"]);
                         if ($EventDB['CountPlayerLeft']['Count'] != $CountPlayerLeft) {
                             if ($ini["PrintConsoleInfo"] == "y") {
                                 echo "[Count Left] => ${CountPlayerLeft}\n";
@@ -668,7 +667,7 @@ $ws_worker->onWorkerStart = function() use (&$EventDB, &$ini, &$EventsTimer, &$E
                         // 5: Счет левой команды 1-ая цифра
                         // 6: Счет левой команды 2-ая цифра
                         // 7: Счет левой команды 3-ая цифра
-                        $CountPlayerRight = ($byteArray["Chet5"] == "c" ? "" : $byteArray["Chet5"]) . ($byteArray["Chet6"] == "c" ? "" : $byteArray["Chet6"]) . $byteArray["Chet7"];
+                        $CountPlayerRight = (int)(($byteArray["Chet5"] == "c" ? "" : $byteArray["Chet5"]) . ($byteArray["Chet6"] == "c" ? "" : $byteArray["Chet6"]) . $byteArray["Chet7"]);
                         if ($EventDB['CountPlayerRight']['Count'] != $CountPlayerRight) {
                             if ($ini["PrintConsoleInfo"] == "y") {
                                 echo "[Count Right] => ${CountPlayerRight}\n";
@@ -679,11 +678,11 @@ $ws_worker->onWorkerStart = function() use (&$EventDB, &$ini, &$EventsTimer, &$E
                         }
                         unset($CountPlayerRight);
                         // 4: Период
-                        if ($EventDB['Period']['Count'] != $byteArray["Period"]) {
+                        if ($EventDB['Period']['Count'] != (int)$byteArray["Period"]) {
                             if ($ini["PrintConsoleInfo"] == "y") {
                                 echo "[Period] => " . $byteArray["Period"] . "\n";
                             }
-                            $EventDB['Period']['Count']  = $byteArray["Period"];
+                            $EventDB['Period']['Count']  = (int)$byteArray["Period"];
                             $EventDB['Period']['Upd']  = 1;
                             $Modify = 1;
                         }
