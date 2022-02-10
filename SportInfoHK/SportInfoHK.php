@@ -545,6 +545,7 @@ $ws_worker->onWorkerStart = function() use (&$EventDB, &$ini, &$EventsTimer, &$E
                                 if ($ini["PrintConsoleInfo"] == "y") {
                                     echo "[Add Delete " . $DeleteLinePlayer . "] => num: " . $numDelPlayer . " min:" . $minDelPlayer . " Sec:"  . $secDelPlayer . "\n";
                                 }
+                                if ($secDelPlayer < 10) {$secDelPlayer = "0".$secDelPlayer;}
                                 $EventDB['DelPlayer'][$DeleteLinePlayer] = [
                                     'Upd' => 1,
                                     'Num' => $numDelPlayer,
@@ -559,6 +560,7 @@ $ws_worker->onWorkerStart = function() use (&$EventDB, &$ini, &$EventsTimer, &$E
                                 if ($ini["PrintConsoleInfo"] == "y") {
                                     echo "[Remove Delete " . $DeleteLinePlayer . "] => num: " . $numDelPlayer . " min:" . $minDelPlayer . " Sec:"  . $secDelPlayer . "\n";
                                 }
+                                if ($secDelPlayer < 10) {$secDelPlayer = "0".$secDelPlayer;}
                                 $EventDB['DelPlayer'][$DeleteLinePlayer] = [
                                     'Upd' => 2,
                                     'Num' => $numDelPlayer,
@@ -573,6 +575,7 @@ $ws_worker->onWorkerStart = function() use (&$EventDB, &$ini, &$EventsTimer, &$E
                                 if ($ini["PrintConsoleInfo"] == "y") {
                                     echo "[Update Delete " . $DeleteLinePlayer . "] => num: " . $numDelPlayer . " min:" . $minDelPlayer . " Sec:"  . $secDelPlayer . "\n";
                                 }
+                                if ($secDelPlayer < 10) {$secDelPlayer = "0".$secDelPlayer;}
                                 $EventDB['DelPlayer'][$DeleteLinePlayer] = [
                                     'Upd' => 3,
                                     'Num' => $numDelPlayer,
