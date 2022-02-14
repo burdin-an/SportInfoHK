@@ -9,7 +9,7 @@
  * @copyright Бурдин А.Н. <support@it-sakh.net>
  * @link      http://www.it-sakh.info/SportInfo/
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
- * @version	  1.0.4
+ * @version	  1.0.5
  */
 
  /**
@@ -29,19 +29,19 @@
 */
 .cl_boardCount {
     position: absolute;
-    top: 54px;
-    left: 112px;
-    width: 520px;
+    top: 7px;
+    left: 31px;
+    width: 776px;
+    height: 140px;
     margin: 0 auto;
-    color: white;
-    height: 107px;
+    color: white;    
     background: url(img/SCHET_OTV.png) no-repeat;
     background-position: center;
     background-size: contain;
 }
 .CountClassScores {
     padding: 12px 0 0;
-    font-size: 14pt;
+    font-size: 20pt;
     position: relative;
 }
 #CountClassNamePlayer1,#CountClassCountPlayer1,#CountClassNamePlayer2,#CountClassCountPlayer2,.CountClassPeriod {
@@ -51,32 +51,32 @@
     left: 0;
 }
 #CountClassNamePlayer1,#CountClassNamePlayer2 {
-    width: 150px;
+    width: 262px;
     text-align: center;
     color:white;
     left:60px;
 }
 #CountClassNamePlayer2 {
-    left:308px;
+    left:454px;
     text-align: center;
 }
 #CountClassCountPlayer1,#CountClassCountPlayer2 {
-    width: 37px;
-    color:white;
-    font-size: 20pt;
-    font-weight: 600;
-    left: 217px;
     top: 17px;
+    left: 333px;
+    width: 45px;
+    color:white;
+    font-size: 25pt;
+    font-weight: 600;
 }
 #CountClassCountPlayer2 {
-    left: 264px;
+    left: 398px;
 }
 #CountClassTime {
     position: absolute;
-    top:71px;
+    top:90px;
     width: 100%;
     color:red;
-    font-size: 18pt;
+    font-size: 29pt;
     font-weight: 600;
     text-align: center;
 }
@@ -84,37 +84,37 @@
     position: absolute;
     color:#fff;
     text-align: center;
-    font-size: 14pt;
+    font-size: 25pt;
     font-weight: 600;
-    top: 43px;
-    left: 255px;
+    top: 48px;
+    left: 381px;
 }
 .CountClassCountMinus {
     position: absolute;
-    top: 19px;
-    left: 255px;
+    top: 17px;
+    left: 383px;
     font-weight: 600;
 }
 #CountClassPause {
     position: absolute;
-    top: 105px;
-    left: 198px;
+    top: 140px;
+    left: 304px;
     font-weight: 600;
     background-color: red;
     text-align: center;
-    width: 120px;
+    width: 166px;
 }
 .CountClassDeletePlayerLeft, .CountClassDeletePlayerRight {
-    width: 110px;
-    top: 60px;
+    width: 186px;
+    top: 79px;
     position: absolute;
-    font-size: 11pt;
+    font-size: 19pt;
 }
 .CountClassDeletePlayerLeft {
-    left: 36px;
+    left: 54px;
 }
 .CountClassDeletePlayerRight {
-    left: 377px;
+    left: 534px;
 }
 .CountClassDeletePlayerLeft>div, .CountClassDeletePlayerRight>div {
     background-color: red;
