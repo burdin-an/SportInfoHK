@@ -10,6 +10,7 @@
  * @copyright Бурдин А.Н. <support@it-sakh.net>
  * @link      http://www.it-sakh.info/SportInfo/
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
+ * @version   1.0.5
  */
 // Порт для Web Socket
 const WebSocketPort = 8200;
