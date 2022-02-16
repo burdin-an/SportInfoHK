@@ -330,7 +330,10 @@ function FuncWorks($data, $connection) {
         }
         elseif ($data == "ShowBoardCount") {
             $EventDB['BoardCountStatus'] = 'active';
-            $ReturnJsonToWeb = [
+            $ReturnJsonToWeb = $EventDB;
+            $ReturnJsonToWeb["timestamp"] = time();
+            $ReturnJsonToWeb["dAction"]   = $data;
+            /*$ReturnJsonToWeb = [
                 "timestamp" => time(),
                 "dAction"   => $data,
                 "BoardCountStatus" => $EventDB['BoardCountStatus'],
@@ -340,7 +343,7 @@ function FuncWorks($data, $connection) {
                 "NamePlayer2"      => $EventDB['NamePlayer2'],
                 "Period"           => $EventDB['Period']['Count'],
                 "Timer"            => $EventDB['TimerMinutes'] . ":" . ($EventDB['TimerSecondes'] < 10 ? "" . $EventDB['TimerSecondes']: $EventDB['TimerSecondes']),
-            ];
+            ];*/
             echo "Action: " . $data .  ";\n";
         }
         elseif ($data == "HideBoardCount") {
@@ -353,7 +356,10 @@ function FuncWorks($data, $connection) {
             echo "Action: " . $data .  ";\n";
         }
         elseif ($data == "UpdateBoardCount") {
-            $ReturnJsonToWeb = [
+            $ReturnJsonToWeb = $EventDB;
+            $ReturnJsonToWeb["timestamp"] = time();
+            $ReturnJsonToWeb["dAction"]   = $data;
+            /*$ReturnJsonToWeb = [
                 "timestamp"        => time(),
                 "dAction"          => $data,
                 "BoardCountStatus" => $EventDB['BoardCountStatus'],
@@ -363,7 +369,7 @@ function FuncWorks($data, $connection) {
                 "NamePlayer2"      => $EventDB['NamePlayer2'],
                 "Period"           => $EventDB['Period']['Count'],
                 "Timer"            => $EventDB['TimerMinutes'] . ":" . ($EventDB['TimerSecondes'] < 10 ? "" . $EventDB['TimerSecondes']: $EventDB['TimerSecondes']),
-            ];
+            ];*/
             echo "Action: " . $data .  ";\n";
         }
         //Очистить всё

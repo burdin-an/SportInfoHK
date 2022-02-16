@@ -258,12 +258,12 @@ function showBoardCount(JsonData) {
     if (JsonData.dAction != 'UpdateBoardCount') {
 
         $("#root_boardCount").html(FS_BoardCount({
-            'CountPlayer1': JsonData.CountPlayer1,
-            'CountPlayer2': JsonData.CountPlayer2,
+            'CountPlayer1': JsonData.CountPlayerLeft.Count,
+            'CountPlayer2': JsonData.CountPlayerRight.Count,
             'NamePlayer1':  JsonData.NamePlayer1,
             'NamePlayer2':  JsonData.NamePlayer2,
-            'Period':       JsonData.Period,
-            'Timer':        JsonData.Timer,
+            'Period':       JsonData.Period.Count,
+            'Timer':        JsonData.TimerMinutes + ':' + tempSec,
         }));
         $( "#boardCount").removeClass("cl_boardOut");
         $( "#boardCount").addClass("cl_boardIn");
@@ -274,12 +274,12 @@ function showBoardCount(JsonData) {
         }
         node1.addEventListener('animationend', handleAnimationEnd1, {once: true});
     }
-    $("#CountClassCountPlayer1").html(JsonData.CountPlayer1);
-    $("#CountClassCountPlayer2").html(JsonData.CountPlayer2);
+    $("#CountClassCountPlayer1").html(JsonData.CountPlayerLeft.Count);
+    $("#CountClassCountPlayer2").html(JsonData.CountPlayerRight.Count);
     $("#CountClassNamePlayer1" ).html(JsonData.NamePlayer1);
     $("#CountClassNamePlayer2" ).html(JsonData.NamePlayer2);
-    $("#CountIdPeriod"         ).html(JsonData.Period);
-    $("#CountIdTimer"          ).html(JsonData.Timer);
+    $("#CountIdPeriod"         ).html(JsonData.Period.Count);
+    $("#CountIdTimer"          ).html(JsonData.TimerMinutes + ':' + tempSec);
     if (JsonData.DelPlayer.Left1.Num > 0) {
         $(".CountClassDeletePlayerLeft>div:nth-child(1)>.Num").html(JsonData.DelPlayer.Left1.Num);
         $(".CountClassDeletePlayerLeft>div:nth-child(1)>.Time" ).html(JsonData.DelPlayer.Left1.Time);
