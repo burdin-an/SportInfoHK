@@ -1,0 +1,60 @@
+{
+    "shahter": {
+        "ShortName": "ШАХ",
+        "FullName": "Шахтёр",
+        "Desc": "НЛ",
+        "Logo": "LOGO_NL_Shaxter.png",
+        "Place": "п. Быков, Сахалинская область",
+        "Boss": "Иванов Иван Иванович",
+        "Trainer": "Иванов Иван Иванович2",
+        "Administrator": "Иванов Иван Иванович3",
+        "MiddleLet": "50,93",
+        "Vratari": {
+            "20": {
+                "Enable": 1,
+                "FullName": "Чен Ин Сик"
+            }
+        },
+        "Security": {
+            "55": {
+                "Enable": 1,
+                "FullName": "Хвостов Роман"
+            }
+        },
+        "Napadenie": {
+            "2": {
+                "Enable": 1,
+                "FullName": "Лобызов Александр"
+            }
+        }
+    }, 
+    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX": {
+        "ShortName": "",
+        "FullName": "",
+        "Desc": "",
+        "Logo": "",
+        "Place": "",
+        "Boss": "",
+        "Trainer": "",
+        "Administrator": "",
+        "MiddleLet": "",
+        "Vratari": {
+            "22": {
+                "Enable": 1,
+                "FullName": "Вратарь Иванов"
+            }
+        },
+        "Security": {
+            "44": {
+                "Enable": 1,
+                "FullName": "Вратарь Иванов"
+            }
+        },
+        "Napadenie": {
+            "44": {
+                "Enable": 1,
+                "FullName": "Вратарь Иванов"
+            }
+        }
+    }
+}

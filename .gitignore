@@ -3,3 +3,8 @@
 /SportInfoHK/DB/*
 /SportInfoHK/config-local.ini
 /SportInfoHK/Events.ini
+/nginx/html/LogoPlace/*
+/nginx/html/LogoTeam/*
+/nginx/html/images/1.mov
+/nginx/html/images/Кристалл СШ_mated2.mov
+/nginx/html/images/KristallLogo.mp4

@@ -25,7 +25,7 @@ use Workerman\Connection\AsyncTcpConnection;
 
 // Обрабатываем конфигурационный файл по-умолчанию: config-default.ini
 $configDefault = parse_ini_file(__DIR__ . "/config-default.ini");
-// Обрабатываем локальный конфигурационный файл: config-local.ini
+// Обрабатываем локальный файл
 if (file_exists(__DIR__ . "/config-local.ini")) {
     $configLocal = parse_ini_file(__DIR__ . "/config-local.ini");
     $ini = array_merge($configDefault, $configLocal);
@@ -39,6 +39,62 @@ unset($configDefault);
 if (!is_array($ini)) {
     print_r($ini);
     echo "Не удалось прочитать конфигурационный файл.\n";
+    exit;
+}
+
+// Обрабатываем конфигурационный файл c командами по-умолчанию: Player-local.ini
+if (file_exists(__DIR__ . "/Player-local.json")) {
+    $tempEventDB = json_decode( file_get_contents(__DIR__ . '/Player-local.json') , true );
+    if ($ini["PrintConsoleInfo"] == "y") {echo "Читаем базу команд\n";}
+    if ($tempEventDB && is_array($tempEventDB)) {
+        $PlayerArray = $tempEventDB;
+        if ($ini["PrintConsoleInfo"] == "y") {echo "База команд актуальной версии!\n";}
+    }
+    else {
+        if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось прочитать конфигурационный файл с игроками!!!\n";}
+    }
+    unset($tempEventDB);
+}
+else {
+    $tempEventDB = json_decode( file_get_contents(__DIR__ . '/Player-default.json') , true );
+    if ($ini["PrintConsoleInfo"] == "y") {echo "Читаем базу команд по умолчанию\n";}
+    if ($tempEventDB && is_array($tempEventDB)) {
+        $PlayerArray = $tempEventDB;
+        if ($ini["PrintConsoleInfo"] == "y") {echo "База команд актуальной версии!\n";}
+    }
+    else {
+        if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось прочитать конфигурационный файл с игроками!!!\n";}
+    }
+    unset($tempEventDB);
+}
+
+print_r($PlayerArray);
+
+// Обрабатываем конфигурационный файл c командами: GameName-local.ini
+if (file_exists(__DIR__ . "/GameName-local.ini")) {
+    $GameNameArray = parse_ini_file(__DIR__ . "/GameName-local.ini", true);
+}
+else {
+    $GameNameArray = parse_ini_file(__DIR__ . "/GameName-default.ini", true);
+}
+
+if (!is_array($GameNameArray)) {
+    print_r($GameNameArray);
+    echo "Не удалось прочитать конфигурационный файл с названием игры.\n";
+    exit;
+}
+
+// Обрабатываем конфигурационный файл c местами проведения: GamePlace-local.ini
+if (file_exists(__DIR__ . "/GamePlace-local.ini")) {
+    $GamePlaceArray = parse_ini_file(__DIR__ . "/GamePlace-local.ini", true);
+}
+else {
+    $GamePlaceArray = parse_ini_file(__DIR__ . "/GamePlace-default.ini", true);
+}
+
+if (!is_array($GamePlaceArray)) {
+    print_r($GamePlaceArray);
+    echo "Не удалось прочитать конфигурационный файл с местом проведения.\n";
     exit;
 }
 
@@ -80,11 +136,51 @@ foreach($EventsTimer as $key => $value) {
 $Start_time = 1;
 
 $EventDB = [
-    'DBVersion'   => 5,
+    'DBVersion'   => 12,
     'dAction'     => 'None',
-    'NamePlayer1' => '123',
-    'NamePlayer2' => '456',
+    'GameName'    => [
+        'UID' => '',
+        'FullName' => '',
+        'ShortName' => '',
+        'Desc' => '',
+        'Template' => '',
+    ],
+    'GameDate'    => '',
+    'GameTime'    => '',
+    'GamePlace'   => [
+        'UID' => '',
+        'FullName' => '',
+        'ShortName' => '',
+        'Desc' => '',
+        'Logo' => '',
+    ],
+    'PlayerLeft' => [
+        'UID' => '',
+        'FullName' => '',
+        'ShortName' => '',
+        'Desc' => '',
+        'Logo' => '',
+        'Place' => '',
+        'Boss' => '',
+        'Trainer' => '',
+        'Administrator' => '',
+    ],
+    'PlayerRight' => [
+        'UID' => '',
+        'FullName' => '',
+        'ShortName' => '',
+        'Desc' => '',
+        'Logo' => '',
+        'Place' => '',
+        'Boss' => '',
+        'Trainer' => '',
+        'Administrator' => '',
+    ],
     'BoardCountStatus' => 'disable',
+    'BoardLogo1Status' => 'disable',
+    'BoardStartStatus' => 'disable',
+    'BoardListPlayerLeftStatus' => 'disable',
+    'BoardListPlayerRightStatus'  => 'disable',
     'CountPlayerLeft' => [
         'Upd'   => 0,
         'Count' => -1,
@@ -195,6 +291,9 @@ function FuncWorks($data, $connection) {
     global $TimerID;
     global $Start_time;
     global $ini;
+    global $PlayerArray;
+    global $GameNameArray;
+    global $GamePlaceArray;
 
     if (!empty($data)) {
         /**************** Наполняем базу 2 убрали счёт ********************************/
@@ -203,14 +302,40 @@ function FuncWorks($data, $connection) {
         $dataJson = json_decode($data, true);
         if (json_last_error() === JSON_ERROR_NONE) {
             // Данные в JSON формате
-            if ($dataJson['Action'] == 'SendNamePlayerOne') {
+            if ($dataJson['Action'] == 'Update') {
                 echo "Action Json: " . $dataJson['Action'] .  ";\n";
-                $EventDB['NamePlayer1'] = $dataJson['Value'];
-                $ReturnJsonToWeb = ActionReloadTV();
+                //$ReturnJsonToWeb = ActionReloadTV();
             }
-            elseif ($dataJson['Action'] == 'SendNamePlayerTwo') {
+            elseif ($dataJson['Action'] == 'GetPlayer') {
                 echo "Action Json: " . $dataJson['Action'] .  ";\n";
-                $EventDB['NamePlayer2'] = $dataJson['Value'];
+                $ReturnJsonToWeb = [
+                    "timestamp" => time(),
+                    "dAction" => "ListPlayer",
+                    "Player"    => $PlayerArray,
+                    "GameName"  => $GameNameArray,
+                    "GamePlace" => $GamePlaceArray,
+                ];
+            }
+            elseif ($dataJson['Action'] == 'SendNamePlayerLeft' || $dataJson['Action'] == 'SendNamePlayerRight') {
+                echo "Action Json: " . $dataJson['Action'] .  ";\n";
+                $NamePlayerUID = $dataJson['Value'];
+                if (array_key_exists($NamePlayerUID, $PlayerArray) && is_array($PlayerArray[$NamePlayerUID])) {
+                    if ($dataJson['Action'] == 'SendNamePlayerLeft') {
+                        $EventDB['PlayerLeft']['UID'] = $NamePlayerUID;
+                    }
+                    elseif ($dataJson['Action'] == 'SendNamePlayerRight') {
+                        $EventDB['PlayerRight']['UID'] = $NamePlayerUID;
+                    }
+                    foreach($PlayerArray[$NamePlayerUID] as $key => $value) {
+                        if ($dataJson['Action'] == 'SendNamePlayerLeft') {
+                            $EventDB['PlayerLeft'][$key] = $value;
+                        }
+                        elseif ($dataJson['Action'] == 'SendNamePlayerRight') {
+                            $EventDB['PlayerRight'][$key] = $value;
+                        }
+                    }
+                }
+                unset($NamePlayerUID);
                 $ReturnJsonToWeb = ActionReloadTV();
             }
             elseif ($dataJson['Action'] == 'SendTimer') {
@@ -222,6 +347,40 @@ function FuncWorks($data, $connection) {
                 $minutes = $minutes * 60;
                 $Start_time = $minutes + $second;
                 $EventDB['Timer'] = $dataJson['Value'];
+                $ReturnJsonToWeb = ActionReloadTV();
+            }
+            elseif ($dataJson['Action'] == 'SendGameName') {
+                echo "Action Json: " . $dataJson['Action'] .  ";\n";
+                $GameNameUID = $dataJson['Value'];
+                if (array_key_exists($GameNameUID, $GameNameArray) && is_array($GameNameArray[$GameNameUID])) {
+                    $EventDB['GameName']['UID'] = $GameNameUID;
+                    foreach($GameNameArray[$GameNameUID] as $key => $value) {
+                        $EventDB['GameName'][$key] = $value;
+                    }
+                }
+                unset($GameNameUID);
+                $ReturnJsonToWeb = ActionReloadTV();
+            }
+            elseif ($dataJson['Action'] == 'SendGameDate') {
+                echo "Action Json: " . $dataJson['Action'] .  ";\n";
+                $EventDB['GameDate'] = $dataJson['Value'];
+                $ReturnJsonToWeb = ActionReloadTV();
+            }
+            elseif ($dataJson['Action'] == 'SendGameTime') {
+                echo "Action Json: " . $dataJson['Action'] .  ";\n";
+                $EventDB['GameTime'] = $dataJson['Value'];
+                $ReturnJsonToWeb = ActionReloadTV();
+            }
+            elseif ($dataJson['Action'] == 'SendGamePlace') {
+                echo "Action Json: " . $dataJson['Action'] .  ";\n";
+                $GamePlaceUID = $dataJson['Value'];
+                if (array_key_exists($GamePlaceUID, $GamePlaceArray) && is_array($GamePlaceArray[$GamePlaceUID])) {
+                    $EventDB['GamePlace']['UID'] = $GamePlaceUID;
+                    foreach($GamePlaceArray[$GamePlaceUID] as $key => $value) {
+                        $EventDB['GamePlace'][$key] = $value;
+                    }
+                }
+                unset($GamePlaceUID);
                 $ReturnJsonToWeb = ActionReloadTV();
             }
             else {
@@ -295,7 +454,7 @@ function FuncWorks($data, $connection) {
             }
             $ReturnJsonToWeb = [
                 "timestamp" => time(),
-                "dAction"   => "CountPlayer1",
+                "dAction"   => "CountPlayerLeft",
                 "Value"     => $EventDB['CountPlayerLeft']['Count'],
             ];
             echo "Action: " . $data .  ";\n";
@@ -309,7 +468,7 @@ function FuncWorks($data, $connection) {
             }
             $ReturnJsonToWeb = [
                 "timestamp" => time(),
-                "dAction"   => "CountPlayer2",
+                "dAction"   => "CountPlayerRight",
                 "Value"     => $EventDB['CountPlayerRight']['Count'],
             ];
             echo "Action: " . $data .  ";\n";
@@ -333,17 +492,6 @@ function FuncWorks($data, $connection) {
             $ReturnJsonToWeb = $EventDB;
             $ReturnJsonToWeb["timestamp"] = time();
             $ReturnJsonToWeb["dAction"]   = $data;
-            /*$ReturnJsonToWeb = [
-                "timestamp" => time(),
-                "dAction"   => $data,
-                "BoardCountStatus" => $EventDB['BoardCountStatus'],
-                "CountPlayer1"     => $EventDB['CountPlayerLeft']['Count'],
-                "CountPlayer2"     => $EventDB['CountPlayerRight']['Count'],
-                "NamePlayer1"      => $EventDB['NamePlayer1'],
-                "NamePlayer2"      => $EventDB['NamePlayer2'],
-                "Period"           => $EventDB['Period']['Count'],
-                "Timer"            => $EventDB['TimerMinutes'] . ":" . ($EventDB['TimerSecondes'] < 10 ? "" . $EventDB['TimerSecondes']: $EventDB['TimerSecondes']),
-            ];*/
             echo "Action: " . $data .  ";\n";
         }
         elseif ($data == "HideBoardCount") {
@@ -355,21 +503,73 @@ function FuncWorks($data, $connection) {
             ];
             echo "Action: " . $data .  ";\n";
         }
-        elseif ($data == "UpdateBoardCount") {
+        // Обновить данные
+        // Показать стартовую заставку
+        elseif ($data == "UpdateBoardCount" || $data == "ShowBoardStart") {
+            if ($data == "ShowBoardStart") {
+                $EventDB['BoardStartStatus'] = 'active';
+            }
             $ReturnJsonToWeb = $EventDB;
             $ReturnJsonToWeb["timestamp"] = time();
             $ReturnJsonToWeb["dAction"]   = $data;
-            /*$ReturnJsonToWeb = [
-                "timestamp"        => time(),
-                "dAction"          => $data,
-                "BoardCountStatus" => $EventDB['BoardCountStatus'],
-                "CountPlayer1"     => $EventDB['CountPlayerLeft']['Count'],
-                "CountPlayer2"     => $EventDB['CountPlayerRight']['Count'],
-                "NamePlayer1"      => $EventDB['NamePlayer1'],
-                "NamePlayer2"      => $EventDB['NamePlayer2'],
-                "Period"           => $EventDB['Period']['Count'],
-                "Timer"            => $EventDB['TimerMinutes'] . ":" . ($EventDB['TimerSecondes'] < 10 ? "" . $EventDB['TimerSecondes']: $EventDB['TimerSecondes']),
-            ];*/
+            echo "Action: " . $data .  ";\n";
+        }
+        // Показать Логотип №1
+        elseif ($data == "ShowBoardLogo1") {
+            $EventDB['BoardLogo1Status'] = 'active';
+            $ReturnJsonToWeb = [
+                "timestamp" => time(),
+                "dAction"   => $data,
+                "Logo"      => $EventDB['GamePlace']['Logo'],
+            ];
+            echo "Action: " . $data .  ";\n";
+        }
+        // Скрыть Логотип №1
+        elseif ($data == "HideBoardLogo1") {
+            $EventDB['BoardLogo1Status'] = 'disable';
+            $ReturnJsonToWeb = [
+                "timestamp" => time(),
+                "dAction"   => $data,
+                "Value"     => $EventDB['BoardLogo1Status'],
+            ];
+            echo "Action: " . $data .  ";\n";
+        }
+        // Скрыть стартовую заставку
+        elseif ($data == "HideBoardStart") {
+            $EventDB['BoardStartStatus'] = 'disable';
+            $ReturnJsonToWeb = [
+                "timestamp" => time(),
+                "dAction"   => $data,
+                "Value"     => $EventDB['BoardStartStatus'],
+            ];
+            echo "Action: " . $data .  ";\n";
+        }
+        // Показать стартовый состав правой команды
+        elseif ($data == "ShowBoardListPlayerRight") {
+            $EventDB['BoardListPlayerRightStatus'] = 'active';
+            $ReturnJsonToWeb = [
+                "timestamp" => time(),
+                "dAction"   => "ShowBoardListPlayer",
+                "Player"    => $EventDB['PlayerRight'],
+            ];
+            echo "Action: " . $data .  ";\n";
+        }
+        // Показать стартовый состав левой команды
+        elseif ($data == "ShowBoardListPlayerLeft") {
+            $ReturnJsonToWeb = [
+                "timestamp" => time(),
+                "dAction"   => "ShowBoardListPlayer",
+                "Player"    => $EventDB['PlayerLeft'],
+            ];
+            echo "Action: " . $data .  ";\n";
+        }
+        // Скрыть стартовый состав команды
+        elseif ($data == "HideBoardListPlayer") {
+            $ReturnJsonToWeb = [
+                "timestamp" => time(),
+                "dAction"   => $data,
+                "Value"     => $EventDB['BoardListPlayerStatus'],
+            ];
             echo "Action: " . $data .  ";\n";
         }
         //Очистить всё
@@ -488,19 +688,18 @@ $ws_worker->onWorkerStart = function() use (&$EventDB, &$ini, &$EventsTimer, &$E
         $tempEventDB = json_decode( file_get_contents(__DIR__ . '/DB/DB.json') , true );
         if ($ini["PrintConsoleInfo"] == "y") {echo "Читаем базу\n";}
         if (is_array($tempEventDB) && $tempEventDB['DBVersion'] == $EventDB['DBVersion']) {
-            $EventDB['NamePlayer1'] = $tempEventDB['NamePlayer1'];
-            $EventDB['NamePlayer2'] = $tempEventDB['NamePlayer2'];
+            $EventDB = $tempEventDB;
             if ($ini["PrintConsoleInfo"] == "y") {echo "База актуальной версии!\n";}
         }
         else {
             if ($ini["PrintConsoleInfo"] == "y") {echo "База старой версии!!!!\n";}
         }
     }
-    if ($ini['HOCKEY_CONNECT']=="y") {
+    if ($ini['HOCKEY_SERVER_TYPE']=="DIAN") {
         //----------------------------------------------------
 
         echo "Мы пытаемся подключиться к Hockey!\n";
-        $connection = new AsyncTcpConnection("tcp://" . $ini['HOCKEY_IP'] . ":". $ini['HOCKEY_PORT']);
+        $connection = new AsyncTcpConnection("tcp://" . $ini['DIAN_HOCKEY_IP'] . ":". $ini['DIAN_HOCKEY_PORT']);
         $connection->onConnect = function($connection) {
             echo "Мы подключились к Hockey!\n";
         };
@@ -829,6 +1028,9 @@ $ws_worker->onWorkerStart = function() use (&$EventDB, &$ini, &$EventsTimer, &$E
             $connection->reConnect(5);
         };
         $connection->connect();
+    }
+    else {
+        if ($ini["PrintConsoleInfo"] == "y") {echo "Тип табло нераспознан или выбран ручной режим.\n";}
     }
 };
 

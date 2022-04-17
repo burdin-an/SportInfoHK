@@ -16,4 +16,4 @@
 // Отладочная информация
 // Значение: true  - Включено
 // Значение: false - Выключено
-var debuging = true;
+//var debuging = true;

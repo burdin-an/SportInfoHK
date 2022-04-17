@@ -1,0 +1,905 @@
+{
+    "shahter": {
+        "ShortName": "ШАХ",
+        "FullName": "Шахтёр",
+        "Desc": "НЛ",
+        "Logo": "LOGO_NL_Shaxter.png",
+        "Place": "п. Быков, Сахалинская область",
+        "Boss": "Иванов Иван Иванович",
+        "Trainer": "Иванов Иван Иванович2",
+        "Administrator": "Иванов Иван Иванович3",
+        "MiddleLet": "50,93",
+        "Vratari": {
+            "20": {
+                "Enable": 1,
+                "FullName": "Чен Ин Сик"
+            }
+        },
+        "Security": {
+            "55": {
+                "Enable": 1,
+                "FullName": "Хвостов Роман"
+            }
+        },
+        "Napadenie": {
+            "2": {
+                "Enable": 1,
+                "FullName": "Лобызов Александр"
+            },
+            "10": {
+                "Enable": 1,
+                "FullName": "Агеев Виктор"
+            },
+            "21": {
+                "Enable": 1,
+                "FullName": "Грачев Александр"
+            },
+            "25": {
+                "Enable": 1,
+                "FullName": "Ким Де Бон"
+            },
+            "31": {
+                "Enable": 1,
+                "FullName": "Дё Хе Бок"
+            },
+            "33": {
+                "Enable": 1,
+                "FullName": "Ким Александр"
+            },
+            "50": {
+                "Enable": 1,
+                "FullName": "Пак Чун Нам"
+            },
+            "64": {
+                "Enable": 1,
+                "FullName": "Болденков Александр"
+            },
+            "65": {
+                "Enable": 1,
+                "FullName": "Ли Киль Су"
+            },
+            "73": {
+                "Enable": 1,
+                "FullName": "Абрамцев Александр"
+            }
+        }
+    },
+    "ska": {
+        "ShortName": "СКА",
+        "FullName": "СКА",
+        "Desc": "НЛ",
+        "Logo": "LOGO_NL_SKA.png",
+        "Place": "г.Южно-Сахалинск, Сахалинская область",
+        "Boss": "Алексей Ан",
+        "Trainer": "Евдокимов Дмитрий Сергеевич",
+        "Administrator": "Ан Алексей Андреевич",
+        "MiddleLet": "49,3",
+        "Vratari": {
+            "45": {
+                "Enable": 1,
+                "FullName": "Ким Кан Сек"
+            },
+            "69": {
+                "Enable": 1,
+                "FullName": "Мейер Евгений"
+            },
+            "72": {
+                "Enable": 1,
+                "FullName": "Буслаев Константин"
+            }
+        },
+        "Security": {
+            "5": {
+                "Enable": 1,
+                "FullName": "Муратов Олег"
+            },
+            "7": {
+                "Enable": 1,
+                "FullName": "Ярулин Олег"
+            },
+            "8": {
+                "Enable": 1,
+                "FullName": "Худенко Захар"
+            },
+            "13": {
+                "Enable": 1,
+                "FullName": "Пяк Константин"
+            },
+            "17": {
+                "Enable": 1,
+                "FullName": "Хен Ен Ун"
+            },
+            "22": {
+                "Enable": 1,
+                "FullName": "Колесников Андрей"
+            },
+            "33": {
+                "Enable": 1,
+                "FullName": "Ким Ен До"
+            },
+            "50": {
+                "Enable": 1,
+                "FullName": "Юн Андрей"
+            },
+            "55": {
+                "Enable": 1,
+                "FullName": "Хлоповских Дмитрий"
+            },
+            "66": {
+                "Enable": 1,
+                "FullName": "Пак Эдуард"
+            },
+            "81": {
+                "Enable": 1,
+                "FullName": "Казанцев Александр"
+            }
+        },
+        "Napadenie": {
+            "9": {
+                "Enable": 1,
+                "FullName": "Шевченко Сергей"
+            },
+            "10": {
+                "Enable": 1,
+                "FullName": "Кан Гир Сен"
+            },
+            "18": {
+                "Enable": 1,
+                "FullName": "Квон Ен Фан"
+            },
+            "23": {
+                "Enable": 1,
+                "FullName": "Че Ен Су"
+            },
+            "24": {
+                "Enable": 1,
+                "FullName": "Постовой Евгений"
+            },
+            "27": {
+                "Enable": 1,
+                "FullName": "Ха Чун Ген"
+            },
+            "44": {
+                "Enable": 1,
+                "FullName": "Шевкун Алексей"
+            },
+            "65": {
+                "Enable": 1,
+                "FullName": "Сон Эдик"
+            },
+            "71": {
+                "Enable": 1,
+                "FullName": "Абрамов Андрей"
+            },
+            "77": {
+                "Enable": 1,
+                "FullName": "Каргаполов Сергей"
+            },
+            "88": {
+                "Enable": 1,
+                "FullName": "Ким Эдуард"
+            },
+            "99": {
+                "Enable": 1,
+                "FullName": "Ан Алексей"
+            }
+        }
+    },
+    "sparta40": {
+        "ShortName": "СПА",
+        "FullName": "Спарта",
+        "Desc": "НЛ-40+",
+        "Logo": "LOGO_NL_Sparta.png",
+        "Place": "Южно-Сахалинск, Сахалинская область",
+        "Boss": "Радченко Владимир",
+        "Trainer": "Иванов Александр",
+        "Administrator": "Переяслов Роман",
+        "MiddleLet": "47",
+        "Vratari": {
+            "90": {
+                "Enable": 1,
+                "FullName": "Литвин Владимир"
+            }
+        },
+        "Security": {
+            "3": {
+                "Enable": 1,
+                "FullName": "Питько Андрей"
+            },
+            "22": {
+                "Enable": 1,
+                "FullName": "Панченко Александр"
+            },
+            "29": {
+                "Enable": 1,
+                "FullName": "Радченко Владимир"
+            },
+            "33": {
+                "Enable": 1,
+                "FullName": "Иванов Александр"
+            },
+            "34": {
+                "Enable": 1,
+                "FullName": "Метляков Валентин"
+            },
+            "62": {
+                "Enable": 1,
+                "FullName": "Горовец Олег"
+            }
+        },
+        "Napadenie": {
+            "8": {
+                "Enable": 1,
+                "FullName": "Ча Ир Де"
+            },
+            "10": {
+                "Enable": 1,
+                "FullName": "Бак Владислав"
+            },
+            "23": {
+                "Enable": 1,
+                "FullName": "Хон Сен Дек"
+            },
+            "71": {
+                "Enable": 1,
+                "FullName": "Ли Сергей"
+            },
+            "75": {
+                "Enable": 1,
+                "FullName": "Чадин Юрий"
+            },
+            "79": {
+                "Enable": 1,
+                "FullName": "Нилов Юрий"
+            },
+            "81": {
+                "Enable": 1,
+                "FullName": "Абракава Сергей"
+            },
+            "92": {
+                "Enable": 1,
+                "FullName": "Переяслов Роман"
+            }
+        }
+    },
+    "sakhalin": {
+        "ShortName": "САХ",
+        "FullName": "Сахалин",
+        "Desc": "НЛ",
+        "Logo": "LOGO_NL_Sakhalin.jpg",
+        "Place": "Южно-Сахалинск, Сахалинская область",
+        "Boss": "",
+        "Trainer": "Александр Пономарев",
+        "Administrator": "Стерничук Николай<br>Гришанов Денис",
+        "MiddleLet": "49,95",
+        "Vratari": {
+            "1": {
+                "Enable": 1,
+                "FullName": "Ковалев Валерий"
+            },
+            "30": {
+                "Enable": 1,
+                "FullName": "Зубахин Евгений"
+            },
+            "40": {
+                "Enable": 1,
+                "FullName": "Рюмкин Алексей"
+            },
+            "50": {
+                "Enable": 1,
+                "FullName": "Соколов Алексей"
+            }
+        },
+        "Security": {
+            "2": {
+                "Enable": 1,
+                "FullName": "Баринов Сергей"
+            },
+            "4": {
+                "Enable": 1,
+                "FullName": "Стерничук Николай"
+            },
+            "13": {
+                "Enable": 1,
+                "FullName": "Выборнов Евгений"
+            },
+            "15": {
+                "Enable": 1,
+                "FullName": "Худяев Евгений"
+            },
+            "18": {
+                "Enable": 1,
+                "FullName": "Кожин Станислав"
+            },
+            "20": {
+                "Enable": 1,
+                "FullName": "Завалишин Сергей"
+            },
+            "27": {
+                "Enable": 1,
+                "FullName": "Афоничев Александр"
+            },
+            "31": {
+                "Enable": 1,
+                "FullName": "Беляк Виталий"
+            },
+            "72": {
+                "Enable": 1,
+                "FullName": "Зарубин Виталий"
+            }
+        },
+        "Napadenie": {
+            "3": {
+                "Enable": 1,
+                "FullName": "Макоев Руслан"
+            },
+            "8": {
+                "Enable": 1,
+                "FullName": "Чекмарев Вадим"
+            },
+            "21": {
+                "Enable": 1,
+                "FullName": "Гришанов Денис"
+            },
+            "25": {
+                "Enable": 1,
+                "FullName": "Коробов Андрей"
+            },
+            "54": {
+                "Enable": 1,
+                "FullName": "Криволапов тимофей"
+            },
+            "74": {
+                "Enable": 1,
+                "FullName": "Банников Николай"
+            },
+            "77": {
+                "Enable": 1,
+                "FullName": "Мун Олег"
+            },
+            "83": {
+                "Enable": 1,
+                "FullName": "Васильев Сергей"
+            },
+            "88": {
+                "Enable": 1,
+                "FullName": "Кан Ен Гу"
+            }
+        }
+    },
+    "rubej1": {
+        "ShortName": "РУБ1",
+        "FullName": "Рубеж 1",
+        "Desc": "НЛ",
+        "Logo": "LOGO_NL_Rubeg.png",
+        "Place": "Южно-Сахалинск, Сахалинская область",
+        "Boss": "Юрий Федоров",
+        "Trainer": "Николай Стерничук",
+        "Administrator": "",
+        "MiddleLet": "29,06",
+        "Vratari": {
+            "32": {
+                "Enable": 1,
+                "FullName": "Карамышев Юрий"
+            },
+            "33": {
+                "Enable": 1,
+                "FullName": "Баусов Артём"
+            }
+        },
+        "Security": {
+            "45": {
+                "Enable": 1,
+                "FullName": "Баусов Михаил"
+            },
+            "66": {
+                "Enable": 1,
+                "FullName": "Тудубон Данил"
+            },
+            "67": {
+                "Enable": 1,
+                "FullName": "Сысолятин Сергей"
+            },
+            "89": {
+                "Enable": 1,
+                "FullName": "Тутичев Антон"
+            },
+            "94": {
+                "Enable": 1,
+                "FullName": "Пикалов Иван"
+            }
+        },
+        "Napadenie": {
+            "8": {
+                "Enable": 1,
+                "FullName": "Баталов Алексей"
+            },
+            "10": {
+                "Enable": 1,
+                "FullName": "Терехов Анатолий"
+            },
+            "26": {
+                "Enable": 1,
+                "FullName": "Ахоньков Андрей"
+            },
+            "29": {
+                "Enable": 1,
+                "FullName": "Сафронов Александр"
+            },
+            "50": {
+                "Enable": 1,
+                "FullName": "Анисимов Антон"
+            },
+            "51": {
+                "Enable": 1,
+                "FullName": "Норин Илья"
+            },
+            "70": {
+                "Enable": 1,
+                "FullName": "Козик Павел"
+            },
+            "90": {
+                "Enable": 1,
+                "FullName": "Шлюндт Андрей"
+            },
+            "95": {
+                "Enable": 1,
+                "FullName": "Берестовой Сергей"
+            },
+            "96": {
+                "Enable": 1,
+                "FullName": "Ким Владимир"
+            }
+        }
+    },
+    "vulkan": {
+        "ShortName": "ВУЛ",
+        "FullName": "Вулкан",
+        "Desc": "НЛ ЛН",
+        "Logo": "LOGO_NL_Vulkan.png",
+        "Place": "г.Северо-Курильск, Сахалинская область",
+        "Boss": "Иль Ли",
+        "Trainer": "Альберт Пономаренко",
+        "Administrator": "",
+        "MiddleLet": "31,35",
+        "Vratari": {
+            "1": {
+                "Enable": 1,
+                "FullName": "Семенюк Дмитрий"
+            },
+            "32": {
+                "Enable": 1,
+                "FullName": "Доценко Владимир"
+            },
+            "33": {
+                "Enable": 1,
+                "FullName": "Чернышов Андрей"
+            }
+        },
+        "Security": {
+            "7": {
+                "Enable": 1,
+                "FullName": "Смолянинов Евгений"
+            },
+            "8": {
+                "Enable": 1,
+                "FullName": "Сухарев Дмитрий"
+            },
+            "17": {
+                "Enable": 1,
+                "FullName": "Еленов Тимур"
+            },
+            "47": {
+                "Enable": 1,
+                "FullName": "Елшин Александр"
+            },
+            "74": {
+                "Enable": 1,
+                "FullName": "Катюхин Дмитрий"
+            },
+            "77": {
+                "Enable": 1,
+                "FullName": "Котелевцев Максим"
+            }
+        },
+        "Napadenie": {
+            "5": {
+                "Enable": 1,
+                "FullName": "Соболев Максим"
+            },
+            "14": {
+                "Enable": 1,
+                "FullName": "Савченко Максим"
+            },
+            "22": {
+                "Enable": 1,
+                "FullName": "Мурашов Антон"
+            },
+            "25": {
+                "Enable": 1,
+                "FullName": "Крохолев Данила"
+            },
+            "55": {
+                "Enable": 1,
+                "FullName": "Иванов Сергей"
+            },
+            "61": {
+                "Enable": 1,
+                "FullName": "Колисниченко Сергей"
+            },
+            "75": {
+                "Enable": 1,
+                "FullName": "Гордиенко Сергей"
+            },
+            "79": {
+                "Enable": 1,
+                "FullName": "Бурков Сергей"
+            },
+            "96": {
+                "Enable": 1,
+                "FullName": "Таранов Виктор"
+            }
+        }
+    },
+    "avangard": {
+        "ShortName": "АВА",
+        "FullName": "Авангард",
+        "Desc": "НЛ",
+        "Logo": "LOGO_NL_Avangard.png",
+        "Place": "с. Троицкое, Сахалинская область",
+        "Boss": "Разумов Пётр",
+        "Trainer": "Разумов Пётр",
+        "Administrator": "Разумов Пётр",
+        "MiddleLet": "31,58",
+        "Vratari": {
+            "1": {
+                "Enable": 1,
+                "FullName": "Грищенко Юрий"
+            },
+            "20": {
+                "Enable": 1,
+                "FullName": "Шелыгин Сергей"
+            }
+        },
+        "Security": {
+            "51": {
+                "Enable": 1,
+                "FullName": "Шаповаленко Сергей"
+            },
+            "65": {
+                "Enable": 1,
+                "FullName": "Гуськов Олег"
+            },
+            "71": {
+                "Enable": 1,
+                "FullName": "Макмулов Ильдар"
+            }
+        },
+        "Napadenie": {
+            "7": {
+                "Enable": 1,
+                "FullName": "Князев Егор"
+            },
+            "11": {
+                "Enable": 1,
+                "FullName": "Разумов Пётр"
+            },
+            "15": {
+                "Enable": 1,
+                "FullName": "Бузмаков Дмитрий"
+            },
+            "17": {
+                "Enable": 1,
+                "FullName": "Липихин Владимир"
+            },
+            "19": {
+                "Enable": 1,
+                "FullName": "Поляков Артём"
+            },
+            "22": {
+                "Enable": 1,
+                "FullName": "Шелепов Владислав"
+            },
+            "27": {
+                "Enable": 1,
+                "FullName": "Савенков Андрей"
+            },
+            "92": {
+                "Enable": 1,
+                "FullName": "Безручко Дмитрий"
+            }
+        }
+    },
+    "sevzvezda": {
+        "ShortName": "СЗВ",
+        "FullName": "Северная звезда",
+        "Desc": "НЛ",
+        "Logo": "LOGO_NL_SeverZvezda.png",
+        "Place": "пгт. Ноглики, Сахалинская область",
+        "Boss": "",
+        "Trainer": "Федор Храпак",
+        "Administrator": "",
+        "MiddleLet": "30.2",
+        "Vratari": {
+            "1": {
+                "Enable": 1,
+                "FullName": "Плетнёв Кирилл"
+            }
+        },
+        "Security": {
+            "2": {
+                "Enable": 1,
+                "FullName": "Захаров Максим"
+            },
+            "28": {
+                "Enable": 1,
+                "FullName": "Рожков Павел"
+            },
+            "92": {
+                "Enable": 1,
+                "FullName": "Довбня Никита"
+            }
+        },
+        "Napadenie": {
+            "11": {
+                "Enable": 1,
+                "FullName": "Гореница Вячеслав"
+            },
+            "12": {
+                "Enable": 1,
+                "FullName": "Лампадов Данилл"
+            },
+            "13": {
+                "Enable": 1,
+                "FullName": "Михеенко Артур"
+            },
+            "15": {
+                "Enable": 1,
+                "FullName": "Барановский Артем"
+            },
+            "18": {
+                "Enable": 1,
+                "FullName": "Садовников Дмитрий"
+            },
+            "21": {
+                "Enable": 1,
+                "FullName": "Коваленко Иван"
+            },
+            "22": {
+                "Enable": 1,
+                "FullName": "Чанчиков Евгений"
+            },
+            "68": {
+                "Enable": 1,
+                "FullName": "Кимайкин Юрий"
+            },
+            "83": {
+                "Enable": 1,
+                "FullName": "Савко Александр"
+            },
+            "90": {
+                "Enable": 1,
+                "FullName": "Романенко Сергей"
+            },
+            "91": {
+                "Enable": 1,
+                "FullName": "Чередник Владимир"
+            }
+        }
+    },
+    "veterki": {
+        "ShortName": "ВЕТ",
+        "FullName": "Ветерки",
+        "Desc": "НЛ 40+",
+        "Logo": "LOGO_NL_Veterok.png",
+        "Place": "г. Холмск, Сахалинская область",
+        "Boss": "",
+        "Trainer": "",
+        "Administrator": "",
+        "MiddleLet": "49,07",
+        "Vratari": {
+            "1": {
+                "Enable": 1,
+                "FullName": "Меньщиков Сергей"
+            },
+            "20": {
+                "Enable": 1,
+                "FullName": "Романенко Владимир"
+            },
+            "30": {
+                "Enable": 1,
+                "FullName": "Кононец Павел"
+            }
+        },
+        "Security": {
+                        "2": {
+                "Enable": 1,
+                "FullName": "Погребняк Сергей"
+            },
+            "3": {
+                "Enable": 1,
+                "FullName": "Ким Юрий"
+            },
+            "10": {
+                "Enable": 1,
+                "FullName": "Шпаковский Константин"
+            },
+            "11": {
+                "Enable": 1,
+                "FullName": "Норко Евгений"
+            },
+            "66": {
+                "Enable": 1,
+                "FullName": "Еманов Алексей"
+            },
+            "73": {
+                "Enable": 1,
+                "FullName": "Гильдеев Николай"
+            }
+        },
+        "Napadenie": {
+            "7": {
+                "Enable": 1,
+                "FullName": "Никитин Артур"
+            },
+            "8": {
+                "Enable": 1,
+                "FullName": "Сараев Антон"
+            },
+            "8_": {
+                "Enable": 1,
+                "FullName": "Сизанков Олег"
+            },
+            "15": {
+                "Enable": 1,
+                "FullName": "Китлинский Алексей"
+            },
+            "18": {
+                "Enable": 1,
+                "FullName": "Рубанов Евгений"
+            },
+            "22": {
+                "Enable": 1,
+                "FullName": "Фисенко Павел"
+            },
+            "32": {
+                "Enable": 1,
+                "FullName": "Диденко Игорь"
+            }
+        }
+    },
+    "okean": {
+        "ShortName": "ОКН",
+        "FullName": "Океан",
+        "Desc": "НЛ 40+",
+        "Logo": "LOGO_NL_Okean.png",
+        "Place": "г. Невельск, Сахалинская область",
+        "Boss": "Иль Ли",
+        "Trainer": "Максим Котелевцев",
+        "Administrator": "",
+        "MiddleLet": "50.67",
+        "Vratari": {
+            "1": {
+                "Enable": 1,
+                "FullName": "Цвилий Виктор"
+            },
+            "20": {
+                "Enable": 1,
+                "FullName": "Белоусов Леонид"
+            },
+            "31": {
+                "Enable": 1,
+                "FullName": "Мазур Константин"
+            }
+        },
+        "Security": {
+            "5": {
+                "Enable": 1,
+                "FullName": "Картавый Сергей"
+            },
+            "13": {
+                "Enable": 1,
+                "FullName": "Даич Игорь"
+            },
+            "15": {
+                "Enable": 1,
+                "FullName": "Гуров Роман"
+            },
+            "16": {
+                "Enable": 1,
+                "FullName": "Диглис Роман"
+            },
+            "25": {
+                "Enable": 1,
+                "FullName": "Зайцев Евгений"
+            },
+            "32": {
+                "Enable": 1,
+                "FullName": "Мальчевский Станислав"
+            },
+            "33": {
+                "Enable": 1,
+                "FullName": "Харсеев Владимир"
+            }
+        },
+        "Napadenie": {
+            "4": {
+                "Enable": 1,
+                "FullName": "Даниленко Виктор"
+            },
+            "7": {
+                "Enable": 1,
+                "FullName": "Протасов Игорь"
+            },
+            "10": {
+                "Enable": 1,
+                "FullName": "Малашенко Олег"
+            },
+            "11": {
+                "Enable": 1,
+                "FullName": "Бухарев Александр"
+            },
+            "14": {
+                "Enable": 1,
+                "FullName": "Карпенко Вадим"
+            },
+            "22": {
+                "Enable": 1,
+                "FullName": "Чанчиков Андрей"
+            },
+            "50": {
+                "Enable": 1,
+                "FullName": "Пак Ен Хо"
+            },
+            "55": {
+                "Enable": 1,
+                "FullName": "Ким Су Чер"
+            },
+            "61": {
+                "Enable": 1,
+                "FullName": "Насыров Артур"
+            },
+            "62": {
+                "Enable": 1,
+                "FullName": "Бурков Владимир"
+            },
+            "77": {
+                "Enable": 1,
+                "FullName": "Стоячников Сергей"
+            },
+            "91": {
+                "Enable": 1,
+                "FullName": "Сафонов Андрей"
+            }
+        }
+    },
+    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX": {
+        "ShortName": "",
+        "FullName": "",
+        "Desc": "",
+        "Logo": "",
+        "Place": "",
+        "Boss": "",
+        "Trainer": "",
+        "Administrator": "",
+        "MiddleLet": "",
+        "Vratari": {
+            "22": {
+                "Enable": 1,
+                "FullName": "Вратарь Иванов"
+            }
+        },
+        "Security": {
+            "44": {
+                "Enable": 1,
+                "FullName": "Вратарь Иванов"
+            }
+        },
+        "Napadenie": {
+            "44": {
+                "Enable": 1,
+                "FullName": "Вратарь Иванов"
+            }
+        }
+    }
+}

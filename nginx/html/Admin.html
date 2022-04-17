@@ -20,6 +20,7 @@
     <link type="text/css" charset="utf-8" rel="stylesheet" href="css/bootstrap.min.css" />
     <script type="text/javascript" charset="utf-8" src="js/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/mainConfig.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/mainAdmin.js"></script>
 </head>
 <body>
@@ -69,29 +70,33 @@
             <div class="container mt-5">
                 <div class="row">
                     <div class="col text-center">
-                        <div class="btn-toolbar mb-3" role="toolbar">
-                            <a class="ActionButton btn btn-lg btn-warning" href="#" id="ShowBoardCount" role="button" title="">Показать счёт</a>
-                        </div>
+                        Счёт<br>
+                        <a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardCount" role="button" title="">+++</a>
+                        <a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardCount" role="button" title="">----</a>
                     </div>
                     <div class="col text-center">
-                        <div class="btn-toolbar mb-3" role="toolbar">
-                            <a class="ActionButton btn btn-lg btn-warning" href="#" id="HideBoardCount" role="button" title="">Скрыть счёт</a>
-                        </div>
+                        Логотип арены<br>
+                        <a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardLogo1" role="button" title="">+++</a>
+                        <a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardLogo1" role="button" title="">----</a>
                     </div>
                     <div class="col text-center">
-                        <div class="btn-toolbar mb-3" role="toolbar">
-                            <a class="ActionButton btn btn-lg btn-warning" href="#" id="UpdateBoardCount" role="button" title="">Обновить счёт</a>
-                        </div>
+                        Стартовый экран<br>
+                        <a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardStart" role="button" title="">+++</a>
+                        <a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardStart" role="button" title="">----</a>
                     </div>
                     <div class="col text-center">
-                        <div class="btn-toolbar mb-3" role="toolbar">
-                            <a class="btn btn-lg btn-warning" href="#" id="Clear" role="button" title="">Очистить (Clear)</a>
-                        </div>
+                         Список игроков (Левые)<br>
+                        <a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardListPlayerLeft" role="button" title="">+++</a>
+                        <a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardListPlayer" role="button" title="">----</a>
+                    </div>
+                    <div class="col text-center">
+                        Список игроков (Правые)<br>
+                        <a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardListPlayerRight" role="button" title="">+++</a>
+                        <a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardListPlayer" role="button" title="">----</a>
                     </div>
                 </div>
             </div>
-
-            <div class="container">
+            <div class="container mt-5">
                 <div class="row">
                     <div class="col">
                         Команда 1
@@ -101,6 +106,12 @@
                     </div>
                     <div class="col">
                         Период
+                    </div>
+                    <div class="col">
+                        &nbsp;
+                    </div>
+                    <div class="col">
+                        &nbsp;
                     </div>
                 </div>
                 <div class="row">
@@ -116,23 +127,34 @@
                         <a class="ActionButton btn btn-lg btn-warning" href="#" id="PeriodPlus" role="button" title="">+1</a>
                         <a class="ActionButton btn btn-lg btn-warning" href="#" id="PeriodMinus" role="button" title="">-1</a>
                     </div>
+                    <div class="col">
+                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="UpdateBoardCount" role="button" title="">Обновить счёт</a>
+                    </div>
+                    <div class="col">
+                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="Clear" role="button" title="">Очистить (Clear)</a>
+                    </div>
                 </div>
             </div>
             <div class="container mt-5">
                 <div class="row">
                     <div class="col text-center">
+                        
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="InputNamePlayerOne" placeholder="Название команды 1" aria-label="Название команды 1" aria-describedby="SendNamePlayerOne">
+                            <select  id="InputNamePlayerLeft" class="form-control" aria-label="Название команды 1">
+                                <option selected>Команда (Левая)</option>
+                            </select>
                             <div class="input-group-append">
-                              <button class="btn btn-outline-secondary" type="button" id="SendNamePlayerOne">Отправить</button>
+                              <button class="btn btn-outline-secondary" type="button" id="SendNamePlayerLeft">Отправить</button>
                             </div>
                         </div>
                     </div>
                     <div class="col text-center">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="InputNamePlayerTwo" placeholder="Название команды 2" aria-label="Название команды 2" aria-describedby="SendNamePlayerOne">
+                            <select  id="InputNamePlayerRight" class="form-control" aria-label="Название команды 2">
+                                <option selected>Команда (Правая)</option>
+                            </select>
                             <div class="input-group-append">
-                              <button class="btn btn-outline-secondary" type="button" id="SendNamePlayerTwo">Отправить</button>
+                              <button class="btn btn-outline-secondary" type="button" id="SendNamePlayerRight">Отправить</button>
                             </div>
                         </div>
                     </div>
@@ -141,6 +163,46 @@
                             <input type="text" class="form-control" id="InputTimer" placeholder="00:00" aria-label="00:00" aria-describedby="SendTimer">
                             <div class="input-group-append">
                               <button class="btn btn-outline-secondary" type="button" id="SendTimer">Отправить</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-center">
+                        <div class="input-group mb-3">
+                            <select  id="InputGameName" class="form-control" aria-label="Название игры">
+                                <option selected>Укажите название игры</option>
+                            </select>
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-secondary" type="button" id="SendGameName">Отправить</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col text-center">
+                        <div class="input-group mb-3">
+                            <select  id="InputGamePlace" class="form-control" aria-label="Место игры">
+                                <option selected>Укажите место игры</option>
+                            </select>
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-secondary" type="button" id="SendGamePlace">Отправить</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-center">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="InputGameDate" placeholder="Дата игры" aria-label="Дата игры" aria-describedby="SendGameDate">
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-secondary" type="button" id="SendGameDate">Отправить</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col text-center">
+                        <div class="input-group mb-3">
+                            <input type="time" class="form-control" id="InputGameTime" placeholder="Время игры" aria-label="Время игры" aria-describedby="SendGameTime">
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-secondary" type="button" id="SendGameTime">Отправить</button>
                             </div>
                         </div>
                     </div>
