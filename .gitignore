@@ -1,10 +1,15 @@
 /SportInfoHK/vendor/*
 /SportInfoHK/logs/*
-/SportInfoHK/DB/*
+/SportInfoHK/DB/DB.json
+/SportInfoHK/DB/GameName-local.json
+/SportInfoHK/DB/GamePlace-local.json
+/SportInfoHK/DB/Teams-local.json
+/SportInfoHK/DB/TeamsStartList-local.json
 /SportInfoHK/config-local.ini
 /SportInfoHK/Events.ini
-/nginx/html/LogoPlace/*
-/nginx/html/LogoTeam/*
-/nginx/html/images/1.mov
-/nginx/html/images/Кристалл СШ_mated2.mov
-/nginx/html/images/KristallLogo.mp4
+/SportInfoHK/GameName-local.json
+/SportInfoHK/GamePlace-local.json
+/SportInfoHK/Player-local.json
+/nginx/html/LogoPlaceLocal/*
+/nginx/html/LogoTeamLocal/*
+/nginx/html/*-local.html

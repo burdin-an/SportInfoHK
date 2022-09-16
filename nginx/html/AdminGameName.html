@@ -1,0 +1,119 @@
+<!doctype html>
+<!--
+ * Проект "Информатор спортивных соревнований: Хоккей"
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the MIT-LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @author    Бурдин А.Н. <support@it-sakh.net>
+ * @copyright Бурдин А.Н. <support@it-sakh.net>
+ * @link      http://www.it-sakh.info/SportInfo/
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
+ * @version	  1.0.1
+
+Шаблоны для титров
+-->
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link type="text/css" charset="utf-8" rel="stylesheet" href="css/bootstrap-5.min.css" />
+	<script type="text/javascript" charset="utf-8" src="js/jquery-3.5.1.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/bootstrap-5.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/mainConfig.js"></script>
+	<script src="js/vue.global.prod.js"></script>
+</head>
+<body>
+	<h1>Редактирование:</h1>
+	<a class="btn btn-lg btn-warning" href="Admin.html" role="button" title="">Назад в админку</a><br><br>
+	<div id="AdminApp">
+		<ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+			<li class="nav-item" role="presentation">
+				<a class="nav-link active" id="GameName-tab" data-bs-toggle="tab" href="#GameName" role="tab" aria-controls="GameName" aria-selected="true">Название хоккейного матча</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link" id="GamePlace-tab" data-bs-toggle="tab" href="#GamePlace" role="tab" aria-controls="GamePlace" aria-selected="false">Место проведения матча</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link" id="Teams-tab" data-bs-toggle="tab" href="#Teams" role="tab" aria-controls="Teams" aria-selected="false">Команды</a>
+			</li>
+		</ul>
+		<div class="tab-content" id="myTabContent">
+			<!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
+			<div class="tab-pane fade show active" id="GameName" role="tabpanel" aria-labelledby="GameName-tab"><br>
+						
+				<select  v-model="GameNameSelected" class="form-control" aria-label="Название матча">
+					<option v-for="row in this.GameName"  :value="row.Key">{{ row.ShortName }} ({{ row.Desc }})</option>
+				</select>
+				
+				<div v-if="GameNameSelected != 0 && GameName[GameNameSelected]">
+					<h1>Редактировать:</h1>
+					<label class="form-label">Короткое название: </label><input class="form-control" :value="GameName[GameNameSelected].ShortName" @input="GameName[GameNameSelected].ShortName = $event.target.value" />
+					<label class="form-label">Подробное название: </label><input class="form-control" :value="GameName[GameNameSelected].FullName" @input="GameName[GameNameSelected].FullName = $event.target.value" />
+					<label class="form-label">Описание: </label><input class="form-control" :value="GameName[GameNameSelected].Desc" @input="GameName[GameNameSelected].Desc = $event.target.value" />
+					<button class="btn btn-success me-5" type="button" @click="saveGameName">Сохранить</button>
+					<button class="btn btn-danger" type="button" @click="deleteGameName">Удалить</button>
+				</div>
+				<div v-else>
+					<h1>Создать:</h1>
+					<button class="btn btn-secondary" type="button" @click="createGameName">Создать</button>
+				</div>
+			</div>
+			<!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
+			<div class="tab-pane fade" id="GamePlace" role="tabpanel" aria-labelledby="GamePlace-tab"><br>
+				<select  v-model="GamePlaceSelected" class="form-control" aria-label="Название матча">
+					<option v-for="row in this.GamePlace"  :value="row.Key">{{ row.ShortName }} ({{ row.Desc }})</option>
+				</select>
+				
+				<div v-if="GamePlaceSelected != 0 && GamePlace[GamePlaceSelected]">
+					<h1>Редактировать:</h1>
+					<label class="form-label">Короткое название: </label><input class="form-control" :value="GamePlace[GamePlaceSelected].ShortName" @input="GamePlace[GamePlaceSelected].ShortName = $event.target.value" />
+					<label class="form-label">Подробное название: </label>
+					<textarea rows="3" class="form-control" v-model="GamePlace[GamePlaceSelected].FullName" placeholder="введите несколько строчек" @input="GamePlace[GamePlaceSelected].FullName = $event.target.value"></textarea>
+					<label class="form-label">Город: </label><input class="form-control" :value="GamePlace[GamePlaceSelected].Place" @input="GamePlace[GamePlaceSelected].Place = $event.target.value" />
+					<label class="form-label">Описание: </label><input class="form-control" :value="GamePlace[GamePlaceSelected].Desc" @input="GamePlace[GamePlaceSelected].Desc = $event.target.value" />
+					<label class="form-label">Логотип: </label>
+					<select v-model="GamePlace[GamePlaceSelected].Logo" class="form-control">
+						<option v-for="option in LogoGamePlace" v-bind:value="option">{{ option }}</option>
+					</select>
+					<button class="btn btn-success me-5" type="button" @click="saveGamePlace">Сохранить</button>
+					<button class="btn btn-danger" type="button" @click="deleteGamePlace">Удалить</button>
+				</div>
+				<div v-else>
+					<h1>Создать:</h1>
+					<button class="btn btn-secondary" type="button" @click="createGamePlace">Создать</button>
+				</div>
+			</div>
+			<!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
+			<div class="tab-pane fade" id="Teams" role="tabpanel" aria-labelledby="Teams-tab"><br>
+				<select  v-model="TeamSelected" class="form-control" aria-label="Название команды">
+					<option v-for="row in this.Teams"  :value="row.Key">{{ row.FullName }} ({{ row.Desc }})</option>
+				</select>
+				
+				<div v-if="TeamSelected != 0 && Teams[TeamSelected]">
+					<h1>Редактировать:</h1>
+					<label class="form-label">Короткое название: </label><input class="form-control" :value="Teams[TeamSelected].ShortName" @input="Teams[TeamSelected].ShortName = $event.target.value" />
+					<label class="form-label">Подробное название: </label><input class="form-control" :value="Teams[TeamSelected].FullName" @input="Teams[TeamSelected].FullName = $event.target.value" />
+					<label class="form-label">Описание: </label><input class="form-control" :value="Teams[TeamSelected].Desc" @input="Teams[TeamSelected].Desc = $event.target.value" />
+					<label class="form-label">Логотип: </label>
+					<select v-model="Teams[TeamSelected].Logo" class="form-control">
+						<option v-for="option in LogoTeams" v-bind:value="option">{{ option }}</option>
+					</select>
+					<label class="form-label">Откуда: </label><input class="form-control" :value="Teams[TeamSelected].Place" @input="Teams[TeamSelected].Place = $event.target.value" />
+					<label class="form-label">Руководитель: </label><input class="form-control" :value="Teams[TeamSelected].Boss" @input="Teams[TeamSelected].Boss = $event.target.value" />
+					<label class="form-label">Тренер: </label><input class="form-control" :value="Teams[TeamSelected].Trainer" @input="Teams[TeamSelected].Trainer = $event.target.value" />
+					<label class="form-label">Администратор: </label><input class="form-control" :value="Teams[TeamSelected].Administrator" @input="Teams[TeamSelected].Administrator = $event.target.value" />
+					<label class="form-label">Средний возраст: </label><input class="form-control" :value="Teams[TeamSelected].MiddleLet" @input="Teams[TeamSelected].MiddleLet = $event.target.value" />
+					<button class="btn btn-success me-5" type="button" @click="saveTeam">Сохранить</button>
+					<button class="btn btn-danger" type="button" @click="deleteTeam">Удалить</button>
+				</div>
+				<div v-else>
+					<h1>Создать:</h1>
+					<button class="btn btn-secondary" type="button" @click="createTeam">Создать</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" charset="utf-8" src="js/mainAdminVue.js"></script>
+</body>
+</html>

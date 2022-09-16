@@ -1,0 +1,14 @@
+{
+    "NL-40-Plus": {
+        "ShortName": "НЛ, Любитель 40+",
+        "FullName": "Любитель 40+",
+        "Desc": "НЛ",
+        "Template": "NL"
+    },
+	"NL-LigaNadegda": {
+        "ShortName": "НЛ, Лига надежды 18+",
+        "FullName": "Лига надежды 18+",
+        "Desc": "НЛ",
+        "Template": "NL"
+    }
+}

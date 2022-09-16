@@ -1,0 +1,87 @@
+<!doctype html>
+<!--
+ * Проект "Информатор спортивных соревнований: Хоккей"
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the MIT-LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @author    Бурдин А.Н. <support@it-sakh.net>
+ * @copyright Бурдин А.Н. <support@it-sakh.net>
+ * @link      http://www.it-sakh.info/SportInfo/
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
+ * @version	  1.0.1
+
+Шаблоны для титров
+-->
+<html>
+<head>
+	<link type="text/css" charset="utf-8" rel="stylesheet" href="css/bootstrap-5.min.css" />
+	<script type="text/javascript" charset="utf-8" src="js/jquery-3.5.1.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/bootstrap-5.min.js"></script>
+	<link href="/fontawesome/css/all.css" rel="stylesheet">
+	<script type="text/javascript" charset="utf-8" src="js/mainConfig.js"></script>
+	<script src="js/vue.global.prod.js"></script>
+</head>
+<body>
+	<h1>Редактирование:</h1>
+	<a class="btn btn-lg btn-warning" href="Admin.html" role="button" title="">Назад в админку</a><br><br>
+	<div id="AdminApp">
+		<select  v-model="TeamSelected" @change="getTeamPlayers($event.target.value)" class="form-control" aria-label="Название команды">
+			<option v-for="row in this.Teams"  :value="row.Key">{{ row.FullName }} ({{ row.Desc }})</option>
+		</select>
+		<h1>Команда: {{ Teams[TeamSelected].FullName }}</h1>
+		<div v-if="TeamSelected != 0 && Teams[TeamSelected]">
+			<h1>Редактировать:</h1>
+			<button @click='saveRow()' :disabled=enableDisable ><i class="fa-solid fa-floppy-disk"></i></button> <span :class="{ 'alert alert-success': isActive,'alert alert-danger': !isActive}">{{ saveStatus }}</span> <button @click='updateRow()' ><i class="fa-solid fa-arrow-rotate-right"></i></button>
+			<table class="table  table-striped w-100">
+				<thead>
+					<tr class="bg-gray-100" style="font-size: 1.7rem;">
+						<th class="p-1 text-center" scope="col">Номер</th>
+						<th class="p-1 text-center" scope="col">Статус</th>
+						<th class="p-1 text-center" scope="col">ФИО</th>
+						<th class="p-1 text-center" scope="col">Фамилия И.О.</th>
+						<th class="p-1 text-center" scope="col">Роль</th>
+						<th class="p-1 text-center" scope="col">Позиция</th>
+						<th class="p-1 text-center" scope="col"><button @click='addRowWarnings()' :disabled=enableDisable ><i class="fa-solid fa-plus"></i></button></th>
+						<th class="p-1 text-center" scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+				<tr v-for="(row, index) in this.Players">
+					<td class="text-center"><input class="w-100" :disabled=enableDisable :value="row.Key" @input="row.Key = $event.target.value" /></td>
+					<td>
+						<input type="checkbox" v-model="row.Enable" :true-value="statusTrueValue" :false-value="statusFalseValue">
+					</td>
+					<td class="text-center"><input class="w-100" :disabled=enableDisable :value="row.ShortName" @input="row.ShortName = $event.target.value" /></td>
+					<td class="text-center"><input class="w-100" :disabled=enableDisable :value="row.FullName" @input="row.FullName = $event.target.value" /></td>
+					<td class="text-center">
+						<select v-model="row.Role" :disabled=enableDisable>
+							<option v-for="option in role" :value="option.id" >
+								{{ option.value }}
+							</option>
+						</select>
+					</td>
+					<td class="text-center">
+						<select v-model="row.Position" :disabled=enableDisable>
+							<option v-for="option in role[row.Role][position]" :value="option.id" >
+								{{ option.value }}
+							</option>
+						</select>
+					</td>
+					<td class="text-center"><button @click='addRowWarnings(index)' :disabled=enableDisable ><i class="fa-solid fa-plus"></button></td>
+					<td class="text-center"><button @click='removeRowWarnings(index)' :disabled=enableDisable ><i class="fa-solid fa-trash"></i></button></td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+		<div v-else>
+			<h1>Создать:</h1>
+			<button class="btn btn-secondary" type="button" @click="createTeam">Создать</button>
+		</div>
+	</div>
+
+
+	<script type="text/javascript" charset="utf-8" src="js/mainAdminTeamPlayerVue.js"></script>
+</body>
+</html>

@@ -84,83 +84,84 @@ $EventDB = [
     ],
 ];
 
-$ws_worker = new Worker();
+echo "Мы пытаемся подключиться к Hockey!\n";
 
-$ws_worker->onWorkerStart = function() use (&$ini) {
+//Create socket.
+$socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
+if (!$socket) { die("socket_create failed.\n"); }
 
-    echo "Мы пытаемся подключиться к Hockey!\n";
-    $connection = new AsyncTcpConnection("ws://127.0.0.1:". $ini['WebSocketPort']);
-    $connection->onConnect = function($connection) {
-        echo "Мы подключились к WebSocket!\n";
-        $connection->send(json_encode(["Action"=>"Update"]));
-        
-    };
-    $connection->connect();
-    //Create socket.
-    $socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
-    if (!$socket) { die("socket_create failed.\n"); }
+//Set socket options.
+socket_set_nonblock($socket);
+socket_set_option($socket, SOL_SOCKET, SO_BROADCAST, 1);
+socket_set_option($socket, SOL_SOCKET, SO_REUSEADDR, 1);
+if (defined('SO_REUSEPORT'))
+	socket_set_option($socket, SOL_SOCKET, SO_REUSEPORT, 1);
 
-    //Set socket options.
-    socket_set_nonblock($socket);
-    socket_set_option($socket, SOL_SOCKET, SO_BROADCAST, 1);
-    socket_set_option($socket, SOL_SOCKET, SO_REUSEADDR, 1);
-    if (defined('SO_REUSEPORT'))
-        socket_set_option($socket, SOL_SOCKET, SO_REUSEPORT, 1);
-
-    //Bind to any address & port 55555.
-    if(!socket_bind($socket, '0.0.0.0', 55555))
-        die("socket_bind failed.\n");
+//Bind to any address & port 55555.
+if(!socket_bind($socket, '0.0.0.0', 55555))
+	die("socket_bind failed.\n");
 
 
-    //Wait for data.
-    $read = array($socket); $write = NULL; $except = NULL;
-    while(socket_select($read, $write, $except, NULL)) {
+//Wait for data.
+$read = array($socket);
+$write = NULL; $except = NULL;
+while(socket_select($read, $write, $except, NULL)) {
 
-        //Read received packets with a maximum size of 5120 bytes.
-        while(is_string($data = socket_read($socket, 5120))) {
-            echo $data . "\n";
-            $d = unpack("h1Chet1/h1Chet2/h1Chet3/h1Chet4/h1Chet5/h1Chet6/h1Chet7/h1Chet8/h1Chet9/h1Chet10/h1Chet11/h1Chet12/h1Chet13/h1Chet14/h1Chet15/h1Chet16/h1Chet17/h1Chet18/h1Chet19",$data);
-            $command1 = unpack("h1Chet1",substr($data, 4, 1));
-            $command2 = unpack("H*Chet",substr($data, 24, 1));
-            $GameMode = (int)hexdec($command2["Chet"]);
-            echo "Game Mode: " . $GameMode . "\n";
-            
-            echo $d["Chet1"] . "-" . $d["Chet2"] . "-" . $d["Chet3"] . "-" . $d["Chet4"] . "-" . $d["Chet5"] . "-" . $d["Chet6"] . "-" . $d["Chet7"] . "-" . $d["Chet8"] . "-" . $d["Chet9"] . "-" . $d["Chet10"] . "-" . $d["Chet11"] . "-" . $d["Chet12"] . "-" . $d["Chet13"] . "-" . $d["Chet14"] . "->" . $d["Chet15"] . "-" . $d["Chet16"] . "-" . $d["Chet17"] . "-" . $d["Chet18"] . "-" . $d["Chet19"] . "\n";
-            if ($command1["Chet1"] == 1) {
-                echo "Идет игра\n";
-            }
-            elseif ($command1["Chet1"] == 2) {
-                echo "Идет таймаут\n";
-            }
-            elseif ($command1["Chet1"] == 3) {
-                echo "Время стоит\n";
-            }
-            $TimeMin = substr($data, 111, 2);
-            echo "Время (мин.): " . $TimeMin . "\n";
-            $TimeSec = substr($data, 114, 2);
-            echo "Время (сек.): " . $TimeSec . "\n";
-            $SchetLeft = substr($data, 117, 2);
-            echo "Счёт левый: " . $SchetLeft . "\n";
-            $SchetRight = substr($data, 120, 5);
-            echo "Счёт правый: " . $SchetRight . "\n";
-            $ReturnJsonToWeb = [
-                "Action" => "Update",
-                "Min" => $TimeMin,
-                "Sec" => $TimeSec,
-                "SchetLeft" => $SchetLeft,
-                "SchetRight" => $SchetRight,
-                "Period" => $GameMode,
-            ];
-            $len = strlen($data);
-            for($index = 0;          $index < $len;               $index++){
-                $command3 = substr($data, $index, 1);
-                //echo "Index" . $index .": " .$command3 . "\n";
-            }
-            $connection->send(json_encode($ReturnJsonToWeb));
-            echo "\n";
-        }
-    }
-};
+	//Read received packets with a maximum size of 5120 bytes.
+	while(is_string($data = socket_read($socket, 5120))) {
+		//echo $data . "\n";
+		/*$d = unpack("h1Chet1/h1Chet2/h1Chet3/h1Chet4/h1Chet5/h1Chet6/h1Chet7/h1Chet8/h1Chet9/h1Chet10/h1Chet11/h1Chet12/h1Chet13/h1Chet14/h1Chet15/h1Chet16/h1Chet17/h1Chet18/h1Chet19",$data);            
+		echo $d["Chet1"] . "-" . $d["Chet2"] . "-" . $d["Chet3"] . "-" . $d["Chet4"] . "-" . $d["Chet5"] . "-" . $d["Chet6"] . "-" . $d["Chet7"] . "-" . $d["Chet8"] . "-" . $d["Chet9"] . "-" . $d["Chet10"] . "-" . $d["Chet11"] . "-" . $d["Chet12"] . "-" . $d["Chet13"] . "-" . $d["Chet14"] . "->" . $d["Chet15"] . "-" . $d["Chet16"] . "-" . $d["Chet17"] . "-" . $d["Chet18"] . "-" . $d["Chet19"] . "\n";
+		*/
+		$command1 = unpack("h1Chet1",substr($data, 4, 1));
+					
+		if ($command1["Chet1"] == 1) {
+			echo "Идет игра\n";
+		}
+		elseif ($command1["Chet1"] == 2) {
+			echo "Идет таймаут\n";
+		}
+		elseif ($command1["Chet1"] == 3) {
+			echo "Время стоит\n";
+		}
+		$command2 = unpack("H*Chet",substr($data, 24, 1));
+		$GameMode = (int)hexdec($command2["Chet"]);
+		echo "Game Mode: " . $GameMode . "\n";
 
-// Run worker
-Worker::runAll();
+		$TimeMin = substr($data, 111, 2);
+		echo "Время (мин.): " . $TimeMin . "\n";
+		$TimeSec = substr($data, 114, 2);
+		echo "Время (сек.): " . $TimeSec . "\n";
+		$SchetLeft = substr($data, 117, 2);
+		echo "Счёт левый: " . $SchetLeft . "\n";
+		$SchetRight = substr($data, 121, 1);
+		//$d = unpack("H1data", substr($data, 120, 2));
+		//$SchetRight = $d["data"];
+		//$SchetRight = " ";
+		echo "Счёт правый: =" . $SchetRight . "-\n";
+		$ReturnJsonToWeb = [
+			"Action" => "Update",
+			"Min" => $TimeMin,
+			"Sec" => $TimeSec,
+			"SchetLeft" => $SchetLeft,
+			"SchetRight" => $SchetRight,
+			"Period" => $GameMode,
+		];
+		$len = strlen($data);
+		for($index = 0;          $index < $len;               $index++){
+			$command3 = substr($data, $index, 1);
+			//echo "Index" . $index .": " .$command3 . "\n";
+		}
+		$fp = stream_socket_client("udp://127.0.0.1:8201", $errno, $errstr);
+		if (!$fp) {
+			echo "ОШИБКА: $errno - $errstr<br />\n";
+		} else {
+			echo "ОШИБКА1: \n";
+			fwrite($fp, json_encode($ReturnJsonToWeb));
+			fclose($fp);
+		}
+		//$connection->send(json_encode($ReturnJsonToWeb));
+		echo "\n";
+	}
+}
+

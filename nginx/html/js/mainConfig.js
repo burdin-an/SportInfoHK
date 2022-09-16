@@ -21,6 +21,10 @@
 const WebSocketPort = 8200;
 // Отладочная информация
 const debuging = true;
+
+var BoardType = 'OBS';
+
+
 //Общие настройки
 /* fetch('/config/config-default.json')
     .then(response => {

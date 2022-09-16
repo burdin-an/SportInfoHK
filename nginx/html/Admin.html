@@ -24,26 +24,395 @@
     <script type="text/javascript" charset="utf-8" src="js/mainAdmin.js"></script>
 </head>
 <body>
-    <h1>Информационная панель фигурного катания</h1>
+    <h1 class="text-center">Панель управления хоккейным матчем</h1>
 
     <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-            <a class="nav-link active display-4" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Общее</a>
-          </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link display-4" id="BoardTV-tab" data-toggle="tab" href="#BoardTV" role="tab" aria-controls="BoardTV" aria-selected="true">Титры</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link display-4" id="BoardTablo-tab" data-toggle="tab" href="#BoardTablo" role="tab" aria-controls="BoardTablo" aria-selected="false">Табло</a>
-        </li>
-        <li class="nav-item" role="presentation">
-            <a class="nav-link display-4" id="BoardConfig-tab" data-toggle="tab" href="#BoardConfig" role="tab" aria-controls="BoardConfig" aria-selected="false">Настройка</a>
-          </li>
+		<li class="nav-item" role="presentation">
+			<a class="nav-link active display-4" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Общее</a>
+		</li>
+		<li class="nav-item" role="presentation">
+			<a class="nav-link display-4" id="BoardOBS-tab" data-toggle="tab" href="#BoardOBS" role="tab" aria-controls="BoardOBS" aria-selected="true">OBS</a>
+		</li>
+		<li class="nav-item" role="presentation">
+			<a class="nav-link display-4" id="BoardTablo-tab" data-toggle="tab" href="#BoardTablo" role="tab" aria-controls="BoardTablo" aria-selected="false">Табло</a>
+		</li>
+		<li class="nav-item" role="presentation">
+			<a class="nav-link display-4" id="BoardTV-tab" data-toggle="tab" href="#BoardTV" role="tab" aria-controls="BoardTV" aria-selected="false">ТВ</a>
+		</li>
+		<li class="nav-item" role="presentation">
+			<a class="nav-link display-4" id="BoardFootball-tab" data-toggle="tab" href="#BoardFootball" role="tab" aria-controls="BoardFootball" aria-selected="false">Футбол</a>
+		</li>
+		<li class="nav-item" role="presentation">
+			<a class="nav-link display-4" id="BoardConfig-tab" data-toggle="tab" href="#BoardConfig" role="tab" aria-controls="BoardConfig" aria-selected="false">Настройка</a>
+		</li>
       </ul>
       <div class="tab-content" id="myTabContent">
         <!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"><br>
             <div class="container mt-5">
+                <div class="row">
+                    <div class="col text-center">
+						Команда 1<br>
+                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="CountPlayer1Plus" role="button" title="">+1</a>
+                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="CountPlayer1Minus" role="button" title="">-1</a>
+                    </div>
+                    <div class="col text-center">
+						Команда 1<br>
+                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="CountPlayer2Plus" role="button" title="">+1</a>
+                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="CountPlayer2Minus" role="button" title="">-1</a>
+                    </div>
+                    <div class="col text-center">
+						Период<br>
+                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="PeriodPlus" role="button" title="">+1</a>
+                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="PeriodMinus" role="button" title="">-1</a>
+                    </div>
+                    <div class="col text-center">
+						&nbsp;<br>
+                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="UpdateBoardCount" role="button" title="">Обновить счёт</a>
+                    </div>
+                    <div class="col text-center">
+						&nbsp;<br>
+                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="Clear" role="button" title="">Очистить (Clear)</a>
+                    </div>
+                </div>
+            </div>
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col text-center">
+                        
+                        <div class="input-group mb-3">
+                            <select  id="InputNamePlayerLeft" class="form-control" aria-label="Название команды 1">
+                                <option selected>Команда (Левая)</option>
+                            </select>
+                            <div class="input-group-append">
+                              <button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendNamePlayerLeft" data-parent="InputNamePlayerLeft">Отправить</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col text-center">
+                        <div class="input-group mb-3">
+                            <select  id="InputNamePlayerRight" class="form-control" aria-label="Название команды 2">
+                                <option selected>Команда (Правая)</option>
+                            </select>
+                            <div class="input-group-append">
+                              <button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendNamePlayerRight" data-parent="InputNamePlayerRight">Отправить</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col text-center">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="InputTimer" placeholder="00:00" aria-label="00:00" aria-describedby="SendTimer">
+                            <div class="input-group-append">
+                              <button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendTimer" data-parent="InputTimer">Отправить</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-center">
+                        <div class="input-group mb-3">
+                            <select  id="InputGameName" class="form-control" aria-label="Название игры">
+                                <option selected>Укажите название игры</option>
+                            </select>
+                            <div class="input-group-append">
+                              <button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendGameName" data-parent="InputGameName">Отправить</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col text-center">
+                        <div class="input-group mb-3">
+                            <select  id="InputGamePlace" class="form-control" aria-label="Место игры">
+                                <option selected>Укажите место игры</option>
+                            </select>
+                            <div class="input-group-append">
+                              <button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendGamePlace" data-parent="InputGamePlace">Отправить</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-center">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="InputGameDate" placeholder="Дата игры" aria-label="Дата игры" aria-describedby="SendGameDate">
+                            <div class="input-group-append">
+                              <button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendGameDate" data-parent="InputGameDate">Отправить</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col text-center">
+                        <div class="input-group mb-3">
+                            <input type="time" class="form-control" id="InputGameTime" placeholder="Время игры" aria-label="Время игры" aria-describedby="SendGameTime">
+                            <div class="input-group-append">
+                              <button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendGameTime" data-parent="InputGameTime">Отправить</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<div class="row">
+                    <div class="col text-center">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="InputGameTemperature" placeholder="Текущая температура" aria-label="Текущая температура" aria-describedby="SendGameTemperature">
+                            <div class="input-group-append">
+                              <button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendGameTemperature" data-parent="InputGameTemperature">Отправить</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col text-center">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="InputGameWeather" placeholder="Текущая погода" aria-label="Текущая погода" aria-describedby="SendGameWeather">
+                            <div class="input-group-append">
+                              <button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendGameWeather" data-parent="InputGameWeather">Отправить</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
+        <div class="tab-pane fade" id="BoardOBS" role="tabpanel" aria-labelledby="BoardOBS-tab"><br>
+			<div class="container mt-3">
+				<div class="row">
+					<div class="col text-center">
+						<div class="btn-toolbar mb-3" role="toolbar">
+							<a class="ActionButton btn btn-lg btn-warning mr-3" href="#" id="UpdateBoardOBSCount" role="button" title="">Обновить счёт</a>
+							<a class="ActionButton btn btn-lg btn-warning mr-3" href="#" id="ClearOBS" role="button" title="">Очистить Титры</a>
+							<a class="ActionButton btn btn-lg btn-danger" href="#" id="ReloadOBS" role="button" title="">Перезагрузить Титры</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container mt-2">
+				<div class="row">
+					<div class="col text-center">
+						Заставка<br>
+						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardOBSWelcome" role="button" title="">+++</a>
+						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardOBSWelcome" role="button" title="">----</a>
+					</div>
+                    <div class="col text-center">
+                        Стартовый экран<br>
+                        <a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardOBSStart" role="button" title="">+++</a>
+                        <a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardOBSStart" role="button" title="">----</a>
+                    </div>
+					<div class="col text-center">
+                        Счёт<br>
+                        <a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardOBSCount" role="button" title="">+++</a>
+                        <a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardOBSCount" role="button" title="">----</a>
+                    </div>
+                    <div class="col text-center">
+                        Логотип арены<br>
+                        <a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardOBSLogo1" role="button" title="">+++</a>
+                        <a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardOBSLogo1" role="button" title="">----</a>
+                    </div>
+                    <div class="col text-center">
+						Офф. лица<br>
+						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardOBSJudges" role="button" title="">+++</a>
+						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardOBSJudges" role="button" title="">----</a>
+					</div>
+                </div>
+				<div class="row mt-3">
+					<div class="col text-center bg-info text-white">
+						<h3 class="text-center">Левые</h3>
+					</div>
+					<div class="col text-center bg-secondary text-white">
+						<h3 class="text-center">Правые</h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col text-center bg-info text-white">
+						Список игроков<br>
+						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardOBSListPlayerLeft" role="button" title="">+++</a>
+						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardOBSListPlayer" role="button" title="">----</a>
+					</div>
+					<div class="col text-center bg-secondary text-white">
+						Список игроков<br>
+						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardOBSListPlayerRight" role="button" title="">+++</a>
+						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardOBSListPlayer" role="button" title="">----</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col text-center bg-info text-white pt-3">
+						Стартовая пятёрка игроков<br>
+						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardOBSStart5PlayerLeft" role="button" title="">+++</a>
+						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardOBSStart5Player" role="button" title="">----</a>
+					</div>
+					<div class="col text-center bg-secondary text-white pt-3">
+						Стартовая пятёрка игроков<br>
+						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardOBSStart5PlayerRight" role="button" title="">+++</a>
+						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardOBSStart5Player" role="button" title="">----</a>
+					</div>
+				</div>
+			</div>
+        </div>
+        <!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
+        <div class="tab-pane fade" id="BoardTablo" role="tabpanel" aria-labelledby="BoardTablo-tab"><br>
+			<div class="container mt-3">
+				<div class="row">
+					<div class="col text-center">
+						<div class="btn-toolbar mb-3" role="toolbar">
+							<a class="ActionButton btn btn-lg btn-warning mr-3" href="#" id="ClearTablo" role="button" title="">Очистить Табло</a>
+							<a class="ActionButton btn btn-lg btn-danger" href="#" id="ReloadTablo" role="button" title="">Перезагрузить "Табло"</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container mt-2">
+				<div class="row">
+					<div class="col text-center">
+						Заставка<br>
+						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTabloWelcome" role="button" title="">+++</a>
+						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTabloWelcome" role="button" title="">----</a>
+					</div>
+					<div class="col text-center">
+						Стартовый экран<br>
+						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTabloStart" role="button" title="">+++</a>
+						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTabloStart" role="button" title="">----</a>
+					</div>
+					<div class="col text-center">
+						Счёт<br>
+						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTabloCount" role="button" title="">+++</a>
+						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTabloCount" role="button" title="">----</a>
+					</div>
+					<div class="col text-center">
+						Логотип арены<br>
+						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTabloLogo1" role="button" title="">+++</a>
+						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTabloLogo1" role="button" title="">----</a>
+					</div>
+					<div class="col text-center">
+						Офф. лица<br>
+						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTabloJudges" role="button" title="">+++</a>
+						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTabloJudges" role="button" title="">----</a>
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col text-center bg-info text-white">
+						<h3 class="text-center">Левые</h3>
+					</div>
+					<div class="col text-center bg-secondary text-white">
+						<h3 class="text-center">Правые</h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col text-center bg-info text-white">
+						Список игроков<br>
+						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTabloListPlayerLeft" role="button" title="">+++</a>
+						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTabloListPlayer" role="button" title="">----</a>
+					</div>
+					<div class="col text-center bg-secondary text-white">
+						Список игроков<br>
+						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTabloListPlayerRight" role="button" title="">+++</a>
+						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTabloListPlayer" role="button" title="">----</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col text-center bg-info text-white pt-3">
+						Стартовая пятёрка игроков<br>
+						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTabloStart5PlayerLeft" role="button" title="">+++</a>
+						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTabloStart5Player" role="button" title="">----</a>
+					</div>
+					<div class="col text-center bg-secondary text-white pt-3">
+						Стартовая пятёрка игроков<br>
+						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTabloStart5PlayerRight" role="button" title="">+++</a>
+						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTabloStart5Player" role="button" title="">----</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
+        <div class="tab-pane fade" id="BoardTV" role="tabpanel" aria-labelledby="BoardTV-tab"><br>
+			<div class="container mt-3">
+				<div class="row">
+					<div class="col text-center">
+						<div class="btn-toolbar mb-3" role="toolbar">
+							<a class="ActionButton btn btn-lg btn-warning mr-3" href="#" id="UpdateBoardTVCount" role="button" title="">Обновить счёт</a>
+							<a class="ActionButton btn btn-lg btn-warning mr-3" href="#" id="ClearTV" role="button" title="">Очистить Титры</a>
+							<a class="ActionButton btn btn-lg btn-danger" href="#" id="ReloadTV" role="button" title="">Перезагрузить Титры</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container mt-2">
+                <div class="row">
+					<div class="col text-center">
+						Заставка<br>
+						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTVWelcome" role="button" title="">+++</a>
+						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTVWelcome" role="button" title="">----</a>
+					</div>
+                    <div class="col text-center">
+                        Стартовый экран<br>
+                        <a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTVStart" role="button" title="">+++</a>
+                        <a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTVStart" role="button" title="">----</a>
+                    </div>
+                    <div class="col text-center">
+                        Счёт<br>
+                        <a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTVCount" role="button" title="">+++</a>
+                        <a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTVCount" role="button" title="">----</a>
+                    </div>
+                    <div class="col text-center">
+                        Логотип арены<br>
+                        <a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTVLogo1" role="button" title="">+++</a>
+                        <a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTVLogo1" role="button" title="">----</a>
+                    </div>
+                    <div class="col text-center">
+						Офф. лица<br>
+						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTVJudges" role="button" title="">+++</a>
+						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTVJudges" role="button" title="">----</a>
+					</div>
+                </div>
+				<div class="row mt-3">
+					<div class="col text-center bg-info text-white">
+						<h3 class="text-center">Левые</h3>
+					</div>
+					<div class="col text-center bg-secondary text-white">
+						<h3 class="text-center">Правые</h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col text-center bg-info text-white">
+						Список игроков<br>
+						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTVListPlayerLeft" role="button" title="">+++</a>
+						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTVListPlayer" role="button" title="">----</a>
+					</div>
+					<div class="col text-center bg-secondary text-white">
+						Список игроков<br>
+						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTVListPlayerRight" role="button" title="">+++</a>
+						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTVListPlayer" role="button" title="">----</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col text-center bg-info text-white pt-3">
+						Стартовая пятёрка игроков<br>
+						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTVStart5PlayerLeft" role="button" title="">+++</a>
+						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTVStart5Player" role="button" title="">----</a>
+					</div>
+					<div class="col text-center bg-secondary text-white pt-3">
+						Стартовая пятёрка игроков<br>
+						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTVStart5PlayerRight" role="button" title="">+++</a>
+						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTVStart5Player" role="button" title="">----</a>
+					</div>
+				</div>
+            </div>
+        </div>
+		<!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
+		<div class="tab-pane fade" id="BoardConfig" role="tabpanel" aria-labelledby="BoardConfig-tab"><br>
+			<div class="btn-toolbar mb-3" role="toolbar">
+				<a class="ActionButton btn btn-lg btn-warning" href="#" id="ReOpenINI" role="button" title="">Прочитать конфиг. файл</a>
+			</div>
+			<div class="btn-toolbar mb-3" role="toolbar">
+				<a class="ActionButton btn btn-lg btn-warning" href="#" id="OpenTVHK" role="button" title="Открыть титры для Хоккея">Открыть титры для Хоккея</a>
+			</div>
+			<div class="btn-toolbar mb-3" role="toolbar">
+				<a class="ActionButton btn btn-lg btn-warning" href="#" id="OpenTVFootball" role="button" title="Открыть титры для Футбола">Открыть титры для Футбола</a>
+			</div>
+			<div class="btn-toolbar mb-3" role="toolbar">
+				<a class="btn btn-lg btn-success" href="AdminGameName.html" role="button">Редактировать: Матч</a>
+			</div>
+			<div class="btn-toolbar mb-3" role="toolbar">
+				<a class="btn btn-lg btn-success" href="AdminTeamPlayer.html" role="button">Редактировать: Игроки команды</a>
+			</div>
+		</div>
+		<!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
+		<div class="tab-pane fade" id="BoardFootball" role="tabpanel" aria-labelledby="BoardFootball-tab"><br>
+			<div class="container mt-5">
                 <div class="row">
                     <div class="col text-center">
                         <div class="btn-toolbar mb-3" role="toolbar">
@@ -67,208 +436,7 @@
                     </div>
                 </div>
             </div>
-            <div class="container mt-5">
-                <div class="row">
-                    <div class="col text-center">
-                        Счёт<br>
-                        <a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardCount" role="button" title="">+++</a>
-                        <a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardCount" role="button" title="">----</a>
-                    </div>
-                    <div class="col text-center">
-                        Логотип арены<br>
-                        <a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardLogo1" role="button" title="">+++</a>
-                        <a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardLogo1" role="button" title="">----</a>
-                    </div>
-                    <div class="col text-center">
-                        Стартовый экран<br>
-                        <a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardStart" role="button" title="">+++</a>
-                        <a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardStart" role="button" title="">----</a>
-                    </div>
-                    <div class="col text-center">
-                         Список игроков (Левые)<br>
-                        <a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardListPlayerLeft" role="button" title="">+++</a>
-                        <a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardListPlayer" role="button" title="">----</a>
-                    </div>
-                    <div class="col text-center">
-                        Список игроков (Правые)<br>
-                        <a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardListPlayerRight" role="button" title="">+++</a>
-                        <a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardListPlayer" role="button" title="">----</a>
-                    </div>
-                </div>
-            </div>
-            <div class="container mt-5">
-                <div class="row">
-                    <div class="col">
-                        Команда 1
-                    </div>
-                    <div class="col">
-                        Команда 2
-                    </div>
-                    <div class="col">
-                        Период
-                    </div>
-                    <div class="col">
-                        &nbsp;
-                    </div>
-                    <div class="col">
-                        &nbsp;
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="CountPlayer1Plus" role="button" title="">+1</a>
-                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="CountPlayer1Minus" role="button" title="">-1</a>
-                    </div>
-                    <div class="col">
-                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="CountPlayer2Plus" role="button" title="">+1</a>
-                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="CountPlayer2Minus" role="button" title="">-1</a>
-                    </div>
-                    <div class="col">
-                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="PeriodPlus" role="button" title="">+1</a>
-                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="PeriodMinus" role="button" title="">-1</a>
-                    </div>
-                    <div class="col">
-                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="UpdateBoardCount" role="button" title="">Обновить счёт</a>
-                    </div>
-                    <div class="col">
-                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="Clear" role="button" title="">Очистить (Clear)</a>
-                    </div>
-                </div>
-            </div>
-            <div class="container mt-5">
-                <div class="row">
-                    <div class="col text-center">
-                        
-                        <div class="input-group mb-3">
-                            <select  id="InputNamePlayerLeft" class="form-control" aria-label="Название команды 1">
-                                <option selected>Команда (Левая)</option>
-                            </select>
-                            <div class="input-group-append">
-                              <button class="btn btn-outline-secondary" type="button" id="SendNamePlayerLeft">Отправить</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col text-center">
-                        <div class="input-group mb-3">
-                            <select  id="InputNamePlayerRight" class="form-control" aria-label="Название команды 2">
-                                <option selected>Команда (Правая)</option>
-                            </select>
-                            <div class="input-group-append">
-                              <button class="btn btn-outline-secondary" type="button" id="SendNamePlayerRight">Отправить</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col text-center">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="InputTimer" placeholder="00:00" aria-label="00:00" aria-describedby="SendTimer">
-                            <div class="input-group-append">
-                              <button class="btn btn-outline-secondary" type="button" id="SendTimer">Отправить</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col text-center">
-                        <div class="input-group mb-3">
-                            <select  id="InputGameName" class="form-control" aria-label="Название игры">
-                                <option selected>Укажите название игры</option>
-                            </select>
-                            <div class="input-group-append">
-                              <button class="btn btn-outline-secondary" type="button" id="SendGameName">Отправить</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col text-center">
-                        <div class="input-group mb-3">
-                            <select  id="InputGamePlace" class="form-control" aria-label="Место игры">
-                                <option selected>Укажите место игры</option>
-                            </select>
-                            <div class="input-group-append">
-                              <button class="btn btn-outline-secondary" type="button" id="SendGamePlace">Отправить</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col text-center">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="InputGameDate" placeholder="Дата игры" aria-label="Дата игры" aria-describedby="SendGameDate">
-                            <div class="input-group-append">
-                              <button class="btn btn-outline-secondary" type="button" id="SendGameDate">Отправить</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col text-center">
-                        <div class="input-group mb-3">
-                            <input type="time" class="form-control" id="InputGameTime" placeholder="Время игры" aria-label="Время игры" aria-describedby="SendGameTime">
-                            <div class="input-group-append">
-                              <button class="btn btn-outline-secondary" type="button" id="SendGameTime">Отправить</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
-        <div class="tab-pane fade" id="BoardTV" role="tabpanel" aria-labelledby="BoardTV-tab"><br>
-            <div class="btn-toolbar mb-3" role="toolbar">
-                <a class="ActionButton btn btn-lg btn-warning" href="#" id="ShowBoardCount" role="button" title="">Показать счёт</a>
-            </div>
-            <div class="btn-toolbar mb-3" role="toolbar">
-                <a class="ActionButton btn btn-lg btn-warning" href="#" id="HideBoardCount" role="button" title="">Скрыть счёт</a>
-            </div>
-            <div class="btn-toolbar mb-3" role="toolbar">
-                <a class="ActionButton btn btn-lg btn-warning" href="#" id="UpdateBoardCount" role="button" title="">Обновить счёт</a>
-            </div>
-            <div class="btn-toolbar mb-3" role="toolbar">
-                <a class="ActionButton btn btn-lg btn-warning" href="#" id="ClearTV" role="button" title="">Очистить Титры</a>
-            </div>
-            <div class="btn-toolbar mb-3" role="toolbar">
-                <a class="ActionButton btn btn-lg btn-danger" href="#" id="ReloadTV" role="button" title="">Перезагрузить Титры</a>
-            </div>
-        </div>
-        <!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
-        <div class="tab-pane fade" id="BoardTablo" role="tabpanel" aria-labelledby="BoardTablo-tab"><br>
-            <div class="btn-toolbar mb-3" role="toolbar">
-                <a class="btn btn-lg btn-warning" href="#" id="ClearTablo" role="button" title="">Очистить Табло</a>
-            </div>
-            <div class="btn-toolbar mb-3" role="toolbar">
-                <a class="btn btn-lg btn-success" href="#" id="VoiceOneMinute" role="button" title="Осталась одна минута">Осталась одна минута</a>
-            </div>
-            <div class="btn-toolbar mb-3" role="toolbar">
-                <a class="btn btn-lg btn-success" href="#" id="VoiceWarmCompleted" role="button" title="Разминка завершена">Разминка завершена</a>
-            </div>
-            <div class="btn-toolbar mb-3" role="toolbar">
-                <a class="btn btn-lg btn-success disabled" href="#" id="VoiceStartGame" aria-disabled="true" role="button" title="Начало соревнований">Начало соревнований</a>
-            </div>
-            <div class="btn-toolbar mb-3" role="toolbar">
-                <a class="btn btn-lg btn-danger" href="#" id="ReloadTablo" role="button" title="">Перезагрузить "Табло"</a>
-            </div>
-        </div>
-        <!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
-        <div class="tab-pane fade" id="BoardConfig" role="tabpanel" aria-labelledby="BoardConfig-tab"><br>
-            <div class="btn-toolbar mb-3" role="toolbar">
-                <a class="ActionButton btn btn-lg btn-warning" href="#" id="ReOpenINI" role="button" title="">Прочитать конфиг. файл</a>
-            </div>
-            <div class="btn-toolbar mb-3" role="toolbar">
-                <a class="ActionButton btn btn-lg btn-success" href="#" id="OpenTVHK" role="button" title="Открыть титры для Хоккея">Открыть титры для Хоккея</a>
-            </div>
-            <div class="btn-toolbar mb-3" role="toolbar">
-                <a class="ActionButton btn btn-lg btn-success" href="#" id="OpenTVFootball" role="button" title="Открыть титры для Футбола">Открыть титры для Футбола</a>
-            </div>
-        </div>
-      </div>
-
-
-
-
-    
-
-
-
-
-    <!--div class="btn-toolbar mb-3" role="toolbar">
-        <a class="btn btn-primary" href="#" id="" role="button" title="">Link</a>
-    </div>-->
+		</div>
+	</div>
 </body>
 </html>
