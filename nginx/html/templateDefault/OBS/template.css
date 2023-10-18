@@ -663,6 +663,164 @@
 }
 /* ################################################################################################
 Информационная панель:
+    StartPeriod; - Конец периода
+*/
+.boardStartPeriodClass,#boardStartPeriod__PlayerLeftLogo, .cl_boardStartPeriod__PlayerLeftName, .cl_boardStartPeriod__PlayerLeftPlace, .cl_boardStartPeriod__PlayerLeftCount,#boardStartPeriod__PlayerRightLogo, .cl_boardStartPeriod__PlayerRightName, .cl_boardStartPeriod__PlayerRightPlace, .cl_boardStartPeriod__PlayerRightCount, .cl_boardStartPeriod__PeriodNumber,.cl_boardStartPeriod__PlayerCountRazdel {
+	position: absolute;
+}
+.cl_boardStartPeriod {
+	position: absolute;
+	bottom: 50px;
+	left: 0;
+	width: 1920px;
+	height: 220px;
+}
+
+.boardStartPeriodClass {
+	top: 0;
+	left: 135px;
+	width: 1600px;
+	height: 150px;
+	font-size: 2.2rem;
+	color: rgb(218, 218, 218);
+	border-radius: 100px;
+	background-position: center;
+	background-size: contain;
+	background-color: rgb(110, 4, 9);
+	padding: 15px;
+}
+#boardStartPeriod__PlayerLeftLogo, #boardStartPeriod__PlayerRightLogo {
+	top: 15px;
+	width: 150px;
+	height: 150px;
+	background-position: center;
+	background-size: contain;
+}
+#boardStartPeriod__PlayerLeftLogo {
+	left: 18px;
+}
+#boardStartPeriod__PlayerRightLogo {
+	right: 18px;
+}
+.cl_boardStartPeriod__PlayerLeftName, .cl_boardStartPeriod__PlayerRightName {
+	top: 15px;
+	width: 400px;
+	font-size: 3.2rem;
+}
+.cl_boardStartPeriod__PlayerLeftPlace, .cl_boardStartPeriod__PlayerRightPlace {
+	top: 110px;
+	width: 400px;
+	font-size: 2.2rem;
+}
+.cl_boardStartPeriod__PlayerLeftName,.cl_boardStartPeriod__PlayerLeftPlace {
+	left: 187px;
+	text-align: left;
+}
+.cl_boardStartPeriod__PlayerRightName,.cl_boardStartPeriod__PlayerRightPlace {
+	right: 187px;
+	text-align: right;
+}
+.cl_boardStartPeriod__PlayerLeftCount, .cl_boardStartPeriod__PlayerRightCount {
+	top: 35px;
+	width: 150px;
+	height: 150px;
+	font-size: 8rem;
+	text-align: center;
+}
+.cl_boardStartPeriod__PlayerLeftCount {
+	left: 630px;
+}
+.cl_boardStartPeriod__PlayerRightCount {
+	right: 630px;
+}
+.cl_boardStartPeriod__PeriodNumber {
+	top: 165px;
+	left: 676px;
+	width: 275px;
+	height: 32px;
+	font-size: 1.5rem;
+	vertical-align: middle;
+	/*color: rgb(124 219 255);*/
+	background-color: rgb(165 2 10);
+	text-align: center;
+	border-radius: 20px;
+}
+.cl_boardStartPeriod__PlayerCountRazdel {
+	top: 28px;
+	left: 782px;
+	font-size: 9rem;
+	vertical-align: middle;
+	color: rgb(255 0 0);
+	text-align: center;
+}
+.StartPeriodClassTitle {
+	font-weight: bold;
+	text-align: center;
+	letter-spacing: 4px;
+	padding-top: 20px;
+}
+.StartPeriodClassHide {
+	display: none;
+}
+.StartPeriodClassFullName, .StartPeriodClassTitle {
+	padding-bottom: 15px;
+}
+.StartPeriodClassRole {
+    margin-left: 30px;
+	margin-top: 58px;
+	text-align: center;
+}
+.StartPeriodClassFullName {
+    margin-left: 20px;
+	text-align: center;
+}
+.StartPeriodClassNumber {
+	display: inline-block;
+	background-color: #990000;
+	font-weight: bold;
+	border-radius: 10px;
+	text-align: center;
+	width: 63px;
+	padding: 10px 0;
+    margin-right: 5px;
+}
+#StartPeriodPhoto {
+	width: 200px;
+    height: 175px;
+    position: absolute;
+    top: -161px;
+    left: 42px;
+}
+@keyframes StartPeriodAnimLastIn {
+	0%   {opacity: 0;}
+	80%  {opacity: 1;}
+	100% {opacity: 1;}
+}
+@keyframes StartPeriodAnimLastOut {
+	0% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+	20% {
+		-webkit-transform: translateX(0) scale(.7);
+		transform: translateX(0) scale(.7);
+	}
+	100% {
+		-webkit-transform: translateX(-2000px) scale(.7);
+		transform: translateX(-2000px) scale(.7);
+	}
+}
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+.cl_boardStartPeriod.cl_boardIn .boardStartPeriodClass {
+	animation: StartPeriodAnimLastIn 0s linear 1s normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_boardStartPeriod.cl_boardOut .boardStartPeriodClass {
+	animation: StartPeriodAnimLastOut 0s linear 1s normal backwards;
+}
+/* ################################################################################################
+Информационная панель:
     Count; - Счёт
 */
 .cl_boardCount {

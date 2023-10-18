@@ -304,3 +304,30 @@ const FS_BoardEndPeriod = (data) => `
 		<div class="cl_boardEndPeriod__PeriodNumber">Конец ${data['NumberPeriod']} периода</div>
 	</div>
 </div>`;
+/* ################################################################################################
+    Переменные:
+        1) ${data['']} - Название первой команды
+        2) ${data['']} - Название второй команды
+        3) ${data['']} - Счёт первой команды
+        4) ${data['']} - Счёт первой команды
+        5) ${data['']} - Период
+        6) ${data['']} - Оставшееся время до окончания периода
+        7) ${data['']} - 
+        8) ${data['']} - 
+*/
+const FS_BoardStartPeriod = (data) => `
+<div id="boardStartPeriod" class="cl_boardStartPeriod">
+	<div class="boardStartPeriodClass">
+		<div id="boardStartPeriod__PlayerLeftLogo"></div>
+		<div class="cl_boardStartPeriod__PlayerLeftName">${data['PlayerLeft']['FullName']}</div>
+		<div class="cl_boardStartPeriod__PlayerLeftPlace">${data['PlayerLeft']['Place']}</div>
+		<div class="cl_boardStartPeriod__PlayerLeftCount">${data['CountPeriodLeft']}</div>
+
+		<div id="boardStartPeriod__PlayerRightLogo"></div>
+		<div class="cl_boardStartPeriod__PlayerRightName">${data['PlayerRight']['FullName']}</div>
+		<div class="cl_boardStartPeriod__PlayerRightPlace">${data['PlayerRight']['Place']}</div>
+		<div class="cl_boardStartPeriod__PlayerRightCount">${data['CountPeriodRight']}</div>
+		<div class="cl_boardStartPeriod__PlayerCountRazdel">/</div>
+		<div class="cl_boardStartPeriod__PeriodNumber">Начало ${data['NumberPeriod']} периода</div>
+	</div>
+</div>`;

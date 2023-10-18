@@ -1886,6 +1886,29 @@ function FuncWorks($data, $connection) {
 						"Board"     => $dataJson['Board']
 					];
 					break;
+				// Показать: Счёт на начало периода
+				case "ShowBoardStartPeriod":
+					$EventDB['BoardStartPeriod'] = 'active';
+					$ReturnJsonToWeb = [
+						"timestamp" => time(),
+						"dAction"   => $dataJson['Action'],
+						"Board"     => $dataJson['Board'],
+						"NumberPeriod" => (int)$dataJson['Value'],
+						"CountPeriodLeft"  => (int)$dataJson['Value']-1 == 0 ? 0 : (int)$EventDB['CountFixPeriod'][(int)$dataJson['Value']]['Left'],
+						"CountPeriodRight" => (int)$dataJson['Value']-1 == 0 ? 0 : (int)$EventDB['CountFixPeriod'][(int)$dataJson['Value']]['Right'],
+						"PlayerLeft"  => $EventDB['PlayerLeft'],
+						"PlayerRight" => $EventDB['PlayerRight']
+					];
+					break;
+				// Скрыть: Счёт на конец периода
+				case "HideBoardStartPeriod":
+					$EventDB['BoardStartPeriod'] = 'disable';
+					$ReturnJsonToWeb = [
+						"timestamp" => time(),
+						"dAction"   => $dataJson['Action'],
+						"Board"     => $dataJson['Board']
+					];
+					break;
 				//Перезагрузка конфиг. файла
 				case "ReOpenINI":
 					// Обрабатываем конфигурационный файл по умолчанию: config-default.ini
