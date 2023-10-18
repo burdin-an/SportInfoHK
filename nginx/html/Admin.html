@@ -54,13 +54,11 @@
 			<div class="container mt-3">
 				<div class="row">
 					<div class="col text-center">
-						<span class="h2">Текущее мероприятие</span><br>
+						<span class="h2">Текущее мероприятие</span><br><span id="ShowStatusEvent" class="bg-danger text-dark h2"></span><br>
 						<div class="input-group mt-3 mb-3">
-							<select  id="InputEventsList" class="form-control" aria-label="Название команды 1">
-								<option>Команда (Левая)</option>
-							</select>
+							<select  id="InputEventsList" class="form-control" aria-label="Название команды 1"></select>
 							<div class="input-group-append">
-							<button class="ActionJsonButton btn btn-outline-secondary" type="button" data-action="ChangeCurrentEvent" data-parent="InputEventsList">Отправить</button>
+							<button class="ActionJsonButton btn btn-outline-secondary" type="button" id="ChangeCurrentEvent" data-action="ChangeCurrentEvent" data-parent="InputEventsList">Отправить</button>
 							</div>
 						</div>
 					</div>

@@ -54,6 +54,12 @@ $(document).ready(function(){
 				for (const [Key, Value] of Object.entries(JSONData.ListEvents)) {
 					$("#InputEventsList" ).append( "<option" + (JSONData.SelectEvent.UID == Key ? ' selected="selected" class="fw-bold font-weight-bold  bg-danger text-white"' : '') + " value='" + Key + "'>" + Value.Name + "</option>" );
 				}
+				if (JSONData.SelectEvent.GameOver == 1) {
+					$("#ShowStatusEvent").html("Игра завершена! Вносить изменения нельзя.");
+				}
+				else {
+					$("#ShowStatusEvent").html("");
+				}
 				$("#ShowEventDate").html(JSONData.SelectEvent.GameDate);
 				$("#ShowEventTime").html(JSONData.SelectEvent.GameTime);
 				$("#ShowEventFileName").html(JSONData.SelectEvent.FileName);

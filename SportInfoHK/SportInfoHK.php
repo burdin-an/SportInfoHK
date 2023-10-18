@@ -333,6 +333,7 @@ function WriteEventSelect ($EventUID  = false, $FileName = "")  {
 		"FileName" => $FileName,
 		"GameDate" => $tempEventDB['GameDate'],
 		"GameTime" => $tempEventDB['GameTime'],
+		"GameOver" => $tempEventDB['GameOver'],
 		"PlayerLeft" => [
 			"FullName" => $tempEventDB['PlayerLeft']['FullName'],
 			"Logo"     => $tempEventDB['PlayerLeft']['Logo']
@@ -414,6 +415,9 @@ function WriteDBEvent($EventUID  = false,$EventData  = []) {
 	global $EventDB;
 	$FileName = "Empty";
 	if ($EventDB['GameOverTemp'] == 1 && $EventDB['GameOver'] == 1) {
+		echo "--------------\n";
+		echo "Мероприятие завершено, вносить изменения нельзя!!!\n";
+		echo "--------------\n";
 		return false;
 	}
 	if ($EventUID) {
@@ -431,6 +435,7 @@ function WriteDBEvent($EventUID  = false,$EventData  = []) {
 		return false;
 	}
 	if ($EventDB['GameOverTemp'] == 1 && $EventDB['GameOver'] == 0) {
+		echo "Мероприятие завершено!!!\n";
 		$EventDB['GameOver'] = 1;
 	}
 	$DBFile = fopen(__DIR__ . '/DB/Events/' . $FileName . '.json', 'w');
@@ -1317,6 +1322,10 @@ function FuncWorks($data, $connection) {
 					break;
 				//
 				case "SendTimer":
+					if ($EventDB['GameOver'] == 1) {
+						$EventDB['Timer'] = "99:99";
+						break;
+					}
 					list($minutes, $second) = explode(":", $dataJson['Value']);
 					if ($minutes < 1) {$minutes = 0;}
 					if ($second < 1) {$second = 0;}
@@ -1513,7 +1522,7 @@ function FuncWorks($data, $connection) {
 						"Value"     => $EventDB['Period']['Count'],
 					];
 					break;
-				//Открыть титры для Футбола
+				//Изменить шаблон
 				case "OpenTemplate":
 					echo $dataJson['Value'] . "\n";
 					$ReturnJsonToWeb = [
