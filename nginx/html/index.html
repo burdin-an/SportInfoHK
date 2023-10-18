@@ -19,16 +19,107 @@
     <meta charset="UTF-8">
     <link type="text/css" charset="utf-8" rel="stylesheet" href="css/bootstrap.min.css" />
     <script type="text/javascript" charset="utf-8" src="js/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/bootstrap-5.min.js"></script>
 </head>
 <body>
-    <h1>Информационная панель фигурного катания</h1>
-    <div><a href="TV-OTV.html" class="btn btn-lg btn-info h3">Титры для ТВ</a></div>
-    <div><a href="TV-NL.html" class="btn btn-lg btn-info h3">Титры для Ночной лиги (Yutube)</a></div>
-    <div><a href="TV-FHR.html" class="btn btn-lg btn-info h3">Титры для ФХР (Yutube)</a></div>
-    <div><a href="TV-Football.html" class="btn btn-lg btn-info h3">Титры для Футбола (Yutube)</a></div>
-    <div><a href="TV-OBS.html" class="btn btn-lg btn-info h3">Титры для OBS (Yutube)</a></div>
-    <div><a href="Tablo.html" class="btn btn-lg btn-warning h3">Табло для куба или экрана на льду</a></div>
-    <div><a href="Admin.html" class="btn btn-lg btn-danger h3">Панель управления титрами</a></div>
+    <h1 class="text-center">Информационная панель:</h1>
+	<h2 class="text-center">Спортивные титры: Хоккей</h2>
+	<br>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<a class="btn btn-danger w-100 mb-2" data-bs-toggle="collapse" href="#collapseAdmin" role="button" aria-expanded="false" aria-controls="collapseAdmin">
+					Админка
+				</a>
+			</div>
+			<div class="col">
+				<button class="btn btn-warning w-100 mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTablo" aria-expanded="false" aria-controls="collapseTablo">
+					Экран на льду (Куб)
+				</button>
+			</div>
+			<div class="col">
+				<button class="btn btn-secondary w-100 mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTV" aria-expanded="false" aria-controls="collapseTV">
+					Телевиденье
+				</button>
+			</div>
+			<div class="col">
+				<button class="btn btn-info w-100 mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseYouTube" aria-expanded="false" aria-controls="collapseYouTube">
+					YouTube:
+				</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col"></div>
+			<div class="col-5">
+				<div class="collapse" id="collapseAdmin">
+					<div class="card mb-3">
+						<div class="card-body">
+							<div><a href="Admin.html" class="btn btn-lg btn-danger w-100">Панель управления титрами</a></div>
+							<div><a href="Commentator.html" class="btn btn-lg btn-info w-100">Комментатор</a></div>
+						</div>
+					</div>
+				</div>
+				<div class="collapse" id="collapseTablo">
+					<div class="card mb-3">
+						<div class="card-body">
+							<a href="Tablo.html" class="btn btn-lg btn-warning w-100">Экран на льду</a>
+						</div>
+					</div>
+				</div>
+				<div class="collapse" id="collapseTV">
+					<div class="card mb-3">
+						<div class="card-body">
+							<a href="TV-OTV.html" class="btn btn-lg btn-secondary w-100"><span class="h2">ТВ</span></a>
+						</div>
+					</div>
+				</div>
+				<div class="collapse" id="collapseYouTube">
+					<div class="card mb-3">
+						<div class="card-body">
+							<div><a href="TV-OBS.html" class="btn btn-lg btn-info mb-2 w-100"><span class="h2">OBS</span></a></div>
+							<div><a href="TV-NL.html" class="btn btn-lg btn-info mb-2 w-100"><span class="h2">Ночная лига</span></a></div>
+							<div><a href="TV-FHR.html" class="btn btn-lg btn-info mb-2 w-100"><span class="h2">ФХР</span></a></div>
+							<div><a href="TV-Football.html" class="btn btn-lg btn-info w-100"><span class="h2">Футбол</span></a></div>
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+<!--
+				<div class="card mb-3">
+					<div class="card-header text-center text-white bg-info">Админка</div>
+					<div class="card-body">
+						<a href="Admin.html" class="btn btn-lg btn-danger mb-4 w-100">Панель управления титрами</a>
+					</div>
+				</div>
+				<div class="card mb-3">
+					<div class="card-header text-center text-dark bg-info">Экран на льду (Куб)</div>
+					<div class="card-body">
+						<a href="Tablo.html" class="btn btn-lg btn-warning mb-4 w-100">Экран на льду</a>
+					</div>
+				</div>
+				<div class="card mb-3">
+					<div class="card-header text-center text-dark bg-info">Телевиденье</div>
+					<div class="card-body">
+						<a href="TV-OTV.html" class="btn btn-lg btn-secondary mb-4 w-100"><span class="h2">ТВ</span></a>
+					</div>
+				</div>
+				<div class="card mb-3">
+					<div class="card-header text-center text-dark bg-info">YouTube:</div>
+					<div class="card-body">
+						<div><a href="TV-OBS.html" class="btn btn-lg btn-info mb-2 w-100"><span class="h2">OBS</span></a></div>
+						<div><a href="TV-NL.html" class="btn btn-lg btn-info mb-2 w-100"><span class="h2">Ночная лига</span></a></div>
+						<div><a href="TV-FHR.html" class="btn btn-lg btn-info mb-2 w-100"><span class="h2">ФХР</span></a></div>
+						<div><a href="TV-Football.html" class="btn btn-lg btn-info mb-2 w-100"><span class="h2">Футбол</span></a></div>
+					</div>
+				</div>-->
+			</div>
+			<div class="col"></div>
+		</div>
+	</div>
+    
 </body>
 </html>
