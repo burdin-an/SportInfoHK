@@ -14,6 +14,82 @@
 
 //Шаблоны для титров
 
+BoardType = 'OBS';
+
+/* ################################################################################################
+    Переменные:
+        1) ${data['ArenaName']}   - Название арены
+        2) ${data['Place']}       - Место проведения матча
+        3) ${data['Date']}        - Дата
+        4) ${data['LocalTime']}   - Местное время
+        5) ${data['Weather']}     - Погода
+        6) ${data['Temperature']} - Температура
+*/
+const FS_BoardWelcome = (data) => `
+<div id="boardWelcome" class="cl_boardWelcome">
+	<div class="WelcomeClassDate">${data['Date']}</div>
+	<div class="WelcomeClassLocalTime">${data['LocalTime']}</div>
+	<div class="WelcomeClassPlace">${data['Place']}</div>
+	<div class="WelcomeClassArenaName">${data['ArenaName']}</div>
+	<div class="WelcomeClassWeather">${data['Weather']}</div>
+	<div class="WelcomeClassTemperature">${data['Temperature']}</div>
+</div>
+`;
+
+/* ################################################################################################
+    Переменные:
+        1) ${data['JudgeFirst-FullName']}  - Первый главный судья
+        2) ${data['JudgeSecond-FullName']} - Второй главный судья
+        3) ${data['JudgeThird-FullName']}  - Линейный судья
+        4) ${data['JudgeFourth-FullName']} - Линейный судья
+		5) ${data['JudgeFirst-Number']}  - Первый главный судья
+        6) ${data['JudgeSecond-Number']} - Второй главный судья
+        7) ${data['JudgeThird-Number']}  - Линейный судья
+        8) ${data['JudgeFourth-Number']} - Линейный судья
+*/
+const FS_BoardJudges = (data) => `
+<div id="boardJudges" class="cl_boardJudges">
+	<div class="JudgesClassBoss">
+		<div class="JudgesClassBossTitle"></div>
+		<div class="JudgesClassFirst"><!--<span>${data['JudgeFirst-Number']}</span>-->${data['JudgeFirst-FullName']}</div>
+		<div class="JudgesClassSecond"><!--<span>${data['JudgeSecond-Number']}</span>-->${data['JudgeSecond-FullName']}</div>
+	</div>
+	<div class="JudgesClassLines">
+		<div class="JudgesClassLinesTitle">Линейные судьи</div>
+		<div class="JudgesClassThird"><!--<span>${data['JudgeThird-Number']}</span>-->${data['JudgeThird-FullName']}</div>
+		<div class="JudgesClassFourth"><!--<span>${data['JudgeFourth-Number']}</span>-->${data['JudgeFourth-FullName']}</div>
+	</div>
+</div>
+`;
+
+/* ################################################################################################
+    Переменные:
+        1) ${data['CommentatorFirst']}  - Первый комментатор
+        2) ${data['CommentatorSecond']} - Второй комментатор
+*/
+const FS_BoardCommentators = (data) => `
+<div id="boardCommentators" class="cl_boardCommentators">
+	<div class="CommentatorsClass">
+		<div class="CommentatorsClassTitle"></div>
+		<div class="CommentatorsClassFirst">${data['CommentatorFirst']}</div>
+		<div class="CommentatorsClassSecond">${data['CommentatorSecond']}</div>
+	</div>
+</div>
+`;
+
+/* ################################################################################################
+    Переменные:
+        1) ${data['TrainerTitle']}  - 
+        2) ${data['TrainerFullName']} - 
+*/
+const FS_BoardTrainerTeam = (data) => `
+<div id="boardTrainerTeam" class="cl_boardTrainerTeam">
+	<div class="TrainerTeamClass">
+		<div class="TrainerTeamClassTitle">${data['TrainerTitle']}</div>
+		<div class="TrainerTeamClassFullName">${data['TrainerFullName']}</div>
+	</div>
+</div>
+`;
 
 /* ################################################################################################
     Переменные:
@@ -29,43 +105,13 @@
 const FS_BoardCount = (data) => `
 <div id="boardCount" class="cl_boardCount">
     <div class="CountClassScores">
-        <div id="CountClassPlayerLeftLogo"></div>
         <div id="CountClassPlayerLeftShortName">${data['PlayerLeftShortName']}</div>
         <div id="CountClassCountPlayerLeft">${data['CountPlayerLeft']}</div>
-        <div id="CountClassPlayerRightLogo"></div>
         <div id="CountClassCountPlayerRight">${data['CountPlayerRight']}</div>
         <div id="CountClassPlayerRightShortName">${data['PlayerRightShortName']}</div>
         <div id="CountClassTime">${data['Timer']}</div>
-        <div id="CountClassTime2">ПЕР<br><span id="CountIdPeriod">${data['Period']}</span></div>
-        <div id="CountClassPause" class="d-none">Перерыв</div>
-        <div class="CountClassDeletePlayerLeft">
-            <div class="Line1 d-none">
-                <div class="Num">77</div>
-                <div class="Time">5:00</div>
-            </div>
-            <div class="Line2 d-none">
-                <div class="Num">78</div>
-                <div class="Time">5:00</div>
-            </div>
-            <div class="Line3 d-none">
-                <div class="Num">33</div>
-                <div class="Time">5:00</div>
-            </div>
-        </div>
-        <div class="CountClassDeletePlayerRight">
-            <div class="Line1 d-none">
-                <div class="Num">77</div>
-                <div class="Time">5:00</div>
-            </div>
-            <div class="Line2 d-none">
-                <div class="Num">78</div>
-                <div class="Time">5:00</div>
-            </div>
-            <div class="Line3 d-none">
-                <div class="Num">33</div>
-                <div class="Time">5:00</div>
-            </div>
-        </div>
+        <div id="CountClassTime2"><span id="CountIdPeriod">${data['Period']}</span><br>ПЕР</div>
+		<div id="CountClassGoalBG"><div id="CountClassGoalTitle">ГОЛ!</div></div>
     </div>
 </div>`;
 /* ################################################################################################
@@ -75,14 +121,14 @@ const FS_BoardLogo1 = (data) => `<div id="boardLogo1" class="cl_boardLogo1"></di
 
 /* ################################################################################################
     Переменные:
-        1) ${data['NamePlayer1']}  - Название первой команды
-        2) ${data['NamePlayer2']}  - Название второй команды
-        3) ${data['CountPlayer1']} - Счёт первой команды
-        4) ${data['CountPlayer2']} - Счёт первой команды
-        5) ${data['Period']}       - Период
-        6) ${data['Timer']}        - Оставшееся время до окончания периода
-        7) ${data['DeletePlayerLeft1Count']} - 
-        8) ${data['DeletePlayerLeft1Time']}  - 
+        1) ${data['PlayerLeftName']}   - Название первой команды
+        2) ${data['PlayerRightName']}  - Название второй команды
+        3) ${data['PlayerLeftPlace']}  - Счёт первой команды
+        4) ${data['PlayerRightPlace']} - Счёт первой команды
+        5) ${data['GameName']}         - Период
+        6) ${data['GameDate']}         - Оставшееся время до окончания периода
+        7) ${data['GamePlace']}        - 
+        8) ${data['GameTime']}         - 
 */
 const FS_BoardStart = (data) => `
 <div id="boardStart" class="cl_boardStart">
@@ -94,7 +140,6 @@ const FS_BoardStart = (data) => `
     <div id="StartClassPlayerRightLogo"></div>
     <div id="StartClassGameName">${data['GameName']}</div>
     <div id="StartClassGameDate">${data['GameDate']}</div>
-    <div id="StartClassGameTime">${data['GameTime']}</div>
     <div id="StartClassGamePlace">${data['GamePlace']}</div>
 </div>`;
 
@@ -114,9 +159,8 @@ const FS_BoardListPlayer = (data) => `
     <div id="ListPlayerClassName">${data['PlayerFullName']}</div>
     <div id="ListPlayerClassPlace">${data['PlayerPlace']}</div>
     <div id="ListPlayerClassLogo"></div>
-    <div id="ListPlayerClassMiddleLet">${data['PlayerMiddleLet']}</div>
 
-    <div id="ListPlayerClassBoss">${data['PlayerBoss']}</div>
+    <div id="ListPlayerClassFuncTrainer">Тренер</div>
     <div id="ListPlayerClassTrainer">${data['PlayerTrainer']}</div>
     <div id="ListPlayerClassAdministrator">${data['PlayerAdministrator']}</div>
 
