@@ -19,28 +19,43 @@ error_reporting(E_ALL ^ E_WARNING);
 
 require_once __DIR__ . '/vendor/autoload.php';
 use Workerman\Worker;
+use Workerman\Connection\AsyncTcpConnection;
 
 // #### create socket and listen 1234 port ####
-$tcp_worker = new Worker('udp://0.0.0.0:8201');
+$udp_worker = new Worker('tcp://0.0.0.0:8202');
 
 // 4 processes
-$tcp_worker->count = 4;
+$udp_worker->count = 4;
+// Тут храним пользовательские соединения
+$users = [];
 
 // Emitted when new connection come
-$tcp_worker->onConnect = function ($connection) {
-    echo "New Connection\n";
+$udp_worker->onConnect = function ($connection) use (&$users) {
+    echo "New Connection: " . $connection->id . "\n";
+	$users[$connection->id]['connect'] = $connection;
 };
 
 // Emitted when data received
-$tcp_worker->onMessage = function ($connection, $data) {
-    // Send data to client
-    //$connection->send("Hello $data \n");
-	echo "Hello $data \n";
+$udp_worker->onMessage = function ($connection, $data) use (&$users) {
+	if (strlen($data) == 5 && $data == "Tablo") {
+		$users[$connection->id]['Tablo'] = 1;
+		echo "Tablo \n";
+	}
+	else {
+		// Send data to client
+		foreach($users as $connection) {
+			if (array_key_exists('Tablo', $connection) && $connection['Tablo'] == 1) {
+				$connection['connect']->send($data);
+				echo "Hello $data \n";
+			}
+		}
+	}
 };
 
 // Emitted when connection is closed
-$tcp_worker->onClose = function ($connection) {
-    echo "Connection closed\n";
+$udp_worker->onClose = function ($connection) use (&$users) {
+	unset($users[$connection->id]);
+    echo "Connection closed: " . $connection->id . "\n";
 };
 
 // Run worker

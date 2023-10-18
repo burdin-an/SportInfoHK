@@ -109,10 +109,7 @@ while(socket_select($read, $write, $except, NULL)) {
 
 	//Read received packets with a maximum size of 5120 bytes.
 	while(is_string($data = socket_read($socket, 5120))) {
-		//echo $data . "\n";
-		/*$d = unpack("h1Chet1/h1Chet2/h1Chet3/h1Chet4/h1Chet5/h1Chet6/h1Chet7/h1Chet8/h1Chet9/h1Chet10/h1Chet11/h1Chet12/h1Chet13/h1Chet14/h1Chet15/h1Chet16/h1Chet17/h1Chet18/h1Chet19",$data);            
-		echo $d["Chet1"] . "-" . $d["Chet2"] . "-" . $d["Chet3"] . "-" . $d["Chet4"] . "-" . $d["Chet5"] . "-" . $d["Chet6"] . "-" . $d["Chet7"] . "-" . $d["Chet8"] . "-" . $d["Chet9"] . "-" . $d["Chet10"] . "-" . $d["Chet11"] . "-" . $d["Chet12"] . "-" . $d["Chet13"] . "-" . $d["Chet14"] . "->" . $d["Chet15"] . "-" . $d["Chet16"] . "-" . $d["Chet17"] . "-" . $d["Chet18"] . "-" . $d["Chet19"] . "\n";
-		*/
+
 		$command1 = unpack("h1Chet1",substr($data, 4, 1));
 					
 		if ($command1["Chet1"] == 1) {
@@ -124,39 +121,64 @@ while(socket_select($read, $write, $except, NULL)) {
 		elseif ($command1["Chet1"] == 3) {
 			echo "Время стоит\n";
 		}
+		$TimerStatus = (int)$command1["Chet1"];
 		$command2 = unpack("H*Chet",substr($data, 24, 1));
 		$GameMode = (int)hexdec($command2["Chet"]);
 		echo "Game Mode: " . $GameMode . "\n";
 
-		$TimeMin = substr($data, 111, 2);
+		$TimeMin  = substr($data, 111, 2);
 		echo "Время (мин.): " . $TimeMin . "\n";
 		$TimeSec = substr($data, 114, 2);
 		echo "Время (сек.): " . $TimeSec . "\n";
-		$SchetLeft = substr($data, 117, 2);
+		echo "-------------------: " . mb_ord(substr($data, 118, 1), "UTF-8") . "\n";
+		$command3 = unpack("H*Chet",substr($data, 118, 1));
+		$GameMode1 = (int)hexdec($command3["Chet"]);
+		echo "Game Mode2: " . $GameMode1 . "\n";
+		
+		$SchetLeft_first  = substr($data, 117, 1);
+		$SchetLeft_second = substr($data, 118, 1);
+		
+		if (mb_ord($SchetLeft_second, "UTF-8") == 0) {$SchetLeft_second = -1;}
+
+		if ($SchetLeft_second == -1 || ($SchetLeft_first > 2 && $SchetLeft_second == 0) || ($SchetLeft_first == 0 && $SchetLeft_second == 0)) {
+			$SchetLeft = $SchetLeft_first;
+		}
+		else {
+			$SchetLeft = $SchetLeft_first.$SchetLeft_second;
+		}
 		echo "Счёт левый: " . $SchetLeft . "\n";
-		$SchetRight = substr($data, 121, 1);
-		//$d = unpack("H1data", substr($data, 120, 2));
-		//$SchetRight = $d["data"];
-		//$SchetRight = " ";
-		echo "Счёт правый: =" . $SchetRight . "-\n";
+		//$SchetRight = substr($data, 121, 1);
+		$SchetRight_first  = substr($data, 120, 1);
+		$SchetRight_second = substr($data, 121, 1);
+		
+		if (mb_ord($SchetRight_second, "UTF-8") == 0) {$SchetRight_second = -1;}
+
+		if ($SchetRight_second == -1 || ($SchetRight_first > 2 && $SchetRight_second == 0) || ($SchetRight_first == 0 && $SchetRight_second == 0)) {
+			$SchetRight = $SchetRight_first;
+		}
+		else {
+			$SchetRight = $SchetRight_first.$SchetRight_second;
+		}
+		echo "Счёт правый: " . $SchetRight . "\n";
 		$ReturnJsonToWeb = [
-			"Action" => "Update",
-			"Min" => $TimeMin,
-			"Sec" => $TimeSec,
-			"SchetLeft" => $SchetLeft,
-			"SchetRight" => $SchetRight,
+			"Action" => "UpdateExternal",
+			"Min" => (int)$TimeMin,
+			"Sec" => (int)$TimeSec,
+			"SchetLeft" => (int)$SchetLeft,
+			"SchetRight" => (int)$SchetRight,
 			"Period" => $GameMode,
+			"TimerStatus" => $TimerStatus
 		];
 		$len = strlen($data);
 		for($index = 0;          $index < $len;               $index++){
 			$command3 = substr($data, $index, 1);
 			//echo "Index" . $index .": " .$command3 . "\n";
 		}
-		$fp = stream_socket_client("udp://127.0.0.1:8201", $errno, $errstr);
+		$fp = stream_socket_client("tcp://127.0.0.1:8202", $errno, $errstr);
 		if (!$fp) {
 			echo "ОШИБКА: $errno - $errstr<br />\n";
 		} else {
-			echo "ОШИБКА1: \n";
+			echo "Отправка: \n";
 			fwrite($fp, json_encode($ReturnJsonToWeb));
 			fclose($fp);
 		}
