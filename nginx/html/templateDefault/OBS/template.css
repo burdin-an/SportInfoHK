@@ -28,72 +28,65 @@
     Welcome; - Заставка
 */
 .cl_boardWelcome {
-    position: absolute;
-    bottom: 50px;
-    left: 200px;
-    width: 1400px;
-    height: 200px;
-    border-radius: 20px;
-    background-position: center;
-    background-size: contain;
-    background-color: rebeccapurple;
-    padding: 20px 20px 20px 50px;
+	position: absolute;
+	bottom: 50px;
+	left: 200px;
+	width: 1400px;
+	height: 200px;
+	border-radius: 20px;
+	/*background-position: center;
+	background-size: contain;
+	background-color: rebeccapurple;*/
+	padding: 20px 20px 20px 50px;
+	background: url(img/WELCOME.png) no-repeat;
+	background-position: center;
+	background-size: contain;
 }
 .cl_boardWelcome>.WelcomeClassDate {
 	position: absolute;
-    top: 20px;
-    left: 38px;
-    font-size: 2.3rem;
+	top: 32px;
+	left: 76px;
+	font-size: 2.3rem;
 }
 .cl_boardWelcome>.WelcomeClassLocalTime {
 	position: absolute;
-    bottom: 20px;
-    right: 30px;
+	bottom: 20px;
+	right: 30px;
 	width: 200px;
-    text-align: center;
-    font-size: 3rem;
+	text-align: center;
+	font-size: 3rem;
 }
 .cl_boardWelcome>.WelcomeClassTemperature {
 	position: absolute;
-    top: 20px;
-    right: 30px;
-    font-size: 3rem;
+	top: 25px;
+	right: 30px;
+	font-size: 3rem;
 }
 .cl_boardWelcome>.WelcomeClassTemperature::after {
-	content: " C°";
+	content: "°C";
 	font-size: 2.7rem;
 }
 .cl_boardWelcome>.WelcomeClassWeather {
 	position: absolute;
-    right: 30px;
-    top: 79px;
-    width: 200px;
-    text-align: center;
-    font-size: 3rem;
+	right: 30px;
+	top: 79px;
+	width: 200px;
+	text-align: center;
+	font-size: 3rem;
 }
 .cl_boardWelcome>.WelcomeClassPlace {
 	position: absolute;
-    left: 30px;
-    top: 165px;
-    font-size: 2.3rem;
+	left: 30px;
+	top: 165px;
+	font-size: 2.3rem;
 }
 .cl_boardWelcome>.WelcomeClassArenaName {
 	position: absolute;
-    left: 30px;
-    top: 84px;
-    font-size: 3.4rem;
+	left: 47px;
+	top: 84px;
+	font-size: 3.4rem;
 }
 @keyframes WelcomeAnimLastIn {
-	0%   {opacity: 0;}
-	80%  {opacity: 1;}
-	100% {opacity: 1;}
-}
-@keyframes opacityOut {
-	0%   {opacity: 1;}
-	80%  {opacity: 0;}
-	100% {opacity: 0;}
-}
-@keyframes backInLeft1 {
 	0% {
 		-webkit-transform: translateX(-2000px) scale(.7);
 		transform: translateX(-2000px) scale(.7);
@@ -111,29 +104,23 @@
 	0% {
 		-webkit-transform: scale(1);
 		transform: scale(1);
-	  }
-	  20% {
+	}
+	20% {
 		-webkit-transform: translateX(0) scale(.7);
 		transform: translateX(0) scale(.7);
-	  }
-	  100% {
+	}
+	100% {
 		-webkit-transform: translateX(2000px) scale(.7);
 		transform: translateX(2000px) scale(.7);
-	  }
+	}
 }
 /* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 .cl_boardWelcome.cl_boardIn {
-    animation: backInLeft1 1s linear 0s normal backwards;
-}
-.cl_boardWelcome.cl_boardIn>div {
-    animation: WelcomeAnimLastIn 1s linear 1.1s normal backwards;
+	animation: WelcomeAnimLastIn 1s linear 0s normal backwards;
 }
 /* Анимация: Закрытие панели ------------------------------------------------------------- */
-.cl_boardWelcome.cl_boardOut>div {
-    animation: opacityOut 500ms linear 0s normal forwards;
-}
 .cl_boardWelcome.cl_boardOut {
-    animation: WelcomeAnimLastOut 1s linear 500ms normal forwards;
+	animation: WelcomeAnimLastOut 1s linear 0s normal forwards;
 }
 
 /* ################################################################################################
@@ -141,31 +128,745 @@
     Judges; - Судейский состав
 */
 .cl_boardJudges {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 40%;
-    background-position: center;
-    background-size: contain;
-	background-color: rebeccapurple;
+	position: absolute;
+	bottom: 50px;
+	left: 0;
+	width: 1920px;
+	height: 220px;
+	overflow:hidden;
 }
-
+.JudgesClassBoss, .JudgesClassLines {
+	position: absolute;
+	top: 0;
+	width: 600px;
+	height: 200px;
+	font-size: 2.2rem;
+	color: rgb(218, 218, 218);
+	background: url(img/JUDGE.png) no-repeat;
+	background-position: center;
+	background-size: contain;
+	/*background-color: rgb(110, 4, 9);*/
+	padding: 15px;	
+}
+/* Отступ если две плашки */
+.JudgesClassBoss {
+	left: 200px;
+}
+/* Отступ если одна плашка */
+.JudgesClassBossOne {
+	left: 650px !important;
+}
+.JudgesClassLines {
+	right: 200px;
+}
+.JudgesClassBossTitle, .JudgesClassLinesTitle {
+	font-weight: bold;
+	text-align: center;
+	letter-spacing: 4px;
+}
+.JudgesClassLinesHide {
+	display: none;
+}
+.JudgesClassFirst, .JudgesClassThird, .JudgesClassBossTitle,.JudgesClassLinesTitle {
+	padding-bottom: 15px;
+}
+.JudgesClassFirst, .JudgesClassThird {
+    margin-left: 20px;
+	text-align: center;
+}
+.JudgesClassSecond, .JudgesClassFourth {
+    margin-left: 13px;
+	text-align: center;
+}
+.JudgesClassFirst span, .JudgesClassSecond span, .JudgesClassThird span,.JudgesClassFourth span {
+	width: 55px;
+	height: 38px;
+	line-height: 2.2rem;
+	display: inline-block;
+	text-align: center;
+	padding: 6px 0 0 0;
+	border-radius: 10px;
+	background-color: #990000;
+	color: white;
+	margin-right: 10px;
+	font-weight: bold;
+}
+@keyframes JudgesAnimLastIn {
+	0%   {opacity: 0;}
+	80%  {opacity: 1;}
+	100% {opacity: 1;}
+}
+@keyframes opacityOut {
+	0%   {opacity: 1;}
+	80%  {opacity: 0;}
+	100% {opacity: 0;}
+}
+@keyframes JudgesAnimLastOut {
+	0% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+	20% {
+		-webkit-transform: translateX(0) scale(.7);
+		transform: translateX(0) scale(.7);
+	}
+	100% {
+		-webkit-transform: translateX(-2000px) scale(.7);
+		transform: translateX(-2000px) scale(.7);
+	}
+}
+@keyframes backOutRight1 {
+	0% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+	20% {
+		-webkit-transform: translateX(0) scale(.7);
+		transform: translateX(0) scale(.7);
+	}
+	100% {
+		-webkit-transform: translateX(2000px) scale(.7);
+		transform: translateX(2000px) scale(.7);
+	}
+}
 /* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-.cl_boardJudges.cl_boardIn {
-    animation: backInLeft1 1s linear 0s normal backwards;
+.cl_boardJudges.cl_boardIn .JudgesClassBoss  {
+	animation: backInLeft1 1s linear 0s normal backwards;
+}
+.cl_boardJudges.cl_boardIn .JudgesClassLines  {
+	animation: backInRight1 1s linear 0s normal backwards;
+}
+.cl_boardJudges.cl_boardIn .JudgesClassBoss > div, .cl_boardJudges.cl_boardIn .JudgesClassLines > div {
+	animation: JudgesAnimLastIn .5s linear 1s normal backwards;
 }
 /* Анимация: Закрытие панели ------------------------------------------------------------- */
-.cl_boardJudges.cl_boardOut {
-    animation: backOutRight1 1s linear 0s normal forwards;
+.cl_boardJudges.cl_boardOut .JudgesClassBoss > div, .cl_boardJudges.cl_boardOut .JudgesClassLines > div {
+	animation: opacityOut .5s linear 0s normal forwards;
+}
+.cl_boardJudges.cl_boardOut .JudgesClassBoss  {
+	animation: JudgesAnimLastOut 1s linear .5s normal backwards;
+}
+.cl_boardJudges.cl_boardOut .JudgesClassLines  {
+	animation: backOutRight1 1s linear .5s normal backwards;
 }
 
+/* ################################################################################################
+Информационная панель:
+    Commentators; - Комментаторы
+*/
+.cl_boardCommentators {
+	position: absolute;
+	bottom: 50px;
+	left: 0;
+	width: 1920px;
+	height: 220px;
+	overflow:hidden;
+}
+.CommentatorsClass {
+	position: absolute;
+	top: 0;
+	left: 650px;
+	width: 600px;
+	height: 200px;
+	font-size: 2.2rem;
+	color: rgb(218, 218, 218);
+	background: url(img/JUDGE.png) no-repeat;
+	background-position: center;
+	background-size: contain;
+	/*background-color: rgb(110, 4, 9);*/
+	padding: 15px;	
+}
+.CommentatorsClassTitle {
+	font-weight: bold;
+	text-align: center;
+	letter-spacing: 4px;
+	padding-top: 20px;
+}
+.CommentatorsClassHide {
+	display: none;
+}
+.CommentatorsClassFirst, .CommentatorsClassTitle {
+	padding-bottom: 15px;
+}
+.CommentatorsClassFirst {
+    margin-left: 20px;
+	text-align: center;
+}
+.CommentatorsClassSecond {
+    margin-left: 13px;
+	text-align: center;
+}
+@keyframes CommentatorsAnimLastIn {
+	0%   {opacity: 0;}
+	80%  {opacity: 1;}
+	100% {opacity: 1;}
+}
+@keyframes CommentatorsAnimLastOut {
+	0% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+	20% {
+		-webkit-transform: translateX(0) scale(.7);
+		transform: translateX(0) scale(.7);
+	}
+	100% {
+		-webkit-transform: translateX(-2000px) scale(.7);
+		transform: translateX(-2000px) scale(.7);
+	}
+}
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_boardCommentators.cl_boardIn .CommentatorsClass  {
+	animation: backInLeft1 1s linear 0s normal backwards;
+}
+.cl_boardCommentators.cl_boardIn .CommentatorsClass > div {
+	animation: CommentatorsAnimLastIn .5s linear 1s normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_boardCommentators.cl_boardOut .CommentatorsClass > div {
+	animation: opacityOut .5s linear 0s normal forwards;
+}
 
+.cl_boardCommentators.cl_boardOut .CommentatorsClass  {
+	animation: CommentatorsAnimLastOut 1s linear .5s normal backwards;
+}
+/* ################################################################################################
+Информационная панель:
+    TrainerTeam; - Тренер
+*/
+.cl_boardTrainerTeam {
+	position: absolute;
+	bottom: 50px;
+	left: 0;
+	width: 1920px;
+	height: 220px;
+	overflow:hidden;
+}
+.TrainerTeamClass {
+	position: absolute;
+	top: 0;
+	left: 650px;
+	width: 600px;
+	height: 200px;
+	font-size: 2.2rem;
+	color: rgb(218, 218, 218);
+	background: url(img/JUDGE.png) no-repeat;
+	background-position: center;
+	background-size: contain;
+	/*background-color: rgb(110, 4, 9);*/
+	padding: 15px;	
+}
+.TrainerTeamClassTitle {
+	font-weight: bold;
+	text-align: center;
+	letter-spacing: 4px;
+	padding-top: 20px;
+}
+.TrainerTeamClassHide {
+	display: none;
+}
+.TrainerTeamClassFullName, .TrainerTeamClassTitle {
+	padding-bottom: 15px;
+}
+.TrainerTeamClassFullName {
+    margin-left: 20px;
+	text-align: center;
+}
+@keyframes TrainerTeamAnimLastIn {
+	0%   {opacity: 0;}
+	80%  {opacity: 1;}
+	100% {opacity: 1;}
+}
+@keyframes TrainerTeamAnimLastOut {
+	0% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+	20% {
+		-webkit-transform: translateX(0) scale(.7);
+		transform: translateX(0) scale(.7);
+	}
+	100% {
+		-webkit-transform: translateX(-2000px) scale(.7);
+		transform: translateX(-2000px) scale(.7);
+	}
+}
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_boardTrainerTeam.cl_boardIn .TrainerTeamClass  {
+	animation: backInLeft1 1s linear 0s normal backwards;
+}
+.cl_boardTrainerTeam.cl_boardIn .TrainerTeamClass > div {
+	animation: TrainerTeamAnimLastIn .5s linear 1s normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_boardTrainerTeam.cl_boardOut .TrainerTeamClass > div {
+	animation: opacityOut .5s linear 0s normal forwards;
+}
+
+.cl_boardTrainerTeam.cl_boardOut .TrainerTeamClass  {
+	animation: TrainerTeamAnimLastOut 1s linear .5s normal backwards;
+}
+/* ################################################################################################
+Информационная панель:
+    PlayerTeam; - Тренер
+*/
+.cl_boardPlayerTeam {
+	position: absolute;
+	bottom: 50px;
+	left: 0;
+	width: 1920px;
+	height: 220px;
+}
+.PlayerTeamClass {
+	position: absolute;
+	top: 0;
+	left: 135px;
+	width: 600px;
+	height: 200px;
+	font-size: 2.2rem;
+	color: rgb(218, 218, 218);
+	background: url(img/JUDGE.png) no-repeat;
+	background-position: center;
+	background-size: contain;
+	/*background-color: rgb(110, 4, 9);*/
+	padding: 15px;	
+}
+.PlayerTeamClassTitle {
+	font-weight: bold;
+	text-align: center;
+	letter-spacing: 4px;
+	padding-top: 20px;
+}
+.PlayerTeamClassHide {
+	display: none;
+}
+.PlayerTeamClassFullName, .PlayerTeamClassTitle {
+	padding-bottom: 15px;
+}
+.PlayerTeamClassRole {
+    margin-left: 30px;
+	margin-top: 58px;
+	text-align: center;
+}
+.PlayerTeamClassFullName {
+    margin-left: 20px;
+	text-align: center;
+}
+.PlayerTeamClassNumber {
+	display: inline-block;
+	background-color: #990000;
+	font-weight: bold;
+	border-radius: 10px;
+	text-align: center;
+	width: 63px;
+	padding: 10px 0;
+    margin-right: 5px;
+}
+#PlayerTeamPhoto {
+	width: 200px;
+    height: 175px;
+    position: absolute;
+    top: -161px;
+    left: 42px;
+}
+@keyframes PlayerTeamAnimLastIn {
+	0%   {opacity: 0;}
+	80%  {opacity: 1;}
+	100% {opacity: 1;}
+}
+@keyframes PlayerTeamAnimLastOut {
+	0% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+	20% {
+		-webkit-transform: translateX(0) scale(.7);
+		transform: translateX(0) scale(.7);
+	}
+	100% {
+		-webkit-transform: translateX(-2000px) scale(.7);
+		transform: translateX(-2000px) scale(.7);
+	}
+}
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_boardPlayerTeam.cl_boardIn .PlayerTeamClass  {
+	animation: backInLeft1 1s linear 0s normal backwards;
+}
+.cl_boardPlayerTeam.cl_boardIn .PlayerTeamClass > div:not(#PlayerTeamPhoto) {
+	animation: PlayerTeamAnimLastIn .5s linear 1s normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_boardPlayerTeam.cl_boardOut .PlayerTeamClass > div {
+	animation: opacityOut .5s linear 0s normal forwards;
+}
+
+.cl_boardPlayerTeam.cl_boardOut .PlayerTeamClass  {
+	animation: PlayerTeamAnimLastOut 1s linear .5s normal backwards;
+}
+/* ################################################################################################
+Информационная панель:
+    EndPeriod; - Конец периода
+*/
+.boardEndPeriodClass,#boardEndPeriod__PlayerLeftLogo, .cl_boardEndPeriod__PlayerLeftName, .cl_boardEndPeriod__PlayerLeftPlace, .cl_boardEndPeriod__PlayerLeftCount,#boardEndPeriod__PlayerRightLogo, .cl_boardEndPeriod__PlayerRightName, .cl_boardEndPeriod__PlayerRightPlace, .cl_boardEndPeriod__PlayerRightCount, .cl_boardEndPeriod__PeriodNumber,.cl_boardEndPeriod__PlayerCountRazdel {
+	position: absolute;
+}
+.cl_boardEndPeriod {
+	position: absolute;
+	bottom: 50px;
+	left: 0;
+	width: 1920px;
+	height: 220px;
+}
+
+.boardEndPeriodClass {
+	top: 0;
+	left: 135px;
+	width: 1600px;
+	height: 150px;
+	font-size: 2.2rem;
+	color: rgb(218, 218, 218);
+	border-radius: 100px;
+	background-position: center;
+	background-size: contain;
+	background-color: rgb(110, 4, 9);
+	padding: 15px;
+}
+#boardEndPeriod__PlayerLeftLogo, #boardEndPeriod__PlayerRightLogo {
+	top: 15px;
+	width: 150px;
+	height: 150px;
+	background-position: center;
+	background-size: contain;
+}
+#boardEndPeriod__PlayerLeftLogo {
+	left: 18px;
+}
+#boardEndPeriod__PlayerRightLogo {
+	right: 18px;
+}
+.cl_boardEndPeriod__PlayerLeftName, .cl_boardEndPeriod__PlayerRightName {
+	top: 15px;
+	width: 400px;
+	font-size: 3.2rem;
+}
+.cl_boardEndPeriod__PlayerLeftPlace, .cl_boardEndPeriod__PlayerRightPlace {
+	top: 110px;
+	width: 400px;
+	font-size: 2.2rem;
+}
+.cl_boardEndPeriod__PlayerLeftName,.cl_boardEndPeriod__PlayerLeftPlace {
+	left: 187px;
+	text-align: left;
+}
+.cl_boardEndPeriod__PlayerRightName,.cl_boardEndPeriod__PlayerRightPlace {
+	right: 187px;
+	text-align: right;
+}
+.cl_boardEndPeriod__PlayerLeftCount, .cl_boardEndPeriod__PlayerRightCount {
+	top: 35px;
+	width: 150px;
+	height: 150px;
+	font-size: 8rem;
+	text-align: center;
+}
+.cl_boardEndPeriod__PlayerLeftCount {
+	left: 630px;
+}
+.cl_boardEndPeriod__PlayerRightCount {
+	right: 630px;
+}
+.cl_boardEndPeriod__PeriodNumber {
+	top: 165px;
+	left: 676px;
+	width: 275px;
+	height: 32px;
+	font-size: 1.5rem;
+	vertical-align: middle;
+	/*color: rgb(124 219 255);*/
+	background-color: rgb(165 2 10);
+	text-align: center;
+	border-radius: 20px;
+}
+.cl_boardEndPeriod__PlayerCountRazdel {
+	top: 28px;
+	left: 782px;
+	font-size: 9rem;
+	vertical-align: middle;
+	color: rgb(255 0 0);
+	text-align: center;
+}
+.EndPeriodClassTitle {
+	font-weight: bold;
+	text-align: center;
+	letter-spacing: 4px;
+	padding-top: 20px;
+}
+.EndPeriodClassHide {
+	display: none;
+}
+.EndPeriodClassFullName, .EndPeriodClassTitle {
+	padding-bottom: 15px;
+}
+.EndPeriodClassRole {
+    margin-left: 30px;
+	margin-top: 58px;
+	text-align: center;
+}
+.EndPeriodClassFullName {
+    margin-left: 20px;
+	text-align: center;
+}
+.EndPeriodClassNumber {
+	display: inline-block;
+	background-color: #990000;
+	font-weight: bold;
+	border-radius: 10px;
+	text-align: center;
+	width: 63px;
+	padding: 10px 0;
+    margin-right: 5px;
+}
+#EndPeriodPhoto {
+	width: 200px;
+    height: 175px;
+    position: absolute;
+    top: -161px;
+    left: 42px;
+}
+@keyframes EndPeriodAnimLastIn {
+	0%   {opacity: 0;}
+	80%  {opacity: 1;}
+	100% {opacity: 1;}
+}
+@keyframes EndPeriodAnimLastOut {
+	0% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+	20% {
+		-webkit-transform: translateX(0) scale(.7);
+		transform: translateX(0) scale(.7);
+	}
+	100% {
+		-webkit-transform: translateX(-2000px) scale(.7);
+		transform: translateX(-2000px) scale(.7);
+	}
+}
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+.cl_boardEndPeriod.cl_boardIn .boardEndPeriodClass {
+	animation: EndPeriodAnimLastIn 0s linear 1s normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_boardEndPeriod.cl_boardOut .boardEndPeriodClass {
+	animation: EndPeriodAnimLastOut 0s linear 1s normal backwards;
+}
 /* ################################################################################################
 Информационная панель:
     Count; - Счёт
 */
 .cl_boardCount {
+    position: absolute;
+    top: 27px;
+    left: 42px;
+    width: 175px;
+    height: 114px;
+    margin: 0 auto;
+    color: white;    
+    background: url(img/SCHET.png) no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+.CountClassScores {
+    padding: 12px 0 0;
+    font-size: 23pt;
+    position: relative;
+}
+#CountClassPlayerLeftShortName,#CountClassCountPlayerLeft,#CountClassPlayerRightShortName,#CountClassCountPlayerRight,.CountClassPeriod {
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#CountClassPlayerLeftShortName,#CountClassPlayerRightShortName {
+    width: 124px;
+    text-align: center;
+    color:rgb(0, 0, 0);
+    left:1px;
+}
+#CountClassPlayerRightShortName {
+	top:39px;
+}
+#CountClassCountPlayerLeft,#CountClassCountPlayerRight {
+    top: 2px;
+    left: 127px;
+    width: 48px;
+    color:white;    
+    font-size: 19pt;
+    font-weight: 600;
+}
+#CountClassCountPlayerRight {
+	top: 42px;
+}
+#CountIdPeriod {
+	position: absolute;
+    top: 0;
+    left: 0;
+}
+#CountIdPeriod {
+	position: absolute;
+    top: 0;
+    left: 0;
+}
+#CountClassTime {
+    position: absolute;
+    top: 81px;
+    width: 126px;
+    color: white;
+    font-size: 25pt;
+    vertical-align: bottom;
+    font-weight: 600;
+    text-align: center;
+}
+#CountClassTime2 {
+	position: absolute;
+    color: #fff;
+    text-align: center;
+    font-size: 10pt;
+    font-weight: 600;
+    top: 85px;
+    left: 136px;
+    width: 45px;
+}
+#CountClassTime2 span {
+    font-size: 19pt;
+    font-weight: 600;
+}
+#CountClassPause {
+	top: 114px;
+    left: 1px;
+    position: absolute;
+    width: 174px;
+    height: 43px;
+    line-height: 43px;
+    background-color: red;
+    text-align: center;
+}
+
+#CountClassGoalTitle {
+	position: absolute;
+	width: 175px;
+	left: 0px;
+	height: 76px;
+	/* line-height: 86px; */
+	font-size: 4rem;
+	top: 0;
+	text-align: center;
+	background-color: red;
+	opacity: 0;
+}
+
+@keyframes CountAnimLastIn {
+	0% {
+		-webkit-transform: translateY(-2000px);
+		transform: translateY(-2000px);
+	}
+	80% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+	}
+}
+@keyframes CountAnimLastOut {
+	20% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+	}
+	100% {
+	-webkit-transform: translateY(-2000px);
+	transform: translateY(-2000px);
+	}
+}
+@keyframes CountAnimGoal {
+	0% {
+		opacity: 0;
+	}
+	5% {
+		opacity: 1;
+	}
+	10% {
+		opacity: 1;
+	}
+	15% {
+		opacity: 0;
+	}
+	20% {
+		opacity: 1;
+	}
+	25% {
+		opacity: 1;
+	}
+	30% {
+		opacity: 0;
+	}
+	35% {
+		opacity: 1;
+	}
+	40% {
+		opacity: 1;
+	}
+	45% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	55% {
+		opacity: 1;
+	}
+	60% {
+		opacity: 0;
+	}
+	65% {
+		opacity: 1;
+	}
+	70% {
+		opacity: 1;
+	}
+	75% {
+		opacity: 0;
+	}
+	80% {
+		opacity: 1;
+	}
+	85% {
+		opacity: 1;
+	}
+	90% {
+		opacity: 0;
+	}
+	95% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 1;
+	}
+	
+}
+/* Анимация: Гола +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.CountClassGoalAnimation {
+	animation: CountAnimGoal 10s linear 0s normal backwards;
+}
+
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_boardCount.cl_boardIn {
+    animation: CountAnimLastIn 1s linear 0s normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_boardCount.cl_boardOut {
+    animation: CountAnimLastOut 1s linear 0s normal forwards;
+    /*transform-origin: top left; */
+}
+/*.cl_boardCount {
     position: absolute;
     top: -11px;
     left: 541px;
@@ -240,7 +941,7 @@
     font-weight: 600;
     background-color: red;
     text-align: center;
-    width: 166px;
+    width: 200px;
 }
 #CountClassPlayerLeftLogo, #CountClassPlayerRightLogo{
     position: absolute;
@@ -258,7 +959,7 @@
 
 .CountClassDeletePlayerLeft, .CountClassDeletePlayerRight {
     width: 186px;
-    top: 79px;
+    top: 133px;
     position: absolute;
     font-size: 19pt;
 }
@@ -303,17 +1004,16 @@
 	-webkit-transform: translateY(-2000px);
 	transform: translateY(-2000px);
 	}
-}
+}*/
 
 /* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-.cl_boardCount.cl_boardIn {
+/*.cl_boardCount.cl_boardIn {
     animation: CountAnimLastIn 1s linear 0s normal backwards;
-}
+}*/
 /* Анимация: Закрытие панели ------------------------------------------------------------- */
-.cl_boardCount.cl_boardOut {
+/*.cl_boardCount.cl_boardOut {
     animation: CountAnimLastOut 1s linear 0s normal forwards;
-    /*transform-origin: top left; */
-}
+}*/
 
 /* ################################################################################################
 Информационная панель:
@@ -331,14 +1031,101 @@
 }
 /* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 .cl_boardLogo1.cl_boardIn {
-    animation: bounceInRight 1s linear 0s normal backwards;
+    animation: Logo1AnimLastIn 1s linear 0s normal backwards,flip 3s linear 1s infinite;
 }
 /* Анимация: Закрытие панели ------------------------------------------------------------- */
 .cl_boardLogo1.cl_boardOut {
-    animation: bounceOutRight 1s linear 0s normal forwards;
-    transform-origin: top right; 
+    animation: Logo1AnimLastOut 1s linear 0s normal forwards;
 }
+@keyframes Logo1AnimLastIn {
+    0%,60%,75%,90%,to {
+        -webkit-animation-timing-function: cubic-bezier(.215,.61,.355,1);
+        animation-timing-function: cubic-bezier(.215,.61,.355,1)
+    }
 
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(3000px,0,0) scaleX(3);
+        transform: translate3d(3000px,0,0) scaleX(3)
+    }
+
+    60% {
+        opacity: 1;
+        -webkit-transform: translate3d(-25px,0,0) scaleX(1);
+        transform: translate3d(-25px,0,0) scaleX(1)
+    }
+
+    75% {
+        -webkit-transform: translate3d(10px,0,0) scaleX(.98);
+        transform: translate3d(10px,0,0) scaleX(.98)
+    }
+
+    90% {
+        -webkit-transform: translate3d(-5px,0,0) scaleX(.995);
+        transform: translate3d(-5px,0,0) scaleX(.995)
+    }
+
+    to {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0)
+    }
+}
+@keyframes Logo1AnimLastOut {
+    20% {
+        opacity: 1;
+        -webkit-transform: translate3d(-20px,0,0) scaleX(.9);
+        transform: translate3d(-20px,0,0) scaleX(.9)
+    }
+
+    to {
+        opacity: 0;
+        -webkit-transform: translate3d(2000px,0,0) scaleX(2);
+        transform: translate3d(2000px,0,0) scaleX(2)
+    }
+}
+/* ------------------------------------------------------------- */
+@keyframes backInLeft1 {
+	0% {
+		-webkit-transform: translateX(-2000px) scale(.7);
+		transform: translateX(-2000px) scale(.7);
+	}
+	80% {
+		-webkit-transform: translateX(0) scale(.7);
+		transform: translateX(0) scale(.7);
+	}
+	100% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+}
+@keyframes backInRight1 {
+	0% {
+		-webkit-transform: translateX(3000px) scale(.7);
+		transform: translateX(3000px) scale(.7);
+	}
+	80% {
+		-webkit-transform: translateX(0) scale(.7);
+		transform: translateX(0) scale(.7);
+	}
+	100% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+}
+@keyframes backOutRight1 {
+	0% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+	20% {
+		-webkit-transform: translateX(0) scale(.7);
+		transform: translateX(0) scale(.7);
+	}
+	100% {
+		-webkit-transform: translateX(2000px) scale(.7);
+		transform: translateX(2000px) scale(.7);
+	}
+}
 
 /* ################################################################################################
 Информационная панель:
@@ -348,70 +1135,72 @@
     position: absolute;
     top: 200px;
     left: 330px;
-    width: 1262px;
-    height: 552px;
-    background: url(img/Start.png) no-repeat;
+    width: 1325px;
+    height: 737px;
+    background: url(img/START.svg) no-repeat;
     background-position: center;
     background-size: contain;
 }
-#StartClassGameName,#StartClassGameDate, #StartClassGameTime, #StartClassGamePlace, #StartClassPlayerLeftName, #StartClassPlayerLeftPlace, #StartClassPlayerLeftLogo, #StartClassPlayerRightName, #StartClassPlayerRightPlace, #StartClassPlayerRightLogo {
+#StartClassGameName,#StartClassGameDate, #StartClassGameTime, #StartClassGamePlace, #StartClassPlayerLeftLogo, #StartClassPlayerRightLogo, .StartClassPlayerLeft, .StartClassPlayerRight {
     position: absolute;
     text-align: center;
 }
 #StartClassGameName {
-    top: 93px;
+    top: 47px;
     left: 225px;
-    width: 812px;
-    font-size: 21pt;
+    width: 1010px;
+    font-size: 32pt;
 }
 #StartClassGameDate {
-    top: 180px;
-    left: 514px;
-    width: 235px;
-    font-size: 17pt;
+    top: 221px;
+    left: 505px;
+    width: 352px;
+    font-size: 41pt;
+	color: #9a9a9a;
 }
 #StartClassGameTime {
-    top: 248px;
-    left: 514px;
-    width: 235px;
-    font-size: 44pt;
+    top: 325px;
+    left: 505px;
+    width: 352px;
+    font-size: 58pt;
 }
 #StartClassGamePlace {
-    top: 340px;
-    left: 471px;
-    width: 317px;
-    font-size: 17pt;
+    top: 451px;
+    left: 506px;
+    width: 352px;
+    font-size: 25pt;
     color: #9a9a9a;
 }
-
-#StartClassPlayerLeftName,#StartClassPlayerRightName {
-    top: 447px;
-    left: 64px;
-    width: 512px;
-    font-size: 20pt;
+.StartClassPlayerLeft,.StartClassPlayerRight {
+    top: 569px;
+    width: 538px;
+	overflow: hidden;
 }
-#StartClassPlayerRightName {
-    left: 688px;
+.StartClassPlayerLeft {
+    left: 64px;
+}
+.StartClassPlayerRight {
+    right: 64px;
+}
+#StartClassPlayerLeftName,#StartClassPlayerRightName {
+    width: 100%;
+    font-size: 30pt;
 }
 #StartClassPlayerLeftPlace, #StartClassPlayerRightPlace {
-    top: 500px;
-    left: 115px;
-    width: 416px;
-    font-size: 14pt;
-    color: #9a9a9a;
-}
-#StartClassPlayerRightPlace {
-    left: 732px;
+    margin-top: 20px;
+    width: 100%;
+    font-size: 21pt;
+    color: #cdcdcd;
 }
 #StartClassPlayerLeftLogo, #StartClassPlayerRightLogo {
-    top: 176px;
-    left: 208px;
-    width: 230px;
-    height: 230px;
+    top: 207px;
+    left: 185px;
+    width: 350px;
+    height: 300px;
     font-size: 10pt;
 }
 #StartClassPlayerRightLogo {
-    left: 821px;
+    left: 880px;
 }
 #StartClassPlayerLeftLogo {
     background-image:url('LogoTeamLocal/DefaultLeft.png');
@@ -425,13 +1214,167 @@
     background-size: contain;
     background-repeat: no-repeat;
 }
+@keyframes StartAnimLastIn {
+	0%   {opacity: 0;scale: .8;}
+	70%  {scale: 1.2;}
+	80%  {opacity: 1;}
+	100% {opacity: 1;scale: 1;}
+}
+@keyframes StartOpacityInRight {
+	0%   {opacity: 0;scale: .8;}
+	80%  {opacity: 1;scale: 1.2;}
+	100% {opacity: 1;scale: 1;}
+}
+@keyframes StartNameLeftIn {
+	0% {
+		-webkit-transform: translateX(-600px) scale(.7);
+		transform: translateX(-600px) scale(.7);
+	}
+	80% {
+		-webkit-transform: translateX(0) scale(.7);
+		transform: translateX(0) scale(.7);
+	}
+	100% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+}
+@keyframes StartNameRightIn {
+	0% {
+		-webkit-transform: translateX(600px) scale(.7);
+		transform: translateX(600px) scale(.7);
+	}
+	80% {
+		-webkit-transform: translateX(0) scale(.7);
+		transform: translateX(0) scale(.7);
+	}
+	100% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+}
+@keyframes StartOpacityOut {
+	0%   {opacity: 1;}
+	80%  {opacity: 0;}
+	100% {opacity: 0;}
+}
+@keyframes backInLeft1 {
+	0% {
+		-webkit-transform: translateX(-2000px) scale(.7);
+		transform: translateX(-2000px) scale(.7);
+	}
+	80% {
+		-webkit-transform: translateX(0) scale(.7);
+		transform: translateX(0) scale(.7);
+	}
+	100% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+}
+@keyframes StartAnimLastOut {
+	0% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	  }
+	  20% {
+		-webkit-transform: translateX(0) scale(.7);
+		transform: translateX(0) scale(.7);
+	  }
+	  100% {
+		-webkit-transform: translateX(2000px) scale(.7);
+		transform: translateX(2000px) scale(.7);
+	  }
+}
+@keyframes flipLitleLeft {
+    0% {
+        transform: perspective(600px) scale(1);
+        animation-timing-function: ease-out
+    }
+
+    40% {
+        transform: perspective(500px) scale(1);
+        animation-timing-function: ease-out
+    }
+
+    50% {
+        transform: perspective(600px) scale(1);
+        animation-timing-function: ease-in
+    }
+
+    80% {
+        transform: perspective(500px) scale(.9);
+        animation-timing-function: ease-in
+    }
+
+    to {
+        transform: perspective(600px) scale(1);
+        animation-timing-function: ease-in
+    }
+}
+@keyframes flipLitleRight {
+    0% {
+        transform: perspective(600px) scale(1);
+        animation-timing-function: ease-out
+    }
+
+    30% {
+        transform: perspective(500px) scale(1);
+        animation-timing-function: ease-out
+    }
+
+    50% {
+        transform: perspective(600px) scale(.9);
+        animation-timing-function: ease-in
+    }
+
+    80% {
+        transform: perspective(500px) scale(1);
+        animation-timing-function: ease-in
+    }
+
+    to {
+        transform: perspective(600px) scale(1);
+        animation-timing-function: ease-in
+    }
+}
 /* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 .cl_boardStart.cl_boardIn {
     animation: backInLeft1 1s linear 0s normal backwards;
 }
+.cl_boardStart.cl_boardIn #StartClassPlayerRightLogo {
+	animation: StartOpacityInRight .5s linear 1.2s normal backwards,flipLitleRight 3s linear 1s infinite;
+}
+.cl_boardStart.cl_boardIn #StartClassPlayerLeftLogo {
+	animation: StartAnimLastIn .5s linear 1.2s normal backwards,flipLitleLeft 3s linear 1s infinite;
+}
+.cl_boardStart.cl_boardIn #StartClassPlayerLeftPlace {
+	animation: StartNameLeftIn .5s linear 1.1s normal backwards;
+}
+.cl_boardStart.cl_boardIn #StartClassPlayerRightPlace {
+	animation: StartNameRightIn .5s linear 1.1s normal backwards;
+}
+.cl_boardStart.cl_boardIn #StartClassPlayerLeftName {
+	animation: StartNameLeftIn .5s linear 1.2s normal backwards;
+}
+.cl_boardStart.cl_boardIn #StartClassPlayerRightName {
+	animation: StartNameRightIn .5s linear 1.2s normal backwards;
+}
+.cl_boardStart.cl_boardIn #StartClassGamePlace,.cl_boardStart.cl_boardIn #StartClassGameDate {
+	animation: StartAnimLastIn .5s linear 1.3s normal backwards;
+}
+.cl_boardStart.cl_boardIn #StartClassGameTime,.cl_boardStart.cl_boardIn #StartClassGameName {
+	animation: StartAnimLastIn .5s linear 1.4s normal backwards;
+}
+.cl_boardStart.cl_boardIn #StartClassGameDate {
+	animation: StartAnimLastIn .5s linear 1.5s normal backwards;
+}
+.cl_boardStart.cl_boardIn #StartClassGameName {
+	animation: StartAnimLastIn .5s linear 1.6s normal backwards;
+}
 /* Анимация: Закрытие панели ------------------------------------------------------------- */
 .cl_boardStart.cl_boardOut {
-    animation: backOutRight1 1s linear 0s normal forwards;
+    animation: StartAnimLastOut 1s linear 0s normal forwards;
 }
 @keyframes backInLeft1 {
 	0% {
@@ -463,117 +1406,275 @@
 }
 /* ################################################################################################
 Информационная панель:
-    Start; - Стартовая
+    ListPlayer; - Список игроков
 */
 .cl_boardListPlayer {
-    position: absolute;
-    top: 100px;
-    left: 330px;
-    width: 1262px;
-    height: 800px;
-    background: url(img/SOSTAV.png) no-repeat;
-    background-position: center;
-    background-size: contain;
+	position: absolute;
+	top: 50px;
+	left: 135px;
+	width: 1724px;
+	height: 968px;
+	background: url(img/SOSTAV.svg) no-repeat;
+	background-position: center;
+	background-size: contain;
 }
-#ListPlayerClassName, #ListPlayerClassPlace, #ListPlayerClassLogo, #ListPlayerClassMiddleLet, #ListPlayerClassBoss, #ListPlayerClassTrainer, #ListPlayerClassAdministrator, #ListPlayerClassVratari, #ListPlayerClassSecurity, #ListPlayerClassNapadenie, #ListPlayerClassMiddleLet {
-    position: absolute;
+#ListPlayerClassName, #ListPlayerClassPlace, #ListPlayerClassLogo, #ListPlayerClassMiddleLet, #ListPlayerClassFuncTrainer, #ListPlayerClassTrainer, #ListPlayerClassVratari, #ListPlayerClassSecurity, #ListPlayerClassNapadenie, #ListPlayerClassMiddleLet {
+	position: absolute;
 }
-#ListPlayerClassGameName {
-    top: 93px;
-    left: 225px;
-    width: 812px;
-    font-size: 21pt;
-}
-#ListPlayerClassGameDate {
-    top: 180px;
-    left: 514px;
-    width: 235px;
-    font-size: 17pt;
-}
-#ListPlayerClassGameTime {
-    top: 248px;
-    left: 514px;
-    width: 235px;
-    font-size: 44pt;
-}
-#ListPlayerClassGamePlace {
-    top: 340px;
-    left: 471px;
-    width: 317px;
-    font-size: 17pt;
-    color: #9a9a9a;
-}
-
 #ListPlayerClassName {
-    top: 92px;
-    left: 337px;
-    width: 612px;
-    font-size: 24pt;
+	top: 35px;
+	left: 442px;
+	width: 1213px;
+	font-size: 61pt;
+	font-weight: bold;
 }
 #ListPlayerClassPlace {
-    top: 140px;
-    left: 324px;
-    width: 610px;
-    font-size: 14pt;
-    color: #9a9a9a;
+	top: 127px;
+	left: 428px;
+	width: 1210px;
+	font-size: 33pt;
+	color: #adb5bd;
 }
 #ListPlayerClassLogo {
-    top: 59px;
-    left: 208px;
-    width: 100px;
-    height: 100px;
-    font-size: 10pt;
-    background-image:url('LogoTeamLocal/DefaultLeft.png');
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
+	top: 9px;
+	left: 142px;
+	width: 200px;
+	height: 200px;
+	font-size: 10pt;
+	background-image:url('LogoTeamLocal/DefaultLeft.png');
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
 }
-#ListPlayerClassBoss, #ListPlayerClassTrainer, #ListPlayerClassAdministrator, #ListPlayerClassVratari, #ListPlayerClassSecurity, #ListPlayerClassNapadenie {
-    font-size: 13pt;
+#ListPlayerClassFuncTrainer, #ListPlayerClassTrainer {
+	width: 800px;
 }
-#ListPlayerClassBoss, #ListPlayerClassTrainer, #ListPlayerClassAdministrator {
-    width: 215px;
-    top: 182px;
-    text-align: center;
-}
-
-#ListPlayerClassVratari, #ListPlayerClassSecurity, #ListPlayerClassNapadenie {
-    width: 290px;
-}
-#ListPlayerClassBoss {
-    left: 251px;
+#ListPlayerClassFuncTrainer {
+	left: 419px;
+	top: 197px;
+	font-size: 27pt;
 }
 #ListPlayerClassTrainer {
-    left: 470px;
+	top: 242px;
+	left: 411px;
+	font-size: 30pt;
+	font-weight: bold;
+	text-align: left;
 }
-#ListPlayerClassAdministrator {
-    left: 751px;
+#ListPlayerClassVratari, #ListPlayerClassNapadenie {
+	top: 315px;
+}
+#ListPlayerClassVratari, #ListPlayerClassSecurity, #ListPlayerClassNapadenie {
+	font-size: 25pt;
+    line-height: 30pt;
+	letter-spacing: 1pt;
+}
+#ListPlayerClassVratari, #ListPlayerClassSecurity, #ListPlayerClassNapadenie {
+	width: 752px;
+}
+#ListPlayerClassVratari .title, #ListPlayerClassSecurity .title, #ListPlayerClassNapadenie .title {
+	text-align: left;
+	font-size: 32pt;
+    line-height: 34pt;
+	font-weight: bold;
+}
+#ListPlayerClassVratari table, #ListPlayerClassSecurity table, #ListPlayerClassNapadenie table {
+	width: 100%;
+}
+#ListPlayerClassVratari table tr td, #ListPlayerClassSecurity table tr td, #ListPlayerClassNapadenie table tr td {
+	margin-bottom: 5px;
+}
+#ListPlayerClassVratari table tr td:first-child, #ListPlayerClassSecurity table tr td:first-child, #ListPlayerClassNapadenie table tr td:first-child {
+	background-color: #990000;
+    font-weight: bold;
+	border-radius: 10px;
+	text-align: center;
+	width: 63px;
 }
 #ListPlayerClassVratari {
-    top: 305px;
-    left: 314px;
+	left: 137px;
 }
 #ListPlayerClassSecurity {
-    top: 452px;
-    left: 314px;
+	top: 541px;
+	left: 100px;
 }
 #ListPlayerClassNapadenie {
-    top: 305px;
-    left: 680px;
+	left: 905px;
 }
-#ListPlayerClassMiddleLet {
-    top: 90px;
-    color: black;
-    left: 974px;
-    width: 85px;
-    text-align: center;
-    font-size: 30pt;
+@keyframes ListPlayerAnimLastIn {
+	0% {
+		-webkit-transform: translateX(-2000px) scale(.7);
+		transform: translateX(-2000px) scale(.7);
+	}
+	80% {
+		-webkit-transform: translateX(0) scale(.7);
+		transform: translateX(0) scale(.7);
+	}
+	100% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+}
+@keyframes ListPlayerAnimLastOut {
+	0% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	  }
+	  20% {
+		-webkit-transform: translateX(0) scale(.7);
+		transform: translateX(0) scale(.7);
+	  }
+	  100% {
+		-webkit-transform: translateX(2000px) scale(.7);
+		transform: translateX(2000px) scale(.7);
+	  }
 }
 /* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 .cl_boardListPlayer.cl_boardIn {
-    animation: backInLeft1 1s linear 0s normal backwards;
+    animation: ListPlayerAnimLastIn 1s linear 0s normal backwards;
 }
 /* Анимация: Закрытие панели ------------------------------------------------------------- */
 .cl_boardListPlayer.cl_boardOut {
-    animation: backOutRight1 1s linear 0s normal forwards;
+    animation: ListPlayerAnimLastOut 1s linear 0s normal forwards;
+}
+/* ################################################################################################
+Информационная панель:
+    Start; - Стартовая
+*/
+.cl_boardStart5Player {
+	position: absolute;
+	top: 30px;
+	width: 1920px;
+	height: 1040px;
+	/*background: url(img/START5.jpg) no-repeat;*/
+	background-position: center;
+	background-size: contain;
+}
+#Start5PlayerClassName, #Start5PlayerClassPlace, #Start5PlayerClassLogo, #Start5PlayerClassTitle {
+	position: absolute;
+}
+#Start5PlayerClassName, #Start5PlayerClassTitle {
+	position: relative;
+}
+
+#Start5PlayerClassTitle {
+    width: 1042px;
+	margin: 0 auto;
+    font-size: 61pt;
+    font-weight: bold;
+    text-align: center;
+}
+#Start5PlayerClassName {
+    width: 1042px;
+	margin: 0 auto;
+    font-size: 61pt;
+    font-weight: bold;
+    text-align: center;
+}
+#Start5PlayerClassPlace {
+	top: 127px;
+	left: 428px;
+	width: 610px;
+	font-size: 33pt;
+	color: #adb5bd;
+}
+#Start5PlayerClassLogo {
+	top: 9px;
+	left: 142px;
+	width: 200px;
+	height: 200px;
+	font-size: 10pt;
+	background-image:url('LogoTeamLocal/DefaultLeft.png');
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+#Start5PlayerClassLF, #Start5PlayerClassRF, #Start5PlayerClassCF, #Start5PlayerClassLD, #Start5PlayerClassRD, #Start5PlayerClassGT {
+	position: absolute;
+	width: 400px;
+	height: 355px;
+	text-align: center;
+}
+#Start5PlayerClassLF, #Start5PlayerClassRF, #Start5PlayerClassCF {
+	bottom: 465px;
+}
+#Start5PlayerClassLF {
+	left: 34px;
+}
+#Start5PlayerClassRF {
+	right: 34px;
+}
+#Start5PlayerClassCF, #Start5PlayerClassGT {
+	left: 755px;
+}
+#Start5PlayerClassLD, #Start5PlayerClassRD {
+	bottom: 200px;
+}
+#Start5PlayerClassLD {
+	left: 400px;
+}
+#Start5PlayerClassRD {
+	right: 400px;
+}
+
+#Start5PlayerClassGT {
+	bottom: 0px;
+}
+
+#Start5PlayerClassLFPhoto, #Start5PlayerClassRFPhoto, #Start5PlayerClassCFPhoto, #Start5PlayerClassLDPhoto, #Start5PlayerClassRDPhoto, #Start5PlayerClassGTPhoto {
+	width: 300px;
+	height: 200px;
+	margin: 0 auto;
+	background-image:url('PhotoPlayersLocal/PHOTO_DEFAULT.png');
+	background-position: center;
+	background-size:contain;
+	background-repeat: no-repeat;
+}
+
+.Start5PlayerClassLFTitle, .Start5PlayerClassRFTitle, .Start5PlayerClassCFTitle, .Start5PlayerClassLDTitle, .Start5PlayerClassRDTitle, .Start5PlayerClassGTTitle {
+	width: 97%;
+	font-size: 37px;
+	background-color: black;
+	text-align: center;
+	padding: 10px 5px;
+    border-radius: 10px;
+}
+#Start5PlayerClassLFFullName, #Start5PlayerClassRFFullName, #Start5PlayerClassCFFullName, #Start5PlayerClassLDFullName, #Start5PlayerClassRDFullName, #Start5PlayerClassGTFullName {
+	width: 100%;
+}
+@keyframes Start5PlayerAnimLastIn {
+	0% {
+		-webkit-transform: translateX(-2000px) scale(.7);
+		transform: translateX(-2000px) scale(.7);
+	}
+	80% {
+		-webkit-transform: translateX(0) scale(.7);
+		transform: translateX(0) scale(.7);
+	}
+	100% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+}
+@keyframes Start5PlayerAnimLastOut {
+	0% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	  }
+	  20% {
+		-webkit-transform: translateX(0) scale(.7);
+		transform: translateX(0) scale(.7);
+	  }
+	  100% {
+		-webkit-transform: translateX(2000px) scale(.7);
+		transform: translateX(2000px) scale(.7);
+	  }
+}
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_boardStart5Player.cl_boardIn {
+    animation: Start5PlayerAnimLastIn 1s linear 0s normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_boardStart5Player.cl_boardOut {
+    animation: Start5PlayerAnimLastOut 1s linear 0s normal forwards;
 }
