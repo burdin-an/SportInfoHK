@@ -1,0 +1,400 @@
+<!doctype html>
+<!--
+ * Проект "Информатор спортивных соревнований: Хоккей"
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the MIT-LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @author    Бурдин А.Н. <support@it-sakh.net>
+ * @copyright Бурдин А.Н. <support@it-sakh.net>
+ * @link      http://www.it-sakh.info/SportInfo/
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
+ * @version	  1.0.1
+
+Шаблоны для титров
+-->
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Админка: Мероприятия</title>
+	<link type="text/css" charset="utf-8" rel="stylesheet" href="css/bootstrap-5.min.css" />
+	<script type="text/javascript" charset="utf-8" src="js/jquery-3.5.1.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/popper.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/bootstrap-5.min.js"></script>
+	<link href="/fontawesome/css/all.css" rel="stylesheet">
+	<script type="text/javascript" charset="utf-8" src="js/mainConfig.js"></script>
+	<script src="js/vue.global.prod.js"></script>
+</head>
+<body>
+	<h1>Мероприятия:</h1>
+	<div id="AdminApp">
+		<div class="container">
+			<div class="row mb-3">
+				<div class="col">
+					<div class="btn-group dropdown me-3">
+						<button class="btn btn-lg btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+							Разделы
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							<li class="bg-info"><a class="dropdown-item" href="Admin.html"><--Назад в админку</a></li>
+							<li class="bg-success"><a class="dropdown-item text-white" href="AdminEvents.html">1)Мероприятия</a></li>
+							<li class="bg-warning"><a class="dropdown-item" href="AdminTeams.html">2)Команды</a></li>
+							<li class="bg-warning"><a class="dropdown-item" href="AdminGameName.html">3)Название и место матчей</a></li>
+							<li class="bg-warning"><a class="dropdown-item" href="AdminJudge.html">4)Судьи</a></li>
+							<li class="bg-warning"><a class="dropdown-item" href="AdminCommentator.html">5)Комментаторы</a></li>
+						</ul>
+					</div>
+					<div class="btn-group me-3">
+						<button class="btn btn-lg btn-secondary" type="button" @click="createEventList">Создать мероприятие</button>
+					</div>
+					<div class="btn-group me-3" v-if="EventSelected != 0">
+						<button class="btn btn-lg btn-success" type="button" @click="saveEventList">Сохранить</button>
+					</div>
+					<div class="btn-group me-3" v-if="EventSelected != 0">
+						<button class="btn btn-lg btn-danger" type="button" @click="deleteEventList">Удалить</button>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<select  v-model="EventSelected" @change="getEvent($event.target.value)" class="form-control" aria-label="Название мероприятия">
+						<option v-for="(row, Key) in this.EventsList"  :value="Key" :style="{ color: Key == EventSelectedInfo.UID ? 'red' : 'black'}" :disabled="Key == EventSelectedInfo.UID">{{ row.Name }} {{ Key == EventSelectedInfo.UID ? '(Проходит в данный момент)' : '' }}</option>
+					</select>
+				</div>
+			</div>
+		</div>	
+		<br><br>
+
+		<div v-if="EventSelected == 0">
+			<h1 class="w-100 text-center text-danger">Выберите мероприятие!</h1>
+		</div>
+		<div v-else>
+			<h1 class="text-center">Мероприятие:<br>{{ EventsList[EventSelected].Name }}</h1>
+			<div class="container mt-2 mb-3">
+				<div class="row">
+					<div class="col text-center">
+						<button class="btn btn-success me-5" type="button" @click="saveEventList">Сохранить</button>
+						<button class="btn btn-danger" type="button" @click="deleteEventList">Удалить</button>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="col text-center">
+						<select v-model="Event.PlayerLeft.UID" :style="StyleSelectedTeamLeft" @change="changeTeamLeft()" class="form-control mb-3" aria-label="Название команды 1">
+							<option value="" disabled>Команда (Слева)</option>
+							<option v-for="(row, Key) in this.Teams" :selected="Key == Event.PlayerLeft.UID" :value="Key">{{ row.Name }} ({{ row.Desc }})</option>
+						</select>
+					</div>
+					<div class="col text-center">
+						<select v-model="Event.PlayerRight.UID" :style="StyleSelectedTeamRight" @change="changeTeamRight()" class="form-control mb-3" aria-label="Название команды 2">
+							<option value="" disabled>Команда (С права)</option>
+							<option v-for="(row, Key) in this.Teams" :selected="Key == Event.PlayerRight.UID" :value="Key">{{ row.Name }} ({{ row.Desc }})</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col text-center">
+						<select  v-model="Event.GameName.UID" :style="StyleSelectedGamePlace" @change="changeGamePlace()" class="form-control mb-3" aria-label="Название матча">
+							<option value="" disabled>Название матча</option>
+							<option v-for="(row, Key) in this.GameName" :selected="Key == Event.GameName.UID" :value="Key">{{ row.ShortName }} ({{ row.Desc }})</option>
+						</select>
+					</div>
+					<div class="col text-center">
+						<select v-model="Event.GamePlace.UID" :style="StyleSelectedGameName" @change="changeGameName()" class="form-control mb-3" aria-label="Место проведения матча">
+							<option value="" disabled>Место проведения матча</option>
+							<option v-for="(row, Key) in this.GamePlace" :selected="Key == Event.GamePlace.UID" :value="Key">{{ row.ShortName }} ({{ row.Desc }})</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col text-center">
+						<input type="text" class="form-control mb-3" :value="Event.GameDate" @input="Event.GameDate = $event.target.value" placeholder="Дата игры" aria-label="Дата игры" aria-describedby="SendGameDate">
+					</div>
+					<div class="col text-center">
+						<input type="time" class="form-control mb-3" :value="Event.GameTime" @input="Event.GameTime = $event.target.value" placeholder="Время игры" aria-label="Время игры" aria-describedby="SendGameTime">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col text-center">
+						<input type="text" class="form-control mb-3" :value="Event.GameTemperature" @input="Event.GameTemperature = $event.target.value" placeholder="Температура" aria-label="Температура" aria-describedby="SendGameTemperature">
+					</div>
+					<div class="col text-center">
+						<input type="text" class="form-control mb-3" :value="Event.GameWeather" @input="Event.GameWeather = $event.target.value" placeholder="Погода" aria-label="Погода" aria-describedby="SendGameWeather">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col text-center">
+						<hr>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col text-center fw-bold text-success h2">
+						Судейская бригада
+					</div>
+				</div>
+				<div class="row mb-3">
+					<div class="col text-center fw-bold" :style="StyleSelectedJudgeFirst">
+						Первый главный судья
+					</div>
+					<div class="col text-center fw-bold">
+						Второй главный судья
+					</div>
+					<div class="col text-center fw-bold">
+						Первый линейный судья
+					</div>
+					<div class="col text-center fw-bold">
+						Второй линейный судья
+					</div>
+				</div>
+				<div class="row mb-3">
+					<div class="col text-center">
+						<select v-model="Event.JudgeFirst.UID" :style="StyleSelectedJudgeFirst" @change="changeJudgeFirst()" class="form-control mb-3" aria-label="Первый судья">
+							<option value="" disabled>Судья</option>
+							<option v-for="(row, Key) in this.Judges" :selected="Key == Event.JudgeFirst.UID" :value="Key">{{ row.ShortName }} ({{ row.Desc }})</option>
+						</select>
+					</div>
+					<div class="col text-center">
+						<select v-model="Event.JudgeSecond.UID" :style="StyleSelectedJudgeSecond" @change="changeJudgeSecond()" class="form-control mb-3" aria-label="Второй судья">
+							<option value="" >Нет</option>
+							<option v-for="(row, Key) in this.Judges" :selected="Key == Event.JudgeSecond.UID" :value="Key">{{ row.ShortName }} ({{ row.Desc }})</option>
+						</select>
+					</div>
+					<div class="col text-center">
+						<select v-model="Event.JudgeThird.UID" :style="StyleSelectedJudgeThird" @change="changeJudgeThird()" class="form-control mb-3" aria-label="Третий судья">
+							<option value="" >Нет</option>
+							<option v-for="(row, Key) in this.Judges" :selected="Key == Event.JudgeThird.UID" :value="Key">{{ row.ShortName }} ({{ row.Desc }})</option>
+						</select>
+					</div>
+					<div class="col text-center">
+						<select v-model="Event.JudgeFourth.UID" :style="StyleSelectedJudgeFourth" @change="changeJudgeFourth()" class="form-control mb-3" aria-label="Четвёртый судья">
+							<option value="">Нет</option>
+							<option v-for="(row, Key) in this.Judges" :selected="Key == Event.JudgeFourth.UID" :value="Key">{{ row.ShortName }} ({{ row.Desc }})</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col text-center">
+						<hr>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col text-center fw-bold text-success h2">
+						Комментаторы
+					</div>
+				</div>
+				<div class="row mb-3">
+					<div class="col text-center fw-bold" :style="StyleSelectedCommentatorFirst">
+						Первый
+					</div>
+					<div class="col text-center fw-bold">
+						Второй
+					</div>
+				</div>
+				<div class="row mb-3">
+					<div class="col text-center">
+						<select v-model="Event.CommentatorFirst.UID" :style="StyleSelectedCommentatorFirst" @change="changeCommentatorFirst()" class="form-control mb-3" aria-label="Первый судья">
+							<option value="" disabled selected>Комментатор</option>
+							<option v-for="(row, Key) in this.Commentators" :selected="Key == Event.CommentatorFirst.UID" :value="Key">{{ row.ShortName }} ({{ row.Desc }})</option>
+						</select>
+					</div>
+					<div class="col text-center">
+						<select v-model="Event.CommentatorSecond.UID" class="form-control mb-3" aria-label="Второй судья">
+							<option value="" selected>Нет</option>
+							<option v-for="(row, Key) in this.Commentators" :selected="Key == Event.CommentatorSecond.UID" :value="Key">{{ row.ShortName }} ({{ row.Desc }})</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col text-center">
+						<hr>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col">
+						<ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+							<li class="nav-item" role="presentation">
+								<a class="nav-link  active display-5" id="Left-Teams-tab" data-bs-toggle="tab" data-bs-target="#Left-Teams" role="tab" aria-controls="Left-Teams" aria-selected="false">Левая команда</a>
+							</li>
+							<li class="nav-item" role="presentation">
+								<a class="nav-link display-5" id="Right-Teams-tab" data-bs-toggle="tab" data-bs-target="#Right-Teams" role="tab" aria-controls="Right-Teams" aria-selected="false">Правая команда</a>
+							</li>
+						</ul>
+						<div class="tab-content" id="myTabContent">
+							<!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
+							<div class="tab-pane fade show active" id="Left-Teams" role="tabpanel" aria-labelledby="Left-Teams-tab"><br>
+								<div class="text-center fw-bold text-success h2">
+									Игроки команды (Левое поле):<br>
+									<span class="text-primary">{{ Event.PlayerLeft.FullName }}</span>
+								</div>
+								<div v-if="ChangeTeamLeft == 0">
+									<div class="row">
+										<div class="col">
+											<table class="table  table-striped w-100">
+												<thead>
+													<tr class="bg-gray-100" style="font-size: 1.7rem;">
+														<th class="p-1 text-center" scope="col">Номер</th>
+														<th class="p-1 text-center" scope="col">Фамилия И.О.</th>
+														<th class="p-1 text-center" scope="col">Статус</th>
+														<th class="p-1 text-center" scope="col">Пятёрка</th>
+														<th class="p-1 text-center" scope="col">Роль</th>
+														<th class="p-1 text-center" scope="col">Позиция</th>
+													</tr>
+												</thead>
+												<tbody>
+												<tr v-for="(row, index) in Event.PlayerLeft.Players">
+													<td class="text-center fw-bold">{{row.Key}}</td>
+													<td class="text-left">{{ row.FullName }}</td>
+													<td>
+														<div class="text-center form-check form-switch">
+															<input class="form-check-input" type="checkbox" v-model="row.Enable" :true-value="statusTrueValue" :false-value="statusFalseValue">
+														</div>
+													</td>
+													<td class="text-center">
+														<div class="text-center form-check form-switch">
+															<input class="form-check-input" type="checkbox" v-model="row.Start5" :true-value="statusTrueValue" :false-value="statusFalseValue">
+														</div>
+													</td>
+													<td class="text-center">
+														<select v-model="row.Role" class="form-control" :disabled=disabled>
+															<option v-for="option in role" :value="option.id" >
+																{{ option.value }}
+															</option>
+														</select>
+													</td>
+													<td class="text-center">
+														<select v-model="row.Position" class="form-control" :disabled=disabled>
+															<option v-for="option in position" :value="option.id" >
+																{{ option.value }}
+															</option>
+														</select>
+													</td>
+												</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+								<div v-else>
+									<h3 class="text-center btn-danger">Необходимо сохранить!</h3>
+								</div>
+							</div>
+							<!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
+							<div class="tab-pane fade" id="Right-Teams" role="tabpanel" aria-labelledby="Right-Teams-tab"><br>
+								<div class="text-center fw-bold text-success h2">
+									Игроки (Правое поле):<br>
+									<span class="text-primary">{{ Event.PlayerRight.FullName }}</span>
+								</div>
+								<div v-if="ChangeTeamRight == 0">
+									<div class="row">
+										<div class="col">
+											<table class="table  table-striped w-100">
+												<thead>
+													<tr class="bg-gray-100" style="font-size: 1.7rem;">
+														<th class="p-1 text-center" scope="col">Номер</th>
+														<th class="p-1 text-center" scope="col">Фамилия И.О.</th>
+														<th class="p-1 text-center" scope="col">Статус</th>
+														<th class="p-1 text-center" scope="col">Пятёрка</th>
+														<th class="p-1 text-center" scope="col">Роль</th>
+														<th class="p-1 text-center" scope="col">Позиция</th>
+													</tr>
+												</thead>
+												<tbody>
+												<tr v-for="(row, index) in Event.PlayerRight.Players">
+													<td class="text-center fw-bold">{{row.Key}}</td>
+													<td class="text-left">{{ row.FullName }}</td>
+													<td>
+														<div class="text-center form-check form-switch">
+															<input class="form-check-input" type="checkbox" v-model="row.Enable" :true-value="statusTrueValue" :false-value="statusFalseValue">
+														</div>
+													</td>
+													<td class="text-center">
+														<div class="text-center form-check form-switch">
+															<input class="form-check-input" type="checkbox" v-model="row.Start5" :true-value="statusTrueValue" :false-value="statusFalseValue">
+														</div>
+													</td>
+													<td class="text-center">
+														<select v-model="row.Role" class="form-control" :disabled=disabled>
+															<option v-for="option in role" :value="option.id" >
+																{{ option.value }}
+															</option>
+														</select>
+													</td>
+													<td class="text-center">
+														<select v-model="row.Position" class="form-control" :disabled=disabled>
+															<option v-for="option in position" :value="option.id" >
+																{{ option.value }}
+															</option>
+														</select>
+													</td>
+												</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+								<div v-else>
+									<h3 class="text-center btn-danger">Необходимо сохранить!</h3>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+			<div class="container-flow">
+				<div class="row">
+					<div class="col text-center mb-5">
+						<button class="btn btn-success me-5" type="button" @click="saveEventList">Сохранить</button>
+						<button class="btn btn-danger" type="button" @click="deleteEventList">Удалить</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="ModalEmpty" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header bg-danger text-white">
+					<h5 class="modal-title" id="exampleModalLabel">Внимание!!!</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Заполните красные поля!!!
+				</div>
+				<div class="modal-footer bg-danger text-white">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="ModalSecondJudge" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header bg-danger text-white">
+					<h5 class="modal-title" id="exampleModalLabel">Внимание!!!</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Судейская бригада должна состоять:<br>
+					<ol>
+						<li>Первый главный судья;</li>
+						<li>Первый главный судья и первый линейный судья;</li>
+						<li>Первый главный судья, первый и второй линейные судьи;</li>
+						<li>Первый и второй главные судьи, а также первый и второй линейные судьи.</li>
+					</ol>
+				</div>
+				<div class="modal-footer bg-danger text-white">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" charset="utf-8" src="js/mainAdminEventsVue.js"></script>
+</body>
+</html>

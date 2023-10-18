@@ -17,93 +17,149 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link type="text/css" charset="utf-8" rel="stylesheet" href="css/bootstrap.min.css" />
+	<title>Админка</title>
+    <link type="text/css" charset="utf-8" rel="stylesheet" href="css/bootstrap-5.min.css" />
+	<link type="text/css" charset="utf-8" rel="stylesheet" href="css/mainAdmin.css" />
     <script type="text/javascript" charset="utf-8" src="js/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/bootstrap-5.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/mainConfig.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/mainAdmin.js"></script>
 </head>
 <body>
     <h1 class="text-center">Панель управления хоккейным матчем</h1>
 
-    <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+	<ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
 		<li class="nav-item" role="presentation">
-			<a class="nav-link active display-4" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Общее</a>
+			<button  class="nav-link display-4 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-current="page" aria-selected="true">Общее</button>
 		</li>
 		<li class="nav-item" role="presentation">
-			<a class="nav-link display-4" id="BoardOBS-tab" data-toggle="tab" href="#BoardOBS" role="tab" aria-controls="BoardOBS" aria-selected="true">OBS</a>
+			<button  class="nav-link display-4" id="BoardOBS-tab" data-bs-toggle="tab" data-bs-target="#BoardOBS" type="button" role="tab" aria-controls="BoardOBS" aria-current="page" aria-selected="true">OBS</button>
 		</li>
 		<li class="nav-item" role="presentation">
-			<a class="nav-link display-4" id="BoardTablo-tab" data-toggle="tab" href="#BoardTablo" role="tab" aria-controls="BoardTablo" aria-selected="false">Табло</a>
+			<button  class="nav-link display-4" id="BoardTablo-tab" data-bs-toggle="tab" data-bs-target="#BoardTablo" type="button" role="tab" aria-controls="BoardTablo" aria-current="page" aria-selected="false">Табло</button>
 		</li>
 		<li class="nav-item" role="presentation">
-			<a class="nav-link display-4" id="BoardTV-tab" data-toggle="tab" href="#BoardTV" role="tab" aria-controls="BoardTV" aria-selected="false">ТВ</a>
+			<button  class="nav-link display-4" id="BoardTV-tab" data-bs-toggle="tab" data-bs-target="#BoardTV" type="button" role="tab" aria-controls="BoardTV" aria-current="page" aria-selected="false">ТВ</button>
 		</li>
 		<li class="nav-item" role="presentation">
-			<a class="nav-link display-4" id="BoardFootball-tab" data-toggle="tab" href="#BoardFootball" role="tab" aria-controls="BoardFootball" aria-selected="false">Футбол</a>
+			<button  class="nav-link display-4" id="BoardFootball-tab" data-bs-toggle="tab" data-bs-target="#BoardFootball" type="button" role="tab" aria-controls="BoardFootball" aria-current="page" aria-selected="false">Футбол</button>
 		</li>
 		<li class="nav-item" role="presentation">
-			<a class="nav-link display-4" id="BoardConfig-tab" data-toggle="tab" href="#BoardConfig" role="tab" aria-controls="BoardConfig" aria-selected="false">Настройка</a>
+			<button  class="nav-link display-4" id="BoardConfig-tab" data-bs-toggle="tab" data-bs-target="#BoardConfig" type="button" role="tab" aria-controls="BoardConfig" aria-current="page"aria-selected="false">Настройка</button>
 		</li>
-      </ul>
-      <div class="tab-content" id="myTabContent">
+	</ul>
+	<div class="tab-content" id="myTabContent">
         <!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"><br>
-            <div class="container mt-5">
-                <div class="row">
-                    <div class="col text-center">
-						Команда 1<br>
-                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="CountPlayer1Plus" role="button" title="">+1</a>
-                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="CountPlayer1Minus" role="button" title="">-1</a>
-                    </div>
-                    <div class="col text-center">
-						Команда 1<br>
-                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="CountPlayer2Plus" role="button" title="">+1</a>
-                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="CountPlayer2Minus" role="button" title="">-1</a>
-                    </div>
-                    <div class="col text-center">
+			<div class="container mt-3">
+				<div class="row">
+					<div class="col text-center">
+						<span class="h2">Текущее мероприятие</span><br>
+						<div class="input-group mt-3 mb-3">
+							<select  id="InputEventsList" class="form-control" aria-label="Название команды 1">
+								<option>Команда (Левая)</option>
+							</select>
+							<div class="input-group-append">
+							<button class="ActionJsonButton btn btn-outline-secondary" type="button" data-action="ChangeCurrentEvent" data-parent="InputEventsList">Отправить</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container mt-2">
+				<div class="row">
+					<div class="col text-center">
+						<span id="ShowEventDate"></span> <span id="ShowEventTime"></span>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="col text-center">
+						<strong>Команда (Левая):</strong> <div id="ShowEventPlayerLeftName"></div>
+						<div id="ClassPlayerLeftLogo"></div>
+					</div>
+					<div class="col text-center">
+						<strong>Команда (Правая):</strong> <div id="ShowEventPlayerRightName"></div>
+						<div id="ClassPlayerRightLogo"></div>
+					</div>
+				</div>
+			</div>
+			<div class="container mt-2">
+				<div class="row">
+					<div class="col text-center">
+						<strong>Файл:</strong><br><span id="ShowEventFileName"></span>
+					</div>
+				</div>
+			</div>
+			<div class="container mt-5">
+				<div class="row">
+					<div class="col text-center">
+						Счёт команды (Левая)<br>
+						<a class="ActionJsonButton2 btn btn-lg btn-warning" href="#" data-action="CountPlayerLeftPlus"  data-board="All" role="button" title="">+1</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-warning" href="#" data-action="CountPlayerLeftMinus" data-board="All" role="button" title="">-1</a>
+					</div>
+					<div class="col text-center">
+						Счёт команды (Правая)<br>
+						<a class="ActionJsonButton2 btn btn-lg btn-warning" href="#" data-action="CountPlayerRightPlus"  data-board="All" role="button" title="">+1</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-warning" href="#" data-action="CountPlayerRightMinus" data-board="All" role="button" title="">-1</a>
+					</div>
+					<div class="col text-center">
 						Период<br>
-                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="PeriodPlus" role="button" title="">+1</a>
-                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="PeriodMinus" role="button" title="">-1</a>
-                    </div>
-                    <div class="col text-center">
+						<a class="ActionJsonButton2 btn btn-lg btn-warning" href="#" data-action="PeriodPlus"  data-board="All" role="button" title="">+1</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-warning" href="#" data-action="PeriodMinus" data-board="All" role="button" title="">-1</a>
+					</div>
+					<div class="col text-center">
+						Фиксация счета:<br>
+						<a class="ActionJsonButton2 btn btn-lg btn-warning" href="#" data-action="FixEndPeriod" data-board="All" role="button" title="">Конец периода</a><br>
+						<a class="ActionJsonButton2 btn btn-lg btn-warning" href="#" data-action="GameOver" data-board="All" role="button" title="">Конец игры</a>
+					</div>
+					<div class="col text-center">
+						Период завершен<br>
+						<a class="ActionJsonButton2 btn btn-lg btn-warning" href="#" data-action="ShowBoardEndPeriod" data-board="All" data-value="1" role="button" title="Первый период">1</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-warning" href="#" data-action="ShowBoardEndPeriod" data-board="All" data-value="2" role="button" title="Второй период">2</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-warning" href="#" data-action="ShowBoardEndPeriod" data-board="All" data-value="3" role="button" title="Третий период">3</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-warning" href="#" data-action="ShowBoardEndPeriod" data-board="All" data-value="4" role="button" title="Дополнительное время">4</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-warning" href="#" data-action="ShowBoardEndPeriod" data-board="All" data-value="5" role="button" title="Буллиты">5</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-warning" href="#" data-action="HideBoardEndPeriod" data-board="All"  role="button" title="">Скрыть</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col text-center">
 						&nbsp;<br>
-                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="UpdateBoardCount" role="button" title="">Обновить счёт</a>
-                    </div>
-                    <div class="col text-center">
+						<a class="ActionJsonButton2 btn btn-lg btn-warning" href="#" data-action="UpdateBoardCount" data-board="All" role="button" title="">Обновить счёт</a>
+					</div>
+					<div class="col text-center">
 						&nbsp;<br>
-                        <a class="ActionButton btn btn-lg btn-warning" href="#" id="Clear" role="button" title="">Очистить (Clear)</a>
-                    </div>
-                </div>
-            </div>
-            <div class="container mt-5">
+						<a class="ActionJsonButton2 btn btn-lg btn-warning" href="#" data-action="Clear" data-board="All" role="button" title="">Очистить (Clear)</a>
+					</div>
+					<div class="col text-center">
+						&nbsp;<br>
+						<a class="btn btn-lg btn-success" href="Commentator.html" role="button" title="">Комментатор</a>
+					</div>
+				</div>
+			</div>
+			<br>
+            <!--<div class="container mt-5">
                 <div class="row">
                     <div class="col text-center">
                         
                         <div class="input-group mb-3">
-                            <select  id="InputNamePlayerLeft" class="form-control" aria-label="Название команды 1">
+                            <select  id="InputNameTeamLeft" class="form-control" aria-label="Название команды 1">
                                 <option selected>Команда (Левая)</option>
                             </select>
                             <div class="input-group-append">
-                              <button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendNamePlayerLeft" data-parent="InputNamePlayerLeft">Отправить</button>
+                              <button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendNameTeamLeft" data-parent="InputNameTeamLeft">Отправить</button>
                             </div>
                         </div>
                     </div>
                     <div class="col text-center">
                         <div class="input-group mb-3">
-                            <select  id="InputNamePlayerRight" class="form-control" aria-label="Название команды 2">
+                            <select  id="InputNameTeamRight" class="form-control" aria-label="Название команды 2">
                                 <option selected>Команда (Правая)</option>
                             </select>
                             <div class="input-group-append">
-                              <button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendNamePlayerRight" data-parent="InputNamePlayerRight">Отправить</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col text-center">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="InputTimer" placeholder="00:00" aria-label="00:00" aria-describedby="SendTimer">
-                            <div class="input-group-append">
-                              <button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendTimer" data-parent="InputTimer">Отправить</button>
+                              <button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendNameTeamRight" data-parent="InputNameTeamRight">Отправить</button>
                             </div>
                         </div>
                     </div>
@@ -151,7 +207,7 @@
 				<div class="row">
                     <div class="col text-center">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="InputGameTemperature" placeholder="Текущая температура" aria-label="Текущая температура" aria-describedby="SendGameTemperature">
+                            <input type="text" class="form-control" id="InputGameTemperature" placeholder="Температура" aria-label="Температура" aria-describedby="SendGameTemperature">
                             <div class="input-group-append">
                               <button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendGameTemperature" data-parent="InputGameTemperature">Отправить</button>
                             </div>
@@ -159,56 +215,127 @@
                     </div>
                     <div class="col text-center">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="InputGameWeather" placeholder="Текущая погода" aria-label="Текущая погода" aria-describedby="SendGameWeather">
+                            <input type="text" class="form-control" id="InputGameWeather" placeholder="Погода" aria-label="Погода" aria-describedby="SendGameWeather">
                             <div class="input-group-append">
                               <button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendGameWeather" data-parent="InputGameWeather">Отправить</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
-        <div class="tab-pane fade" id="BoardOBS" role="tabpanel" aria-labelledby="BoardOBS-tab"><br>
-			<div class="container mt-3">
 				<div class="row">
-					<div class="col text-center">
-						<div class="btn-toolbar mb-3" role="toolbar">
-							<a class="ActionButton btn btn-lg btn-warning mr-3" href="#" id="UpdateBoardOBSCount" role="button" title="">Обновить счёт</a>
-							<a class="ActionButton btn btn-lg btn-warning mr-3" href="#" id="ClearOBS" role="button" title="">Очистить Титры</a>
-							<a class="ActionButton btn btn-lg btn-danger" href="#" id="ReloadOBS" role="button" title="">Перезагрузить Титры</a>
-						</div>
+                    <div class="col text-center">
+						<hr>
 					</div>
 				</div>
-			</div>
+				<div class="row">
+                    <div class="col text-center">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="InputJudgeFirstNumber" placeholder="Номер первого судьи" aria-label="Номер первого судьи" aria-describedby="SendJudgeFirstNumber">
+                            <div class="input-group-append">
+                              <button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendJudgeFirstNumber" data-parent="InputJudgeFirstNumber">Отправить</button>
+                            </div>
+                        </div>
+						<div class="input-group mb-3">
+                            <input type="text" class="form-control" id="InputJudgeSecondNumber" placeholder="Номер второго судьи" aria-label="Номер второго судьи" aria-describedby="SendJudgeSecondNumber">
+                            <div class="input-group-append">
+                              <button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendJudgeSecondNumber" data-parent="InputJudgeSecondNumber">Отправить</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col text-center">
+						<div class="input-group mb-3">
+                            <input type="text" class="form-control" id="InputJudgeFirst" placeholder="Первый главный судья" aria-label="Первый главный судья" aria-describedby="SendJudgeFirst">
+                            <div class="input-group-append">
+                              <button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendJudgeFirst" data-parent="InputJudgeFirst">Отправить</button>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="InputJudgeSecond" placeholder="Второй главный судья" aria-label="Второй главный судья" aria-describedby="SendJudgeSecond">
+                            <div class="input-group-append">
+                              <button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendJudgeSecond" data-parent="InputJudgeSecond">Отправить</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<div class="row">
+                    <div class="col text-center">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="InputJudgeThirdNumber" placeholder="Номер линейного судьи" aria-label="Номер линейного судьи" aria-describedby="SendJudgeThirdNumber">
+                            <div class="input-group-append">
+                              <button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendJudgeThirdNumber" data-parent="InputJudgeThirdNumber">Отправить</button>
+                            </div>
+                        </div>
+                    </div>
+					<div class="col text-center">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="InputJudgeThird" placeholder="Линейный судья" aria-label="Линейный судья" aria-describedby="SendJudgeThird">
+                            <div class="input-group-append">
+                              <button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendJudgeThird" data-parent="InputJudgeThird">Отправить</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<div class="row">
+                    <div class="col text-center">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="InputJudgeFourthNumber" placeholder="Номер линейного судьи" aria-label="Номер линейного судьи" aria-describedby="SendJudgeFourthNumber">
+                            <div class="input-group-append">
+                              <button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendJudgeFourthNumber" data-parent="InputJudgeFourthNumber">Отправить</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col text-center">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="InputJudgeFourth" placeholder="Линейный судья" aria-label="Линейный судья" aria-describedby="SendJudgeFourth">
+                            <div class="input-group-append">
+                              <button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendJudgeFourth" data-parent="InputJudgeFourth">Отправить</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+        <!--  OBS +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
+        <div class="tab-pane fade" id="BoardOBS" role="tabpanel" aria-labelledby="BoardOBS-tab"><br>
 			<div class="container mt-2">
 				<div class="row">
 					<div class="col text-center">
 						Заставка<br>
-						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardOBSWelcome" role="button" title="">+++</a>
-						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardOBSWelcome" role="button" title="">----</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardWelcome" data-board="OBS" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardWelcome" data-board="OBS" role="button" title="">----</a>
 					</div>
                     <div class="col text-center">
                         Стартовый экран<br>
-                        <a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardOBSStart" role="button" title="">+++</a>
-                        <a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardOBSStart" role="button" title="">----</a>
+                        <a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardStart" data-board="OBS" role="button" title="">+++</a>
+                        <a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardStart" data-board="OBS" role="button" title="">----</a>
                     </div>
 					<div class="col text-center">
                         Счёт<br>
-                        <a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardOBSCount" role="button" title="">+++</a>
-                        <a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardOBSCount" role="button" title="">----</a>
+                        <a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardCount" data-board="OBS" role="button" title="">+++</a>
+                        <a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardCount" data-board="OBS" role="button" title="">----</a>
                     </div>
                     <div class="col text-center">
                         Логотип арены<br>
-                        <a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardOBSLogo1" role="button" title="">+++</a>
-                        <a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardOBSLogo1" role="button" title="">----</a>
+                        <a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardLogo1" data-board="OBS" role="button" title="">+++</a>
+                        <a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardLogo1" data-board="OBS" role="button" title="">----</a>
                     </div>
                     <div class="col text-center">
-						Офф. лица<br>
-						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardOBSJudges" role="button" title="">+++</a>
-						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardOBSJudges" role="button" title="">----</a>
+						Судейская бригада<br>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardJudges" data-board="OBS" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardJudges" data-board="OBS" role="button" title="">----</a>
+					</div>
+					<div class="col text-center">
+						Комментатор<br>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger"  href="#" data-action="ShowBoardCommentators" data-board="OBS" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardCommentators" data-board="OBS" role="button" title="">----</a>
 					</div>
                 </div>
+				<div class="row mt-3">
+					<div class="col text-center">
+						Гол<br>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger"  href="#" data-action="ShowBoardGoal" data-board="OBS" role="button" title="">+++</a>
+					</div>
+				</div>
 				<div class="row mt-3">
 					<div class="col text-center bg-info text-white">
 						<h3 class="text-center">Левые</h3>
@@ -220,67 +347,118 @@
 				<div class="row">
 					<div class="col text-center bg-info text-white">
 						Список игроков<br>
-						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardOBSListPlayerLeft" role="button" title="">+++</a>
-						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardOBSListPlayer" role="button" title="">----</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardListPlayer" data-board="OBS" data-team_position="left" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardListPlayer" data-board="OBS" role="button" title="">----</a>
 					</div>
 					<div class="col text-center bg-secondary text-white">
 						Список игроков<br>
-						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardOBSListPlayerRight" role="button" title="">+++</a>
-						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardOBSListPlayer" role="button" title="">----</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardListPlayer" data-board="OBS" data-team_position="right" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardListPlayer" data-board="OBS" role="button" title="">----</a>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col text-center bg-info text-white pt-3">
 						Стартовая пятёрка игроков<br>
-						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardOBSStart5PlayerLeft" role="button" title="">+++</a>
-						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardOBSStart5Player" role="button" title="">----</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardStart5Player" data-board="OBS" data-team_position="left" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardStart5Player" data-board="OBS" role="button" title="">----</a>
 					</div>
 					<div class="col text-center bg-secondary text-white pt-3">
 						Стартовая пятёрка игроков<br>
-						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardOBSStart5PlayerRight" role="button" title="">+++</a>
-						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardOBSStart5Player" role="button" title="">----</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardStart5Player" data-board="OBS" data-team_position="right" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardStart5Player" data-board="OBS" role="button" title="">----</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col text-center bg-info text-white pt-3">
+						Тренер<br>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger"  href="#" data-action="ShowBoardTrainerTeam" data-board="OBS" data-team_position="left" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardTrainerTeam" data-board="OBS" role="button" title="">----</a>
+					</div>
+					<div class="col text-center bg-secondary text-white pt-3">
+						Тренер<br>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger"  href="#" data-action="ShowBoardTrainerTeam" data-board="OBS" data-team_position="right" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardTrainerTeam" data-board="OBS" role="button" title="">----</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col text-center bg-info text-white pt-3 pb-3">
+						Игрок: 1<br>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger"  href="#" data-action="ShowBoardPlayerTeam" data-board="OBS" data-team_position="left" data-value="1" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardPlayerTeam" data-board="OBS" role="button" title="">----</a>
+					</div>
+					<div class="col text-center bg-secondary text-white pt-3 pb-3">
+						Игрок: 2<br>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger"  href="#" data-action="ShowBoardPlayerTeam" data-board="OBS" data-team_position="right" data-value="8" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardPlayerTeam" data-board="OBS" role="button" title="">----</a>
 					</div>
 				</div>
 			</div>
-        </div>
-        <!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
-        <div class="tab-pane fade" id="BoardTablo" role="tabpanel" aria-labelledby="BoardTablo-tab"><br>
 			<div class="container mt-3">
 				<div class="row">
 					<div class="col text-center">
-						<div class="btn-toolbar mb-3" role="toolbar">
-							<a class="ActionButton btn btn-lg btn-warning mr-3" href="#" id="ClearTablo" role="button" title="">Очистить Табло</a>
-							<a class="ActionButton btn btn-lg btn-danger" href="#" id="ReloadTablo" role="button" title="">Перезагрузить "Табло"</a>
+						<div class="accordion" id="accordionOBSOne">
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="headingOBSOne">
+									<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOBSOne" aria-expanded="false" aria-controls="collapseOBSOne">Настройки</button>
+							  	</h2>
+							  	<div id="collapseOBSOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionOBSOne">
+									<div class="accordion-body">
+										<a class="ActionJsonButton2 btn btn-lg btn-warning mt-3" href="#" data-action="UpdateBoardCount" data-board="OBS" role="button" title="">Обновить счёт</a>
+										<a class="ActionJsonButton2 btn btn-lg btn-warning mt-3" href="#" data-action="Clear" data-board="OBS" role="button" title="">Очистить Титры</a>
+										<a class="ActionJsonButton2 btn btn-lg btn-danger mt-3"  href="#" data-action="Reload" data-board="OBS" role="button" title="">Перезагрузить Титры</a>
+										<br><br>
+										<a class="ActionJsonButton2 btn btn-lg btn-warning mt-3" href="#" data-action="OpenTemplate" data-board="OBS" data-value="NL" role="button" title="Открыть титры для Хоккея: Ночная лига">Титры для Хоккея: Ночная лига</a>
+										<a class="ActionJsonButton2 btn btn-lg btn-warning mt-3" href="#" data-action="OpenTemplate" data-board="OBS" data-value="OBS" role="button" title="Открыть титры для Хоккея: Обычные">Титры для Хоккея: Обычные</a>
+										<a class="ActionJsonButton2 btn btn-lg btn-warning mt-3" href="#" data-action="OpenTemplate" data-board="OBS" data-value="FHR" role="button" title="Открыть титры для Хоккея: ФХР">Титры для Хоккея: ФХР</a>
+										<a class="ActionJsonButton2 btn btn-lg btn-warning mt-3" href="#" data-action="OpenTemplate" data-board="OBS" data-value="Football" role="button" title="Открыть титры для Футбола">Открыть титры для Футбола</a>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			<br>
+        </div>
+        <!--  Tablo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
+        <div class="tab-pane fade" id="BoardTablo" role="tabpanel" aria-labelledby="BoardTablo-tab"><br>
 			<div class="container mt-2">
 				<div class="row">
 					<div class="col text-center">
 						Заставка<br>
-						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTabloWelcome" role="button" title="">+++</a>
-						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTabloWelcome" role="button" title="">----</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardWelcome" data-board="Tablo" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardWelcome" data-board="Tablo" role="button" title="">----</a>
 					</div>
 					<div class="col text-center">
 						Стартовый экран<br>
-						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTabloStart" role="button" title="">+++</a>
-						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTabloStart" role="button" title="">----</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardStart" data-board="Tablo" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardStart" data-board="Tablo" role="button" title="">----</a>
 					</div>
 					<div class="col text-center">
 						Счёт<br>
-						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTabloCount" role="button" title="">+++</a>
-						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTabloCount" role="button" title="">----</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardCount" data-board="Tablo" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardCount" data-board="Tablo" role="button" title="">----</a>
 					</div>
 					<div class="col text-center">
 						Логотип арены<br>
-						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTabloLogo1" role="button" title="">+++</a>
-						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTabloLogo1" role="button" title="">----</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardLogo1" data-board="Tablo" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardLogo1" data-board="Tablo" role="button" title="">----</a>
+					</div>
+                    <div class="col text-center">
+						Судейская бригада<br>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardJudges" data-board="Tablo" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardJudges" data-board="Tablo" role="button" title="">----</a>
 					</div>
 					<div class="col text-center">
-						Офф. лица<br>
-						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTabloJudges" role="button" title="">+++</a>
-						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTabloJudges" role="button" title="">----</a>
+						Комментатор<br>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger"  href="#" data-action="ShowBoardCommentators" data-board="Tablo" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardCommentators" data-board="Tablo" role="button" title="">----</a>
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col text-center">
+						Гол<br>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger"  href="#" data-action="ShowBoardGoal" data-board="Tablo" role="button" title="">+++</a>
 					</div>
 				</div>
 				<div class="row mt-3">
@@ -294,70 +472,119 @@
 				<div class="row">
 					<div class="col text-center bg-info text-white">
 						Список игроков<br>
-						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTabloListPlayerLeft" role="button" title="">+++</a>
-						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTabloListPlayer" role="button" title="">----</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardListPlayer" data-board="Tablo" data-team_position="left" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardListPlayer" data-board="Tablo" role="button" title="">----</a>
 					</div>
 					<div class="col text-center bg-secondary text-white">
 						Список игроков<br>
-						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTabloListPlayerRight" role="button" title="">+++</a>
-						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTabloListPlayer" role="button" title="">----</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardListPlayer" data-board="Tablo" data-team_position="right" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardListPlayer" data-board="Tablo" role="button" title="">----</a>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col text-center bg-info text-white pt-3">
 						Стартовая пятёрка игроков<br>
-						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTabloStart5PlayerLeft" role="button" title="">+++</a>
-						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTabloStart5Player" role="button" title="">----</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardStart5Player" data-board="Tablo" data-team_position="left" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardStart5Player" data-board="Tablo" role="button" title="">----</a>
 					</div>
 					<div class="col text-center bg-secondary text-white pt-3">
 						Стартовая пятёрка игроков<br>
-						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTabloStart5PlayerRight" role="button" title="">+++</a>
-						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTabloStart5Player" role="button" title="">----</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardStart5Player" data-board="Tablo" data-team_position="right" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardStart5Player" data-board="Tablo" role="button" title="">----</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col text-center bg-info text-white pt-3">
+						Тренер<br>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardTrainerTeam" data-board="Tablo" data-team_position="left" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardTrainerTeam" data-board="Tablo" role="button" title="">----</a>
+					</div>
+					<div class="col text-center bg-secondary text-white pt-3">
+						Тренер<br>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardTrainerTeam" data-board="Tablo" data-team_position="right" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardTrainerTeam" data-board="Tablo" role="button" title="">----</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col text-center bg-info text-white pt-3 pb-3">
+						Игрок: 1<br>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardPlayerTeam" data-board="Tablo" data-team_position="left" data-value="1" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardPlayerTeam" data-board="Tablo" role="button" title="">----</a>
+					</div>
+					<div class="col text-center bg-secondary text-white pt-3 pb-3">
+						Игрок: 2<br>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardPlayerTeam" data-board="Tablo" data-team_position="right" data-value="8" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardPlayerTeam" data-board="Tablo" role="button" title="">----</a>
+					</div>
+				</div>
+			</div>
+			<div class="container mt-3">
+				<div class="row">
+					<div class="col text-center">
+						<div class="accordion" id="accordionTabloOne">
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="headingTabloOne">
+									<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTabloOne" aria-expanded="false" aria-controls="collapseOBSOne">Настройки</button>
+							  	</h2>
+							  	<div id="collapseTabloOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionTabloOne">
+									<div class="accordion-body">
+										<a class="ActionJsonButton2 btn btn-lg btn-warning mt-3" href="#" data-action="UpdateBoardCount" data-board="Tablo" role="button" title="">Обновить счёт</a>
+										<a class="ActionJsonButton2 btn btn-lg btn-warning mt-3" href="#" data-action="Clear" data-board="Tablo" role="button" title="">Очистить Титры</a>
+										<a class="ActionJsonButton2 btn btn-lg btn-danger mt-3"  href="#" data-action="Reload" data-board="Tablo" role="button" title="">Перезагрузить Титры</a>
+										<br><br>
+										<a class="ActionJsonButton2 btn btn-lg btn-warning mt-3" href="#" data-action="OpenTemplate" data-board="Tablo" data-value="NL" role="button" title="Открыть титры для Хоккея: Ночная лига">Титры для Хоккея: Ночная лига</a>
+										<a class="ActionJsonButton2 btn btn-lg btn-warning mt-3" href="#" data-action="OpenTemplate" data-board="Tablo" data-value="OBS" role="button" title="Открыть титры для Хоккея: Обычные">Титры для Хоккея: Обычные</a>
+										<a class="ActionJsonButton2 btn btn-lg btn-warning mt-3" href="#" data-action="OpenTemplate" data-board="Tablo" data-value="FHR" role="button" title="Открыть титры для Хоккея: ФХР">Титры для Хоккея: ФХР</a>
+										<a class="ActionJsonButton2 btn btn-lg btn-warning mt-3" href="#" data-action="OpenTemplate" data-board="Tablo" data-value="Football" role="button" title="Открыть титры для Футбола">Открыть титры для Футбола</a>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
+		<!--  TV +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
         <div class="tab-pane fade" id="BoardTV" role="tabpanel" aria-labelledby="BoardTV-tab"><br>
-			<div class="container mt-3">
-				<div class="row">
-					<div class="col text-center">
-						<div class="btn-toolbar mb-3" role="toolbar">
-							<a class="ActionButton btn btn-lg btn-warning mr-3" href="#" id="UpdateBoardTVCount" role="button" title="">Обновить счёт</a>
-							<a class="ActionButton btn btn-lg btn-warning mr-3" href="#" id="ClearTV" role="button" title="">Очистить Титры</a>
-							<a class="ActionButton btn btn-lg btn-danger" href="#" id="ReloadTV" role="button" title="">Перезагрузить Титры</a>
-						</div>
-					</div>
-				</div>
-			</div>
 			<div class="container mt-2">
                 <div class="row">
 					<div class="col text-center">
 						Заставка<br>
-						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTVWelcome" role="button" title="">+++</a>
-						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTVWelcome" role="button" title="">----</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardWelcome" data-board="TV" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardWelcome" data-board="TV" role="button" title="">----</a>
 					</div>
                     <div class="col text-center">
                         Стартовый экран<br>
-                        <a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTVStart" role="button" title="">+++</a>
-                        <a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTVStart" role="button" title="">----</a>
+                        <a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardStart" data-board="TV" role="button" title="">+++</a>
+                        <a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardStart" data-board="TV" role="button" title="">----</a>
                     </div>
                     <div class="col text-center">
                         Счёт<br>
-                        <a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTVCount" role="button" title="">+++</a>
-                        <a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTVCount" role="button" title="">----</a>
+                        <a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardCount" data-board="TV" role="button" title="">+++</a>
+                        <a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardCount" data-board="TV" role="button" title="">----</a>
                     </div>
                     <div class="col text-center">
                         Логотип арены<br>
-                        <a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTVLogo1" role="button" title="">+++</a>
-                        <a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTVLogo1" role="button" title="">----</a>
+                        <a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardLogo1" data-board="TV" role="button" title="">+++</a>
+                        <a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardLogo1" data-board="TV" role="button" title="">----</a>
                     </div>
                     <div class="col text-center">
-						Офф. лица<br>
-						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTVJudges" role="button" title="">+++</a>
-						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTVJudges" role="button" title="">----</a>
+						Судейская бригада<br>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardJudges" data-board="TV" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardJudges" data-board="TV" role="button" title="">----</a>
+					</div>
+					<div class="col text-center">
+						Комментатор<br>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger"  href="#" data-action="ShowBoardCommentators" data-board="TV" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardCommentators" data-board="TV" role="button" title="">----</a>
 					</div>
                 </div>
+				<div class="row mt-3">
+					<div class="col text-center">
+						Гол<br>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger"  href="#" data-action="ShowBoardGoal" data-board="TV" role="button" title="">+++</a>
+					</div>
+				</div>
 				<div class="row mt-3">
 					<div class="col text-center bg-info text-white">
 						<h3 class="text-center">Левые</h3>
@@ -369,45 +596,107 @@
 				<div class="row">
 					<div class="col text-center bg-info text-white">
 						Список игроков<br>
-						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTVListPlayerLeft" role="button" title="">+++</a>
-						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTVListPlayer" role="button" title="">----</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardListPlayer" data-board="TV" data-team_position="left" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardListPlayer" data-board="TV" role="button" title="">----</a>
 					</div>
 					<div class="col text-center bg-secondary text-white">
 						Список игроков<br>
-						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTVListPlayerRight" role="button" title="">+++</a>
-						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTVListPlayer" role="button" title="">----</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardListPlayer" data-board="TV"  data-team_position="right" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardListPlayer" data-board="TV"role="button" title="">----</a>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col text-center bg-info text-white pt-3">
 						Стартовая пятёрка игроков<br>
-						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTVStart5PlayerLeft" role="button" title="">+++</a>
-						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTVStart5Player" role="button" title="">----</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardStart5Player" data-board="TV" data-team_position="left" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardStart5Player" data-board="TV" role="button" title="">----</a>
 					</div>
 					<div class="col text-center bg-secondary text-white pt-3">
 						Стартовая пятёрка игроков<br>
-						<a class="ActionButton btn btn-lg btn-danger" href="#" id="ShowBoardTVStart5PlayerRight" role="button" title="">+++</a>
-						<a class="ActionButton btn btn-lg btn-success" href="#" id="HideBoardTVStart5Player" role="button" title="">----</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardStart5Player" data-board="TV" data-team_position="right" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardStart5Player" data-board="TV" role="button" title="">----</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col text-center bg-info text-white pt-3 pb-3">
+						Тренер<br>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardTrainerTeam" data-board="TV" data-team_position="left" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardTrainerTeam" data-board="TV" role="button" title="">----</a>
+					</div>
+					<div class="col text-center bg-secondary text-white pt-3 pb-3">
+						Тренер<br>
+						<a class="ActionJsonButton2 btn btn-lg btn-danger" href="#" data-action="ShowBoardTrainerTeam" data-board="TV" data-team_position="right" role="button" title="">+++</a>
+						<a class="ActionJsonButton2 btn btn-lg btn-success" href="#" data-action="HideBoardTrainerTeam" data-board="TV" role="button" title="">----</a>
 					</div>
 				</div>
             </div>
+			<div class="container mt-3">
+				<div class="row">
+					<div class="col text-center">
+						<div class="accordion" id="accordionTVOne">
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="headingTVOne">
+									<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTVOne" aria-expanded="false" aria-controls="collapseOBSOne">Настройки</button>
+							  	</h2>
+							  	<div id="collapseTVOne" class="accordion-collapse collapse" aria-labelledby="headingTVOne" data-bs-parent="#accordionTVOne">
+									<div class="accordion-body">
+										<a class="ActionJsonButton2 btn btn-lg btn-warning mt-3" href="#" data-action="UpdateBoardCount" data-board="TV" role="button" title="">Обновить счёт</a>
+										<a class="ActionJsonButton2 btn btn-lg btn-warning mt-3" href="#" data-action="Clear" data-board="TV" role="button" title="">Очистить Титры</a>
+										<a class="ActionJsonButton2 btn btn-lg btn-danger mt-3"  href="#" data-action="Reload" data-board="TV" role="button" title="">Перезагрузить Титры</a>
+										<br><br>
+										<a class="ActionJsonButton2 btn btn-lg btn-warning mt-3" href="#" data-action="OpenTemplate" data-board="TV" data-value="NL" role="button" title="Открыть титры для Хоккея: Ночная лига">Титры для Хоккея: Ночная лига</a>
+										<a class="ActionJsonButton2 btn btn-lg btn-warning mt-3" href="#" data-action="OpenTemplate" data-board="TV" data-value="OBS" role="button" title="Открыть титры для Хоккея: Обычные">Титры для Хоккея: Обычные</a>
+										<a class="ActionJsonButton2 btn btn-lg btn-warning mt-3" href="#" data-action="OpenTemplate" data-board="TV" data-value="FHR" role="button" title="Открыть титры для Хоккея: ФХР">Титры для Хоккея: ФХР</a>
+										<a class="ActionJsonButton2 btn btn-lg btn-warning mt-3" href="#" data-action="OpenTemplate" data-board="TV" data-value="Football" role="button" title="Открыть титры для Футбола">Открыть титры для Футбола</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
         </div>
 		<!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
-		<div class="tab-pane fade" id="BoardConfig" role="tabpanel" aria-labelledby="BoardConfig-tab"><br>
-			<div class="btn-toolbar mb-3" role="toolbar">
-				<a class="ActionButton btn btn-lg btn-warning" href="#" id="ReOpenINI" role="button" title="">Прочитать конфиг. файл</a>
+		<div class="tab-pane fade" id="BoardConfig" role="tabpanel" aria-labelledby="BoardConfig-tab">
+			<div class="container mt-2">
+				<div class="row">
+					<div class="col text-center">
+						<h1 class="display-3">Редактировать:</h1>
+					</div>
+				</div>
 			</div>
-			<div class="btn-toolbar mb-3" role="toolbar">
-				<a class="ActionButton btn btn-lg btn-warning" href="#" id="OpenTVHK" role="button" title="Открыть титры для Хоккея">Открыть титры для Хоккея</a>
+			<div class="container mt-2">
+				<div class="row">
+					<div class="col text-center">
+						<a class="btn btn-lg btn-warning mb-3" href="AdminEvents.html" role="button" title="">Мероприятия</a>
+					</div>
+					<div class="col text-center">
+						<a class="btn btn-lg btn-success mb-3" href="AdminGameName.html"  role="button">Название матчей<br>Места проведения матчей</a>
+					</div>
+					<div class="col text-center">
+						<a class="btn btn-lg btn-success mb-3" href="AdminTeams.html" role="button">Команды</a>
+					</div>
+					<div class="col text-center">
+						<a class="btn btn-lg btn-success mb-3" href="AdminJudge.html" role="button">Судейская бригада</a>
+					</div>
+					<div class="col text-center">
+						<a class="btn btn-lg btn-success mb-3" href="AdminCommentator.html" role="button">Комментаторы</a>
+					</div>
+				</div>
 			</div>
-			<div class="btn-toolbar mb-3" role="toolbar">
-				<a class="ActionButton btn btn-lg btn-warning" href="#" id="OpenTVFootball" role="button" title="Открыть титры для Футбола">Открыть титры для Футбола</a>
+			<div class="container mt-2">
+				<div class="row">
+					<div class="col text-center">
+						<h1>Настройка</h1>
+					</div>
+				</div>
 			</div>
-			<div class="btn-toolbar mb-3" role="toolbar">
-				<a class="btn btn-lg btn-success" href="AdminGameName.html" role="button">Редактировать: Матч</a>
-			</div>
-			<div class="btn-toolbar mb-3" role="toolbar">
-				<a class="btn btn-lg btn-success" href="AdminTeamPlayer.html" role="button">Редактировать: Игроки команды</a>
+			<div class="container mt-2">
+				<div class="row">
+					<div class="col text-center">
+						<a class="ActionJsonButton2 btn btn-lg btn-warning" href="#" data-action="ReOpenINI" data-board="All" role="button" title="">Прочитать конфиг. файл</a>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
@@ -416,27 +705,38 @@
                 <div class="row">
                     <div class="col text-center">
                         <div class="btn-toolbar mb-3" role="toolbar">
-                            <a class="ActionButton btn btn-lg btn-secondary" href="#" id="TimerStartFirstPeriod" role="button" title="">Старт первого тайма</a>
+                            <a class="ActionJsonButton2 btn btn-lg btn-secondary w-100" href="#" id="TimerStartFirstPeriod" role="button" title="">Старт первого тайма</a>
                         </div>
                     </div>
                     <div class="col text-center">
                         <div class="btn-toolbar mb-3" role="toolbar">
-                            <a class="ActionButton btn btn-lg btn-warning" href="#" id="TimerStartSecondPeriod" role="button" title="">Старт второго тайма</a>
+                            <a class="ActionJsonButton2 btn btn-lg btn-warning w-100" href="#" id="TimerStartSecondPeriod" role="button" title="">Старт второго тайма</a>
                         </div>
                     </div>
                     <div class="col text-center">
                         <div class="btn-toolbar mb-3" role="toolbar">
-                            <a class="ActionButton btn btn-lg btn-danger" href="#" id="TimerPause" role="button" title="">Стоп таймер</a>
+                            <a class="ActionJsonButton2 btn btn-lg btn-danger w-100" href="#" id="TimerPause" role="button" title="">Стоп таймер</a>
                         </div>
                     </div>
                     <div class="col text-center">
                         <div class="btn-toolbar mb-3" role="toolbar">
-                            <a class="ActionButton btn btn-lg btn-warning" href="#" id="TimerClean" role="button" title="">Обнулить таймер</a>
+                            <a class="ActionJsonButton2 btn btn-lg btn-warning w-100" href="#" id="TimerClean" role="button" title="">Обнулить таймер</a>
                         </div>
                     </div>
-                </div>
+				</div>
+				<div class="row">
+					<div class="col-3 text-center">
+						<div class="input-group mb-3">
+							<input type="text" class="form-control" id="InputTimer" placeholder="00:00" aria-label="00:00" aria-describedby="SendTimer">
+							<div class="input-group-append">
+								<button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendTimer" data-parent="InputTimer">Отправить</button>
+							</div>
+						</div>
+					</div>
+				</div>
             </div>
 		</div>
+		<br>
 	</div>
 </body>
 </html>

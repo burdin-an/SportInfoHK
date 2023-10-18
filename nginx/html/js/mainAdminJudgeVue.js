@@ -16,48 +16,21 @@ const AdminApp = {
 	data() {
 		return {
 			jsonData: {},
-			GameNameSelected: 0,
-			GameName: {
-				0: {
-					Key: 0,
-					ShortName: "Укажите название матча",
-					FullName: "",
-					Desc: ""
-				}
-			},
-			GamePlaceSelected: 0,
-			GamePlace: {
-				0: {
-					Key: 0,
-					ShortName: "Укажите место проведения матча",
-					FullName: "",
-					Place: "",
-					Desc: "",
-					Logo: ""
-				}
-			}
+			JudgeSelected: 0,
+			Judges: {},
+			PhotoJudges:[]
 		}
 	},
     methods: {
-		saveGameName() {
-			this.SendOrGetData('SaveGameName', true, {'Value': this.GameName[this.GameNameSelected]}, true);
+		saveJudge() {
+			this.SendOrGetData('SaveJudge', true, {'Value': this.Judges[this.JudgeSelected]}, true);
 		},
-		deleteGameName() {
-			this.SendOrGetData('DeleteGameName', true, {'Value': this.GameNameSelected}, true);
-			this.GameNameSelected = 0;
+		deleteJudge() {
+			this.SendOrGetData('DeleteJudge', true, {'Value': this.JudgeSelected}, true);
+			this.JudgeSelected=0;
 		},
-		createGameName() {
-			this.SendOrGetData('CreateGameName', true, {'Value': false}, true);
-		},
-		saveGamePlace() {
-			this.SendOrGetData('SaveGamePlace', true, {'Value': this.GamePlace[this.GamePlaceSelected]}, true);
-		},
-		deleteGamePlace() {
-			this.SendOrGetData('DeleteGamePlace', true, {'Value': this.GamePlaceSelected}, true);
-			this.GamePlaceSelected = 0;
-		},
-		createGamePlace() {
-			this.SendOrGetData('CreateGamePlace', true, {'Value': false}, true);
+		createJudge() {
+			this.SendOrGetData('CreateJudge', true, {'Value': false}, true);
 		},
 		SendOrGetData(Action,SendJson,JsonDataOut,returnData) {
 			var data = this;
@@ -84,47 +57,22 @@ const AdminApp = {
 			};
 			ws.onmessage = function(evt) {
 				JSONData = JSON.parse(evt.data);
-				if (JSONData['dAction'] == "ListAllDB") {
+				if (JSONData['dAction'] == "ListJudgesDB") {
 					// Название игры
-					data.GameName = {
-						0: {
-							Key: 0,
-							ShortName: "Выберите название матча",
-							FullName: "",
-							Desc: ""
-						}
-					};
-					for (const [Key, Value] of Object.entries(JSONData.GameNameArray)) {
-						data.GameName[Key] = {
+					data.Judges = {};
+					for (const [Key, Value] of Object.entries(JSONData.JudgesArray)) {
+						data.Judges[Key] = {
 							Key: Key,
 							ShortName: Value.ShortName,
 							FullName: Value.FullName,
+							Number: Value.Number,
+							Photo: Value.Photo,
 							Desc: Value.Desc
 						};
 					}
-					// Место проведения игры
-					data.GamePlace = {
-						0: {
-							Key: 0,
-							ShortName: "Выберите место проведения игры",
-							FullName: "",
-							Place: "",
-							Desc: "",
-							Logo: ""
-						}
-					};
-					for (const [Key, Value] of Object.entries(JSONData.GamePlaceArray)) {
-						data.GamePlace[Key] = {
-							Key: Key,
-							ShortName: Value.ShortName,
-							FullName: Value.FullName,
-							Place: Value.Place,
-							Desc: Value.Desc,
-							Logo: Value.Logo
-						};
-					}
+					// Фотографии судей
+					data.PhotoJudges = JSONData.PhotoJudges;
 				}
-					
 				ws.close();
 			};
 			ws.onerror = function(err) {
@@ -142,7 +90,7 @@ const AdminApp = {
 		}
 	},
 	mounted() {
-		this.SendOrGetData("GetAllDB",false,false,true);
+		this.SendOrGetData("GetJudgesDB",false,false,true);
 	}
 };
 Vue.createApp(AdminApp).mount('#AdminApp');

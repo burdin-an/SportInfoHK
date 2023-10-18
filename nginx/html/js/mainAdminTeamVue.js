@@ -67,7 +67,50 @@
 			if (this.TeamSelected != 0) {
 				this.SendOrGetData('GetTeam', true, {'Value': TeamUID}, true);
 			}
+		},
+		removeRow (index) {
+			if (debuging != false) {console.log(this.Team.Players);};
+			//delete this.Team.Players[index];
+			this.Team.Players.splice(index, 1);
+			if (debuging != false) {console.log(this.Team.Players);};
+        },
+        addRow (index) {
+			if (debuging != false) {console.log(this.Team.Players);};
+			let keys = Object.keys(this.Team.Players);
+			let NewUIDPlayer;
+			if (keys.length > 0) {
+				NewUIDPlayer = parseInt(keys[keys.length-1], 10)+1;
+			}
+			else {
+				NewUIDPlayer = 0;
+			}
+			this.Team.Players[NewUIDPlayer] = {
+				"Key": NewUIDPlayer,
+				"Enable": 1,
+				"Start5": 0,
+				"ShortName": "",
+				"FullName": "",
+				"Role": "",
+				"Photo": "PHOTO_DEFAULT",
+				"Position": ""
+			};
+        },
+		inputPlayerNumber(index_old,index_new) {
+			this.Team.Players[index_old]["Key"] = index_new;
+			if (index_old !== index_new) {
+				Object.defineProperty(this.Team.Players, index_new, Object.getOwnPropertyDescriptor(this.Team.Players, index_old));
+				delete this.Team.Players[index_old];
+			}
+		},
+		inputFullName(index,FullName) {
+			this.Team.Players[index]["FullName"] = FullName;
+			let names = FullName.split(' '), 
+				initials = names[1].substring(0, 1).toUpperCase() + ".";
 			
+			if (names.length > 2) {
+				initials += names[2].substring(0, 1).toUpperCase() + ".";
+			}
+			this.Team.Players[index]["ShortName"] = names[0] + " " + initials;
 		},
 		SendOrGetData(Action,SendJson,JsonDataOut,returnData) {
 			var data = this;
