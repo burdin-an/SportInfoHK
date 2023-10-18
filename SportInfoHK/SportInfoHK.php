@@ -1894,8 +1894,8 @@ function FuncWorks($data, $connection) {
 						"dAction"   => $dataJson['Action'],
 						"Board"     => $dataJson['Board'],
 						"NumberPeriod" => (int)$dataJson['Value'],
-						"CountPeriodLeft"  => (int)$dataJson['Value']-1 == 0 ? 0 : (int)$EventDB['CountFixPeriod'][(int)$dataJson['Value']]['Left'],
-						"CountPeriodRight" => (int)$dataJson['Value']-1 == 0 ? 0 : (int)$EventDB['CountFixPeriod'][(int)$dataJson['Value']]['Right'],
+						"CountPeriodLeft"  => (int)$dataJson['Value']-1 == 0 ? 0 : (int)$EventDB['CountFixPeriod'][(int)$dataJson['Value']-1]['Left'],
+						"CountPeriodRight" => (int)$dataJson['Value']-1 == 0 ? 0 : (int)$EventDB['CountFixPeriod'][(int)$dataJson['Value']-1]['Right'],
 						"PlayerLeft"  => $EventDB['PlayerLeft'],
 						"PlayerRight" => $EventDB['PlayerRight']
 					];
