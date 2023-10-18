@@ -1,0 +1,58 @@
+/**
+ * Проект "Информатор спортивных соревнований: фигурное катание на коньках"
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the MIT-LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @author    Бурдин А.Н. <support@it-sakh.net>
+ * @copyright Бурдин А.Н. <support@it-sakh.net>
+ * @link      http://www.it-sakh.info/SportInfo/
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
+ * @version	  2.0.1
+ */
+/**
+ * Шаблоны для титров
+ */
+
+@font-face {
+	font-family: 'SansationRegular';
+	src: url('Sansation_Regular-webfont.eot');
+	src: url('Sansation_Regular-webfont.eot?#iefix') format('embedded-opentype'),
+		url('Sansation_Regular-webfont.woff') format('woff'),
+		url('Sansation_Regular-webfont.ttf') format('truetype'),
+		url('Sansation_Regular-webfont.svg#SansationRegular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'SansationBold';
+	src: url('Sansation_Bold-webfont.eot');
+	src: url('Sansation_Bold-webfont.eot?#iefix') format('embedded-opentype'),
+		url('Sansation_Bold-webfont.woff') format('woff'),
+		url('Sansation_Bold-webfont.ttf') format('truetype'),
+		url('Sansation_Bold-webfont.svg#SansationBold') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+html,body,#id_board {
+	height: 100%;
+}
+.nav-tabs .nav-item .nav-link.active {
+	color: white;
+	background-color: #0080FF;
+}
+.PlayerNumber {
+	position:absolute;
+	top: 0;
+	width: 50px;
+	height: 50px;
+	line-height: 50px;
+	font-size: 20pt;
+	border-radius: 50%!important;
+    background-color: rgba(var(--bs-danger-rgb),1)!important;
+    color: rgba(var(--bs-white-rgb),1)!important;
+	text-align: center!important;
+}
