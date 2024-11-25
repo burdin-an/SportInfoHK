@@ -25,17 +25,6 @@ const AdminApp = {
 					Desc: ""
 				}
 			},
-			GamePlaceSelected: 0,
-			GamePlace: {
-				0: {
-					Key: 0,
-					ShortName: "Укажите место проведения матча",
-					FullName: "",
-					Place: "",
-					Desc: "",
-					Logo: ""
-				}
-			}
 		}
 	},
     methods: {
@@ -48,16 +37,6 @@ const AdminApp = {
 		},
 		createGameName() {
 			this.SendOrGetData('CreateGameName', true, {'Value': false}, true);
-		},
-		saveGamePlace() {
-			this.SendOrGetData('SaveGamePlace', true, {'Value': this.GamePlace[this.GamePlaceSelected]}, true);
-		},
-		deleteGamePlace() {
-			this.SendOrGetData('DeleteGamePlace', true, {'Value': this.GamePlaceSelected}, true);
-			this.GamePlaceSelected = 0;
-		},
-		createGamePlace() {
-			this.SendOrGetData('CreateGamePlace', true, {'Value': false}, true);
 		},
 		SendOrGetData(Action,SendJson,JsonDataOut,returnData) {
 			var data = this;
@@ -100,27 +79,6 @@ const AdminApp = {
 							ShortName: Value.ShortName,
 							FullName: Value.FullName,
 							Desc: Value.Desc
-						};
-					}
-					// Место проведения игры
-					data.GamePlace = {
-						0: {
-							Key: 0,
-							ShortName: "Выберите место проведения игры",
-							FullName: "",
-							Place: "",
-							Desc: "",
-							Logo: ""
-						}
-					};
-					for (const [Key, Value] of Object.entries(JSONData.GamePlaceArray)) {
-						data.GamePlace[Key] = {
-							Key: Key,
-							ShortName: Value.ShortName,
-							FullName: Value.FullName,
-							Place: Value.Place,
-							Desc: Value.Desc,
-							Logo: Value.Logo
 						};
 					}
 				}

@@ -27,7 +27,8 @@
 	<script src="js/vue.global.prod.js"></script>
 </head>
 <body>
-	<h1>Мероприятия:</h1>
+	<h1 class="text-center">Мероприятия:</h1>
+	
 	<div id="AdminApp">
 		<div class="container">
 			<div class="row mb-3">
@@ -40,9 +41,10 @@
 							<li class="bg-info"><a class="dropdown-item" href="Admin.html"><--Назад в админку</a></li>
 							<li class="bg-success"><a class="dropdown-item text-white" href="AdminEvents.html">1)Мероприятия</a></li>
 							<li class="bg-warning"><a class="dropdown-item" href="AdminTeams.html">2)Команды</a></li>
-							<li class="bg-warning"><a class="dropdown-item" href="AdminGameName.html">3)Название и место матчей</a></li>
-							<li class="bg-warning"><a class="dropdown-item" href="AdminJudge.html">4)Судьи</a></li>
-							<li class="bg-warning"><a class="dropdown-item" href="AdminCommentator.html">5)Комментаторы</a></li>
+							<li class="bg-warning"><a class="dropdown-item" href="AdminGameName.html">3)Название матчей</a></li>
+							<li class="bg-warning"><a class="dropdown-item" href="AdminGamePlace.html">4)Место проведения матчей</a></li>
+							<li class="bg-warning"><a class="dropdown-item" href="AdminJudge.html">5)Судьи</a></li>
+							<li class="bg-warning"><a class="dropdown-item" href="AdminCommentator.html">6)Комментаторы</a></li>
 						</ul>
 					</div>
 					<div class="btn-group me-3">
@@ -116,14 +118,14 @@
 						<input type="time" class="form-control mb-3" :value="Event.GameTime" @input="Event.GameTime = $event.target.value" placeholder="Время игры" aria-label="Время игры" aria-describedby="SendGameTime">
 					</div>
 				</div>
-				<div class="row">
-					<div class="col text-center">
+				<!--<div class="row">
+					<div class="col-4 text-center">
 						<input type="text" class="form-control mb-3" :value="Event.GameTemperature" @input="Event.GameTemperature = $event.target.value" placeholder="Температура" aria-label="Температура" aria-describedby="SendGameTemperature">
 					</div>
-					<div class="col text-center">
+					<div class="col-8 text-center">
 						<input type="text" class="form-control mb-3" :value="Event.GameWeather" @input="Event.GameWeather = $event.target.value" placeholder="Погода" aria-label="Погода" aria-describedby="SendGameWeather">
 					</div>
-				</div>
+				</div>-->
 				<div class="row">
 					<div class="col text-center">
 						<hr>

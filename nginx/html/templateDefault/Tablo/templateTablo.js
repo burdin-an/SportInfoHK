@@ -18,12 +18,12 @@ BoardType = 'Tablo';
 
 /* ################################################################################################
     Переменные:
-        1) ${data['ArenaName']}  - Название арены
-        2) ${data['Place']}  - Место проведения матча
-        3) ${data['Date']} - Дата
-        4) ${data['LocalTime']} - Местное время
-        5) ${data['Weather']}       - Погода
-        6) ${data['Temperature']}        - Температура
+        1) ${data['ArenaName']}   - Название арены
+        2) ${data['Place']}       - Место проведения матча
+        3) ${data['Date']}        - Дата
+        4) ${data['LocalTime']}   - Местное время
+        5) ${data['Weather']}     - Имя файла погоды
+        6) ${data['Temperature']} - Температура
 */
 const FS_BoardWelcome = (data) => `
 <div id="boardWelcome" class="cl_boardWelcome">
@@ -31,7 +31,7 @@ const FS_BoardWelcome = (data) => `
 	<div class="WelcomeClassLocalTime">${data['LocalTime']}</div>
 	<div class="WelcomeClassPlace">${data['Place']}</div>
 	<div class="WelcomeClassArenaName">${data['ArenaName']}</div>
-	<div class="WelcomeClassWeather">${data['Weather']}</div>
+	<div class="WelcomeClassWeather"><img src="/images/WeatherIcon/${data['Weather']}.svg" width="55px" height="55px"></div>
 	<div class="WelcomeClassTemperature">${data['Temperature']}</div>
 </div>
 `;

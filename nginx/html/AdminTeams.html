@@ -17,23 +17,47 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Админка: Игроки</title>
+	<title>Админка: Команды</title>
 	<link type="text/css" charset="utf-8" rel="stylesheet" href="css/bootstrap-5.min.css" />
 	<script type="text/javascript" charset="utf-8" src="js/jquery-3.5.1.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/popper.min.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/bootstrap-5.min.js"></script>
 	<link href="/fontawesome/css/all.css" rel="stylesheet">
 	<script type="text/javascript" charset="utf-8" src="js/mainConfig.js"></script>
 	<script src="js/vue.global.prod.js"></script>
 </head>
 <body>
-	<h1>Команды:</h1>
+	<h1 class="text-center">Команды:</h1>
+
 	<div id="AdminApp">
-		<a class="btn btn-lg btn-info" href="Admin.html" role="button" title="">Назад в админку</a>&nbsp;
-		<a class="btn btn-lg btn-warning" href="AdminEvents.html" role="button" title="">Мероприятия</a>&nbsp;
-		<a class="btn btn-lg btn-warning" href="AdminGameName.html" role="button" title="">Название и место матчей</a>&nbsp;
-		<button class="btn btn-lg btn-secondary" type="button" @click="createTeamList">Создать команду</button>
-		<br><br>
 		<div class="container">
+			<div class="row mb-3">
+				<div class="col">
+					<div class="btn-group dropdown me-3">
+						<button class="btn btn-lg btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+							Разделы
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							<li class="bg-info"><a class="dropdown-item" href="Admin.html"><--Назад в админку</a></li>
+							<li class="bg-warning"><a class="dropdown-item" href="AdminEvents.html">1)Мероприятия</a></li>
+							<li class="bg-success"><a class="dropdown-item text-white" href="AdminTeams.html">2)Команды</a></li>
+							<li class="bg-warning"><a class="dropdown-item" href="AdminGameName.html">3)Название матчей</a></li>
+							<li class="bg-warning"><a class="dropdown-item" href="AdminGamePlace.html">4)Место проведения матчей</a></li>
+							<li class="bg-warning"><a class="dropdown-item" href="AdminJudge.html">5)Судьи</a></li>
+							<li class="bg-warning"><a class="dropdown-item" href="AdminCommentator.html">6)Комментаторы</a></li>
+						</ul>
+					</div>
+					<div class="btn-group me-3">
+						<button class="btn btn-lg btn-secondary" type="button" @click="createTeamList">Создать команду</button>
+					</div>
+					<div class="btn-group me-3" v-if="TeamSelected != 0">
+						<button class="btn btn-lg btn-success" type="button" @click="saveTeamList">Сохранить</button>
+					</div>
+					<div class="btn-group me-3" v-if="TeamSelected != 0">
+						<button class="btn btn-lg btn-danger" type="button" @click="deleteTeamList">Удалить</button>
+					</div>
+				</div>
+			</div>
 			<div class="row">
 				<div class="col">
 					<select  v-model="TeamSelected" @change="getTeam($event.target.value)" class="form-control" aria-label="Название команды">
@@ -46,7 +70,6 @@
 			<h1 class="w-100 text-center text-danger">Выберите команду!</h1>
 		</div>
 		<div v-else>
-			
 			<div class="container">
 				<div class="row">
 					<div class="col">

@@ -13,6 +13,13 @@
  * @version   1.0.1
  */
 
+// Отладочная информация
+// Значение: true  - Включено
+// Значение: false - Выключено
+//var debuging = true;
+// Отладочная информация
+const debuging = true;
+
 $(document).ready(function(){
     var PlayerData = [];
     function SendOrGetData(Action,BoardType,JsonDataOut) {
@@ -54,6 +61,30 @@ $(document).ready(function(){
 				for (const [Key, Value] of Object.entries(JSONData.ListEvents)) {
 					$("#InputEventsList" ).append( "<option" + (JSONData.SelectEvent.UID == Key ? ' selected="selected" class="fw-bold font-weight-bold  bg-danger text-white"' : '') + " value='" + Key + "'>" + Value.Name + "</option>" );
 				}
+				// Комментатор#1
+				for (const [Key, Value] of Object.entries(JSONData.CommentatorsArray)) {
+					$("#InputCommentatorFirst" ).append( "<option" + (JSONData.Event.Commentator1.UID == Key ? ' selected="selected" class="fw-bold font-weight-bold  bg-danger text-white"' : '') + " value='" + Key + "'>" + Value.ShortName + " (" + Value.Desc + ")</option>" );
+				}
+				// Комментатор#2
+				for (const [Key, Value] of Object.entries(JSONData.CommentatorsArray)) {
+					$("#InputCommentatorSecond" ).append( "<option" + (JSONData.Event.Commentator2.UID == Key ? ' selected="selected" class="fw-bold font-weight-bold  bg-danger text-white"' : '') + " value='" + Key + "'>" + Value.ShortName + " (" + Value.Desc + ")</option>" );
+				}
+				// Судейская бригада: Судья №1
+				for (const [Key, Value] of Object.entries(JSONData.JudgesArray)) {
+					$("#InputJudgeFirst" ).append( "<option" + (JSONData.Event.JudgeFirst.UID == Key ? ' selected="selected" class="fw-bold font-weight-bold  bg-danger text-white"' : '') + " value='" + Key + "'>" + Value.ShortName + " (" + Value.Desc + ")</option>" );
+				}
+				// Судейская бригада: Судья №2
+				for (const [Key, Value] of Object.entries(JSONData.JudgesArray)) {
+					$("#InputJudgeSecond" ).append( "<option" + (JSONData.Event.JudgeSecond.UID == Key ? ' selected="selected" class="fw-bold font-weight-bold  bg-danger text-white"' : '') + " value='" + Key + "'>" + Value.ShortName + " (" + Value.Desc + ")</option>" );
+				}
+				// Судейская бригада: Судья №3
+				for (const [Key, Value] of Object.entries(JSONData.JudgesArray)) {
+					$("#InputJudgeThird" ).append( "<option" + (JSONData.Event.JudgeThird.UID == Key ? ' selected="selected" class="fw-bold font-weight-bold  bg-danger text-white"' : '') + " value='" + Key + "'>" + Value.ShortName + " (" + Value.Desc + ")</option>" );
+				}
+				// Судейская бригада: Судья №4
+				for (const [Key, Value] of Object.entries(JSONData.JudgesArray)) {
+					$("#InputJudgeFourth" ).append( "<option" + (JSONData.Event.JudgeFourth.UID == Key ? ' selected="selected" class="fw-bold font-weight-bold  bg-danger text-white"' : '') + " value='" + Key + "'>" + Value.ShortName + " (" + Value.Desc + ")</option>" );
+				}
 				if (JSONData.SelectEvent.GameOver == 1) {
 					$("#ShowStatusEvent").html("Игра завершена! Вносить изменения нельзя.");
 				}
@@ -81,15 +112,15 @@ $(document).ready(function(){
 			/*document.body.prepend(tagBlockContext);*/
         };
     }
-	$("a.ActionJsonButton2").click(function(event) {
-        SendOrGetData(event.target.dataset.action,event.target.dataset.board,{
+	$(".ActionJsonButton2").click(function(event) {
+		SendOrGetData(event.target.dataset.action,event.target.dataset.board,{
 			Value: (event.target.dataset.value ? event.target.dataset.value : ""),
 			TeamPosition: (event.target.dataset.team_position == "left" ? "Left" : "Right")
 		});
 		return false;
-    });
-	$("button.ActionJsonButton").click(function(event) {
-		SendOrGetData(event.target.dataset.action,'All',{
+	});
+	$(".ActionJsonButton").click(function(event) {
+		SendOrGetData(event.target.dataset.action,(event.target.dataset.board ? event.target.dataset.board : "All"),{
 			Value: document.getElementById(event.target.dataset.parent).value
 		});
 		document.getElementById(event.target.dataset.parent).value = "";
@@ -97,8 +128,50 @@ $(document).ready(function(){
 			$("#ChangeCurrentEvent").removeClass('buttonFlash');
 		}
 	});
+	$("#SendGameWeather").click(function(event) {
+		var Weather = "";
+		var WeatherInputCloudiness = parseInt(document.getElementById("InputGameWeatherCloudiness").value);
+		var WeatherInputPrecipitationType = parseInt(document.getElementById("InputGameWeatherPrecipitationType").value);
+		var WeatherInputPrecipitationIntensity = parseInt(document.getElementById("InputGameWeatherPrecipitationIntensity").value);
+		var WeatherInputStorm = parseInt(document.getElementById("InputGameWeatherStorm").value);
+		switch (WeatherInputCloudiness) {
+			case 0:
+				Weather = "d";
+				break;
+			case 1:
+			case 2:
+				Weather = Weather + "d_c" + WeatherInputCloudiness;
+				break;
+			case 3:
+				Weather = "c" + WeatherInputCloudiness;
+				break;
+		}
+		switch (WeatherInputPrecipitationType) {
+			case 1:
+				Weather = Weather + "_r" + WeatherInputPrecipitationIntensity;
+				break;
+			case 2:
+				Weather = Weather + "_s" + WeatherInputPrecipitationIntensity;
+				break;
+			case 3:
+				Weather = Weather + "_rs" + WeatherInputPrecipitationIntensity;
+				break;
+		}
+		if (WeatherInputStorm == 1) {
+			Weather = Weather + "_st";
+		}
+		SendOrGetData("SendGameWeather","All",{
+			Value: Weather
+		});
+		$("#SendGameWeather").removeClass('buttonFlash');
+		return false;
+	});
+	$(".InputChange").change(function(event) {
+        $("#" + event.target.dataset.button).addClass('buttonFlash');
+    });
 	$("#InputEventsList").change(function() {
         $("#ChangeCurrentEvent").addClass('buttonFlash');
     });
+
     SendOrGetData("GetEventsList",false);
 });

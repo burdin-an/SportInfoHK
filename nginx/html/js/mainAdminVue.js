@@ -74,6 +74,8 @@ const AdminApp = {
 			classButtonFlashChangeCurrentEvent: false,
 			classButtonFlashSendGameWeatherTemperature: false,
 			classButtonFlashSendGameWeather:false,
+			classButtonFlashSendCommentator1:false,
+			classButtonFlashSendCommentator2:false,
 			StyleSelectedJudgeFirst: {
 				color: 'red'
 			},
@@ -170,10 +172,12 @@ const AdminApp = {
 			this.StyleSelectedJudgeFourth.color = "green";	
 		},
 		changeCommentatorFirst() {
-			this.StyleSelectedCommentatorFirst.color = "green";	
+			this.SendData('SendCommentator', this.Event.Commentator1.UID, 1);
+			this.classButtonFlashSendCommentator1 = false;
 		},
 		changeCommentatorSecond() {
-			this.StyleSelectedCommentatorSecond.color = "green";	
+			this.SendData('SendCommentator', this.Event.Commentator2.UID, 2);
+			this.classButtonFlashSendCommentator2 = false;
 		},
 		// Подключаемся к серверу
 		connectWebSocket () {
@@ -359,11 +363,11 @@ const AdminApp = {
 				}
 				if (JSONData['dAction'] == "ListAllDBEvent") {
 					data.Event = JSONData.Event;
-					if (!data.Event.CommentatorFirst) {
-						data.Event.CommentatorFirst = {};
+					if (!data.Event.Commentator1) {
+						data.Event.Commentator1 = {};
 					}
-					if (!data.Event.CommentatorSecond) {
-						data.Event.CommentatorSecond = {};
+					if (!data.Event.Commentator2) {
+						data.Event.Commentator2 = {};
 					}
 				}
 				if (JSONData['dAction'] == "ListJudgesDB") {

@@ -40,8 +40,6 @@ const ConfigShowTimer = false;
 
 // Таймер закрытия панели
 let timerCloseBoardCount;
-let LocationIsStatic = false;
-let LocationStaticAction = '';
 let timerWelcome;
 
 $(document).ready(function(){
@@ -215,12 +213,13 @@ $(document).ready(function(){
 					$("#CountIdPeriod" ).html(JsonData.Value);
 				}
 				else if (BoardType == JsonData.Board || JsonData.Board == 'All') {
-					const LocationStatic = window.location.search.slice(1).split("&")[0];
+					console.log(BoardType);
+					//const LocationStatic = window.location.search.slice(1).split("&")[0];
 
-					if (LocationStatic.split("=")[0] == 'staticAction') {
-						LocationIsStatic = true;
-						LocationStaticAction = LocationStatic.split("=")[1];
-					}
+					//if (LocationStatic.split("=")[0] == 'staticAction') {
+					//	LocationIsStatic = true;
+					//	LocationStaticAction = LocationStatic.split("=")[1];
+					//}
 					// Открыть титры с шаблонами для:
 					// OBS - титры для интернета
 					// TV - титры для телевизионщиков

@@ -23,8 +23,6 @@ use Workerman\Lib\Timer;
 use Workerman\Connection\AsyncTcpConnection;
 
 $ini             = [];
-$GameNameArray   = [];
-$GamePlaceArray  = [];
 $EventSelect     = "";
 $Start_time      = 1;
 // Планировщик
@@ -33,7 +31,7 @@ $EventsType = ['min','sec','period','status','type'];
 //Структура базы мероприятия
 $EventDB         = [];
 $EventDBDefault = [
-	'DBVersion'   => 12,
+	'DBVersion'   => 13,
 	'dAction'     => 'None',
 	'GameOver'    => 0,
 	'GameOverTemp' => 0,
@@ -47,7 +45,7 @@ $EventDBDefault = [
 	'GameDate'    => '',
 	'GameTime'    => '',
 	'GameTemperature'    => '',
-	'GameWeather'    => '',
+	'GameWeather'    => 'd',
 	'GamePlace'   => [
 		'UID' => '',
 		'FullName' => '',
@@ -179,11 +177,11 @@ $EventDBDefault = [
 		'Number'   => 0,
 		'FullName' => ""
 	],
-	'CommentatorFirst' => [
+	'Commentator1' => [
 		'UID'      => "",
 		'FullName' => ""
 	],
-	'CommentatorSecond' => [
+	'Commentator2' => [
 		'UID'      => "",
 		'FullName' => ""
 	],
@@ -225,6 +223,36 @@ $EventDBDefault = [
 			'Sec' => 0,
 		],
 	],
+];
+
+$DBDefaultArrayCommentator = [
+	0 => [
+		"ShortName" => '',
+		"FullName"  => '',
+		"Photo"     => '',
+		"Desc"      => ''
+	]
+];
+$DBDefaultArrayJudge = [
+	0 => [
+		"Number"    => 0,
+		"ShortName" => '',
+		"FullName"  => '',
+		'Photo'     => '',
+		"Desc"      => ''
+	]
+];
+$DBDefaultArrayGamePlace = [
+	'ShortName' => '',
+	'FullName'  => '',
+	'Place'     => '',
+	'Desc'      => '',
+	'Logo'      => ''
+];
+$DBDefaultArrayGameName = [
+	'ShortName' => '',
+	'FullName'  => '',
+	'Desc'      => ''
 ];
 
 define("CONFIG_FILE_DEFAULT", "config-default.ini");
@@ -362,51 +390,47 @@ function ReadDBEvent($EventUID  = false) {
 	global $EventSelect;
 	global $EventDB;
 	global $EventDBDefault;
-	$FileName = "Empty";
+	$FileName = $EventSelect['FileName'];
 	if ($EventUID) {
-		$tempDBEventsList = ReadDBEventsList();
+		$tempDBEventsList = DBEventsList();
 		if (array_key_exists($EventUID, $tempDBEventsList) && $tempDBEventsList[$EventUID]) {
 			$FileName = $tempDBEventsList[$EventUID]['File'];
-			
 		}
 		unset($tempDBEventsList);
 	}
-	else {
-		$FileName = $EventSelect['FileName'];
+	// Проверяем наличие файла
+	if (!file_exists(__DIR__ . '/DB/Events/' . $FileName . '.json')) {
+		if ($ini["PrintConsoleInfo"] == "y") {echo "Файла с базой мероприятия нет!!!\n";}
+		return false;
 	}
-	// Обрабатываем базу данных
-	if (file_exists(__DIR__ . '/DB/Events/' . $FileName . '.json')) {
-		$tempEventDB = json_decode( file_get_contents(__DIR__ . '/DB/Events/' . $FileName . '.json') , true );
-		if ($ini["PrintConsoleInfo"] == "y") {echo "Читаем базу \n";}
-		if (!$EventUID && is_array($tempEventDB) && array_key_exists('DBVersion',$tempEventDB)) {
-			if ($tempEventDB['DBVersion'] == $EventDBDefault['DBVersion']) {
-				if ($ini["PrintConsoleInfo"] == "y") {echo "База актуальной версии!\n";}
-				$EventDB = $tempEventDB;
-			}
-			else {
-				if ($ini["PrintConsoleInfo"] == "y") {echo "База старой версии!!!!\n";}
-				return false;
-			}
-			return $tempEventDB;
-		}
-		elseif ($EventUID && is_array($tempEventDB) && array_key_exists('DBVersion',$tempEventDB)) {
-			if ($ini["PrintConsoleInfo"] == "y") {echo "Ошибка1!!!!\n";}
-			return $tempEventDB;
-		}
-		else {
-			if ($ini["PrintConsoleInfo"] == "y") {echo "Ошибка2!!!!\n";}
+	// Читаем файл
+	if ($ini["PrintConsoleInfo"] == "y") {echo "Читаем файл с мероприятием\n";}
+	$tempEventDB = json_decode( file_get_contents(__DIR__ . '/DB/Events/' . $FileName . '.json') , true );
+
+	if (!is_array($tempEventDB) || (is_array($tempEventDB) && !array_key_exists('DBVersion',$tempEventDB))) {
+		if ($ini["PrintConsoleInfo"] == "y") {echo "Не корректная база!!!\n";}
+		if ($EventUID) {
 			return false;
 		}
+		if ($ini["PrintConsoleInfo"] == "y") {echo "Не корректная база. Загружаем базу по умолчанию!!!!\n";}
+		$EventDB = $EventDBDefault;
+		return false;
+	}
+	// если запрашивали конкретную базу, то возвращаем её
+	if ($EventUID) {
+		if ($ini["PrintConsoleInfo"] == "y") {echo "Возвращаем запрошенную базу!!!!\n";}
+		return $tempEventDB;
+	}
+	// Загрузка базы в память
+	if ($tempEventDB['DBVersion'] == $EventDBDefault['DBVersion']) {
+		if ($ini["PrintConsoleInfo"] == "y") {echo "База актуальной версии!\n";}
+		$EventDB = $tempEventDB;
+		return true;
 	}
 	else {
-		if (!$EventUID) {
-			if ($ini["PrintConsoleInfo"] == "y") {echo "Файла с базой мероприятия нет. Загружаем базу по умолчанию!!!!\n";}
-			$EventDB = $EventDBDefault;
-		}
-		else {
-			if ($ini["PrintConsoleInfo"] == "y") {echo "Файла с базой мероприятия нет.!!!!\n";}
-			return false;
-		}
+		if ($ini["PrintConsoleInfo"] == "y") {echo "База старой версии. Загружаем базу по умолчанию!!!!\n";}
+		$EventDB = $EventDBDefault;
+		return true;
 	}
 }
 function WriteDBEvent($EventUID  = false,$EventData  = []) {
@@ -421,7 +445,7 @@ function WriteDBEvent($EventUID  = false,$EventData  = []) {
 		return false;
 	}
 	if ($EventUID) {
-		$tempDBEventsList = ReadDBEventsList();
+		$tempDBEventsList = DBEventsList();
 		if (array_key_exists($EventUID, $tempDBEventsList) && $tempDBEventsList[$EventUID]['File']) {
 			$FileName = $tempDBEventsList[$EventUID]['File'];
 		}
@@ -443,236 +467,97 @@ function WriteDBEvent($EventUID  = false,$EventData  = []) {
 	fclose($DBFile);
 
 }
-/*function ReadDBTeamPlayers ($TeamUID) {
-	global $ini;
-	// Обрабатываем локальный файл c хоккейными командами.
-	if (file_exists(__DIR__ . '/' . $ini['DB_TEAM_LOCAL'])) {
-		$tempEventDB = json_decode( file_get_contents(__DIR__ . '/' . $ini['DB_TEAM_LOCAL']) , true );
-		if ($ini["PrintConsoleInfo"] == "y") {echo "Читаем локальный файл хоккейных команд\n";}
-		if ($tempEventDB && is_array($tempEventDB)) {
-			return $tempEventDB[$TeamUID];
-		}
-		else {
-			if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось прочитать локальный файл с хоккейными командами!!!\n";}
-		}
-		unset($tempEventDB);
-	}
-}*/
-/*function ReadDBTeams () {
-	global $ini;
-	global $TeamsArray;
-	$TeamsArray=[];
-	// Обрабатываем файл c хоккейными командами по умолчанию.
-	if (file_exists(__DIR__ . '/' . $ini['DB_TEAM_DEFAULT'])) {
-		$TeamsArray = json_decode( file_get_contents(__DIR__ . '/' . $ini['DB_TEAM_DEFAULT']) , true );
-		if ($ini["PrintConsoleInfo"] == "y") {echo "Читаем файл хоккейных команд по умолчанию\n";}
-		if ($TeamsArray && is_array($TeamsArray)) { 
-			
-		}
-		else {
-			if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось прочитать файл с хоккейными командами!!!\n";}
-		}
-	}
-	else {
-		echo "Не удалось прочитать файл с хоккейными командами.\n";
-		exit;
-	}
-	// Обрабатываем локальный файл c хоккейными командами.
-	if (file_exists(__DIR__ . '/' . $ini['DB_TEAM_LOCAL'])) {
-		$tempEventDB = json_decode( file_get_contents(__DIR__ . '/' . $ini['DB_TEAM_LOCAL']) , true );
-		if ($ini["PrintConsoleInfo"] == "y") {echo "Читаем локальный файл хоккейных команд\n";}
-		if ($tempEventDB && is_array($tempEventDB)) {
-			$TeamsArray = $tempEventDB;
-		}
-		else {
-			if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось прочитать локальный файл с хоккейными командами!!!\n";}
-		}
-		unset($tempEventDB);
-	}
-	$arraySort = [];
-	foreach ($TeamsArray as $key => $row) {
-		$arraySort[$key] = $row['FullName'];
-	}
-	array_multisort($arraySort, SORT_ASC, $TeamsArray);
-	$arraySort = null;
-	unset($arraySort);
-}*/
-/*function WriteDBTeams ($action, $Json) {
-	global $ini;
-	global $TeamsArray;
-	// Обрабатываем локальный файл c хоккейными командами.
-	if (file_exists(__DIR__ . '/' . $ini['DB_TEAM_LOCAL'])) {
-		$tempEventDB = json_decode( file_get_contents(__DIR__ . '/' . $ini['DB_TEAM_LOCAL']) , true );
-		if ($ini["PrintConsoleInfo"] == "y") {echo "Читаем локальный файл хоккейных команд\n";}
-		if ($tempEventDB && is_array($tempEventDB)) {
-			if ($action == 'DeleteTeam') {
-				unset($tempEventDB[$Json]);
-			}
-			elseif ($action == 'CreateTeam') {
-				$tempEventDB[base64_encode(random_bytes(8))] = [
-					"ShortName" => "Новая запись",
-					"FullName" => "Новая запись",
-					"Desc" => "Новая запись",
-					"Logo" => "LOGO_DEFAULT",
-					"Place" => "",
-					"Boss" => "",
-					"Trainer" => "",
-					"Administrator" => "",
-					"MiddleLet" => "",
-					"Players" => [
-						[
-							"PID" => 0,
-							"Enable" => 0,
-							"Starting5Enable" => 0,
-							"Position" => "",
-							"Role" => "",
-							"Photo" => "PHOTO_DEFAULT",
-							"FullName" => ""
-						]
-					]
-				];
-			}
-			elseif ($action == 'SaveTeam') {
-				$tempEventDB[$Json['Key']] = [
-					"ShortName" => $Json['ShortName'],
-					"FullName" => $Json['FullName'],
-					"Desc" => $Json['Desc'],
-					"Logo" => $Json['Logo'],
-					"Place" => $Json['Place'],
-					"Boss" => $Json['Boss'],
-					"Trainer" => $Json['Trainer'],
-					"Administrator" => $Json['Administrator'],
-					"MiddleLet" => $Json['MiddleLet']
-				];
-			}
-			elseif ($action == 'SaveTeamPlayers') {
-				$tempEventDB[$Json['Key']]["Players"] = $Json['Players'];
-			}
-			$WriteFile = fopen(__DIR__ . '/' . $ini['DB_TEAM_LOCAL'], 'w');
-			fwrite($WriteFile, json_encode($tempEventDB, JSON_PRETTY_PRINT|JSON_HEX_APOS|JSON_HEX_QUOT));
-			fclose($WriteFile);
-			$TeamsArray = $tempEventDB;
-		}
-		else {
-			if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось прочитать локальный файл с хоккейными командами!!!\n";}
-		}
-		unset($tempEventDB);
-	}
-}*/
-function ReadDBTeamsList () {
-	global $ini;
-	$TeamsArrayList[0] = [
-		"Name" => "Команд нет",
-		"Desc" => "",
-		"File" => false
-	];
-	// Обрабатываем файл cо списком мероприятий.
-	if (file_exists(__DIR__ . '/' . $ini['DB_TEAMS_LIST'])) {
-		$tempTeamsArrayList = json_decode( file_get_contents(__DIR__ . '/' . $ini['DB_TEAMS_LIST']) , true );
-		if ($ini["PrintConsoleInfo"] == "y") {echo "Читаем файл cо списком команд\n";}
-		if (!is_array($tempTeamsArrayList)) { 
-			if ($ini["PrintConsoleInfo"] == "y") {echo "Ошибка базы списка команд!!!\n";}
-		}
-		else {
-			$TeamsArrayList = $tempTeamsArrayList;
-		}
-		unset($tempTeamsArrayList);
-	}
-	else {
-		echo "Не удалось прочитать файл cо списком команд.\n";
-	}
-	$arraySort = [];
-	foreach ($TeamsArrayList as $key => $row) {
-		$arraySort[$key] = $row['Name'];
-	}
-	array_multisort($arraySort, SORT_ASC, $TeamsArrayList);
-	$arraySort = null;
-	unset($arraySort);
-	return $TeamsArrayList;
-}
-function WriteDBTeamsList ($action, $Json) {
+function DBTeamsList ($action = false, $Json = false) {
 	global $ini;
 	$tempTeamsDBList[0] = [
 		"Name" => "Мероприятий нет",
 		"Desc" => "",
 		"File" => null
 	];
-	// Обрабатываем локальный конфигурационный файл c названием игр.
-	if (file_exists(__DIR__ . '/' . $ini['DB_TEAMS_LIST'])) {
-		$tempTeamsDBList = json_decode( file_get_contents(__DIR__ . '/' . $ini['DB_TEAMS_LIST']) , true );
-		if ($ini["PrintConsoleInfo"] == "y") {echo "Читаем локальный файл cо списком команд\n";}
-		
-		if ($action == 'CreateTeamList') {
-			$UniqFileName = uniqid();
-			$tempTeamsDBList[base64_encode(random_bytes(8))] = [
-				"Name" => "0 Новая команда",
-				"Desc" => "",
-				"File" => $UniqFileName
-			];
-			$tempTeamDB = [];
-			$tempTeamDB['ShortName'] = "";
-			$tempTeamDB['FullName']  = "0 Новая команда";
-			$tempTeamDB['Desc']      = "";
-			$tempTeamDB['Logo']      = "LOGO_DEFAULT";
-			$tempTeamDB['Place']     = "";
-			$tempTeamDB['Boss']      = "";
-			$tempTeamDB['Trainer']   = "";
-			$tempTeamDB['Administrator'] = "";
-			$tempTeamDB['MiddleLet'] = "";
-			$tempTeamDB['Players']   = [];
-			$WriteTeamFile = fopen(__DIR__ . '/DB/Teams/' . $UniqFileName . '.json', 'w');
-			fwrite($WriteTeamFile, json_encode($tempTeamDB, JSON_PRETTY_PRINT|JSON_HEX_APOS|JSON_HEX_QUOT));
-			fclose($WriteTeamFile);
-			unset($tempTeamDB);
-			unset($UniqFileName);
-			$WriteFile = fopen(__DIR__ . '/' . $ini['DB_TEAMS_LIST'], 'w');
-			fwrite($WriteFile, json_encode($tempTeamsDBList, JSON_PRETTY_PRINT|JSON_HEX_APOS|JSON_HEX_QUOT));
-			fclose($WriteFile);
-		}
-		else if ($tempTeamsDBList && is_array($tempTeamsDBList)) {
-			if ($action == 'DeleteTeamList') {
-				unlink(__DIR__ . '/DB/Teams/' . $tempTeamsDBList[$Json]['File']. ".json");
-				if (!file_exists(__DIR__ . '/DB/Teams/' . $tempTeamsDBList[$Json]['File']. ".json")) {
-					unset($tempTeamsDBList[$Json]);
-				}
-			}
-			elseif ($action == 'SaveTeamList') {
-				$tempTeamsDBList[$Json['Key']]["Name"] = $Json['Team']['FullName'];
-				$tempTeamsDBList[$Json['Key']]["Desc"] = $Json['Team']['Desc'];
-				if (file_exists(__DIR__ . '/DB/Teams/' . $tempTeamsDBList[$Json['Key']]['File']. ".json")) {
-					$WriteEventFile = fopen(__DIR__ . '/DB/Teams/' . $tempTeamsDBList[$Json['Key']]['File']. ".json", 'w');
-					fwrite($WriteEventFile, json_encode($Json['Team'], JSON_PRETTY_PRINT|JSON_HEX_APOS|JSON_HEX_QUOT));
-					fclose($WriteEventFile);
-				}
-				else {
-					if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось найти файл базы команд!!!\n";}
-				}
-			}
-			$WriteFile = fopen(__DIR__ . '/' . $ini['DB_TEAMS_LIST'], 'w');
-			fwrite($WriteFile, json_encode($tempTeamsDBList, JSON_PRETTY_PRINT|JSON_HEX_APOS|JSON_HEX_QUOT));
-			fclose($WriteFile);
-		}
-		else {
-			if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось прочитать локальный файл со списком команд!!!\n";}
-		}
-		$arraySort = [];
-		foreach ($tempTeamsDBList as $key => $row) {
-			$arraySort[$key] = $row['FullName'];
-		}
-		array_multisort($arraySort, SORT_ASC, $tempTeamsDBList);
-		$arraySort = null;
-		unset($arraySort);
+	// Проверяем существование файла.
+	if (!file_exists(__DIR__ . '/' . $ini['DB_TEAMS_LIST'])) {
+		if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось прочитать файл cо списком команд.\n";}
 		return $tempTeamsDBList;
 	}
-	else {
-		return null;
+	// Обрабатываем файл cо списком судей.
+	$tempTeamsDBList = json_decode( file_get_contents(__DIR__ . '/' . $ini['DB_TEAMS_LIST']) , true );
+	if (!is_array($tempTeamsDBList)) {
+		if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось понять базу со списком команд!!!\n";}
+		return [
+			0 => [
+				"Name" => "Мероприятий нет",
+				"Desc" => "",
+				"File" => null
+			]
+		];
 	}
+
+	if ($action == 'CreateTeamList') {
+		$UniqFileName = uniqid();
+		$tempTeamsDBList[base64_encode(random_bytes(8))] = [
+			"Name" => "0 Новая команда",
+			"Desc" => "",
+			"File" => $UniqFileName
+		];
+		$tempTeamDB = [];
+		$tempTeamDB['ShortName'] = "";
+		$tempTeamDB['FullName']  = "0 Новая команда";
+		$tempTeamDB['Desc']      = "";
+		$tempTeamDB['Logo']      = "LOGO_DEFAULT";
+		$tempTeamDB['Place']     = "";
+		$tempTeamDB['Boss']      = "";
+		$tempTeamDB['Trainer']   = "";
+		$tempTeamDB['Administrator'] = "";
+		$tempTeamDB['MiddleLet'] = "";
+		$tempTeamDB['Players']   = [];
+		$WriteTeamFile = fopen(__DIR__ . '/DB/Teams/' . $UniqFileName . '.json', 'w');
+		fwrite($WriteTeamFile, json_encode($tempTeamDB, JSON_PRETTY_PRINT|JSON_HEX_APOS|JSON_HEX_QUOT));
+		fclose($WriteTeamFile);
+		unset($tempTeamDB);
+		unset($UniqFileName);
+		$WriteFile = fopen(__DIR__ . '/' . $ini['DB_TEAMS_LIST'], 'w');
+		fwrite($WriteFile, json_encode($tempTeamsDBList, JSON_PRETTY_PRINT|JSON_HEX_APOS|JSON_HEX_QUOT));
+		fclose($WriteFile);
+	}
+	elseif ($action == 'DeleteTeamList') {
+		unlink(__DIR__ . '/DB/Teams/' . $tempTeamsDBList[$Json]['File']. ".json");
+		if (!file_exists(__DIR__ . '/DB/Teams/' . $tempTeamsDBList[$Json]['File']. ".json")) {
+			unset($tempTeamsDBList[$Json]);
+		}
+	}
+	elseif ($action == 'SaveTeamList') {
+		$tempTeamsDBList[$Json['Key']]["Name"] = $Json['Team']['FullName'];
+		$tempTeamsDBList[$Json['Key']]["Desc"] = $Json['Team']['Desc'];
+		if (file_exists(__DIR__ . '/DB/Teams/' . $tempTeamsDBList[$Json['Key']]['File']. ".json")) {
+			$WriteEventFile = fopen(__DIR__ . '/DB/Teams/' . $tempTeamsDBList[$Json['Key']]['File']. ".json", 'w');
+			fwrite($WriteEventFile, json_encode($Json['Team'], JSON_PRETTY_PRINT|JSON_HEX_APOS|JSON_HEX_QUOT));
+			fclose($WriteEventFile);
+		}
+		else {
+			if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось найти файл базы команд!!!\n";}
+		}
+	}
+	if ($action != false) {
+		$WriteFile = fopen(__DIR__ . '/' . $ini['DB_TEAMS_LIST'], 'w');
+		fwrite($WriteFile, json_encode($tempTeamsDBList, JSON_PRETTY_PRINT|JSON_HEX_APOS|JSON_HEX_QUOT));
+		fclose($WriteFile);
+	}
+
+	// Сортировка
+	$arraySort = [];
+	foreach ($tempTeamsDBList as $key => $row) {
+		$arraySort[$key] = $row['Name'];
+	}
+	array_multisort($arraySort, SORT_ASC, $tempTeamsDBList);
+	$arraySort = null;
+	unset($arraySort);
+	return $tempTeamsDBList;
 }
 function ReadDBTeam($TeamUID  = false) {
 	global $ini;
 	$FileName = "Empty";
 	if ($TeamUID) {
-		$tempDBTeamsList = ReadDBTeamsList();
+		$tempDBTeamsList = DBTeamsList();
 		if (array_key_exists($TeamUID, $tempDBTeamsList) && $tempDBTeamsList[$TeamUID]) {
 			$FileName = $tempDBTeamsList[$TeamUID]['File'];
 			// Обрабатываем базу данных
@@ -701,348 +586,208 @@ function ReadDBTeam($TeamUID  = false) {
 	}
 	
 }
-function ReadDBGameName () {
+function DBGameName ($action = false, $Json = false) {
 	global $ini;
-	global $GameNameArray;
-	// Обрабатываем конфигурационный файл c названием игр по умолчанию.
-	if (file_exists(__DIR__ . '/' . $ini['DB_GAME_NAME_DEFAULT'])) {
-		$GameNameArray = json_decode( file_get_contents(__DIR__ . '/' . $ini['DB_GAME_NAME_DEFAULT']) , true );
-		if ($ini["PrintConsoleInfo"] == "y") {echo "Читаем файл c названием игр по умолчанию\n";}
-		if ($GameNameArray && is_array($GameNameArray)) { /* тут пусто  */ }
-		else {
-			if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось прочитать файл с названием игр!!!\n";}
-		}
+	// Проверяем существование файла.
+	if (!file_exists(__DIR__ . '/' . $ini['DB_GAME_NAME_LOCAL'])) {
+		if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось прочитать файл c названием матчей.\n";}
+		return $DBDefaultArrayGameName;
 	}
-	else {
-		echo "Не удалось прочитать файл с названием игр.\n";
-		exit;
+	// Обрабатываем файл cо списком .
+	$tempGameNameArray = json_decode( file_get_contents(__DIR__ . '/' . $ini['DB_GAME_NAME_LOCAL']) , true );
+	if (!is_array($tempGameNameArray)) {
+		if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось понять базу с названием матчей!!!\n";}
+		return $DBDefaultArrayNamePlace;
 	}
-	// Обрабатываем локальный конфигурационный файл c названием игр.
-	if (file_exists(__DIR__ . '/' . $ini['DB_GAME_NAME_LOCAL'])) {
-		$tempEventDB = json_decode( file_get_contents(__DIR__ . '/' . $ini['DB_GAME_NAME_LOCAL']) , true );
-		if ($ini["PrintConsoleInfo"] == "y") {echo "Читаем локальный файл c названием игр\n";}
-		if ($tempEventDB && is_array($tempEventDB)) {
-			$GameNameArray = $tempEventDB;
-		}
-		else {
-			if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось прочитать локальный файл с названием игр!!!\n";}
-		}
-		unset($tempEventDB);
+
+	if ($action == 'CreateGameName') {
+		$tempGameNameArray[base64_encode(random_bytes(8))] = [
+			'ShortName' => time() . 'Новая запись',
+			'FullName' => 'Новая запись',
+			'Desc' => 'Новая запись'
+		];
 	}
+	else if ($action == 'DeleteGameName') {
+		unset($tempGameNameArray[$Json]);
+	}
+	else if ($action == 'SaveGameName') {
+		$tempGameNameArray[$Json['Key']] = [
+			"ShortName" => $Json['ShortName'],
+			"FullName"  => $Json['FullName'],
+			"Desc"      => $Json['Desc']
+		];
+	}
+
+	if ($action != false) {
+		$WriteFile = fopen(__DIR__ . '/' . $ini['DB_GAME_NAME_LOCAL'], 'w');
+		fwrite($WriteFile, json_encode($tempGameNameArray, JSON_PRETTY_PRINT|JSON_HEX_APOS|JSON_HEX_QUOT));
+		fclose($WriteFile);
+	}
+
+	// Сортировка
 	$arraySort = [];
-	foreach ($GameNameArray as $key => $row) {
+	foreach ($tempGameNameArray as $key => $row) {
 		$arraySort[$key] = $row['ShortName'];
 	}
-	array_multisort($arraySort, SORT_ASC, $GameNameArray);
+	array_multisort($arraySort, SORT_ASC, $tempGameNameArray);
 	$arraySort = null;
 	unset($arraySort);
+
+	return $tempGameNameArray;
 }
-function WriteDBGameName ($action, $Json) {
+function DBGamePlace ($action = false, $Json = false) {
 	global $ini;
-	global $GameNameArray;
-	// Обрабатываем локальный конфигурационный файл c названием игр.
-	if (file_exists(__DIR__ . '/' . $ini['DB_GAME_NAME_LOCAL'])) {
-		$tempEventDB = json_decode( file_get_contents(__DIR__ . '/' . $ini['DB_GAME_NAME_LOCAL']) , true );
-		if ($ini["PrintConsoleInfo"] == "y") {echo "Читаем локальный файл c названием игр\n";}
-		if ($tempEventDB && is_array($tempEventDB)) {
-			if ($action == 'DeleteGameName') {
-				unset($tempEventDB[$Json]);
-			}
-			else if ($action == 'CreateGameName') {
-				$tempEventDB[base64_encode(random_bytes(8))] = [
-					"ShortName" => "Новая запись",
-					"FullName" => "Новая запись",
-					"Desc" => "Новая запись"
-				];
-			}
-			else if ($action == 'SaveGameName') {
-				$tempEventDB[$Json['Key']] = [
-					"ShortName" => $Json['ShortName'],
-					"FullName" => $Json['FullName'],
-					"Desc" => $Json['Desc']
-				];
-			}
-			$WriteFile = fopen(__DIR__ . '/' . $ini['DB_GAME_NAME_LOCAL'], 'w');
-			fwrite($WriteFile, json_encode($tempEventDB, JSON_PRETTY_PRINT|JSON_HEX_APOS|JSON_HEX_QUOT));
-			fclose($WriteFile);
-			$GameNameArray = $tempEventDB;
-			$arraySort = [];
-			foreach ($GameNameArray as $key => $row) {
-				$arraySort[$key] = $row['ShortName'];
-			}
-			array_multisort($arraySort, SORT_ASC, $GameNameArray);
-			$arraySort = null;
-			unset($arraySort);
-		}
-		else {
-			if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось прочитать локальный файл с названием игр!!!\n";}
-		}
-		unset($tempEventDB);
+	// Проверяем существование файла.
+	if (!file_exists(__DIR__ . '/' . $ini['DB_GAME_PLACE_LOCAL'])) {
+		if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось прочитать файл c местами проведения хоккейных матчей.\n";}
+		return $DBDefaultArrayGamePlace;
 	}
-}
-function ReadDBGamePlace () {
-	global $ini;
-	global $GamePlaceArray;
-	// Обрабатываем конфигурационный файл с местами проведения хоккейных матчей по умолчанию.
-	if (file_exists(__DIR__ . '/' . $ini['DB_GAME_PLACE_DEFAULT'])) {
-		$GamePlaceArray = json_decode( file_get_contents(__DIR__ . '/' . $ini['DB_GAME_PLACE_DEFAULT']) , true );
-		if ($ini["PrintConsoleInfo"] == "y") {echo "Читаем файл с местами проведения хоккейных матчей по умолчанию\n";}
-		if ($GamePlaceArray && is_array($GamePlaceArray)) { /* тут пусто  */ }
-		else {
-			if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось прочитать файл с местами проведения хоккейных матчей!!!\n";}
-		}
-	}
-	else {
-		echo "Не удалось прочитать файл с местами проведения хоккейных матчей.\n";
-		exit;
-	}
-	// Обрабатываем локальный файл с местами проведения хоккейных матчей
-	if (file_exists(__DIR__ . '/' . $ini['DB_GAME_PLACE_LOCAL'])) {
-		$tempEventDB = json_decode( file_get_contents(__DIR__ . '/' . $ini['DB_GAME_PLACE_LOCAL']) , true );
-		if ($ini["PrintConsoleInfo"] == "y") {echo "Читаем локальный файл с местами проведения хоккейных матчей\n";}
-		if ($tempEventDB && is_array($tempEventDB)) {
-			$GamePlaceArray = $tempEventDB;
-		}
-		else {
-			if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось прочитать локальный файл с местами проведения хоккейных матчей!!!\n";}
-		}
-		unset($tempEventDB);
-	}
-	$arraySort = [];
-	foreach ($GamePlaceArray as $key => $row) {
-		$arraySort[$key] = $row['ShortName'];
-	}
-	array_multisort($arraySort, SORT_ASC, $GamePlaceArray);
-	$arraySort = null;
-	unset($arraySort);
-}
-function WriteDBGamePlace ($action, $Json) {
-	global $ini;
-	global $GamePlaceArray;
-	// Обрабатываем локальный конфигурационный файл с местами проведения хоккейных матчей.
-	if (file_exists(__DIR__ . '/' . $ini['DB_GAME_PLACE_LOCAL'])) {
-		$tempEventDB = json_decode( file_get_contents(__DIR__ . '/' . $ini['DB_GAME_PLACE_LOCAL']) , true );
-		if ($ini["PrintConsoleInfo"] == "y") {echo "Читаем локальный файл с местами проведения хоккейных матчей\n";}
-		if ($tempEventDB && is_array($tempEventDB)) {
-			if ($action == 'DeleteGamePlace') {
-				unset($tempEventDB[$Json]);
-			}
-			else if ($action == 'CreateGamePlace') {
-				$tempEventDB[base64_encode(random_bytes(8))] = [
-					'ShortName' => 'АНовая запись',
-					'FullName' => 'Новая запись',
-					'Place' => '',
-					'Desc' => 'Новая запись',
-					'Logo' => 'Default.png'
-				];
-			}
-			else if ($action == 'SaveGamePlace') {
-				$tempEventDB[$Json['Key']] = [
-					"ShortName" => $Json['ShortName'],
-					"FullName"  => $Json['FullName'],
-					"Place"     => $Json['Place'],
-					"Desc"      => $Json['Desc'],
-					"Logo"      => $Json['Logo']
-				];
-			}
-			$WriteFile = fopen(__DIR__ . '/' . $ini['DB_GAME_PLACE_LOCAL'], 'w');
-			fwrite($WriteFile, json_encode($tempEventDB, JSON_PRETTY_PRINT|JSON_HEX_APOS|JSON_HEX_QUOT));
-			fclose($WriteFile);
-			$GamePlaceArray = $tempEventDB;
-			$arraySort = [];
-			foreach ($GamePlaceArray as $key => $row) {
-				$arraySort[$key] = $row['ShortName'];
-			}
-			array_multisort($arraySort, SORT_ASC, $GamePlaceArray);
-			$arraySort = null;
-			unset($arraySort);
-		}
-		else {
-			if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось прочитать локальный файл с названием игр!!!\n";}
-		}
-		unset($tempEventDB);
-	}
-}
-function ReadDBJudges () {
-	global $ini;
 	// Обрабатываем файл cо списком судей.
-	if (file_exists(__DIR__ . '/' . $ini['DB_JUDGES'])) {
-		$tempJudgesArray = json_decode( file_get_contents(__DIR__ . '/' . $ini['DB_JUDGES']) , true );
-		if ($ini["PrintConsoleInfo"] == "y") {echo "Читаем файл cо списком судей\n";}
-		if (!is_array($tempJudgesArray)) { 
-			if ($ini["PrintConsoleInfo"] == "y") {echo "Ошибка базы списка судей!!!\n";}
-		}
-		else {
-			$arraySort = [];
-			foreach ($tempJudgesArray as $key => $row) {
-				$arraySort[$key] = $row['ShortName'];
-			}
-			array_multisort($arraySort, SORT_ASC, $tempJudgesArray);
-			$arraySort = null;
-			unset($arraySort);
-			return $tempJudgesArray;
-		}
+	$tempGamePlaceArray = json_decode( file_get_contents(__DIR__ . '/' . $ini['DB_GAME_PLACE_LOCAL']) , true );
+	if (!is_array($tempGamePlaceArray)) {
+		if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось понять базу с местами проведения хоккейных матчей!!!\n";}
+		return $DBDefaultArrayGamePlace;
 	}
-	else {
-		echo "Не удалось прочитать файл cо списком судей.\n";
+
+	if ($action == 'CreateGamePlace') {
+		$tempGamePlaceArray[base64_encode(random_bytes(8))] = [
+			'ShortName' => time() . 'Новая запись',
+			'FullName' => 'Новая запись',
+			'Place' => '',
+			'Desc' => 'Новая запись',
+			'Logo' => 'Default.png'
+		];
 	}
-	return null;
-}
-function WriteDBJudges ($action, $Json) {
-	global $ini;
-	// Обрабатываем локальный конфигурационный файл c судьями.
-	if (file_exists(__DIR__ . '/' . $ini['DB_JUDGES'])) {
-		$tempJudgesArray = json_decode( file_get_contents(__DIR__ . '/' . $ini['DB_JUDGES']) , true );
-		if ($ini["PrintConsoleInfo"] == "y") {echo "Читаем локальный файл cо списком судей\n";}
-		
-		if ($action == 'CreateJudge') {
-			$tempJudgesArray[base64_encode(random_bytes(8))] = [
-				"Number"    => 0,
-				"ShortName" => "0 Новый судья",
-				"FullName"  => "",
-				'Photo'     => "PHOTO_JUDGE_DEFAULT",
-				"Desc"      => ""
-			];
-			$WriteFile = fopen(__DIR__ . '/' . $ini['DB_JUDGES'], 'w');
-			fwrite($WriteFile, json_encode($tempJudgesArray, JSON_PRETTY_PRINT|JSON_HEX_APOS|JSON_HEX_QUOT));
-			fclose($WriteFile);
-		}
-		else if ($tempJudgesArray && is_array($tempJudgesArray)) {
-			if ($action == 'DeleteJudge') {
-				unset($tempJudgesArray[$Json]);
-			}
-			elseif ($action == 'SaveJudge') {
-				$tempJudgesArray[$Json['Key']] = [
-					"ShortName" => $Json['ShortName'],
-					"FullName"  => $Json['FullName'],
-					"Number"    => $Json['Number'],
-					"Photo"     => $Json['Photo'],
-					"Desc"      => $Json['Desc']
-				];
-			}
-			$WriteFile = fopen(__DIR__ . '/' . $ini['DB_JUDGES'], 'w');
-			fwrite($WriteFile, json_encode($tempJudgesArray, JSON_PRETTY_PRINT|JSON_HEX_APOS|JSON_HEX_QUOT));
-			fclose($WriteFile);
-		}
-		else {
-			if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось прочитать локальный файл со списком судей!!!\n";}
-		}
-		$arraySort = [];
-		foreach ($tempJudgesArray as $key => $row) {
-			$arraySort[$key] = $row['ShortName'];
-		}
-		array_multisort($arraySort, SORT_ASC, $tempJudgesArray);
-		$arraySort = null;
-		unset($arraySort);
-		return $tempJudgesArray;
+	else if ($action == 'DeleteGamePlace') {
+		unset($tempGamePlaceArray[$Json]);
 	}
-	else {
-		return null;
+	else if ($action == 'SaveGamePlace') {
+		$tempGamePlaceArray[$Json['Key']] = [
+			"ShortName" => $Json['ShortName'],
+			"FullName"  => $Json['FullName'],
+			"Place"     => $Json['Place'],
+			"Desc"      => $Json['Desc'],
+			"Logo"      => $Json['Logo']
+		];
 	}
-}
-function ReadDBCommentators () {
-	global $ini;
-	// Обрабатываем файл cо списком комментаторов.
-	if (file_exists(__DIR__ . '/' . $ini['DB_COMMENTATORS'])) {
-		$tempCommentatorsArray = json_decode( file_get_contents(__DIR__ . '/' . $ini['DB_COMMENTATORS']) , true );
-		if ($ini["PrintConsoleInfo"] == "y") {echo "Читаем файл cо списком комментаторов\n";}
-		if (!is_array($tempCommentatorsArray)) { 
-			if ($ini["PrintConsoleInfo"] == "y") {echo "Ошибка базы списка комментаторов!!!\n";}
-		}
-		else {
-			$arraySort = [];
-			foreach ($tempCommentatorsArray as $key => $row) {
-				$arraySort[$key] = $row['ShortName'];
-			}
-			array_multisort($arraySort, SORT_ASC, $tempCommentatorsArray);
-			$arraySort = null;
-			unset($arraySort);
-			return $tempCommentatorsArray;
-		}
+	if ($action != false) {
+		$WriteFile = fopen(__DIR__ . '/' . $ini['DB_GAME_PLACE_LOCAL'], 'w');
+		fwrite($WriteFile, json_encode($tempGamePlaceArray, JSON_PRETTY_PRINT|JSON_HEX_APOS|JSON_HEX_QUOT));
+		fclose($WriteFile);
 	}
-	else {
-		echo "Не удалось прочитать файл cо списком комментаторов.\n";
-	}
-	return null;
-}
-function WriteDBCommentators ($action, $Json) {
-	global $ini;
-	// Обрабатываем локальный конфигурационный файл c комментаторов.
-	if (file_exists(__DIR__ . '/' . $ini['DB_COMMENTATORS'])) {
-		$tempCommentatorsArray = json_decode( file_get_contents(__DIR__ . '/' . $ini['DB_COMMENTATORS']) , true );
-		if ($ini["PrintConsoleInfo"] == "y") {echo "Читаем локальный файл cо списком комментаторов\n";}
-		
-		if ($action == 'CreateCommentator') {
-			$tempCommentatorsArray[base64_encode(random_bytes(8))] = [
-				"ShortName" => "Новый комментатор",
-				"FullName"  => "",
-				'Photo'     => "PHOTO_JUDGE_DEFAULT",
-				"Desc"      => ""
-			];
-			$WriteFile = fopen(__DIR__ . '/' . $ini['DB_COMMENTATORS'], 'w');
-			fwrite($WriteFile, json_encode($tempCommentatorsArray, JSON_PRETTY_PRINT|JSON_HEX_APOS|JSON_HEX_QUOT));
-			fclose($WriteFile);
-		}
-		else if ($tempCommentatorsArray && is_array($tempCommentatorsArray)) {
-			if ($action == 'DeleteCommentator') {
-				unset($tempCommentatorsArray[$Json]);
-			}
-			elseif ($action == 'SaveCommentator') {
-				$tempCommentatorsArray[$Json['Key']] = [
-					"ShortName" => $Json['ShortName'],
-					"FullName"  => $Json['FullName'],
-					"Photo"     => $Json['Photo'],
-					"Desc"      => $Json['Desc']
-				];
-			}
-			$WriteFile = fopen(__DIR__ . '/' . $ini['DB_COMMENTATORS'], 'w');
-			fwrite($WriteFile, json_encode($tempCommentatorsArray, JSON_PRETTY_PRINT|JSON_HEX_APOS|JSON_HEX_QUOT));
-			fclose($WriteFile);
-		}
-		else {
-			if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось прочитать локальный файл со списком комментаторов!!!\n";}
-		}
-		return $tempCommentatorsArray;
-	}
-	else {
-		return null;
-	}
-}
-function ReadDBEventsList () {
-	global $ini;
-	$EventsArrayList[0] = [
-		"Name" => "Мероприятий нет",
-		"File" => false
-	];
-	// Обрабатываем файл cо списком мероприятий.
-	if (file_exists(__DIR__ . '/' . $ini['DB_EVENTS_LIST'])) {
-		$tempEventsArrayList = json_decode( file_get_contents(__DIR__ . '/' . $ini['DB_EVENTS_LIST']) , true );
-		if ($ini["PrintConsoleInfo"] == "y") {echo "Читаем файл cо списком мероприятий\n";}
-		if (!is_array($tempEventsArrayList)) { 
-			if ($ini["PrintConsoleInfo"] == "y") {echo "Ошибка базы списка мероприятий!!!\n";}
-		}
-		else {
-			$EventsArrayList = $tempEventsArrayList;
-		}
-		unset($tempEventsArrayList);
-	}
-	else {
-		echo "Не удалось прочитать файл cо списком мероприятий.\n";
-	}
+	// Сортировка
 	$arraySort = [];
-	foreach ($EventsArrayList as $key => $row) {
-		$arraySort[$key] = $row['Name'];
+	foreach ($tempGamePlaceArray as $key => $row) {
+		$arraySort[$key] = $row['ShortName'];
 	}
-	array_multisort($arraySort, SORT_DESC, $EventsArrayList);
+	array_multisort($arraySort, SORT_ASC, $tempGamePlaceArray);
 	$arraySort = null;
 	unset($arraySort);
-	return $EventsArrayList;
+
+	return $tempGamePlaceArray;
 }
-function WriteDBEventsList ($action, $Json) {
+function DBJudges ($action = false, $Json = false) {
+	global $ini;
+	// Проверяем существование файла.
+	if (!file_exists(__DIR__ . '/' . $ini['DB_JUDGES'])) {
+		if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось прочитать файл cо списком судей.\n";}
+		return $DBDefaultArrayJudge;
+	}
+	// Обрабатываем файл cо списком судей.
+	$tempJudgesArray = json_decode( file_get_contents(__DIR__ . '/' . $ini['DB_JUDGES']) , true );
+	if (!is_array($tempJudgesArray)) {
+		if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось понять базу со списком судей!!!\n";}
+		return $DBDefaultArrayJudge;
+	}
+	if ($action == 'CreateJudge') {
+		$tempJudgesArray[base64_encode(random_bytes(8))] = [
+			"Number"    => 0,
+			"ShortName" => time() . " Новый судья",
+			"FullName"  => "",
+			'Photo'     => "PHOTO_JUDGE_DEFAULT",
+			"Desc"      => ""
+		];
+	}
+	elseif ($action == 'DeleteJudge') {
+		unset($tempJudgesArray[$Json]);
+	}
+	elseif ($action == 'SaveJudge') {
+		$tempJudgesArray[$Json['Key']] = [
+			"ShortName" => $Json['ShortName'],
+			"FullName"  => $Json['FullName'],
+			"Number"    => $Json['Number'],
+			"Photo"     => $Json['Photo'],
+			"Desc"      => $Json['Desc']
+		];
+	}
+	if ($action != false) {
+		$WriteFile = fopen(__DIR__ . '/' . $ini['DB_JUDGES'], 'w');
+		fwrite($WriteFile, json_encode($tempJudgesArray, JSON_PRETTY_PRINT|JSON_HEX_APOS|JSON_HEX_QUOT));
+		fclose($WriteFile);
+	}
+	// Сортировка
+	$arraySort = [];
+	foreach ($tempJudgesArray as $key => $row) {
+		$arraySort[$key] = $row['ShortName'];
+	}
+	array_multisort($arraySort, SORT_ASC, $tempJudgesArray);
+	$arraySort = null;
+	unset($arraySort);
+
+	return $tempJudgesArray;
+}
+function DBCommentators ($action = false, $Json = false) {
+	global $ini;
+	// Проверяем существование файла.
+	if (!file_exists(__DIR__ . '/' . $ini['DB_COMMENTATORS'])) {
+		if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось прочитать файл cо списком комментаторов.\n";}
+		return $DBDefaultArrayCommentator;
+	}
+	// Обрабатываем файл cо списком комментаторов.
+	$tempCommentatorsArray = json_decode( file_get_contents(__DIR__ . '/' . $ini['DB_COMMENTATORS']) , true );
+	if (!is_array($tempCommentatorsArray)) {
+		if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось понять базу со списком комментаторов!!!\n";}
+		return $DBDefaultArrayCommentator;
+	}
+	if ($action == 'CreateCommentator') {
+		$tempCommentatorsArray[base64_encode(random_bytes(8))] = [
+			"ShortName" => time() . " Новый комментатор",
+			"FullName"  => "",
+			'Photo'     => "PHOTO_JUDGE_DEFAULT",
+			"Desc"      => ""
+		];
+	}
+	elseif ($action == 'DeleteCommentator') {
+		unset($tempCommentatorsArray[$Json]);
+	}
+	elseif ($action == 'SaveCommentator') {
+		$tempCommentatorsArray[$Json['Key']] = [
+			"ShortName" => $Json['ShortName'],
+			"FullName"  => $Json['FullName'],
+			"Photo"     => $Json['Photo'],
+			"Desc"      => $Json['Desc']
+		];
+	}
+	if ($action != false) {
+		$WriteFile = fopen(__DIR__ . '/' . $ini['DB_COMMENTATORS'], 'w');
+		fwrite($WriteFile, json_encode($tempCommentatorsArray, JSON_PRETTY_PRINT|JSON_HEX_APOS|JSON_HEX_QUOT));
+		fclose($WriteFile);
+	}
+
+	// Сортировка
+	$arraySort = [];
+	foreach ($tempCommentatorsArray as $key => $row) {
+		$arraySort[$key] = $row['ShortName'];
+	}
+	array_multisort($arraySort, SORT_ASC, $tempCommentatorsArray);
+	$arraySort = null;
+	unset($arraySort);
+
+	return $tempCommentatorsArray;
+}
+function DBEventsList ($action = false, $Json = false) {
 	global $ini;
 	global $EventDBDefault;
-	global $GamePlaceArray;
-	global $GameNameArray;
 	$tempEventDBList[0] = [
 		"Name" => "Мероприятий нет",
 		"File" => null
@@ -1050,13 +795,13 @@ function WriteDBEventsList ($action, $Json) {
 	// Обрабатываем локальный конфигурационный файл c названием игр.
 	if (!file_exists(__DIR__ . '/' . $ini['DB_EVENTS_LIST'])) {
 		if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось найти локальный файл со списком мероприятий!!!\n";}
-		return null;
+		return $tempEventDBList;
 	}
 	if ($ini["PrintConsoleInfo"] == "y") {echo "Читаем локальный файл cо списком мероприятий\n";}
 	$tempEventDBList = json_decode( file_get_contents(__DIR__ . '/' . $ini['DB_EVENTS_LIST']) , true );
 	if (!is_array($tempEventDBList)) {
 		if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось прочитать локальный файл со списком мероприятий!!!\n";}
-		return null;
+		return $tempEventDBList;
 	}	
 
 	if ($action == 'DeleteEventList') {
@@ -1085,8 +830,10 @@ function WriteDBEventsList ($action, $Json) {
 	}
 	elseif ($action == 'SaveEventList') {
 		//Комментаторы
-		$tempCommentators = ReadDBCommentators();
-		foreach (['CommentatorFirst','CommentatorSecond']  as $value) {
+		$Json['Event']['Commentator1']['UID'] = "";
+		$Json['Event']['Commentator2']['UID'] = "";
+		/*$tempCommentators = DBCommentators();
+		foreach (['Commentator1','Commentator2']  as $value) {
 			$tempUID  = $Json['Event'][$value]['UID'];
 			if ($tempUID != "" && array_key_exists($tempUID, $tempCommentators) && is_array($tempCommentators[$tempUID])) {
 				$Json['Event'][$value] = $tempCommentators[$tempUID];
@@ -1096,10 +843,10 @@ function WriteDBEventsList ($action, $Json) {
 				$Json['Event'][$value] = [];
 				$Json['Event'][$value]['UID'] = "";
 			}
-		}
+		}*/
 
 		//Судейская бригада
-		$tempJudges = ReadDBJudges();
+		$tempJudges = DBJudges();
 		foreach (['JudgeFirst','JudgeSecond','JudgeThird','JudgeFourth']  as $value) {
 			$tempUID  = $Json['Event'][$value]['UID'];
 			if ($tempUID != "" && array_key_exists($tempUID, $tempJudges) && is_array($tempJudges[$tempUID])) {
@@ -1116,8 +863,10 @@ function WriteDBEventsList ($action, $Json) {
 		$tempGameNameUID  = $Json['Event']['GameName']['UID'];
 		$tempTeamLeftUID  = $Json['Event']['PlayerLeft']['UID'];
 		$tempTeamRightUID = $Json['Event']['PlayerRight']['UID'];
-		$tempTeamLeft = ReadDBTeam($tempTeamLeftUID);
-		$tempTeamRight = ReadDBTeam($tempTeamRightUID);
+		$tempTeamLeft   = ReadDBTeam($tempTeamLeftUID);
+		$tempTeamRight  = ReadDBTeam($tempTeamRightUID);
+		$GamePlaceArray = DBGamePlace();
+		$GameNameArray  = DBGameName();
 		if (is_array($GamePlaceArray[$tempGamePlaceUID]) && 
 			is_array($GameNameArray[$tempGameNameUID]) && 
 			is_array($tempTeamLeft) && 
@@ -1152,9 +901,11 @@ function WriteDBEventsList ($action, $Json) {
 			if ($ini["PrintConsoleInfo"] == "y") {echo "Не удалось найти данные!!!\n";}
 		}
 	}
-	$WriteFile = fopen(__DIR__ . '/' . $ini['DB_EVENTS_LIST'], 'w');
-	fwrite($WriteFile, json_encode($tempEventDBList, JSON_PRETTY_PRINT|JSON_HEX_APOS|JSON_HEX_QUOT));
-	fclose($WriteFile);
+	if ($action != false) {
+		$WriteFile = fopen(__DIR__ . '/' . $ini['DB_EVENTS_LIST'], 'w');
+		fwrite($WriteFile, json_encode($tempEventDBList, JSON_PRETTY_PRINT|JSON_HEX_APOS|JSON_HEX_QUOT));
+		fclose($WriteFile);
+	}
 
 	$arraySort = [];
 	foreach ($tempEventDBList as $key => $row) {
@@ -1165,9 +916,6 @@ function WriteDBEventsList ($action, $Json) {
 	unset($arraySort);
 	return $tempEventDBList;
 }
-ReadDBGameName  ();
-ReadDBGamePlace ();
-
 function ReadLogo ($dir) {
 	$Return = ['LOGO_DEFAULT'];
 	$files = array_diff(scandir(__DIR__ . '/' . $dir), array('.', '..'));
@@ -1196,8 +944,6 @@ function FuncWorks($data, $connection) {
 	global $TimerID;
 	global $Start_time;
 	global $ini;
-	global $GameNameArray;
-	global $GamePlaceArray;
 	global $EventSelect;
 
 	if (!empty($data)) {
@@ -1216,42 +962,40 @@ function FuncWorks($data, $connection) {
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => "ListAllDB",
-						"GameNameArray"      => $GameNameArray,
-						"GamePlaceArray"     => $GamePlaceArray
+						"GameNameArray"      => DBGameName(),
+						"GamePlaceArray"     => DBGamePlace()
 					];
 					break;
 				//
 				case "GetAllDBEvent":
 					$ReturnJsonToWeb = [
-						"timestamp" => time(),
-						"dAction"   => "ListAllDBEvent",
-						"Event"     => ReadDBEvent($dataJson['Value']),
-						"TeamArray" => ReadDBTeamsList(),
-						"GameNameArray"      => $GameNameArray,
-						"GamePlaceArray"     => $GamePlaceArray,
-						"JudgesArray"        => ReadDBJudges(),
-						"CommentatorsArray"  => ReadDBCommentators()
+						"timestamp"   => time(),
+						"dAction"     => "ListAllDBEvent",
+						"Event"       => ReadDBEvent(($dataJson['Value'] && $dataJson['Value'] != "") ? $dataJson['Value'] : $EventSelect['UID']),
+						"TeamArray"   => DBTeamsList(),
+						"GameNameArray"      => DBGameName(),
+						"GamePlaceArray"     => DBGamePlace()
 					];
 					break;
-				//
+				//Получить список судейской бригады
 				case "GetJudgesDB":
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => "ListJudgesDB",
-						"JudgesArray" => ReadDBJudges(),
+						"JudgesArray" => DBJudges(),
 						"PhotoJudges" => ['PHOTO_JUDGE_DEFAULT']
 					];
 					break;
-				//
+				//Получить список комментаторов
 				case "GetCommentatorsDB":
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => "ListCommentatorsDB",
-						"CommentatorsArray" => ReadDBCommentators(),
+						"CommentatorsArray" => DBCommentators(),
 						"PhotoCommentators" => ['PHOTO_COMMENTATOR_DEFAULT'],
 					];
 					break;
-				//
+				//Получить список игроков команды
 				case "GetTeamsPlayers":
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
@@ -1261,7 +1005,7 @@ function FuncWorks($data, $connection) {
 						"PlayersRight" => $EventDB['PlayerRight']
 					];
 					break;
-				//
+				//Получить информацию по команде
 				case "GetTeam":
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
@@ -1272,26 +1016,26 @@ function FuncWorks($data, $connection) {
 					];
 					unset($PhotoPlayers);
 					break;
-				//
+				//Получить список команд
 				case "GetTeamsList":
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => "ListTeams",
-						"ListTeams" => ReadDBTeamsList()
+						"ListTeams" => DBTeamsList()
 					];
 					break;
-				//
+				//Получить список мероприятий
 				case "GetEventsList":
 					$ReturnJsonToWeb = [
-						"timestamp" => time(),
-						"dAction"   => "ListEvents",
-						"ListEvents" => ReadDBEventsList(),
-						"SelectEvent" => $EventSelect
+						"timestamp"   => time(),
+						"dAction"     => "ListEvents",
+						"ListEvents"  => DBEventsList(),
+						"SelectEvent" => $EventSelect,
 					];
 					break;
 				//
 				case "ChangeCurrentEvent":
-					$TempEventsList = ReadDBEventsList();
+					$TempEventsList = DBEventsList();
 					if (is_array($TempEventsList[$dataJson['Value']])) {
 						if (file_exists(__DIR__ . '/DB/Events/' . $TempEventsList[$dataJson['Value']]['File'] . ".json")) {
 							//Записываем данные из памяти в файл
@@ -1316,8 +1060,12 @@ function FuncWorks($data, $connection) {
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => "ListEvents",
-						"ListEvents" => ReadDBEventsList(),
-						"SelectEvent" => $EventSelect
+						"ListEvents" => DBEventsList(),
+						"SelectEvent" => $EventSelect,
+						"CommentatorsArray" => DBCommentators(),
+						"PhotoCommentators" => ['PHOTO_COMMENTATOR_DEFAULT'],
+						"JudgesArray" => DBJudges(),
+						"PhotoJudges" => ['PHOTO_JUDGE_DEFAULT']
 					];
 					break;
 				//
@@ -1334,16 +1082,39 @@ function FuncWorks($data, $connection) {
 					$Start_time = $minutes + $second;
 					$EventDB['Timer'] = $dataJson['Value'];
 					break;
+				//Текущая погода
+				case "SendGameWeather":
+					$EventDB['GameWeather'] = $dataJson['Value'];
+					break;
+				//Текущая температура
+				case "SendGameTemperature":
+					$EventDB['GameTemperature'] = $dataJson['Value'];
+					break;
+				//Утверждаем комментатора №1
+				case "SendCommentator":
+					if ($dataJson['Board'] < 1 && $dataJson['Board'] > 9) {
+						break;
+					}
+					$tempCommentators = DBCommentators();
+					var_dump($tempCommentators);
+					var_dump($dataJson['Value']);
+					if (!array_key_exists($dataJson['Value'], $tempCommentators)) {
+						echo "Такого комментатора нет!\n";
+						break;
+					}
+					$EventDB['Commentator'.$dataJson['Board']] = $tempCommentators[$dataJson['Value']];
+					$EventDB['Commentator'.$dataJson['Board']]['UID'] = $dataJson['Value'];
+					empty($tempCommentators);
+					break;
 				// Название матча: Создать, сохранить и удалить
 				case "DeleteGameName":
 				case "SaveGameName":
 				case "CreateGameName":
-					WriteDBGameName($dataJson['Action'], $dataJson['Value']);
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => "ListAllDB",
-						"GameNameArray"  => $GameNameArray,
-						"GamePlaceArray" => $GamePlaceArray,
+						"GameNameArray"  => DBGameName($dataJson['Action'], $dataJson['Value']),
+						"GamePlaceArray" => DBGamePlace(),
 					];
 					break;
 				// Место проведения матча: Создать, сохранить и удалить
@@ -1351,12 +1122,11 @@ function FuncWorks($data, $connection) {
 				case "SaveGamePlace":
 				case "CreateGamePlace":
 					$LogoGamePlace = ReadLogo($ini['DIR_LOGO_GAME_PLACE_LOCAL']);
-					WriteDBGamePlace($dataJson['Action'], $dataJson['Value']);
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => "ListAllDB",
-						"GameNameArray"  => $GameNameArray,
-						"GamePlaceArray" => $GamePlaceArray,
+						"GameNameArray"  => DBGameName(),
+						"GamePlaceArray" => DBGamePlace($dataJson['Action'], $dataJson['Value']),
 						"LogoGamePlace" => $LogoGamePlace
 					];
 					break;
@@ -1367,7 +1137,7 @@ function FuncWorks($data, $connection) {
 					$ReturnJsonToWeb = [
 						"timestamp"   => time(),
 						"dAction"     => "ListJudgesDB",
-						"JudgesArray" => WriteDBJudges($dataJson['Action'], $dataJson['Value']),
+						"JudgesArray" => DBJudges($dataJson['Action'], $dataJson['Value']),
 						"PhotoJudges" => ['PHOTO_JUDGE_DEFAULT']
 					];
 					break;
@@ -1378,7 +1148,7 @@ function FuncWorks($data, $connection) {
 					$ReturnJsonToWeb = [
 						"timestamp"   => time(),
 						"dAction"     => "ListCommentatorsDB",
-						"CommentatorsArray" => WriteDBCommentators($dataJson['Action'], $dataJson['Value']),
+						"CommentatorsArray" => DBCommentators($dataJson['Action'], $dataJson['Value']),
 						"PhotoCommentators" => ['PHOTO_COMMENTATOR_DEFAULT'],
 					];
 					break;
@@ -1389,7 +1159,7 @@ function FuncWorks($data, $connection) {
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => "ListTeams",
-						"ListTeams" => WriteDBTeamsList($dataJson['Action'], $dataJson['Value'])
+						"ListTeams" => DBTeamsList($dataJson['Action'], $dataJson['Value'])
 					];
 					break;
 				//
@@ -1400,7 +1170,7 @@ function FuncWorks($data, $connection) {
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => "ListEvents",
-						"ListEvents" => WriteDBEventsList($dataJson['Action'], $dataJson['Value']),
+						"ListEvents" => DBEventsList($dataJson['Action'], $dataJson['Value']),
 						"SelectEvent" => $EventSelect
 					];
 					break;
@@ -1556,8 +1326,8 @@ function FuncWorks($data, $connection) {
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
 						"Board"     => $dataJson['Board'],
-						"CommentatorFirst"  => $EventDB['CommentatorFirst']['FullName'],
-						"CommentatorSecond" => $EventDB['CommentatorSecond']['FullName']
+						"Commentator1" => $EventDB['Commentator1']['FullName'],
+						"Commentator2" => $EventDB['Commentator2']['FullName']
 					];
 					break;
 				// Скрыть комментаторов
@@ -2002,14 +1772,7 @@ function FuncWorks($data, $connection) {
 						"Value"   => (string)'00:00',
 					];
 					break;
-				
-
-
-								//Очистить всё
-
-				
-				
-
+					//Очистить всё
 				//
 				default:
 					if ($ini["PrintConsoleInfo"] == "y") {
@@ -2075,7 +1838,7 @@ $ws_worker->onMessage = function($connection, $data) use (&$EventDB, &$ini, &$us
 // it starts once when you start server.php:
 $ws_worker->onWorkerStart = function() use (&$EventDB, &$ini, &$EventsTimer, &$EventsType, &$users, &$EventSelect) {
 	// Читаем базу данных
-	$EventDB = ReadDBEvent();
+	ReadDBEvent();
 
 	if ($ini['HOCKEY_SERVER_TYPE']=="DIAN") {
 		//----------------------------------------------------

@@ -13,50 +13,6 @@
  */
 
 //Общие настройки
-// Отладочная информация
-// Значение: true  - Включено
-// Значение: false - Выключено
-//var debuging = true;
+
 // Порт для Web Socket
 const WebSocketPort = 8200;
-// Отладочная информация
-const debuging = true;
-
-var BoardType = 'OBS';
-
-
-//Общие настройки
-/* fetch('/config/config-default.json')
-    .then(response => {
-        if (response.status === 200) {
-            return response.json();
-        } else {
-            throw new Error('Something went wrong on api server!');
-        }
-    })
-    .then(response => {
-              // Отладочная информация
-        // Значение: true  - Включено
-        // Значение: false - Выключено
-        if (json.debug == "y") {
-            const debuging = true;
-        }
-        else {
-            const debuging = false;
-        }
-        // Порт для Web Socket
-        if (json.WebSocketPort != WebSocketPort) {
-            const WebSocketPort = json.WebSocketPort;
-        }
-        else {
-            const WebSocketPort = 8200;
-        }
-        const ConfigLoad = true;
-        console.log(response);
-        console.log(WebSocketPort);
-        // ...
-    }).catch(error => {
-        console.error(error);
-    }
-); */
-

@@ -70,9 +70,9 @@ html,body,#id_board {
 }
 .cl_boardWelcome>.WelcomeClassWeather {
 	position: absolute;
-	right: 30px;
-	top: 79px;
-	width: 200px;
+	right: 90px;
+    top: 92px;
+    width: 55px;
 	text-align: center;
 	font-size: 3rem;
 }
