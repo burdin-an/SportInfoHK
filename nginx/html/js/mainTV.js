@@ -18,17 +18,13 @@
 // Значение: false - Выключено
 //let debuging = true;
 // Отладочная информация
-let debuging = false;
-
-let BoardType = "Default";
-
-let BoardTemplate = "Default";
-
-let BoardKey = "ChromaGreen"; //ChromaGreen, ChromaRed, ChromaBlue, Luma (black), Alpha (transparent)
-
-let LocationIsStatic = false;
-
-let LocationStaticAction = '';
+let debuging = false,
+BoardType = "Default",
+BoardTemplate = "Default",
+BoardKey = "ChromaGreen", //ChromaGreen, ChromaRed, ChromaBlue, Luma (black), Alpha (transparent)
+LocationIsStatic = false,
+LocationStaticAction = '',
+BoardTemplatePath = 'templateDefault';
 
 /*function getAnchor() {
     var currentUrl = (document.URL.split('#').length > 1) ? document.URL.split('#')[1] : '',
@@ -41,29 +37,37 @@ const ArrayUrlConfig = window.location.search.slice(1).split("&");
 
 ArrayUrlConfig.forEach(UrlConfig => {
 	let ConfigLine = UrlConfig.split("=");
-	console.log(ConfigLine);
 	if (Array.isArray(ConfigLine) && ConfigLine[0] != "" &&  ConfigLine[1] != "") {
 		let name =  ConfigLine[0], value =  ConfigLine[1];
-		console.log('Puk');
 		if (name == 'Debuging') {
 			debuging = true;
+			console.log('Debuging: true');
+			console.log(debuging);
 		}
 		if (name == 'Type' && value.search(/^[A-Za-z0-9]{1,15}$/g) == 0) {
 			BoardType = value;
+			if (debuging) {console.log('Type: ' + value);};
 		}
 		if (name == 'Template' && value.search(/^[A-Za-z0-9]{1,25}$/g) == 0) {
 			BoardTemplate = value;
+			if (debuging) {console.log('Template: ' + value);};
 		}
 		if (name == 'Key' && value.search(/^[A-Za-z0-9]{4,12}$/g) == 0) {
 			BoardKey = value;
+			if (debuging) {console.log('Key: ' + value);};
 		}
 		if (name == 'Static' && value.search(/^[A-Za-z0-9]{1,25}$/g) == 0) {
 			LocationIsStatic = true;
 			LocationStaticAction = value;
+			if (debuging) {console.log('StaticAction: ' + value);};
 		}
 	}	
 
 });
+
+if (BoardTemplate != 'Default' && BoardTemplate != 'OBS' && BoardTemplate != 'Tablo' && BoardTemplate != 'NL' && BoardTemplate != 'FHR' && BoardTemplate != 'Football') {
+	BoardTemplatePath = "templateLocal";
+}
 
 
 
@@ -104,16 +108,12 @@ fetch('/config/board/' + BoardType + '.json')
 
 
 // Create new link Element
-let link = document.createElement('link');
-
-link.rel = 'stylesheet';
-
-link.type = 'text/css';
-
-link.href = 'templateDefault/' +  BoardTemplate + '/template.css';
-
+let TemplateStyle = document.createElement('link');
+TemplateStyle.rel = 'stylesheet';
+TemplateStyle.type = 'text/css';
+TemplateStyle.href = BoardTemplatePath + '/' +  BoardTemplate + '/template.css';
 // Append link element to HTML head
-document.getElementsByTagName('HEAD')[0].appendChild(link);
+document.getElementsByTagName('HEAD')[0].appendChild(TemplateStyle);
 
 
 let styleBackground = document.createElement('style');
@@ -136,4 +136,9 @@ else if (BoardKey == 'Alpha') {
 styleBackground.appendChild(document.createTextNode('html,body,#id_board {background-color: ' + KeyTypeColor + ';}'));
 document.getElementsByTagName('HEAD')[0].appendChild(styleBackground);
 
-
+// Create new link Element
+let TemplateScript = document.createElement('script');
+TemplateScript.type = 'text/javascript';
+TemplateScript.src =  BoardTemplatePath + '/' +  BoardTemplate + '/template.js';
+// Append link element to HTML head
+document.getElementsByTagName('HEAD')[0].appendChild(TemplateScript);
