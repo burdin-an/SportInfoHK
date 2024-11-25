@@ -21,7 +21,7 @@
 let debuging = false,
 BoardType = "Default",
 BoardTemplate = "Default",
-BoardKey = "ChromaGreen", //ChromaGreen, ChromaRed, ChromaBlue, Luma (black), Alpha (transparent)
+BoardKey = "Default", //ChromaGreen, ChromaRed, ChromaBlue, Luma (black), Alpha (transparent)
 LocationIsStatic = false,
 LocationStaticAction = '',
 BoardTemplatePath = 'templateDefault';
@@ -69,9 +69,6 @@ if (BoardTemplate != 'Default' && BoardTemplate != 'OBS' && BoardTemplate != 'Ta
 	BoardTemplatePath = "templateLocal";
 }
 
-
-
-
 //Общие настройки
 /*
 fetch('/config/board/' + BoardType + '.json')
@@ -115,26 +112,28 @@ TemplateStyle.href = BoardTemplatePath + '/' +  BoardTemplate + '/template.css';
 // Append link element to HTML head
 document.getElementsByTagName('HEAD')[0].appendChild(TemplateStyle);
 
+if (BoardKey != 'Default') {
+	let styleBackground = document.createElement('style');
+	let KeyTypeColor;
+	if (BoardKey == 'ChromaGreen') {
+		KeyTypeColor = 'rgb(0, 255, 0)';
+	}
+	if (BoardKey == 'ChromaBlue') {
+		KeyTypeColor = 'rgb(0, 0, 255)';
+	}
+	else if (BoardKey == 'ChromaRed') {
+		KeyTypeColor = 'rgb(255, 0, 0)';
+	}
+	else if (BoardKey == 'Luma') {
+		KeyTypeColor = 'rgb(0, 0, 0)';
+	}
+	else if (BoardKey == 'Alpha') {
+		KeyTypeColor = 'transparent';
+	}
+	styleBackground.appendChild(document.createTextNode('html,body,#id_board {background-color: ' + KeyTypeColor + ' !important;}'));
+	document.getElementsByTagName('HEAD')[0].appendChild(styleBackground);
+}
 
-let styleBackground = document.createElement('style');
-let KeyTypeColor;
-if (BoardKey == 'ChromaGreen') {
-	KeyTypeColor = 'rgb(0, 255, 0)';
-}
-else if (BoardKey == 'ChromaBlue') {
-	KeyTypeColor = 'rgb(0, 0, 255)';
-}
-else if (BoardKey == 'ChromaRed') {
-	KeyTypeColor = 'rgb(255, 0, 0)';
-}
-else if (BoardKey == 'Luma') {
-	KeyTypeColor = 'rgb(0, 0, 0)';
-}
-else if (BoardKey == 'Alpha') {
-	KeyTypeColor = 'transparent';
-}
-styleBackground.appendChild(document.createTextNode('html,body,#id_board {background-color: ' + KeyTypeColor + ';}'));
-document.getElementsByTagName('HEAD')[0].appendChild(styleBackground);
 
 // Create new link Element
 let TemplateScript = document.createElement('script');
