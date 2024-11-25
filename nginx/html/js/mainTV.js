@@ -13,11 +13,6 @@
  */
 
 //Общие настройки
-// Отладочная информация
-// Значение: true  - Включено
-// Значение: false - Выключено
-//let debuging = true;
-// Отладочная информация
 let debuging = false,
 BoardType = "Default",
 BoardTemplate = "Default",
