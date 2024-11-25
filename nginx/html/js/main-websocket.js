@@ -43,9 +43,6 @@ let timerCloseBoardCount;
 let timerWelcome;
 
 $(document).ready(function(){
-	$("#root_board").html('<div id="root_boardWelcome"></div><div id="root_boardJudges"></div><div id="root_boardCount"></div><div id="root_boardLogo1"></div><div id="root_boardStart"></div><div id="root_boardSostav"></div><div id="root_boardStart5Player"></div><div id="root_boardCommentators"></div><div id="root_boardTrainerTeam"></div><div id="root_boardPlayerTeam"></div><div id="root_boardEndPeriod"></div><div id="root_boardStartPeriod"></div>');
-
-
 	function connect() {
 		var ws = new WebSocket('ws://' + window.location.hostname + ':' + WebSocketPort);
 		ws.onopen = function() {
