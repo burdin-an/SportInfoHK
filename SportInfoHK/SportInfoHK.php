@@ -955,7 +955,12 @@ function FuncWorks($data, $connection) {
 		if (json_last_error() === JSON_ERROR_NONE && $dataJson['Action'] != "") {
 			if ($ini["PrintConsoleInfo"] == "y") {
 				echo "Action Json: " . $dataJson['Action'] .  "; Board: " . $dataJson['Board'] . "; TeamPosition: " . (empty($dataJson['TeamPosition']) ? "" : $dataJson['TeamPosition']) . ";\n";
+				if (empty($dataJson['TeamPosition'])) {echo "TeamPosition указан пустым!\n";}
+				elseif ($dataJson['TeamPosition'] != 'Left' && $dataJson['TeamPosition'] != 'Right') {echo "TeamPosition должен быть Right или Left\n";}
 			}
+			if (empty($dataJson['TeamPosition'])) {$dataJson['TeamPosition'] = 'Left';}
+			elseif ($dataJson['TeamPosition'] != 'Left' && $dataJson['TeamPosition'] != 'Right') {$dataJson['TeamPosition'] = 'Left';}
+
 			switch ($dataJson['Action']) {
 				//Получить список мест проведения и названий матчей
 				case "GetAllDB":
