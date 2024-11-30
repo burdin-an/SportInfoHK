@@ -982,6 +982,14 @@ function FuncWorks($data, $connection) {
 						"GamePlaceArray"     => DBGamePlace()
 					];
 					break;
+				// Получить базу текущего мероприятия
+				case "GetCurrentDBEvent":
+					$ReturnJsonToWeb = [
+						"timestamp" => time(),
+						"dAction"   => "ListCurrentDBEvent",
+						"Event"     => $EventDB
+					];
+					break;
 				//Получить список судейской бригады
 				case "GetJudgesDB":
 					$ReturnJsonToWeb = [
