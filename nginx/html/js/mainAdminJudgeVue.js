@@ -37,7 +37,7 @@ const AdminApp = {
 			let ws;
 			ws = new WebSocket('ws://' + window.location.hostname + ':' + WebSocketPort);
 			ws.onopen = function() {
-				if (debuging != false) {console.log('WebSocket connected');};
+				console.log('WebSocket connected');
 				var msg = {
 					"Action": Action
 				};
@@ -76,7 +76,7 @@ const AdminApp = {
 				ws.close();
 			};
 			ws.onerror = function(err) {
-				if (debuging != false) {console.error('Socket encountered error: ', err.message, 'Closing socket');};
+				console.error('Socket encountered error: ', err.message, 'Closing socket');
 				ws.close();
 				var tagBlockContext = document.createElement("div");
 				tagBlockContext.setAttribute("id","BlockContext");
@@ -85,7 +85,7 @@ const AdminApp = {
 				document.body.insertBefore(tagBlockContext, document.body.firstChild);
 			};
 			ws.onclose = function(err) {
-				if (debuging != false) {console.info('Closing socket');};
+				console.info('Closing socket');
 			};
 		}
 	},

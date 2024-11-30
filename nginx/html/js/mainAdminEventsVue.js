@@ -172,8 +172,8 @@
 			let ws;
 			ws = new WebSocket('ws://' + window.location.hostname + ':' + WebSocketPort);
 			ws.onopen = function() {
-				if (debuging != false) {console.log('WebSocket connected');};
-				if (debuging != false) {console.log("Action " + Action);};
+				console.log('WebSocket connected');
+				console.log("Action " + Action);
 				var msg = {
 					"Action": Action
 				};
@@ -203,7 +203,7 @@
 					if (!data.Event.CommentatorSecond) {
 						data.Event.CommentatorSecond = {};
 					}
-					//if (debuging != false) {console.log(data.Event);};
+					//console.log(data.Event);
 					/*data.TeamLeftSelected  = data.Event.PlayerLeft.UID;
 					data.TeamRightSelected = data.Event.PlayerRight.UID;
 					data.GameNameSelected  = data.Event.GameName.UID;
@@ -284,7 +284,7 @@
 				ws.close();
 			};
 			ws.onerror = function(err) {
-				if (debuging != false) {console.error('Socket encountered error: ', err.message, 'Closing socket');};
+				console.error('Socket encountered error: ', err.message, 'Closing socket');
 				ws.close();
 				var tagBlockContext = document.createElement("div");
 				tagBlockContext.setAttribute("id","BlockContext");
@@ -293,7 +293,7 @@
 				document.body.insertBefore(tagBlockContext, document.body.firstChild);
 			};
 			ws.onclose = function(err) {
-				if (debuging != false) {console.info('Closing socket');};
+				console.info('Closing socket');
 			};
 		}
 	},

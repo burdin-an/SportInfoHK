@@ -69,13 +69,13 @@
 			}
 		},
 		removeRow (index) {
-			if (debuging != false) {console.log(this.Team.Players);};
+			console.log(this.Team.Players);
 			//delete this.Team.Players[index];
 			this.Team.Players.splice(index, 1);
-			if (debuging != false) {console.log(this.Team.Players);};
+			console.log(this.Team.Players);
         },
         addRow (index) {
-			if (debuging != false) {console.log(this.Team.Players);};
+			console.log(this.Team.Players);
 			let keys = Object.keys(this.Team.Players);
 			let NewUIDPlayer;
 			if (keys.length > 0) {
@@ -117,7 +117,7 @@
 			let ws;
 			ws = new WebSocket('ws://' + window.location.hostname + ':' + WebSocketPort);
 			ws.onopen = function() {
-				if (debuging != false) {console.log('WebSocket connected');};
+				console.log('WebSocket connected');
 				var msg = {
 					"Action": Action
 				};
@@ -154,7 +154,7 @@
 				ws.close();
 			};
 			ws.onerror = function(err) {
-				if (debuging != false) {console.error('Socket encountered error: ', err.message, 'Closing socket');};
+				console.error('Socket encountered error: ', err.message, 'Closing socket');
 				ws.close();
 				var tagBlockContext = document.createElement("div");
 				tagBlockContext.setAttribute("id","BlockContext");
@@ -163,7 +163,7 @@
 				document.body.insertBefore(tagBlockContext, document.body.firstChild);
 			};
 			ws.onclose = function(err) {
-				if (debuging != false) {console.info('Closing socket');};
+				console.info('Closing socket');
 			};
 		}
 	},
