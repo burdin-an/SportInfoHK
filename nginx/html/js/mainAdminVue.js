@@ -12,6 +12,8 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  * @version   1.0.1
  */
+//Общие настройки
+
 const AdminApp = {
 	data() {
 		return {
