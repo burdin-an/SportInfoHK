@@ -127,6 +127,7 @@ $EventDBDefault = [
 	'TimerUpdate'   => 0,
 	'TimerMinutes'  => -1,
 	'TimerSecondes' => (string)'00',
+	'TimerMSeconds' => 0,
 	'TimerStatus'   => [
 		'Upd'   => 0,
 		'Count' => -1,
@@ -1783,6 +1784,9 @@ function FuncWorks($data, $connection) {
 						"timestamp" => time(),
 						"dAction" => "TimerUpdate",
 						"Value"   => (string)'00:00',
+						"Minutes"  => 0,
+						"Secondes" => 0,
+						"MSeconds" => 0,
 					];
 					break;
 					//Очистить всё
@@ -1991,10 +1995,20 @@ $ws_worker->onWorkerStart = function() use (&$EventDB, &$ini, &$EventsTimer, &$E
 							$EventDB['TimerUpdate'] = 1;
 							$Modify = 1;
 						}
-						unset($TimerMinutes);
-						unset($TimerSecondes);
 						// 5: Таймер игры десятые
 						//echo "[Timer dec] => " . ($byteArray["Chet5"] == "c" ? "" : $byteArray["Chet5"]) . "\n";
+						$TimerMSeconds = (int)($byteArray["Chet5"]);
+						if ($TimerMinutes == 0 && $EventDB['TimerMSecondes'] != $TimerMSeconds) {
+							if ($ini["PrintConsoleInfo"] == "y") {
+								echo "[Time MSec] => ${TimerMSeconds}\n";
+							}
+							$EventDB['TimerMSeconds'] = $TimerMSeconds;
+							$EventDB['TimerUpdate'] = 1;
+							$Modify = 1;
+						}
+						unset($TimerMinutes);
+						unset($TimerSecondes);
+						unset($TimerMSeconds);
 						// 6: 1 (таймер игры идет) или 2 (таймер игры не идет)
 						if ($EventDB['TimerStatus']['Count'] != (int)$byteArray["Chet6"]) {
 							if ($ini["PrintConsoleInfo"] == "y") {
