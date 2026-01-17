@@ -17,97 +17,63 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link type="text/css" charset="utf-8" rel="stylesheet" href="css/bootstrap.min.css" />
-    <script type="text/javascript" charset="utf-8" src="js/bootstrap.bundle.min.js"></script>
+    <link type="text/css" charset="utf-8" rel="stylesheet" href="/css/bootstrap.min.css" />
+    <script type="text/javascript" charset="utf-8" src="/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="/js/vue.global.prod.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/js/mainConfig.js"></script>
+	<script type="text/javascript" charset="utf-8" src="/js/TypeList-local.js"></script>
+	<title>Спортивные титры: Хоккей</title>
 </head>
 <body>
-    <h1 class="text-center">Информационная панель:</h1>
+	<h1 class="text-center">Информационная панель:</h1>
 	<h2 class="text-center">Спортивные титры: Хоккей</h2>
 	<br>
-	<div class="container">
-		<div class="row">
-			<div class="col">
-				<a class="btn btn-danger w-100 mb-2" data-bs-toggle="collapse" href="#collapseAdmin" role="button" aria-expanded="false" aria-controls="collapseAdmin">
-					Админка
-				</a>
+	<div id="AdminApp">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="mb-4"><a href="/admin/" class="btn btn-lg btn-danger w-100">Панель управления титрами</a></div>
+					<div class="mb-4"><a href="Commentator.html" class="btn btn-lg btn-info w-100">Комментатор</a></div>
+				</div>
+				<div class="col">
+					<div class="mb-4">
+						Шаблоны по-умолчанию:<br>
+						<select v-model="BoardTemplateSelected" @change="BoardTemplate" class="form-control" :disabled="enableDisable">
+							<option value="">Нет</option>
+							<option v-for="option in BoardTemplateList" :value="option.id">{{ option.value }}</option>
+						</select>
+						{{ BoardTemplateURL }}
+					</div>
+					<div class="mb-4">
+						Цвет фона (Выбрать тип ключа):<br>
+						<select v-model="BoardKeySelected" @change="BoardKey" class="form-control" :disabled="enableDisable">
+							<option value="">Нет</option>
+							<option v-for="option in BoardKeyList" :value="option.id">{{ option.value }}</option>
+						</select>
+						{{ BoardKeyURL }}
+					</div>
+					<div class="mb-4">
+						Статический титр: (опционально!)<br>
+						<select v-model="BoardStaticSelected" @change="BoardStatic" class="form-control" :disabled="enableDisable">
+							<option value="">Нет</option>
+							<option v-for="option in BoardStaticList" :value="option.id">{{ option.value }}</option>
+						</select>
+						{{ BoardStaticURL }}
+					</div>
+				</div>
+				<div class="col">
+					<div>Тип:</div>
+					<div v-if="BoardTemplateSelected != '' && BoardKeySelected != ''">
+						<div class="mb-4" v-for="option in BoardTypeList"><a v-if="option.Key != 0" :href="'TV.html?Type=' + option.Key + BoardTemplateURL + BoardKeyURL + BoardStaticURL" :class="option.Class" class="btn btn-lg w-100">{{ option.Name }}</a></div>
+					</div>
+					<div v-else="">
+						&lt;&lt;&lt;&lt;-- Надо выбрать данные в левой колонке
+						
+					</div>
+				</div>
 			</div>
-			<div class="col">
-				<button class="btn btn-warning w-100 mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTablo" aria-expanded="false" aria-controls="collapseTablo">
-					Экран на льду (Куб)
-				</button>
-			</div>
-			<div class="col">
-				<button class="btn btn-secondary w-100 mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTV" aria-expanded="false" aria-controls="collapseTV">
-					Титры
-				</button>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col"></div>
-			<div class="col-5">
-				<div class="collapse" id="collapseAdmin">
-					<div class="card mb-3">
-						<div class="card-body">
-							<div><a href="Admin.html" class="btn btn-lg btn-danger w-100">Панель управления титрами</a></div>
-							<div><a href="Commentator.html" class="btn btn-lg btn-info w-100">Комментатор</a></div>
-						</div>
-					</div>
-				</div>
-				<div class="collapse" id="collapseTablo">
-					<div class="card mb-3">
-						<div class="card-body">
-							<a href="TV.html?Type=Tablo&Template=Tablo" class="btn btn-lg btn-warning w-100">Экран на льду</a>
-						</div>
-					</div>
-				</div>
-				<div class="collapse" id="collapseTV">
-					<div class="card mb-3">
-						<div class="card-body">
-							<div><a href="TV.html?Type=TV&Template=TV"        class="btn btn-lg btn-secondary mb-2 w-100"><span class="h2">ТВ</span></a></div>
-							<div><a href="TV.html?Type=OBS&Template=OBS"      class="btn btn-lg btn-info mb-2 w-100"><span class="h2">OBS</span></a></div>
-							<div><a href="TV.html?Type=OBS&Template=NL"       class="btn btn-lg btn-info mb-2 w-100"><span class="h2">Ночная лига</span></a></div>
-							<div><a href="TV.html?Type=OBS&Template=FHR"      class="btn btn-lg btn-info mb-2 w-100"><span class="h2">ФХР</span></a></div>
-							<div><a href="TV.html?Type=OBS&Template=Football" class="btn btn-lg btn-info w-100"><span class="h2">Футбол</span></a></div>
-						</div>
-					</div>
-				</div>
-
-
-
-
-
-<!--
-				<div class="card mb-3">
-					<div class="card-header text-center text-white bg-info">Админка</div>
-					<div class="card-body">
-						<a href="Admin.html" class="btn btn-lg btn-danger mb-4 w-100">Панель управления титрами</a>
-					</div>
-				</div>
-				<div class="card mb-3">
-					<div class="card-header text-center text-dark bg-info">Экран на льду (Куб)</div>
-					<div class="card-body">
-						<a href="Tablo.html" class="btn btn-lg btn-warning mb-4 w-100">Экран на льду</a>
-					</div>
-				</div>
-				<div class="card mb-3">
-					<div class="card-header text-center text-dark bg-info">Телевиденье</div>
-					<div class="card-body">
-						<a href="TV-OTV.html" class="btn btn-lg btn-secondary mb-4 w-100"><span class="h2">ТВ</span></a>
-					</div>
-				</div>
-				<div class="card mb-3">
-					<div class="card-header text-center text-dark bg-info">YouTube:</div>
-					<div class="card-body">
-						<div><a href="TV-OBS.html" class="btn btn-lg btn-info mb-2 w-100"><span class="h2">OBS</span></a></div>
-						<div><a href="TV-NL.html" class="btn btn-lg btn-info mb-2 w-100"><span class="h2">Ночная лига</span></a></div>
-						<div><a href="TV-FHR.html" class="btn btn-lg btn-info mb-2 w-100"><span class="h2">ФХР</span></a></div>
-						<div><a href="TV-Football.html" class="btn btn-lg btn-info mb-2 w-100"><span class="h2">Футбол</span></a></div>
-					</div>
-				</div>-->
-			</div>
-			<div class="col"></div>
 		</div>
 	</div>
-    
+	<script type="text/javascript" charset="utf-8" src="js/index.js"></script>
 </body>
 </html>
