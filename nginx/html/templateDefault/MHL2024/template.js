@@ -759,3 +759,39 @@ const FS_BoardShootout_1_5 = (data) => `
 		</div>
 	</div>
 </div>`;
+/* ################################################################################################
+    Переменные:
+        1) ${data['']} - Название первой команды
+        2) ${data['']} - Название второй команды
+        3) ${data['']} - Счёт первой команды
+        4) ${data['']} - Счёт первой команды
+        5) ${data['']} - Период
+        6) ${data['']} - Оставшееся время до окончания периода
+        7) ${data['']} - 
+        8) ${data['']} - 
+*/
+const FS_BoardFinalResultBottom = (data) => `
+<div id="boardFinalResultBottom" class="cl_FinalResultBottomWrap">
+	<div class="cl_FinalResultBottom_Layer2_1"></div>
+	<div class="cl_FinalResultBottom_Layer2_2"></div>
+	<div class="cl_FinalResultBottom_Layer2_3">
+		<div class="cl_FinalResultBottom_Layer2_3_1">
+			<div class="cl_boardFinalResultBottom__PlayerLeftLogo" id="PlayerLeftLogo"></div>
+			<div class="cl_boardFinalResultBottom__PlayerLeftName">${data['PlayerLeft']['FullName']}</div>
+			<div class="cl_boardFinalResultBottom__PlayerLeftPlace">${data['PlayerLeft']['Place']}</div>
+			<div class="cl_boardFinalResultBottom__PlayerRightLogo" id="PlayerRightLogo"></div>
+			<div class="cl_boardFinalResultBottom__PlayerRightName">${data['PlayerRight']['FullName']}</div>
+			<div class="cl_boardFinalResultBottom__PlayerRightPlace">${data['PlayerRight']['Place']}</div>
+		</div>
+		<div class="cl_FinalResultBottom_Layer2_3_2">
+			<div class="cl_boardFinalResultBottom__PeriodNumber">
+				<div class="cl_boardFinalResultBottom__PeriodNumber__Top">
+					<div class="cl_boardFinalResultBottom__PlayerLeftCount">${data['CountLeft']}</div>
+					<div class="cl_boardFinalResultBottom__PlayerCountRazdel"></div>
+					<div class="cl_boardFinalResultBottom__PlayerRightCount">${data['CountRight']}</div>
+				</div>
+				<div class="cl_boardFinalResultBottom__PeriodNumber__Bottom">Final Result</div>
+			</div>
+		</div>
+	</div>
+</div>`;

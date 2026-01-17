@@ -5000,3 +5000,282 @@ html,body {
 .cl_boardShootout_1_5.cl_boardOut .ShootoutLayer7_0 {
     animation: Shootout_1_5_TitleUP 200ms linear 700ms normal forwards;
 }
+/* ################################################################################################
+Информационная панель:
+    FinalResultBottom; - Финальный счёт, Нижний титр
+*/
+.cl_FinalResultBottom_Layer2_1,
+.cl_FinalResultBottom_Layer2_2,
+.cl_FinalResultBottom_Layer2_3,
+.cl_FinalResultBottom_Layer2_3_1,
+.cl_FinalResultBottom_Layer2_3_2,
+.cl_boardFinalResultBottom__PlayerLeftLogo, 
+.cl_boardFinalResultBottom__PlayerLeftName, 
+.cl_boardFinalResultBottom__PlayerLeftPlace, 
+.cl_boardFinalResultBottom__PlayerLeftCount,
+.cl_boardFinalResultBottom__PlayerRightLogo, 
+.cl_boardFinalResultBottom__PlayerRightName, 
+.cl_boardFinalResultBottom__PlayerRightPlace, 
+.cl_boardFinalResultBottom__PlayerRightCount, 
+.cl_boardFinalResultBottom__PeriodNumber,
+.cl_boardFinalResultBottom__PlayerCountRazdel {
+	position: absolute;
+}
+.cl_FinalResultBottomWrap {
+	position: absolute;
+	bottom: 155px;
+	left: 227px;
+}
+.cl_FinalResultBottomWrap,
+.cl_FinalResultBottom_Layer2_1,
+.cl_FinalResultBottom_Layer2_2,
+.cl_FinalResultBottom_Layer2_3,
+.cl_FinalResultBottom_Layer2_3_1,
+.cl_FinalResultBottom_Layer2_3_2 {
+	width: 1500px;
+	height: 150px;
+}
+.cl_FinalResultBottom_Layer2_1,
+.cl_FinalResultBottom_Layer2_2,
+.cl_FinalResultBottom_Layer2_3 {
+	right: 0;
+	top: 0;
+	transform: skewX(350deg);
+}
+.cl_FinalResultBottom_Layer2_1 {
+	background-color: #a5020a;
+	opacity: 0;
+}
+.cl_FinalResultBottom_Layer2_2 {
+	background-color: #ffffff;
+	opacity: 0;
+}
+.cl_FinalResultBottom_Layer2_3 {
+	background-color: #6e0409;
+	color: #dadada;
+	border-radius: 20px;
+}
+.cl_FinalResultBottom_Layer2_3_1,
+.cl_FinalResultBottom_Layer2_3_2 {
+	right: 0;
+	top: 0;
+}
+.cl_FinalResultBottom_Layer2_3 {
+	height: 150px;
+}
+.cl_boardFinalResultBottom__PlayerLeftLogo, .cl_boardFinalResultBottom__PlayerRightLogo {
+	top: 25px;
+    width: 100px;
+    height: 100px;
+    transform: skewX(10deg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+.cl_boardFinalResultBottom__PlayerLeftLogo {
+	left: 480px;
+}
+.cl_boardFinalResultBottom__PlayerRightLogo {
+	right: 480px;
+}
+.cl_boardFinalResultBottom__PlayerLeftName, .cl_boardFinalResultBottom__PlayerRightName {
+	top: 20px;
+	font-size: 3.2rem;
+}
+.cl_boardFinalResultBottom__PlayerLeftName {
+	width: 440px;
+}
+.cl_boardFinalResultBottom__PlayerRightName {
+	width: 446px;
+}
+.cl_boardFinalResultBottom__PlayerLeftPlace, .cl_boardFinalResultBottom__PlayerRightPlace {
+	top: 70px;
+	font-size: 2.2rem;
+}
+.cl_boardFinalResultBottom__PlayerLeftPlace {
+	width: 446px;
+}
+.cl_boardFinalResultBottom__PlayerRightPlace {
+	width: 440px;
+}
+.cl_boardFinalResultBottom__PlayerLeftName,.cl_boardFinalResultBottom__PlayerLeftPlace {
+	left: 0px;
+	text-align: right;
+	text-transform: uppercase;
+}
+.cl_boardFinalResultBottom__PlayerRightName,.cl_boardFinalResultBottom__PlayerRightPlace {
+	right: 0px;
+	text-align: left;
+	text-transform: uppercase;
+}
+.cl_boardFinalResultBottom__PlayerLeftCount, .cl_boardFinalResultBottom__PlayerRightCount {
+	top: 0px;
+	width: 140px;
+	height: 150px;
+	font-size: 90pt;
+	font-weight: 600;
+	text-align: center;
+}
+.cl_boardFinalResultBottom__PlayerLeftCount {
+	left: 0px;
+}
+.cl_boardFinalResultBottom__PlayerRightCount {
+	right: 0px;
+}
+.cl_boardFinalResultBottom__PlayerCountRazdel {
+	top: 30px;
+	left: 140px;
+	height: 90px;
+	border-left: 2px solid #fff;
+}
+.cl_boardFinalResultBottom__PeriodNumber {
+	top: 0px;
+    left: 610px;
+    width: 280px;
+    height: 205px;
+    text-align: center;
+	overflow: hidden;
+}
+.cl_boardFinalResultBottom__PeriodNumber__Top {
+	width: 100%;
+	height: 150px;
+	background-color: rgb(165 2 10);
+	overflow: hidden;
+}
+.cl_boardFinalResultBottom__PeriodNumber__Bottom {
+	width: 100%;
+	height: 55px;
+	line-height: 55px;
+	font-size: 30pt;
+	background-color: rgb(110, 4, 9);
+	border-radius: 0 0 40px 40px;
+	overflow: hidden;
+}
+
+.FinalResultBottomClassTitle {
+	font-weight: bold;
+	text-align: center;
+	letter-spacing: 4px;
+	padding-top: 20px;
+}
+.FinalResultBottomClassHide {
+	display: none;
+}
+.FinalResultBottomClassFullName, .FinalResultBottomClassTitle {
+	padding-bottom: 15px;
+}
+.FinalResultBottomClassRole {
+    margin-left: 30px;
+	margin-top: 58px;
+	text-align: center;
+}
+.FinalResultBottomClassFullName {
+    margin-left: 20px;
+	text-align: center;
+}
+.FinalResultBottomClassNumber {
+	display: inline-block;
+	background-color: #990000;
+	font-weight: bold;
+	border-radius: 10px;
+	text-align: center;
+	width: 63px;
+	padding: 10px 0;
+    margin-right: 5px;
+}
+#FinalResultBottomPhoto {
+	width: 200px;
+    height: 175px;
+    position: absolute;
+    top: -161px;
+    left: 42px;
+}
+@keyframes FinalResultBottom_Width_1_In {
+	0%   {right: 0;width: 0;opacity: 1;border-radius: 0;}
+	90%  {right: 0;width: 100%;opacity: 1;border-radius: 0;}
+	99%  {right: 0;width: 100%;opacity: 1;}
+	100% {right: 0;width: 100%;opacity: 0;border-radius: 20px;}
+}
+@keyframes FinalResultBottomAnimLastOut {
+	0%   {right: auto;left:0;width: 100%;opacity: 0;border-radius: 20px;}
+	1%   {right: auto;left:0;width: 100%;opacity: 1;border-radius: 20px;}
+	10%  {right: auto;left:0;width: 100%;opacity: 1;border-radius: 20px;}
+	100% {right: auto;left:0;width: 0;   opacity: 1;border-radius: 0;}
+}
+
+@keyframes FinalResultBottom_Width_2_In {
+	0%   {right: 0;width: 0;border-radius: 0;}
+	90%  {right: 0;width: 100%;border-radius: 0;}
+	100% {right: 0;width: 100%;border-radius: 20px;}
+}
+@keyframes FinalResultBottom_Width_2_Out {
+	0%   {right: auto;left:0;width: 100%;border-radius: 20px;}
+	10%  {right: auto;left:0;width: 100%;border-radius: 20px;}
+	100% {right: auto;left:0;width: 0;border-radius: 0;}
+}
+
+@keyframes FinalResultBottomAnimLastIn {
+	0%   {opacity: 0;}
+	100% {opacity: 1;}
+}
+@keyframes FinalResultBottom_Opacity_Out {
+	0%   {opacity: 1;}
+	100% {opacity: 0;}
+}
+
+@keyframes FinalResultBottom_PeriodNumber_Bottom_In {
+	0%   {opacity: 0;height: 0;}
+	100% {opacity: 1;height: 205px;}
+}
+@keyframes FinalResultBottom_PeriodNumber_Bottom_Out {
+	0%   {opacity: 1;height: 205px;}
+	100% {opacity: 0;height: 0;}
+}
+
+
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_FinalResultBottomWrap.cl_boardIn .cl_FinalResultBottom_Layer2_1 {
+	animation: FinalResultBottom_Width_1_In 1000ms linear 0ms normal backwards;
+}
+.cl_FinalResultBottomWrap.cl_boardIn .cl_FinalResultBottom_Layer2_2 {
+	animation: FinalResultBottom_Width_1_In 1000ms linear 50ms normal backwards;
+}
+.cl_FinalResultBottomWrap.cl_boardIn .cl_FinalResultBottom_Layer2_3 {
+	animation: FinalResultBottom_Width_2_In 1000ms linear 100ms normal backwards;
+}
+.cl_FinalResultBottomWrap.cl_boardIn .cl_boardFinalResultBottom__PlayerLeftName,
+.cl_FinalResultBottomWrap.cl_boardIn .cl_boardFinalResultBottom__PlayerRightName,
+.cl_FinalResultBottomWrap.cl_boardIn .cl_boardFinalResultBottom__PlayerLeftPlace,
+.cl_FinalResultBottomWrap.cl_boardIn .cl_boardFinalResultBottom__PlayerRightPlace {
+	animation: FinalResultBottomAnimLastIn 400ms linear 900ms normal backwards;
+}
+.cl_FinalResultBottomWrap.cl_boardIn .cl_boardFinalResultBottom__PlayerLeftLogo,
+.cl_FinalResultBottomWrap.cl_boardIn .cl_boardFinalResultBottom__PlayerRightLogo {
+	animation: FinalResultBottomAnimLastIn 400ms linear 1000ms normal backwards;
+}
+.cl_FinalResultBottomWrap.cl_boardIn .cl_boardFinalResultBottom__PeriodNumber {
+	animation: FinalResultBottom_PeriodNumber_Bottom_In 400ms linear 700ms normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_FinalResultBottomWrap.cl_boardOut .cl_FinalResultBottom_Layer2_1 {
+	animation: FinalResultBottomAnimLastOut 1000ms linear 200ms normal forwards;
+}
+.cl_FinalResultBottomWrap.cl_boardOut .cl_FinalResultBottom_Layer2_2 {
+	animation: FinalResultBottomAnimLastOut 1000ms linear 150ms normal forwards;
+}
+.cl_FinalResultBottomWrap.cl_boardOut .cl_FinalResultBottom_Layer2_3 {
+	animation: FinalResultBottom_Width_2_Out 1000ms linear 100ms normal forwards;
+}
+.cl_FinalResultBottomWrap.cl_boardOut .cl_boardFinalResultBottom__PlayerLeftName,
+.cl_FinalResultBottomWrap.cl_boardOut .cl_boardFinalResultBottom__PlayerRightName,
+.cl_FinalResultBottomWrap.cl_boardOut .cl_boardFinalResultBottom__PlayerLeftPlace,
+.cl_FinalResultBottomWrap.cl_boardOut .cl_boardFinalResultBottom__PlayerRightPlace {
+	animation: FinalResultBottom_Opacity_Out 300ms linear 0ms normal forwards;
+}
+.cl_FinalResultBottomWrap.cl_boardOut .cl_boardFinalResultBottom__PlayerLeftLogo,
+.cl_FinalResultBottomWrap.cl_boardOut .cl_boardFinalResultBottom__PlayerRightLogo {
+	animation: FinalResultBottom_Opacity_Out 300ms linear 0ms normal forwards;
+}
+.cl_FinalResultBottomWrap.cl_boardOut .cl_boardFinalResultBottom__PeriodNumber {
+	animation: FinalResultBottom_PeriodNumber_Bottom_Out 400ms linear 0ms normal forwards;
+}
