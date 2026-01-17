@@ -2386,7 +2386,12 @@ function FuncWorks($data, $connection) {
 					break;
 				// Показать: Конец матча
 				case "GameOver":
-					$EventDB['GameOverTemp'] = 1;
+					$EventDB['CountFixPeriod'][6] = [
+						'Left'  => (int)$EventDB['CountPlayerLeft']['Count'],
+						'Right' => (int)$EventDB['CountPlayerRight']['Count'],
+						'Period' => $EventDB['Period']['Count']
+					];
+					//$EventDB['GameOverTemp'] = 1;
 					break;
 				// Показать: Счёт на конец периода
 				case "ShowBoardEndPeriod":
@@ -2511,6 +2516,19 @@ function FuncWorks($data, $connection) {
 						"dAction"   => $dataJson['Action'],
 						"Board"     => $dataJson['Board'],
 						"Value"     => $EventDB['Shootout']
+					];
+					break;
+
+				// Показать: Финальный счет
+				case "ShowBoardFinalResultBottom":
+					$ReturnJsonToWeb = [
+						"timestamp" => time(),
+						"dAction"   => $dataJson['Action'],
+						"Board"     => $dataJson['Board'],
+						"CountLeft"  => $EventDB['CountFixPeriod'][6]['Left'],
+						"CountRight" => $EventDB['CountFixPeriod'][6]['Right'],
+						"PlayerLeft"  => $EventDB['PlayerLeft'],
+						"PlayerRight" => $EventDB['PlayerRight']
 					];
 					break;
 				// Скрыть комментаторов
@@ -2710,6 +2728,14 @@ function FuncWorks($data, $connection) {
 					break;
 				case "HideShootout_6_7":
 					$EventDB['BoardStatus']['HideShootout_6_7'] = 0;
+					$ReturnJsonToWeb = [
+						"timestamp" => time(),
+						"dAction"   => $dataJson['Action'],
+						"Board"     => $dataJson['Board']
+					];
+					break;
+				// Скрыть: Финальный счёт
+				case "HideFinalResultBottom":
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],

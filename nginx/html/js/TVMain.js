@@ -151,6 +151,7 @@ window.addEventListener("load", (event) => {
 			if (JsonData) {
 				//Обновить табло
 				if (JsonData.dAction == 'Update' && (boardOpen['Count'] || boardOpen['Timer'])) {
+					showBoardPause('Pause');
 					if (JsonData.Count.Left != EventDBLocal.Count.Left) {
 						$("#CountClassPlayerLeftCount" ).html(JsonData.Count.Left);
 					}
@@ -427,102 +428,101 @@ window.addEventListener("load", (event) => {
 								cleanBoardPersonal();
 							}
 							break;
-						//Показать табло счёта
+						//Показать: Счёт
 						case 'ShowBoardCount':
-						//обновить табло счёта
+						//Обновить: Счёт
 						case 'UpdateBoardCount':
-							showBoardPause('Pause');
 							showBoardCount(JsonData,'Count');
 							break;
-						//Скрыть табло счёта
+						//Скрыть: Счёт
 						case 'HideCount':
 							hideBoard('Count');
 							break;
-						//Показать Логотип №1
+						//Показать: Логотип №1
 						case 'ShowBoardLogo1':
 							showBoardLogo1(JsonData,'Logo1');
 							break;
-						//Скрыть Логотип №1
+						//Скрыть: Логотип №1
 						case 'HideLogo1':
 							hideBoard('Logo1');
 							break;
-						//Показать Команды
+						//Показать: Команды
 						case 'ShowBoardStart':
 							showBoardStart(JsonData,'Start');
 							break;
-						//Скрыть Команды
+						//Скрыть: Команды
 						case 'HideStart':
 							hideBoard('Start');
 							break;
-						//Показать список команды
+						//Показать: Стартовый состав команды
 						case 'ShowBoardListPlayer':
 							showBoardListPlayer(JsonData,'ListPlayer');
 							break;
-						//Скрыть список команды
+						//Скрыть: Стартовый состав команды
 						case 'HideListPlayer':
 							hideBoard('ListPlayer');
 							break;
-						//Показать стартовые пятерки команды
+						//Показать: Стартовые пятерки команды
 						case 'ShowBoardStart5Player':
 							showBoardStart5Player(JsonData,'Start5Player');
 							break;
-						//Скрыть стартовые пятерки команды
+						//Скрыть: Стартовые пятерки команды
 						case 'HideStart5Player':
 							hideBoard('Start5Player');
 							break;
-						//Показать стартовые пятерки команд
+						//Показать: Стартовые пятерки обеих команд
 						case 'ShowBoardStart5LeftAndRight':
 							showBoardStart5LeftAndRight(JsonData,'Start5LeftAndRight');
 							break;
-						//Скрыть стартовые пятерки команд
+						//Скрыть: Стартовые пятерки обеих команд
 						case 'HideStart5LeftAndRight':
 							hideBoard('Start5LeftAndRight');
 							break;
-						//Показать 
+						//Показать: Гео 
 						case 'ShowBoardWelcome':
 							showBoardWelcome('Welcome');
 							break;
-						//Скрыть 
+						//Скрыть: Гео
 						case 'HideWelcome':
 							hideBoard('Welcome');
 							break;
-						//Показать 
+						//Показать: Судейская бригада
 						case 'ShowBoardJudges':
 							showBoardJudges('Judges');
 							break;
-						//Скрыть 
+						//Скрыть: Судейская бригада
 						case 'HideJudges':
 							hideBoard('Judges');
 							break;
-						//Показать 
+						//Показать: Комментаторы
 						case 'ShowBoardCommentators':
 							showBoardCommentators('Commentators');
 							break;
-						//Скрыть 
+						//Скрыть: Комментаторы
 						case 'HideCommentators':
 							hideBoard('Commentators');
 							break;
-						//Показать тренера
+						//Показать: Тренер
 						case 'ShowBoardTrainerTeam':
 							showBoardTrainerTeam('TrainerTeam');
 							break;
-						//Скрыть тренера
+						//Скрыть: Тренер
 						case 'HideTrainerTeam':
 							hideBoard('TrainerTeam');
 							break;
-						//Показать игрока
+						//Показать: Игрок
 						case 'ShowBoardPlayerTeam':
 							showBoardPlayerTeam('PlayerTeam');
 							break;
-						//Скрыть игрока
+						//Скрыть: Игрок
 						case 'HidePlayerTeam':
 							hideBoard('PlayerTeam');
 							break;
-						//Показать карточку игрока забившего гол
+						//Показать: Хоккеист, забивший гол
 						case 'ShowBoardPlayerGoal':
 							showBoardPlayerGoal('PlayerGoal');
 							break;
-						//Скрыть карточку игрока забившего гол
+						//Скрыть: Хоккеист, забивший гол
 						case 'HidePlayerGoal':
 							hideBoard('PlayerGoal');
 							break;
@@ -630,13 +630,21 @@ window.addEventListener("load", (event) => {
 						case 'ShowBoardShootoutUpdate':
 							showBoardShootoutUpdate(JsonData, 'ShootoutUpdate');
 							break;
-						//Показать табло перерыва
+						//Показать: Перерыв
 						case 'ShowBoardPause':
-							showBoardPause(JsonData);
+							showBoardPause('Pause');
 							break;
-						//Скрыть табло перерыва
-						case 'HideBoardPause':
-							hideBoard('BoardPause');
+						//Скрыть: перерыва
+						case 'HidePause':
+							hideBoard('Pause');
+							break;
+						//Показать: Финальный счёт
+						case 'ShowBoardFinalResultBottom':
+							showBoardFinalResultBottom('FinalResultBottom');
+							break;
+						//Скрыть: Финальный счёт
+						case 'HideFinalResultBottom':
+							hideBoard('FinalResultBottom');
 							break;
 					}
 				}
@@ -1333,6 +1341,20 @@ window.addEventListener("load", (event) => {
 		if (JsonData.dAction != 'UpdateBoardCount') {
 			showBoardAnimation(Action);
 		}
+	}
+	function showBoardFinalResultBottom(Action) {
+		if (LocationIsStatic && JsonData.dAction != LocationStaticAction) {return;}
+		if (boardOpen[Action]) {return;}
+		if (debuging != false) {console.log('Action: ' + Action);};
+		$('#root_board' + Action).html(FS_BoardFinalResultBottom({
+			'PlayerLeft':  JsonData.PlayerLeft,
+			'PlayerRight': JsonData.PlayerRight,
+			'CountLeft':  JsonData.CountLeft,
+			'CountRight': JsonData.CountRight
+		}));
+		$("#PlayerLeftLogo").css('background-image',"url('LogoTeamLocal/" + JsonData.PlayerLeft.Logo + ".png')");
+		$("#PlayerRightLogo").css('background-image','url("LogoTeamLocal/' + JsonData.PlayerRight.Logo + '.png")');
+		showBoardAnimation(Action);
 	}
 	function showBoardAnimation(Action) {
 		if (debuging != false) {console.log('Animation: Show board ' + Action + ' START');};
