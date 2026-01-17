@@ -2091,9 +2091,7 @@ function FuncWorks($data, $connection) {
 				// Показать стартовую заставку
 				case "ShowBoardStart":
 				case "UpdateBoardCount":
-					if ($dataJson['Action'] == "ShowBoardStart") {
-						$EventDB['BoardStartStatus'] = 'active';
-					}
+				case "ShowBoardPause":
 					$ReturnJsonToWeb = $EventDB;
 					$ReturnJsonToWeb["timestamp"] = time();
 					$ReturnJsonToWeb["dAction"]   = $dataJson['Action'];
@@ -2736,6 +2734,14 @@ function FuncWorks($data, $connection) {
 					break;
 				// Скрыть: Финальный счёт
 				case "HideFinalResultBottom":
+					$ReturnJsonToWeb = [
+						"timestamp" => time(),
+						"dAction"   => $dataJson['Action'],
+						"Board"     => $dataJson['Board']
+					];
+					break;
+				// Скрыть: Перерыв
+				case "HidePause":
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],

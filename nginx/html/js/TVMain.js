@@ -150,7 +150,7 @@ window.addEventListener("load", (event) => {
 			JsonData = JSON.parse(evt.data);
 			if (JsonData) {
 				//Обновить табло
-				if (JsonData.dAction == 'Update' && (boardOpen['Count'] || boardOpen['Timer'])) {
+				if (JsonData.dAction == 'Update' && (boardOpen['Count'] || boardOpen['Timer'] || boardOpen['Pause'])) {
 					showBoardPause('Pause');
 					if (JsonData.Count.Left != EventDBLocal.Count.Left) {
 						$("#CountClassPlayerLeftCount" ).html(JsonData.Count.Left);
@@ -1296,52 +1296,6 @@ window.addEventListener("load", (event) => {
 			}
 		});
 	}
-	function showBoardPause(Action) {
-		if (LocationIsStatic && JsonData.dAction != LocationStaticAction) {return;}
-		if (boardOpen[Action] || (!boardOpen[Action] && JsonData.dAction == 'UpdateBoardCount')) {return;}
-		if (debuging != false) {console.log('Action: ' + Action);};
-		let tempSec = '00';
-		if (JsonData.TimerSecondes < 10) {
-			tempSec = "0" + JsonData.TimerSecondes;
-		}
-		else {
-			tempSec = JsonData.TimerSecondes;
-		}
-		
-		if (JsonData.dAction != 'UpdateBoardCount') {
-			if (debuging != false) {console.log('Action: ' + JsonData.dAction);};
-			$("#root_boardPause").html(FS_BoardPause({
-				'PlayerLeftCount':      JsonData.CountPlayerLeft.Count,
-				'PlayerLeftShortName':  JsonData.PlayerLeft.ShortName,
-				'PlayerLeftFullName' :  JsonData.PlayerLeft.FullName,
-				'PlayerLeftPlace':      JsonData.PlayerRight.Place,
-				'PlayerRightCount':     JsonData.CountPlayerRight.Count,
-				'PlayerRightShortName': JsonData.PlayerRight.ShortName,
-				'PlayerRightFullName':  JsonData.PlayerRight.FullName,
-				'PlayerRightPlace':     JsonData.PlayerRight.Place,
-				'Period':               JsonData.Period.Count,
-				'Timer':                '',
-			}));
-			$("#CountClassPlayerLeftLogo").css('background-image',"url('LogoTeamLocal/" + JsonData.PlayerLeft.Logo + ".png')");
-			$("#CountClassPlayerRightLogo").css('background-image',"url('LogoTeamLocal/" + JsonData.PlayerRight.Logo + ".png')");
-			$("#CountClassLayer_Goal_LeftLogo").css('background-image',"url('LogoTeamLocal/" + JsonData.PlayerLeft.Logo + ".png')");
-			$("#CountClassLayer_Goal_RightLogo").css('background-image',"url('LogoTeamLocal/" + JsonData.PlayerRight.Logo + ".png')");
-		}
-		$("#CountClassPlayerLeftCount").html(JsonData.CountPlayerLeft.Count);
-		$("#CountClassPlayerLeftFullName"  ).html(JsonData.PlayerLeft.FullName);
-		$("#CountClassPlayerLeftShortName" ).html(JsonData.PlayerLeft.ShortName);
-		$("#CountClassPlayerLeftPlace" ).html(JsonData.PlayerLeft.Place);
-		$("#CountClassPlayerRightCount").html(JsonData.CountPlayerRight.Count);
-		$("#CountClassPlayerRightFullName" ).html(JsonData.PlayerRight.FullName);
-		$("#CountClassPlayerRightShortName").html(JsonData.PlayerRight.ShortName);
-		$("#CountClassPlayerRightPlace").html(JsonData.PlayerRight.Place);
-		$("#CountIdPeriod").html(JsonData.Period.Count);
-		$("#CountClassTime").html(JsonData.TimerMinutes + ":" + tempSec);
-
-		if (JsonData.dAction != 'UpdateBoardCount') {
-			showBoardAnimation(Action);
-		}
-	}
 	function showBoardFinalResultBottom(Action) {
 		if (LocationIsStatic && JsonData.dAction != LocationStaticAction) {return;}
 		if (boardOpen[Action]) {return;}
@@ -1355,6 +1309,54 @@ window.addEventListener("load", (event) => {
 		$("#PlayerLeftLogo").css('background-image',"url('LogoTeamLocal/" + JsonData.PlayerLeft.Logo + ".png')");
 		$("#PlayerRightLogo").css('background-image','url("LogoTeamLocal/' + JsonData.PlayerRight.Logo + '.png")');
 		showBoardAnimation(Action);
+	}
+	function showBoardPause(Action) {
+		if (LocationIsStatic && JsonData.dAction != LocationStaticAction) {return;}
+		if (boardOpen[Action] && JsonData.dAction == 'Update') {}
+		else if (boardOpen[Action]) {return;}
+		if (debuging != false) {console.log('Action: ' + Action);};
+		let tempSec = '00';
+		
+		
+		if (JsonData.dAction != 'Update') {
+			if (debuging != false) {console.log('Action: ' + JsonData.dAction);};
+			if (JsonData.TimerSecondes < 10) {
+				tempSec = "0" + JsonData.TimerSecondes;
+			}
+			else {
+				tempSec = JsonData.TimerSecondes;
+			}
+			$("#root_boardPause").html(FS_BoardPause({
+				'PlayerLeftName':   JsonData.PlayerLeft.FullName,
+				'PlayerLeftPlace':  JsonData.PlayerLeft.Place,
+				'PlayerLeftIcon':   JsonData.PlayerLeft.Logo,
+				'PlayerRightName':  JsonData.PlayerRight.FullName,
+				'PlayerRightPlace': JsonData.PlayerRight.Place,
+				'PlayerRightIcon':  JsonData.PlayerRight.Logo,
+				'GameName':         JsonData.GameName.FullName,
+				'GameDate':         JsonData.GameDate,
+				'GameTime':         JsonData.GameTime,
+				'GamePlace':        JsonData.GamePlace.FullName,
+				'GameCity':         JsonData.GamePlace.Place,
+				'Time':             JsonData.TimerMinutes + ":" + tempSec,
+			}));
+			$("#PauseClassPlayerLeftLogo").css('background-image',"url('LogoTeamLocal/" + JsonData.PlayerLeft.Logo + ".png')");
+			$("#PauseClassPlayerRightLogo").css('background-image',"url('LogoTeamLocal/" + JsonData.PlayerRight.Logo + ".png')");
+		}
+		else {
+			if (JsonData.Timer.Sec < 10) {
+				tempSec = "0" + JsonData.Timer.Sec;
+			}
+			else {
+				tempSec = JsonData.Timer.Sec;
+			}
+			$("#PauseIDTime").html(JsonData.Timer.Min + ":" + tempSec);
+		}
+		
+
+		if (JsonData.dAction != 'Update') {
+			showBoardAnimation(Action);
+		}
 	}
 	function showBoardAnimation(Action) {
 		if (debuging != false) {console.log('Animation: Show board ' + Action + ' START');};
