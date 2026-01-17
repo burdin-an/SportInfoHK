@@ -20,9 +20,11 @@
 // Отладочная информация
 const debuging = true;
 
+let BoardType = 'All';
+
 $(document).ready(function(){
     var PlayerData = [];
-    function SendOrGetData(Action,BoardType,JsonDataOut) {
+    function SendOrGetData(Action,JsonDataOut) {
         let ws;
         ws = new WebSocket('ws://' + window.location.hostname + ':' + WebSocketPort);
         ws.onopen = function() {
@@ -113,14 +115,14 @@ $(document).ready(function(){
         };
     }
 	$(".ActionJsonButton2").click(function(event) {
-		SendOrGetData(event.target.dataset.action,event.target.dataset.board,{
+		SendOrGetData(event.target.dataset.action,{
 			Value: (event.target.dataset.value ? event.target.dataset.value : ""),
 			TeamPosition: (event.target.dataset.team_position == "left" ? "Left" : "Right")
 		});
 		return false;
 	});
 	$(".ActionJsonButton").click(function(event) {
-		SendOrGetData(event.target.dataset.action,(event.target.dataset.board ? event.target.dataset.board : "All"),{
+		SendOrGetData(event.target.dataset.action,{
 			Value: document.getElementById(event.target.dataset.parent).value
 		});
 		document.getElementById(event.target.dataset.parent).value = "";
