@@ -18,12 +18,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>РМ: Комментатора</title>
-	<link type="text/css" charset="utf-8" rel="stylesheet" href="css/bootstrap.min.css" />
-	<link type="text/css" charset="utf-8" rel="stylesheet" href="fontawesome/css/all.css">
-	<link type="text/css" charset="utf-8" rel="stylesheet" href="css/Commentator.css" />
-	<script type="text/javascript" charset="utf-8" src="js/bootstrap.bundle.min.js"></script>
-	<script type="text/javascript" charset="utf-8" src="js/vue.global.prod.js"></script>
-	<script type="text/javascript" charset="utf-8" src="js/mainConfig.js"></script>
+	<link type="text/css" charset="utf-8" rel="stylesheet" href="/css/bootstrap.min.css" />
+	<link type="text/css" charset="utf-8" rel="stylesheet" href="/fontawesome/css/all.css">
+	<link type="text/css" charset="utf-8" rel="stylesheet" href="/css/Commentator.css" />
+	<script type="text/javascript" charset="utf-8" src="/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="/js/vue.global.prod.js"></script>
+	<script type="text/javascript" charset="utf-8" src="/js/mainConfig.js"></script>
 </head>
 <body>
     <h1 class="text-center">РМ: Комментатор</h1>
@@ -44,7 +44,7 @@
 						</li>
 						
 					</ul>
-					<div class="tab-content" id="myTabContent">
+					<div v-if="EventLoad" class="tab-content" id="myTabContent">
 						<!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
 						<div class="tab-pane fade show active" id="All-Teams" role="tabpanel" aria-labelledby="All-Teams-tab"><br>
 							<div class="container-flow">
@@ -54,7 +54,7 @@
 											<div class="accordion-item border border-primary">
 											  <h2 class="accordion-header" id="headingOne">
 												<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-													<div style="width: 100px; height: 100px; display: inline-block;"><img :src="'/LogoTeamLocal/' + EventSelected.PlayerLeft.Logo + '.png'" class="img-thumbnail"  alt="..."></div>&nbsp;&nbsp;&nbsp;{{ EventSelected.PlayerLeft.FullName }}
+													<div style="width: 100px; height: 100px; display: inline-block;"><img :src="'/LogoTeamLocal/' + ListEvents[EventSelected].PlayerLeft.Logo + '.png'" class="img-thumbnail"  alt="..."></div>&nbsp;&nbsp;&nbsp;{{ ListEvents[EventSelected].PlayerLeft.FullName }}
 												</button>
 											  </h2>
 											  <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
@@ -125,7 +125,7 @@
 											<div class="accordion-item border border-danger">
 											  <h2 class="accordion-header" id="headingTwo">
 												<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-													<div style="width: 100px; height: 100px; display: inline-block;"><img :src="'/LogoTeamLocal/' + EventSelected.PlayerRight.Logo + '.png'" class="img-thumbnail" alt="..."></div>&nbsp;&nbsp;&nbsp;{{ EventSelected.PlayerRight.FullName }}
+													<div style="width: 100px; height: 100px; display: inline-block;"><img :src="'/LogoTeamLocal/' + ListEvents[EventSelected].PlayerRight.Logo + '.png'" class="img-thumbnail" alt="..."></div>&nbsp;&nbsp;&nbsp;{{ ListEvents[EventSelected].PlayerRight.FullName }}
 												</button>
 											  </h2>
 											  <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
@@ -201,7 +201,7 @@
 						<!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
 						<div class="tab-pane fade" id="Left-Team" role="tabpanel" aria-labelledby="Left-Team-tab"><br>
 							<h1 class="text-center display-1 fw-bold text-danger">
-								{{ EventSelected.PlayerLeft.FullName }}
+								{{ ListEvents[EventSelected].PlayerLeft.FullName }}
 							</h1>
 							<h4 class="text-center fw-bold">
 								Игроки (Левая команда)
@@ -259,7 +259,7 @@
 						<!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
 						<div class="tab-pane fade" id="Right-Team" role="tabpanel" aria-labelledby="Left-Team-tab"><br>
 							<h1 class="text-center display-1 fw-bold text-danger">
-								{{ EventSelected.PlayerRight.FullName }}
+								{{ ListEvents[EventSelected].PlayerRight.FullName }}
 							</h1>
 							<h4 class="text-center fw-bold">
 								Игроки (Правая команда)
@@ -321,6 +321,6 @@
 		
 	</div>
 
-<script type="text/javascript" charset="utf-8" src="js/mainCommentatorVue.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/Commentator.js"></script>
 </body>
 </html>
