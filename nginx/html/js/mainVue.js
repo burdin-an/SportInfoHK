@@ -291,7 +291,7 @@ const AppBoard = {
 		},
 		WebSocket() {
 			var dataThis = this;
-			let ws = new WebSocket('ws://' + window.location.hostname + ':' + WebSocketPort);
+			let ws = new WebSocket(WebSocketURL);
 			ws.onopen = function() {
 				if (debuging != false) {console.log('WebSocket connected');};
 			};
