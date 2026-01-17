@@ -31,8 +31,8 @@ const FS_BoardCount = (data) => `
     <div class="CountClassScores">
         <div id="CountClassPlayerLeftLogo"></div>
         <div id="CountClassPlayerLeftFullName">${data['PlayerLeftFullName']}</div>
-        <div id="CountClassCountPlayerLeft">${data['CountPlayerLeft']}</div><div class="CountClassCountMinus">-</div>
-        <div id="CountClassCountPlayerRight">${data['CountPlayerRight']}</div>
+        <div id="CountClassPlayerLeftCount">${data['CountPlayerLeft']}</div><div class="CountClassCountMinus">-</div>
+        <div id="CountClassPlayerRightCount">${data['CountPlayerRight']}</div>
         <div id="CountClassPlayerRightFullName">${data['PlayerRightFullName']}</div>
 		<div id="CountClassPlayerRightLogo"></div>
         <div id="CountClassTime">${data['Timer']}</div>

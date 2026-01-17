@@ -44,7 +44,7 @@
     font-size: 20pt;
     position: relative;
 }
-#CountClassPlayerLeftShortName,#CountClassPlayerLeftFullName,#CountClassCountPlayerLeft,#CountClassPlayerRightShortName,#CountClassPlayerRightFullName,#CountClassCountPlayerRight,.CountClassPeriod {
+#CountClassPlayerLeftShortName,#CountClassPlayerLeftFullName,#CountClassPlayerLeftCount,#CountClassPlayerRightShortName,#CountClassPlayerRightFullName,#CountClassPlayerRightCount,.CountClassPeriod {
     text-align: center;
     position: absolute;
     top: 30px;
@@ -60,7 +60,7 @@
     left:454px;
     text-align: center;
 }
-#CountClassCountPlayerLeft,#CountClassCountPlayerRight {
+#CountClassPlayerLeftCount,#CountClassPlayerRightCount {
     top: 11px;
     left: 333px;
     width: 45px;
@@ -68,7 +68,7 @@
     font-size: 25pt;
     font-weight: 600;
 }
-#CountClassCountPlayerRight {
+#CountClassPlayerRightCount {
     left: 398px;
 }
 #CountClassTime {
