@@ -120,47 +120,32 @@ const FS_BoardPlayerTeam = (data) => `
         8) ${data['DeletePlayerLeft1Time']}  - 
 */
 const FS_BoardCount = (data) => `
+<div id="DeletePlayerOneLineBlock" class="cl_boardCountPowerPlay d-none">
+	<div class="CountClassCountPowerPlayScores">
+		<div class="CountClassCountPowerPlayScores_Time"><span id="DeletePlayerOneLineTime">00:00</span></div><div class="CountClassCountPowerPlayScores_Text"><span id="CountClassCountPowerPlayScores_Text_PowerPlay" class="d-none">POWER PLAY</span><span id="CountClassCountPowerPlayScores_Text_Both" class="d-none"><span id="CountClassCountPowerPlayScores_Text_Left"></span> ON <span id="CountClassCountPowerPlayScores_Text_Right"></span></span></div>
+	</div>
+</div>
 <div id="boardCount" class="cl_boardCount">
-    <div class="CountClassScores">
-        <div id="CountClassPlayerLeftLogo"></div>
-        <div id="CountClassPlayerLeftShortName">${data['PlayerLeftShortName']}</div>
-        <div id="CountClassCountPlayerLeft">${data['CountPlayerLeft']}</div>
-        <div id="CountClassPlayerRightLogo"></div>
-        <div id="CountClassCountPlayerRight">${data['CountPlayerRight']}</div>
-        <div id="CountClassPlayerRightShortName">${data['PlayerRightShortName']}</div>
-        <div id="CountClassTime">${data['Timer']}</div>
-        <div id="CountClassTime2"><span id="CountIdPeriod">${data['Period']}</span>Й</div>
-        <div id="CountClassPause" class="d-none">Перерыв</div>
-		<div id="CountClassGoalBG"><div id="CountClassGoalTitle">ГОЛ!</div></div>
-        <!--<div class="CountClassDeletePlayerLeft">
-            <div class="Line1 d-none">
-                <div class="Num">77</div>
-                <div class="Time">5:00</div>
-            </div>
-            <div class="Line2 d-none">
-                <div class="Num">78</div>
-                <div class="Time">5:00</div>
-            </div>
-            <div class="Line3 d-none">
-                <div class="Num">33</div>
-                <div class="Time">5:00</div>
-            </div>
-        </div>
-        <div class="CountClassDeletePlayerRight">
-            <div class="Line1 d-none">
-                <div class="Num">77</div>
-                <div class="Time">5:00</div>
-            </div>
-            <div class="Line2 d-none">
-                <div class="Num">78</div>
-                <div class="Time">5:00</div>
-            </div>
-            <div class="Line3 d-none">
-                <div class="Num">33</div>
-                <div class="Time">5:00</div>
-            </div>
-        </div>-->
-    </div>
+	<div class="CountClassScores">
+		<div class="CountClassLayer1">
+			<div class="CountClassLinePlayerLeft">
+				<div id="CountClassPlayerLeftLogo">&nbsp;</div><div id="CountClassPlayerLeftShortName">${data['PlayerLeftShortName']}</div><div id="CountClassPlayerLeftCount">${data['CountPlayerLeft']}</div>
+			</div>
+			<div class="CountClassLinePlayerRight">
+				<div id="CountClassPlayerRightLogo">&nbsp;</div><div id="CountClassPlayerRightShortName">${data['PlayerRightShortName']}</div><div id="CountClassPlayerRightCount">${data['CountPlayerRight']}</div><div>&nbsp;</div>
+			</div>
+			<div class="CountClassLineCount">
+				<div id="CountClassTime">${data['Timer']}</div><div id="CountClassTimeHR"><div id="CountClassPause" class="d-none">Перерыв</div><div id="CountClassWarmUp" class="d-none">Разминка</div></div><div id="CountClassPeriodBlock" class="d-blockinline"><span id="CountIdPeriod">${data['Period']}</span><span class="CountClassPeriodPost">Й</span></div>
+			</div>
+		</div>
+		<div class="CountClassLayer_Goal">
+			<div class="CountClassLayer_Goal_Text d-none">ГОЛ!</div>
+			<div class="CountClassLayer_TimeOut_Text d-none">30 секундный перерыв!</div>
+			<div id="CountClassLayer_Goal_LeftLogo">&nbsp;</div>
+			<div id="CountClassLayer_Goal_RightLogo">&nbsp;</div>
+		</div>
+		<div class="CountClassLayer3">3</div>
+	</div>
 </div>`;
 /* ################################################################################################
     Переменных нет
@@ -287,19 +272,19 @@ const FS_BoardStart5Player = (data) => `
         8) ${data['']} - 
 */
 const FS_BoardEndPeriod = (data) => `
-<div id="boardEndPeriod" class="cl_boardEndPeriod">
-	<div class="boardEndPeriodClass">
-		<div id="boardEndPeriod__PlayerLeftLogo"></div>
-		<div class="cl_boardEndPeriod__PlayerLeftName">${data['PlayerLeft']['FullName']}</div>
-		<div class="cl_boardEndPeriod__PlayerLeftPlace">${data['PlayerLeft']['Place']}</div>
-		<div class="cl_boardEndPeriod__PlayerLeftCount">${data['CountPeriodLeft']}</div>
+<div id="boardEndPeriod" class="cl_boardStartEndPeriod">
+	<div class="boardStartEndPeriodClass">
+		<div id="boardStartEndPeriod__PlayerLeftLogo"></div>
+		<div class="cl_boardStartEndPeriod__PlayerLeftName">${data['PlayerLeft']['FullName']}</div>
+		<div class="cl_boardStartEndPeriod__PlayerLeftPlace">${data['PlayerLeft']['Place']}</div>
+		<div class="cl_boardStartEndPeriod__PlayerLeftCount">${data['CountPeriodLeft']}</div>
 
-		<div id="boardEndPeriod__PlayerRightLogo"></div>
-		<div class="cl_boardEndPeriod__PlayerRightName">${data['PlayerRight']['FullName']}</div>
-		<div class="cl_boardEndPeriod__PlayerRightPlace">${data['PlayerRight']['Place']}</div>
-		<div class="cl_boardEndPeriod__PlayerRightCount">${data['CountPeriodRight']}</div>
-		<div class="cl_boardEndPeriod__PlayerCountRazdel">/</div>
-		<div class="cl_boardEndPeriod__PeriodNumber">Конец ${data['NumberPeriod']} периода</div>
+		<div id="boardStartEndPeriod__PlayerRightLogo"></div>
+		<div class="cl_boardStartEndPeriod__PlayerRightName">${data['PlayerRight']['FullName']}</div>
+		<div class="cl_boardStartEndPeriod__PlayerRightPlace">${data['PlayerRight']['Place']}</div>
+		<div class="cl_boardStartEndPeriod__PlayerRightCount">${data['CountPeriodRight']}</div>
+		<div class="cl_boardStartEndPeriod__PlayerCountRazdel">/</div>
+		<div class="cl_boardStartEndPeriod__PeriodNumber">Начало ${data['NumberPeriod']} периода</div>
 	</div>
 </div>`;
 /* ################################################################################################
@@ -314,18 +299,18 @@ const FS_BoardEndPeriod = (data) => `
         8) ${data['']} - 
 */
 const FS_BoardStartPeriod = (data) => `
-<div id="boardStartPeriod" class="cl_boardStartPeriod">
-	<div class="boardStartPeriodClass">
-		<div id="boardStartPeriod__PlayerLeftLogo"></div>
-		<div class="cl_boardStartPeriod__PlayerLeftName">${data['PlayerLeft']['FullName']}</div>
-		<div class="cl_boardStartPeriod__PlayerLeftPlace">${data['PlayerLeft']['Place']}</div>
-		<div class="cl_boardStartPeriod__PlayerLeftCount">${data['CountPeriodLeft']}</div>
+<div id="boardStartPeriod" class="cl_boardStartEndPeriod">
+	<div class="boardStartEndPeriodClass">
+		<div id="boardStartEndPeriod__PlayerLeftLogo"></div>
+		<div class="cl_boardStartEndPeriod__PlayerLeftName">${data['PlayerLeft']['FullName']}</div>
+		<div class="cl_boardStartEndPeriod__PlayerLeftPlace">${data['PlayerLeft']['Place']}</div>
+		<div class="cl_boardStartEndPeriod__PlayerLeftCount">${data['CountPeriodLeft']}</div>
 
-		<div id="boardStartPeriod__PlayerRightLogo"></div>
-		<div class="cl_boardStartPeriod__PlayerRightName">${data['PlayerRight']['FullName']}</div>
-		<div class="cl_boardStartPeriod__PlayerRightPlace">${data['PlayerRight']['Place']}</div>
-		<div class="cl_boardStartPeriod__PlayerRightCount">${data['CountPeriodRight']}</div>
-		<div class="cl_boardStartPeriod__PlayerCountRazdel">/</div>
-		<div class="cl_boardStartPeriod__PeriodNumber">Начало ${data['NumberPeriod']} периода</div>
+		<div id="boardStartEndPeriod__PlayerRightLogo"></div>
+		<div class="cl_boardStartEndPeriod__PlayerRightName">${data['PlayerRight']['FullName']}</div>
+		<div class="cl_boardStartEndPeriod__PlayerRightPlace">${data['PlayerRight']['Place']}</div>
+		<div class="cl_boardStartEndPeriod__PlayerRightCount">${data['CountPeriodRight']}</div>
+		<div class="cl_boardStartEndPeriod__PlayerCountRazdel">/</div>
+		<div class="cl_boardStartEndPeriod__PeriodNumber">Начало ${data['NumberPeriod']} периода</div>
 	</div>
 </div>`;

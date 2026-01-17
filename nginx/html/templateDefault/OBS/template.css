@@ -500,10 +500,10 @@
 Информационная панель:
     EndPeriod; - Конец периода
 */
-.boardEndPeriodClass,#boardEndPeriod__PlayerLeftLogo, .cl_boardEndPeriod__PlayerLeftName, .cl_boardEndPeriod__PlayerLeftPlace, .cl_boardEndPeriod__PlayerLeftCount,#boardEndPeriod__PlayerRightLogo, .cl_boardEndPeriod__PlayerRightName, .cl_boardEndPeriod__PlayerRightPlace, .cl_boardEndPeriod__PlayerRightCount, .cl_boardEndPeriod__PeriodNumber,.cl_boardEndPeriod__PlayerCountRazdel {
+.boardStartEndPeriodClass,#boardStartEndPeriod__PlayerLeftLogo, .cl_boardStartEndPeriod__PlayerLeftName, .cl_boardStartEndPeriod__PlayerLeftPlace, .cl_boardStartEndPeriod__PlayerLeftCount,#boardStartEndPeriod__PlayerRightLogo, .cl_boardStartEndPeriod__PlayerRightName, .cl_boardStartEndPeriod__PlayerRightPlace, .cl_boardStartEndPeriod__PlayerRightCount, .cl_boardStartEndPeriod__PeriodNumber,.cl_boardStartEndPeriod__PlayerCountRazdel {
 	position: absolute;
 }
-.cl_boardEndPeriod {
+.cl_boardStartEndPeriod {
 	position: absolute;
 	bottom: 50px;
 	left: 0;
@@ -511,64 +511,66 @@
 	height: 220px;
 }
 
-.boardEndPeriodClass {
+.boardStartEndPeriodClass {
 	top: 0;
 	left: 135px;
 	width: 1600px;
 	height: 150px;
-	font-size: 2.2rem;
+	font-size: 1.3rem;
 	color: rgb(218, 218, 218);
-	border-radius: 100px;
+	border-radius: 20px;
+	transform: skewX(350deg);
 	background-position: center;
 	background-size: contain;
 	background-color: rgb(110, 4, 9);
 	padding: 15px;
 }
-#boardEndPeriod__PlayerLeftLogo, #boardEndPeriod__PlayerRightLogo {
+#boardStartEndPeriod__PlayerLeftLogo, #boardStartEndPeriod__PlayerRightLogo {
 	top: 15px;
 	width: 150px;
 	height: 150px;
 	background-position: center;
 	background-size: contain;
+	background-repeat: no-repeat;
 }
-#boardEndPeriod__PlayerLeftLogo {
+#boardStartEndPeriod__PlayerLeftLogo {
 	left: 18px;
 }
-#boardEndPeriod__PlayerRightLogo {
+#boardStartEndPeriod__PlayerRightLogo {
 	right: 18px;
 }
-.cl_boardEndPeriod__PlayerLeftName, .cl_boardEndPeriod__PlayerRightName {
+.cl_boardStartEndPeriod__PlayerLeftName, .cl_boardStartEndPeriod__PlayerRightName {
 	top: 15px;
 	width: 400px;
 	font-size: 3.2rem;
 }
-.cl_boardEndPeriod__PlayerLeftPlace, .cl_boardEndPeriod__PlayerRightPlace {
+.cl_boardStartEndPeriod__PlayerLeftPlace, .cl_boardStartEndPeriod__PlayerRightPlace {
 	top: 110px;
 	width: 400px;
 	font-size: 2.2rem;
 }
-.cl_boardEndPeriod__PlayerLeftName,.cl_boardEndPeriod__PlayerLeftPlace {
+.cl_boardStartEndPeriod__PlayerLeftName,.cl_boardStartEndPeriod__PlayerLeftPlace {
 	left: 187px;
 	text-align: left;
 }
-.cl_boardEndPeriod__PlayerRightName,.cl_boardEndPeriod__PlayerRightPlace {
+.cl_boardStartEndPeriod__PlayerRightName,.cl_boardStartEndPeriod__PlayerRightPlace {
 	right: 187px;
 	text-align: right;
 }
-.cl_boardEndPeriod__PlayerLeftCount, .cl_boardEndPeriod__PlayerRightCount {
+.cl_boardStartEndPeriod__PlayerLeftCount, .cl_boardStartEndPeriod__PlayerRightCount {
 	top: 35px;
 	width: 150px;
 	height: 150px;
 	font-size: 8rem;
 	text-align: center;
 }
-.cl_boardEndPeriod__PlayerLeftCount {
+.cl_boardStartEndPeriod__PlayerLeftCount {
 	left: 630px;
 }
-.cl_boardEndPeriod__PlayerRightCount {
+.cl_boardStartEndPeriod__PlayerRightCount {
 	right: 630px;
 }
-.cl_boardEndPeriod__PeriodNumber {
+.cl_boardStartEndPeriod__PeriodNumber {
 	top: 165px;
 	left: 676px;
 	width: 275px;
@@ -580,7 +582,7 @@
 	text-align: center;
 	border-radius: 20px;
 }
-.cl_boardEndPeriod__PlayerCountRazdel {
+.cl_boardStartEndPeriod__PlayerCountRazdel {
 	top: 28px;
 	left: 782px;
 	font-size: 9rem;
@@ -588,28 +590,28 @@
 	color: rgb(255 0 0);
 	text-align: center;
 }
-.EndPeriodClassTitle {
+.StartEndPeriodClassTitle {
 	font-weight: bold;
 	text-align: center;
 	letter-spacing: 4px;
 	padding-top: 20px;
 }
-.EndPeriodClassHide {
+.StartEndPeriodClassHide {
 	display: none;
 }
-.EndPeriodClassFullName, .EndPeriodClassTitle {
+.StartEndPeriodClassFullName, .StartEndPeriodClassTitle {
 	padding-bottom: 15px;
 }
-.EndPeriodClassRole {
+.StartEndPeriodClassRole {
     margin-left: 30px;
 	margin-top: 58px;
 	text-align: center;
 }
-.EndPeriodClassFullName {
+.StartEndPeriodClassFullName {
     margin-left: 20px;
 	text-align: center;
 }
-.EndPeriodClassNumber {
+.StartEndPeriodClassNumber {
 	display: inline-block;
 	background-color: #990000;
 	font-weight: bold;
@@ -619,7 +621,7 @@
 	padding: 10px 0;
     margin-right: 5px;
 }
-#EndPeriodPhoto {
+#StartEndPeriodPhoto {
 	width: 200px;
     height: 175px;
     position: absolute;
@@ -647,11 +649,11 @@
 }
 /* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
-.cl_boardEndPeriod.cl_boardIn .boardEndPeriodClass {
+.cl_boardStartEndPeriod.cl_boardIn .boardStartEndPeriodClass {
 	animation: EndPeriodAnimLastIn 0s linear 1s normal backwards;
 }
 /* Анимация: Закрытие панели ------------------------------------------------------------- */
-.cl_boardEndPeriod.cl_boardOut .boardEndPeriodClass {
+.cl_boardStartEndPeriod.cl_boardOut .boardStartEndPeriodClass {
 	animation: EndPeriodAnimLastOut 0s linear 1s normal backwards;
 }
 /* ################################################################################################
@@ -674,9 +676,10 @@
 	left: 135px;
 	width: 1600px;
 	height: 150px;
-	font-size: 2.2rem;
+	font-size: 1.3rem;
 	color: rgb(218, 218, 218);
-	border-radius: 100px;
+	border-radius: 20px;
+	transform: skewX(350deg);
 	background-position: center;
 	background-size: contain;
 	background-color: rgb(110, 4, 9);
@@ -688,6 +691,7 @@
 	height: 150px;
 	background-position: center;
 	background-size: contain;
+	background-repeat: no-repeat;
 }
 #boardStartPeriod__PlayerLeftLogo {
 	left: 18px;
@@ -698,12 +702,12 @@
 .cl_boardStartPeriod__PlayerLeftName, .cl_boardStartPeriod__PlayerRightName {
 	top: 15px;
 	width: 400px;
-	font-size: 3.2rem;
+	font-size: 2.2rem;
 }
 .cl_boardStartPeriod__PlayerLeftPlace, .cl_boardStartPeriod__PlayerRightPlace {
 	top: 110px;
 	width: 400px;
-	font-size: 2.2rem;
+	font-size: 1.3rem;
 }
 .cl_boardStartPeriod__PlayerLeftName,.cl_boardStartPeriod__PlayerLeftPlace {
 	left: 187px;
@@ -818,104 +822,190 @@
 */
 .cl_boardCount {
     position: absolute;
-    top: 27px;
-    left: 42px;
-    width: 175px;
-    height: 114px;
+    top: 110px;
+    left: 125px;
     margin: 0 auto;
-    color: white;    
-    background: url(img/SCHET.png) no-repeat;
-    background-position: center;
-    background-size: contain;
+    color: white;
+}
+.cl_boardCount,.CountClassScores,.CountClassLayer1,.CountClassLayer_Goal,.CountClassLayer3 {
+	width: 255px;
+    height: 135px;
 }
 .CountClassScores {
-    padding: 12px 0 0;
-    font-size: 23pt;
-    position: relative;
+    transform: skewX(350deg);
+	background-color: red;
+	border-radius: 15px;
+	overflow: hidden;
+	font-size: 22pt;
 }
-#CountClassPlayerLeftShortName,#CountClassCountPlayerLeft,#CountClassPlayerRightShortName,#CountClassCountPlayerRight,.CountClassPeriod {
+.CountClassLayer1,.CountClassLayer_Goal,.CountClassLayer3 {
+	position: absolute;
+}
+.CountClassLayer1 {
+	z-index: 100;
+}
+.CountClassLayer_Goal {
+	z-index: 110;
+}
+.CountClassLayer3 {
+	z-index: 120;
+	opacity: 0;
+}
+#CountClassPlayerLeftLogo,#CountClassPlayerRightLogo,#CountClassLayer_Goal_LeftLogo,#CountClassLayer_Goal_RightLogo {
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.CountClassLinePlayerLeft, .CountClassLinePlayerRight, .CountClassLineCount {
+	width: 100%;
+	height: 45px;
+	overflow: hidden;
+}
+.CountClassLinePlayerLeft {
+	background-color: #990000;
+	border-radius: 15px 15px 0 0;
+}
+.CountClassLinePlayerRight {
+	background-color: #990000;
+}
+.CountClassLineCount {
+	background-color: #4b0101;
+}
+.CountClassLineCount {
+	border-radius: 0 0 15px 15px;
+}
+.CountClassCountPowerPlayScores {
+	background-color: white;
+	color: #4b0101;
+}
+.CountClassLinePlayerLeft > div, .CountClassLinePlayerRight > div, .CountClassLineCount > div {
+	display: inline-block;
+}
+.CountClassLinePlayerLeft.select, .CountClassLinePlayerRight.select {
+	background-color: #fff;
+	color: red;
+}
+.CountClassLayer1 #CountClassPlayerLeftLogo,.CountClassLayer1 #CountClassPlayerRightLogo {
+	width: 100px;
+	height: 45px;
+	line-height: 45px;
+	font-size: 22pt;
+	vertical-align: bottom;
+}
+#CountClassPlayerLeftShortName,#CountClassPlayerLeftCount,#CountClassPlayerRightShortName,#CountClassPlayerRightCount,.CountClassPeriod {
     text-align: center;
-    position: absolute;
-    top: 0;
-    left: 0;
+	line-height: 45px;
+	font-size: 22pt;
+	vertical-align: bottom;
 }
 #CountClassPlayerLeftShortName,#CountClassPlayerRightShortName {
-    width: 124px;
-    text-align: center;
-    color:rgb(0, 0, 0);
-    left:1px;
+    width: 105px;
+    text-align: left;
 }
-#CountClassPlayerRightShortName {
-	top:39px;
-}
-#CountClassCountPlayerLeft,#CountClassCountPlayerRight {
-    top: 2px;
-    left: 127px;
-    width: 48px;
-    color:white;    
-    font-size: 19pt;
-    font-weight: 600;
-}
-#CountClassCountPlayerRight {
-	top: 42px;
-}
-#CountIdPeriod {
-	position: absolute;
-    top: 0;
-    left: 0;
-}
-#CountIdPeriod {
-	position: absolute;
-    top: 0;
-    left: 0;
+#CountClassPlayerLeftCount,#CountClassPlayerRightCount,#CountClassTime,#CountClassPeriodBlock {font-family:sans-serif;}
+#CountClassPlayerLeftCount,#CountClassPlayerRightCount {
+	width: 48px;
 }
 #CountClassTime {
-    position: absolute;
-    top: 81px;
-    width: 126px;
-    color: white;
-    font-size: 25pt;
-    vertical-align: bottom;
-    font-weight: 600;
-    text-align: center;
+    width: 100px;
+	text-align: center;
+	line-height: 45px;
+	font-size: 22pt;
+	vertical-align: bottom;
 }
-#CountClassTime2 {
-	position: absolute;
+#CountClassTimeHR {
+    width: 110px;
+	vertical-align: top;
+	line-height: 45px;
+	font-size: 22pt;
+	vertical-align: bottom;
+}
+#CountClassPeriodBlock {
     color: #fff;
     text-align: center;
-    font-size: 10pt;
-    font-weight: 600;
-    top: 85px;
-    left: 136px;
     width: 45px;
+	line-height: 45px;
+	font-size: 22pt;
+	vertical-align: bottom;
 }
-#CountClassTime2 span {
-    font-size: 19pt;
-    font-weight: 600;
+.CountClassPeriodPost {
+    font-size: 10pt;
+    vertical-align: top;
+    line-height: 22pt;
 }
-#CountClassPause {
-	top: 114px;
-    left: 1px;
-    position: absolute;
-    width: 174px;
-    height: 43px;
-    line-height: 43px;
-    background-color: red;
+#CountClassPause,#CountClassWarmUp {
+    line-height: 45px;
     text-align: center;
+	font-size: 14pt;
 }
-
-#CountClassGoalTitle {
-	position: absolute;
-	width: 175px;
-	left: 0px;
-	height: 76px;
-	/* line-height: 86px; */
-	font-size: 4rem;
-	top: 0;
+.CountClassLayer_Goal {
+	z-index: 110;
+	vertical-align: middle;
 	text-align: center;
 	background-color: red;
 	opacity: 0;
+	border-radius: 15px;
 }
+.CountClassLayer_Goal_Text, .CountClassLayer_TimeOut_Text {
+	vertical-align: middle;
+    line-height: 135px;
+    font-size: 50px;
+	position: absolute;
+    width: 100%;
+    height: 100%;
+	left: 100%;
+}
+.CountClassLayer_TimeOut_Text {
+	width: 220%;
+}
+#CountClassLayer_Goal_LeftLogo, #CountClassLayer_Goal_RightLogo {
+	position: absolute;
+	width: 70%;
+    height: 70%;
+    opacity: 0;
+    margin-top: 7%;
+    margin-left: 13%;
+}
+
+.cl_boardCountPowerPlay {
+    position: absolute;
+    top: 67px;
+    left: 144px;
+    margin: 0 auto;
+    color: white;
+}
+.cl_boardCountPowerPlay,.CountClassPowerPlay,.CountClassCountPowerPlayScores {
+	width: 255px;
+	height: 40px;
+	font-size: 15pt;
+	font-weight: bold;
+	line-height: 40px;
+}
+.CountClassCountPowerPlayScores {
+	transform: skewX(350deg);
+	border-radius: 10px;
+	overflow: hidden;
+}
+.CountClassCountPowerPlayScores_Time {
+	width: 35%;
+    height: 100%;
+    overflow: hidden;
+    display: inline-block;
+    text-align: center;
+	font-size: 18pt;
+}
+.CountClassCountPowerPlayScores_Text span, .CountClassCountPowerPlayScores_Time span {
+	vertical-align: middle;
+	line-height: 100%;
+}
+.CountClassCountPowerPlayScores_Text {
+	width: 65%;
+	height: 100%;
+	overflow: hidden;
+	display: inline-block;
+	text-align: center;
+}
+
 
 @keyframes CountAnimLastIn {
 	0% {
@@ -938,74 +1028,61 @@
 	}
 }
 @keyframes CountAnimGoal {
-	0% {
-		opacity: 0;
-	}
-	5% {
-		opacity: 1;
-	}
-	10% {
-		opacity: 1;
-	}
-	15% {
-		opacity: 0;
-	}
-	20% {
-		opacity: 1;
-	}
-	25% {
-		opacity: 1;
-	}
-	30% {
-		opacity: 0;
-	}
-	35% {
-		opacity: 1;
-	}
-	40% {
-		opacity: 1;
-	}
-	45% {
-		opacity: 0;
-	}
-	50% {
-		opacity: 1;
-	}
-	55% {
-		opacity: 1;
-	}
-	60% {
-		opacity: 0;
-	}
-	65% {
-		opacity: 1;
-	}
-	70% {
-		opacity: 1;
-	}
-	75% {
-		opacity: 0;
-	}
-	80% {
-		opacity: 1;
-	}
-	85% {
-		opacity: 1;
-	}
-	90% {
-		opacity: 0;
-	}
-	95% {
-		opacity: 1;
-	}
-	100% {
-		opacity: 1;
-	}
+	0%  {opacity: 0;}
+	5%  {opacity: 1;}
+	10% {opacity: 1;}
+	15% {opacity: 0;}
+	20% {opacity: 0;}
+	25% {opacity: 1;}
+	30% {opacity: 1;}
+	35% {opacity: 0;}
+	40% {opacity: 0;}
+	45% {opacity: 1;}
+	50% {opacity: 1;}
+	55% {opacity: 0;}
+	60% {opacity: 0;}
+	65% {opacity: 1;}
+	70% {opacity: 1;}
+	75% {opacity: 0;}
+	80% {opacity: 0;}
+	85% {opacity: 1;}
+	90% {opacity: 1;}
+	95% {opacity: 0;}
+	100% {opacity: 0;}
 	
 }
+@keyframes CountGoalOpacity {
+	0%   {opacity: 0;}
+	3% {opacity: 1;}
+	97% {opacity: 1;}
+	100% {opacity: 0;}
+}
+@keyframes CountGoalOpacityLogo {
+	0%   {opacity: 0;}
+	30% {opacity: 1;}
+	70% {opacity: 1;}
+	100% {opacity: 0;}
+}
+@keyframes CountGoalTextRightToLeft {
+	0%   {left: 100%;}
+	100% {left: -100%;}
+}
+@keyframes CountGoalTextRightToLeftTimeOut {
+	0%   {left: 100%;}
+	100% {left: -220%;}
+}
 /* Анимация: Гола +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-.CountClassGoalAnimation {
-	animation: CountAnimGoal 10s linear 0s normal backwards;
+.CountClassLayer_Goal.CountClassGoalAnimation {
+	animation: CountGoalOpacity 5s linear 0s normal backwards;
+}
+.CountClassLayer_Goal.CountClassGoalAnimation .CountClassLayer_Goal_Text {
+	animation: CountGoalTextRightToLeft 5s linear 0s normal backwards;
+}
+.CountClassLayer_Goal.CountClassGoalAnimation .CountClassLayer_TimeOut_Text {
+	animation: CountGoalTextRightToLeftTimeOut 5s linear 0s normal backwards;
+}
+#CountClassLayer_Goal_LeftLogo.CountClassGoalAnimation, #CountClassLayer_Goal_RightLogo.CountClassGoalAnimation {
+    animation: CountAnimGoal 5s linear 0s normal backwards;
 }
 
 /* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
@@ -1785,7 +1862,9 @@
 .Start5PlayerClassLFTitle, .Start5PlayerClassRFTitle, .Start5PlayerClassCFTitle, .Start5PlayerClassLDTitle, .Start5PlayerClassRDTitle, .Start5PlayerClassGTTitle {
 	width: 97%;
 	font-size: 37px;
-	background-color: black;
+	background-color: #990000;
+	color: white;
+	transform: skewX(350deg);
 	text-align: center;
 	padding: 10px 5px;
     border-radius: 10px;

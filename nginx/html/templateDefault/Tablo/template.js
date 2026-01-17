@@ -99,17 +99,46 @@ const FS_BoardCount = (data) => `
 		<div id="CountClassPlayerLeftLogo"></div>
 		<div id="CountClassPlayerLeftFullName">${data['PlayerLeftFullName']}</div>
 		<div id="CountClassPlayerLeftPlace">${data['PlayerLeftPlace']}</div>
-		<div id="CountClassCountPlayerLeft">${data['CountPlayerLeft']}</div><div class="CountClassCountMinus">-</div>
+		<div id="CountClassPlayerLeftCount">${data['CountPlayerLeft']}</div><div class="CountClassCountMinus">-</div>
 		<div id="CountClassPlayerRightLogo"></div>
-		<div id="CountClassCountPlayerRight">${data['CountPlayerRight']}</div>
+		<div id="CountClassPlayerRightCount">${data['CountPlayerRight']}</div>
 		<div id="CountClassPlayerRightFullName">${data['PlayerRightFullName']}</div>
 		<div id="CountClassPlayerRightPlace">${data['PlayerRightPlace']}</div>
 		<div class="CountClassPauseWrap">
 			<div id="CountClassPause" class="d-none">Перерыв</div>
+			<div id="CountClassTimeOut" class="d-none">ТАЙМ-АУТ</div>
 		</div>
 		<div id="CountClassVs">Против</div>
 		<div id="CountClassTime">${data['Timer']}</div>
         <div id="CountClassTime2">ПЕРИОД<br><span id="CountIdPeriod">${data['Period']}</span></div>
+		<div class="CountClassDeletePlayerLeft">
+            <div id="DeletePlayerLeftLine1Block" class="Line1 d-none">
+                <div id="DeletePlayerLeftLine1Number" class="Num">77</div>
+                <div id="DeletePlayerLeftLine1Time" class="Time">5:00</div>
+            </div>
+            <div id="DeletePlayerLeftLine2Block" class="Line2 d-none">
+                <div id="DeletePlayerLeftLine2Number" class="Num">78</div>
+                <div id="DeletePlayerLeftLine2Time" class="Time">5:00</div>
+            </div>
+            <div id="DeletePlayerLeftLine3Block" class="Line3 d-none">
+                <div id="DeletePlayerLeftLine3Number" class="Num">33</div>
+                <div id="DeletePlayerLeftLine3Time" class="Time">5:00</div>
+            </div>
+        </div>
+        <div class="CountClassDeletePlayerRight">
+            <div id="DeletePlayerRightLine1Block" class="Line1 d-none">
+                <div id="DeletePlayerRightLine1Number" class="Num">77</div>
+                <div id="DeletePlayerRightLine1Time" class="Time">5:00</div>
+            </div>
+            <div id="DeletePlayerRightLine2Block" class="Line2 d-none">
+                <div id="DeletePlayerRightLine2Number" class="Num">78</div>
+                <div id="DeletePlayerRightLine2Time" class="Time">5:00</div>
+            </div>
+            <div id="DeletePlayerRightLine3Block" class="Line3 d-none">
+                <div id="DeletePlayerRightLine3Number" class="Num">33</div>
+                <div id="DeletePlayerRightLine3Time" class="Time">5:00</div>
+            </div>
+        </div>
 	</div>
 </div>`;
 /* ################################################################################################
@@ -217,4 +246,19 @@ const FS_BoardStart5Player = (data) => `
             <div id="Start5PlayerClassGTFullName">${data['GTFullName']}</div>
         </div>
     </div>
+</div>`;
+/* ################################################################################################
+    Переменные:
+        1) ${data['NamePlayer1']}  - Название первой команды
+        2) ${data['NamePlayer2']}  - Название второй команды
+        3) ${data['CountPlayer1']} - Счёт первой команды
+        4) ${data['CountPlayer2']} - Счёт первой команды
+        5) ${data['Period']}       - Период
+        6) ${data['Timer']}        - Оставшееся время до окончания периода
+        7) ${data['DeletePlayerLeft1Count']} - 
+        8) ${data['DeletePlayerLeft1Time']}  - 
+*/
+const FS_BoardTimer = (data) => `
+<div id="boardTimer" class="cl_boardTimer">
+	<span id="CountClassTime">${data['Timer']}</span>  //  <span id="CurrentTime"> </span>
 </div>`;

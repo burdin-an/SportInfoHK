@@ -399,10 +399,10 @@ html,body,#id_board {
 */
 .cl_boardCount {
 	position: absolute;
-	top: 400px;
+	top: 250px;
 	left: 350px;
 	width: 1200px;
-	height: 415px;
+	/* Высоту задаем ниже */
 	margin: 0 auto;
 	color: white;  
 	/*background: url(img/SCHET.png) no-repeat;
@@ -414,7 +414,10 @@ html,body,#id_board {
 	font-size: 31pt;
 	position: relative;
 }
-#CountClassPlayerLeftShortName,#CountClassPlayerLeftFullName,#CountClassPlayerLeftPlace,#CountClassCountPlayerLeft,#CountClassPlayerRightShortName,#CountClassPlayerRightFullName,#CountClassPlayerRightPlace,#CountClassCountPlayerRight,.CountClassPeriod {
+.cl_boardCount, .CountClassScores {
+	height: 800px;
+}
+#CountClassPlayerLeftShortName,#CountClassPlayerLeftFullName,#CountClassPlayerLeftPlace,#CountClassPlayerLeftCount,#CountClassPlayerRightShortName,#CountClassPlayerRightFullName,#CountClassPlayerRightPlace,#CountClassPlayerRightCount,.CountClassPeriod {
 	text-align: center;
 	position: absolute;
 	top: 342px;
@@ -436,23 +439,23 @@ html,body,#id_board {
 #CountClassPlayerRightShortName,#CountClassPlayerRightFullName,#CountClassPlayerRightPlace {
 	right:-187px;
 }
-#CountClassCountPlayerLeft,#CountClassCountPlayerRight {
+#CountClassPlayerLeftCount,#CountClassPlayerRightCount {
 	width: 100px;
 	color:white;
 	font-size: 75pt;
 	font-weight: 600;
 	text-shadow: 2px 2px 0px black;
 }
-#CountClassCountPlayerLeft, #CountClassCountPlayerRight,.CountClassCountMinus {
+#CountClassPlayerLeftCount, #CountClassPlayerRightCount,.CountClassCountMinus {
 	top: 113px;
 }
-#CountClassCountPlayerLeft {
+#CountClassPlayerLeftCount {
 	left: 461px;
 }
-#CountClassCountPlayerRight {
+#CountClassPlayerRightCount {
 	right: 461px;
 }
-#CountClassTime {
+.cl_boardCount #CountClassTime {
 	position: absolute;
 	top:314px;
 	width: 100%;
@@ -462,7 +465,7 @@ html,body,#id_board {
 	text-align: center;
 	text-shadow: 2px 2px 0px black;
 }
-#CountClassTime2 {
+.cl_boardCount #CountClassTime2 {
 	position: absolute;
 	color:#fff;
 	text-align: center;
@@ -471,7 +474,7 @@ html,body,#id_board {
 	top: -80px;
 	left: 515px;
 }
-.CountClassCountMinus {
+.cl_boardCount .CountClassCountMinus {
 	position: absolute;
 	left: 583px;
 	font-weight: 600;
@@ -479,18 +482,19 @@ html,body,#id_board {
 	text-shadow: 2px 2px 0px black;
 	text-align: center;
 }
-.CountClassPauseWrap {
+.cl_boardCount .CountClassPauseWrap {
 	position: absolute;
 	top: 550px;
 	left: 0px;
 	text-align: center;
 	width: 100%;
 }
-#CountClassPause {
+.cl_boardCount #CountClassPause, .cl_boardCount #CountClassTimeOut {
 	font-weight: 600;
 	background-color: red;
-	width: 212px;
+	width: 225px;
 	margin: 0 auto;
+	padding: 10px 0 0 0;
 }
 #CountClassPlayerLeftLogo, #CountClassPlayerRightLogo{
 	position: absolute;
@@ -509,20 +513,22 @@ html,body,#id_board {
 }
 
 .CountClassDeletePlayerLeft, .CountClassDeletePlayerRight {
-	width: 186px;
-	top: 79px;
-	position: absolute;
-	font-size: 19pt;
+	width: 350px;
+    height: 204px;
+    bottom: 0px;
+    position: absolute;
+    font-size: 3rem;
+    font-weight: 600;
+    text-shadow: 2px 2px 0px black;
 }
 .CountClassDeletePlayerLeft {
-	left: 54px;
+	left: 0;
 }
 .CountClassDeletePlayerRight {
-	left: 534px;
+	right: 0;
 }
 .CountClassDeletePlayerLeft>div, .CountClassDeletePlayerRight>div {
-	background-color: red;
-	margin-bottom: 1px;
+	margin-bottom: 5px;
 }
 .CountClassDeletePlayerLeft>div>div, .CountClassDeletePlayerRight>div>div {
 	display: inline-block;
@@ -534,7 +540,7 @@ html,body,#id_board {
 	
 }
 .CountClassDeletePlayerLeft>div>.Time, .CountClassDeletePlayerRight>div>.Time {
-	width: 55%;
+	width: 50%;
 }
 
 #CountClassVs,#CountClassVsShadows {
@@ -826,7 +832,7 @@ position: absolute;
 #ListPlayerClassPlace {
 	top: 127px;
 	left: 428px;
-	width: 610px;
+	width: 900px;
 	font-size: 33pt;
 	color: #adb5bd;
 }
@@ -1051,4 +1057,17 @@ position: absolute;
 }
 .cl_boardStaticAnimation {
 	animation-duration:0ms !important;
+}
+/* ################################################################################################
+Информационная панель:
+	Timer; - Таймер
+*/
+.cl_boardTimer {
+	font-family: monospace;
+	position: relative;
+	background-color: #fff;
+	color: black;
+	display: inline-block;
+	padding: 0 10px;
+	font-size: 3rem;
 }
