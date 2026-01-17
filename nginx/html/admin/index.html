@@ -1,0 +1,227 @@
+<!doctype html>
+<!--
+ * Проект "Информатор спортивных соревнований: Хоккей"
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the MIT-LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @author    Бурдин А.Н. <support@it-sakh.net>
+ * @copyright Бурдин А.Н. <support@it-sakh.net>
+ * @link      http://www.it-sakh.info/SportInfo/
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
+ * @version	  1.0.1
+
+Шаблоны для титров
+-->
+<html>
+<head>
+    <meta charset="UTF-8">
+	<title>Админка</title>
+    <link type="text/css" charset="utf-8" rel="stylesheet" href="/css/bootstrap.min.css" />
+	<link type="text/css" charset="utf-8" rel="stylesheet" href="/css/mainAdmin.css" />
+    <script type="text/javascript" charset="utf-8" src="/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="/js/vue.global.prod.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/js/mainConfig.js"></script>
+</head>
+<body>
+    <h1 class="text-center">Панель управления хоккейным матчем</h1>
+
+	<ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+		<li class="nav-item" role="presentation">
+			<button  class="nav-link display-4 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-current="page" aria-selected="true">Общее</button>
+		</li>
+		<li class="nav-item" role="presentation">
+			<a  class="nav-link display-4" href="/admin/Panel.html" aria-selected="false">Титры</a>
+		</li>
+		<li class="nav-item  dropdown" role="presentation">
+			<a  class="nav-link dropdown-toggle display-4" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Управление</a>
+			<ul class="dropdown-menu">
+				<li><a class="dropdown-item" href="/admin/Events.html">Мероприятия</a></li>
+				<li><a class="dropdown-item" href="/admin/GameName.html">Название матчей</a></li>
+				<li><a class="dropdown-item" href="/admin/GamePlace.html">Место проведения матчей</a></li>
+				<li><a class="dropdown-item" href="/admin/Teams.html">Команды</a></li>
+				<li><a class="dropdown-item" href="/admin/Judge.html">Судейская бригада</a></li>
+				<li><a class="dropdown-item" href="/admin/Commentator.html">Комментаторы</a></li>
+				<li><a class="dropdown-item" href="Commentator.html">РМ Комментатора</a></li>
+			</ul>
+		</li>
+	</ul>
+	<div class="tab-content" id="myTabContent">
+        <!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
+		<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"><br>
+			<div id="AdminApp">
+				<div v-if="connected == 0">
+					<h1 class="w-100 text-center text-danger">Нет подключения</h1>
+				</div>
+				<div v-else>
+					<div v-if="EventLoad == 0">
+						<h1 class="w-100 text-center text-danger">Нет ни одного созданного мероприятия!</h1>
+					</div>
+					<div v-else>
+						<div class="container mt-3">
+							<div class="row">
+								<div class="col text-center">
+									<span class="h2">Текущее мероприятие</span><br><span id="ShowStatusEvent" class="bg-danger text-dark h2"></span><br>
+									<div class="input-group mt-3 mb-3">
+										<select v-model="EventSelectedUID"  @change="classButtonFlashChangeCurrentEvent = true" class="form-control" aria-label="Название мероприятия">
+											<option v-for="(row, Key) in this.EventsList" :value="Key" :style="{ color: Key == EventSelectedUID ? 'red' : 'black'}">{{ row.Name }}</option>
+										</select>
+										<button @click="changeCurrentEvent()" class="btn btn-outline-secondary" :class="{'buttonFlash': classButtonFlashChangeCurrentEvent}" type="button">Отправить</button>
+									</div>
+								</div>
+							</div>
+						</div>	
+						<div class="container mt-2">
+							<div class="row">
+								<div class="col text-center">
+									<span id="ShowEventDate">{{EventsList[EventSelectedUID].GameDate}}</span> <span id="ShowEventTime">{{EventsList[EventSelectedUID].GameTime}}</span>
+								</div>
+							</div>
+						</div>
+						<div class="container">
+							<div class="row">
+								<div class="col text-center">
+									<strong>Команда (Левая):</strong> <div id="ShowEventPlayerLeftName">{{EventsList[EventSelectedUID].PlayerLeft.FullName}}</div>
+									<div id="ClassPlayerLeftLogo" :style="{ 'background-image': 'url(/LogoTeamLocal/' + EventsList[EventSelectedUID].PlayerLeft.Logo + '.png)' }"></div>
+								</div>
+								<div class="col text-center">
+									<strong>Команда (Правая):</strong> <div id="ShowEventPlayerRightName">{{EventsList[EventSelectedUID].PlayerRight.FullName}}</div>
+									<div id="ClassPlayerRightLogo" :style="{ 'background-image': 'url(/LogoTeamLocal/' + EventsList[EventSelectedUID].PlayerRight.Logo + '.png)' }"></div>
+								</div>
+							</div>
+						</div>
+						<div class="container mt-2">
+							<div class="row">
+								<div class="col text-center">
+									<strong>Файл:</strong><br><span id="ShowEventFileName">{{EventsList[EventSelectedUID].File}}</span>
+								</div>
+							</div>
+						</div>
+						<div class="container mt-5">
+							<div class="row">
+								<div class="col text-center">
+									<hr>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="container mt-5">
+						<div class="row">
+							<div class="col text-center">
+								Счёт команды (Левая)<br>
+								<button @click="SendData('CountPlayerPlus','','All','Left')"  class="btn btn-lg btn-warning me-2" type="button">+1</button>
+								<button @click="SendData('CountPlayerMinus','','All','Left')" class="btn btn-lg btn-warning me-2" type="button">-1</button>
+							</div>
+							<div class="col text-center">
+								Счёт команды (Правая)<br>
+								<button @click="SendData('CountPlayerPlus','','All','Right')"  class="btn btn-lg btn-warning me-2" type="button">+1</button>
+								<button @click="SendData('CountPlayerMinus','','All','Right')" class="btn btn-lg btn-warning me-2" type="button">-1</button>
+							</div>
+							<div class="col text-center">
+								Период<br>
+								<button @click="SendData('PeriodPlus')"  class="btn btn-lg btn-warning me-2" type="button">+1</button>
+								<button @click="SendData('PeriodMinus')" class="btn btn-lg btn-warning me-2" type="button">-1</button>
+							</div>
+							<div class="col text-center">
+								Фиксация счета:<br>
+								<button @click="SendData('FixEndPeriod')" class="btn btn-lg btn-warning me-2" type="button">Конец периода</button>
+								<button @click="SendData('GameOver')"     class="btn btn-lg btn-warning me-2" type="button">Конец игры</button>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col text-center">
+								&nbsp;<br>
+								<button @click="SendData('UpdateBoardCount')" class="btn btn-lg btn-warning me-2" type="button">Обновить счёт</button>
+							</div>
+						</div>
+					</div>
+					<br>
+				</div>
+			</div>
+		</div>
+		<!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
+		<div class="tab-pane fade" id="BoardConfig" role="tabpanel" aria-labelledby="BoardConfig-tab">
+			<div class="container mt-2">
+				<div class="row">
+					<div class="col text-center">
+						<h1 class="display-3">Редактировать:</h1>
+					</div>
+				</div>
+			</div>
+			<div class="container mt-2">
+				<div class="row">
+					<div class="col text-center">
+						<a class="btn btn-lg btn-warning mb-3" href="/admin/Events.html" role="button" title="">Мероприятия</a>
+					</div>
+					<div class="col text-center">
+						<a class="btn btn-lg btn-success mb-3" href="/admin/GameName.html"  role="button">Название матчей<br>Места проведения матчей</a>
+					</div>
+					<div class="col text-center">
+						<a class="btn btn-lg btn-success mb-3" href="/admin/Teams.html" role="button">Команды</a>
+					</div>
+					<div class="col text-center">
+						<a class="btn btn-lg btn-success mb-3" href="/admin/Judge.html" role="button">Судейская бригада</a>
+					</div>
+					<div class="col text-center">
+						<a class="btn btn-lg btn-success mb-3" href="/admin/Commentator.html" role="button">Комментаторы</a>
+					</div>
+				</div>
+			</div>
+			<div class="container mt-2">
+				<div class="row">
+					<div class="col text-center">
+						<h1>Настройка</h1>
+					</div>
+				</div>
+			</div>
+			<div class="container mt-2">
+				<div class="row">
+					<div class="col text-center">
+						<a class="ActionJsonButton2 btn btn-lg btn-warning" href="#" data-action="ReOpenINI" data-board="All" role="button" title="">Прочитать конфиг. файл</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
+		<div class="tab-pane fade" id="BoardFootball" role="tabpanel" aria-labelledby="BoardFootball-tab"><br>
+			<div class="container mt-5">
+				<div class="row">
+					<div class="col text-center">
+						<div class="btn-toolbar mb-3" role="toolbar">
+							<a class="ActionJsonButton2 btn btn-lg btn-secondary w-100" href="#" id="TimerStartFirstPeriod" role="button" title="">Старт первого тайма</a>
+						</div>
+					</div>
+					<div class="col text-center">
+						<div class="btn-toolbar mb-3" role="toolbar">
+							<a class="ActionJsonButton2 btn btn-lg btn-warning w-100" href="#" id="TimerStartSecondPeriod" role="button" title="">Старт второго тайма</a>
+						</div>
+					</div>
+					<div class="col text-center">
+						<div class="btn-toolbar mb-3" role="toolbar">
+							<a class="ActionJsonButton2 btn btn-lg btn-danger w-100" href="#" id="TimerPause" role="button" title="">Стоп таймер</a>
+						</div>
+					</div>
+					<div class="col text-center">
+						<div class="btn-toolbar mb-3" role="toolbar">
+							<a class="ActionJsonButton2 btn btn-lg btn-warning w-100" href="#" id="TimerClean" role="button" title="">Обнулить таймер</a>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-3 text-center">
+						<div class="input-group mb-3">
+							<input type="text" class="form-control" id="InputTimer" placeholder="00:00" aria-label="00:00" aria-describedby="SendTimer">
+							<div class="input-group-append">
+								<button class="ActionJsonButton btn btn-outline-secondary" type="button" id="SendTimer" data-parent="InputTimer">Отправить</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+	</div>
+	<script type="text/javascript" charset="utf-8" src="/admin/js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,530 @@
+<!doctype html>
+<!--
+ * Проект "Информатор спортивных соревнований: Хоккей"
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the MIT-LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @author    Бурдин А.Н. <support@it-sakh.net>
+ * @copyright Бурдин А.Н. <support@it-sakh.net>
+ * @link      http://www.it-sakh.info/SportInfo/
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
+ * @version	  1.0.1
+
+Шаблоны для титров
+-->
+<html>
+<head>
+    <meta charset="UTF-8">
+	<title>Админка</title>
+	<link type="text/css" charset="utf-8" rel="stylesheet" href="/fontawesome/css/all.min.css" />
+	<link type="text/css" charset="utf-8" rel="stylesheet" href="/css/bootstrap.min.css" />
+	<link type="text/css" charset="utf-8" rel="stylesheet" href="/css/mainAdmin.css" />
+    <script type="text/javascript" charset="utf-8" src="/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="/js/vue.global.prod.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/js/mainConfig.js"></script>
+	<script type="text/javascript" charset="utf-8" src="/js/TypeList-local.js"></script>
+</head>
+<body>
+    <h1 class="text-center">Панель управления хоккейным матчем</h1>
+
+	<ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+		<li class="nav-item" role="presentation">
+			<a  class="nav-link h4" href="/admin/" aria-selected="false">Общее</a>
+		</li>
+		<li class="nav-item" role="presentation">
+			<a  class="nav-link display-4 active" href="/admin/Panel.html" aria-selected="true">Титры</a>
+		</li>
+		<li class="nav-item  dropdown" role="presentation">
+			<a  class="nav-link dropdown-toggle display-4" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Управление</a>
+			<ul class="dropdown-menu">
+				<li><a class="dropdown-item" href="/admin/Events.html">Мероприятия</a></li>
+				<li><a class="dropdown-item" href="/admin/GameName.html">Название матчей</a></li>
+				<li><a class="dropdown-item" href="/admin/GamePlace.html">Место проведения матчей</a></li>
+				<li><a class="dropdown-item" href="/admin/Teams.html">Команды</a></li>
+				<li><a class="dropdown-item" href="/admin/Judge.html">Судейская бригада</a></li>
+				<li><a class="dropdown-item" href="/admin/Commentator.html">Комментаторы</a></li>
+			</ul>
+		</li>
+	</ul>
+	<div id="AdminApp">
+		<div class="container-xl mt-2">
+			<div class="row">
+				<div class="col-3 text-center ">
+					Какими титрами управляем
+				</div>
+				<div class="col-3 text-center">
+					<select v-model="TypeSelected"  class="form-control" aria-label="Название титров">
+						<option v-for="(row, index) in TypeList" :value="index">{{ row.Name }}</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div v-if="TypeSelected == 0">
+			<h1 class="w-100 text-center text-danger">Выберите титры</h1>
+		</div>
+		<div v-else>
+			<div class="container-xl mt-2">
+				<div class="row">
+					<div class="col">
+						<h1 class="w-100 display-1 text-center text-danger">{{ this.TypeList[TypeSelected].Name }}</h1>
+					</div>
+				</div>
+				<div class="row row-cols-5">
+					<div class="col text-center pb-3">
+						Заставка<br>
+						<button @click="SendData('ShowBoardWelcome')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+						<button @click="SendData('HideWelcome')" class="btn btn-lg btn-success" type="button">----</button>
+					</div>
+					<div class="col text-center pb-3">
+						Стартовый экран<br>
+						<button @click="SendData('ShowBoardStart')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+						<button @click="SendData('HideStart')" class="btn btn-lg btn-success" type="button">----</button>
+					</div>
+					<div class="col text-center pb-3">
+						Счёт<br>
+						<button @click="SendData('ShowBoardCount')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+						<button @click="SendData('HideCount')" class="btn btn-lg btn-success" type="button">----</button>
+					</div>
+					<div class="col text-center pb-3">
+						Судейская бригада<br>
+						<button @click="SendData('ShowBoardJudges')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+						<button @click="SendData('HideJudges')" class="btn btn-lg btn-success" type="button">----</button>
+					</div>
+					<div class="col text-center pb-3">
+						Комментатор<br>
+						<button @click="SendData('ShowBoardCommentators')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+						<button @click="SendData('HideCommentators')" class="btn btn-lg btn-success" type="button">----</button>
+					</div>
+					<div class="col text-center pb-3">
+						Стартовая пятерка<br>
+						<button @click="SendData('ShowBoardStart5LeftAndRight')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+						<button @click="SendData('HideStart5LeftAndRight')" class="btn btn-lg btn-success" type="button">----</button>
+					</div>
+					<div class="col text-center pb-3">
+						Серия буллитов: 1-5<br>
+						<button @click="SendData('ShowBoardShootout_1_5')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+						<button @click="SendData('HideShootout_1_5')" class="btn btn-lg btn-success" type="button">----</button>
+					</div>
+					<div class="col text-center pb-3">
+						Серия буллитов: 6-10<br>
+						<button @click="SendData('ShowBoardShootout_6_10')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+						<button @click="SendData('HideShootout_6_10')" class="btn btn-lg btn-success" type="button">----</button>
+					</div>
+					<div class="col text-center pb-3">
+						Серия буллитов: 11-15<br>
+						<button @click="SendData('ShowBoardShootout_11_15')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+						<button @click="SendData('HideShootout_11_15')" class="btn btn-lg btn-success" type="button">----</button>
+					</div>
+					<div class="col text-center pb-3">
+						Финальный счет<br>
+						<button @click="SendData('ShowBoardEndGame','',1)" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+						<button @click="SendData('HideEndGame')"      class="btn btn-lg btn-success" type="button">----</button>
+					</div>
+					<div class="col text-center pb-3">
+						Период<br>
+						<button @click="SendData('PeriodPlus')"  class="btn btn-lg btn-warning me-2" type="button">+1</button>
+						<button @click="SendData('PeriodMinus')" class="btn btn-lg btn-warning" type="button">-1</button>
+					</div>
+					<div class="col text-center pb-3">
+						Конец:<br>
+						<button @click="SendData('FixEndPeriod')" class="btn btn-lg btn-danger me-2" type="button">Периода</button>
+					</div>
+					<div class="col-4 text-center pb-3">
+						Начало периода<br>
+						<button @click="SendData('ShowBoardStartPeriod','',1)" class="btn btn-lg btn-warning me-1" type="button">1</button>
+						<button @click="SendData('ShowBoardStartPeriod','',2)" class="btn btn-lg btn-warning me-1" type="button">2</button>
+						<button @click="SendData('ShowBoardStartPeriod','',3)" class="btn btn-lg btn-warning me-1" type="button">3</button>
+						<button @click="SendData('ShowBoardStartPeriod','',4)" class="btn btn-lg btn-warning me-1" type="button">4</button>
+						<button @click="SendData('ShowBoardStartPeriod','',5)" class="btn btn-lg btn-warning me-1" type="button">5</button>
+						<button @click="SendData('ShowBoardStartPeriod','',6)" class="btn btn-lg btn-warning me-1" type="button">6</button>
+						<button @click="SendData('HideStartPeriod')"      class="btn btn-lg btn-success me-1" type="button">----</button>
+					</div>
+					<div class="col-4 text-center pb-3">
+						Конец периода<br>
+						<button @click="SendData('ShowBoardEndPeriod','',1)" class="btn btn-lg btn-warning me-1" type="button">1</button>
+						<button @click="SendData('ShowBoardEndPeriod','',2)" class="btn btn-lg btn-warning me-1" type="button">2</button>
+						<button @click="SendData('ShowBoardEndPeriod','',3)" class="btn btn-lg btn-warning me-1" type="button">3</button>
+						<button @click="SendData('ShowBoardEndPeriod','',4)" class="btn btn-lg btn-warning me-1" type="button">4</button>
+						<button @click="SendData('ShowBoardEndPeriod','',5)" class="btn btn-lg btn-warning me-1" type="button">5</button>
+						<button @click="SendData('ShowBoardEndPeriod','',6)" class="btn btn-lg btn-warning me-1" type="button">6</button>
+						<button @click="SendData('HideEndPeriod')"      class="btn btn-lg btn-success me-1" type="button">----</button>
+					</div>
+					<div class="col text-center pb-3">
+						Конец:<br>
+						<button @click="SendData('GameOver')"     class="btn btn-lg btn-danger" type="button"> игры</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<hr>
+						<div class="h4 text-center">Статистика:</div>
+					</div>
+				</div>
+				<div class="row row-cols-5">
+					<div class="col text-center pb-3">
+						Статистика 1<br>
+						<button @click="SendData('ShowBoardLogo1')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+						<button @click="SendData('HideLogo1')" class="btn btn-lg btn-success" type="button">----</button>
+					</div>
+					<div class="col text-center pb-3">
+						Статистика 2<br>
+						<button @click="SendData('ShowBoardLogo','',1)" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+						<button @click="SendData('HideLogo',1)" class="btn btn-lg btn-success" type="button">----</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<hr>
+						<div class="h4 text-center">Логотипы:</div>
+					</div>
+				</div>
+				<div class="row row-cols-5">
+					<div class="col text-center pb-3">
+						Логотип арены<br>
+						<button @click="SendData('ShowBoardLogo1')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+						<button @click="SendData('HideLogo1')" class="btn btn-lg btn-success" type="button">----</button>
+					</div>
+					<div class="col text-center pb-3">
+						Логотип арены 1<br>
+						<button @click="SendData('ShowBoardLogo','',1)" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+						<button @click="SendData('HideLogo',1)" class="btn btn-lg btn-success" type="button">----</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<hr>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col text-center pb-3">
+						<h4 class="text-center">Буллиты</h4>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-1 text-center pb-1">
+
+					</div>
+					<div class="col text-center pb-1">
+						1 бросок
+					</div>
+					<div class="col text-center pb-1">
+						2 бросок
+					</div>
+					<div class="col text-center pb-1">
+						3 бросок
+					</div>
+					<div class="col text-center pb-1">
+						4 бросок
+					</div>
+					<div class="col text-center pb-1">
+						5 бросок
+					</div>
+				<div class="row">
+					<div class="col-1 text-center pb-1">
+						Левая команда
+					</div>
+					<div class="col text-center pb-1">
+						<button @click="SendData('ShowBoardShootoutUpdate','Left','1-0')" class="btn btn-sm btn-info me-1" type="button"><i class="fa-solid fa-minus"></i></button>
+						<button @click="SendData('ShowBoardShootoutUpdate','Left','1-1')" class="btn btn-sm btn-success me-1" type="button"><i class="fa-solid fa-check"></i></button>
+						<button @click="SendData('ShowBoardShootoutUpdate','Left','1-2')" class="btn btn-sm btn-danger" type="button"><i class="fa-solid fa-xmark fa-lg"></i></button>
+					</div>
+					<div class="col text-center pb-1">
+						<button @click="SendData('ShowBoardShootoutUpdate','Left','2-0')" class="btn btn-sm btn-info me-1" type="button"><i class="fa-solid fa-minus"></i></button>
+						<button @click="SendData('ShowBoardShootoutUpdate','Left','2-1')" class="btn btn-sm btn-success me-1" type="button"><i class="fa-solid fa-check"></i></button>
+						<button @click="SendData('ShowBoardShootoutUpdate','Left','2-2')" class="btn btn-sm btn-danger" type="button"><i class="fa-solid fa-xmark fa-lg"></i></button>
+					</div>
+					<div class="col text-center pb-1">
+						<button @click="SendData('ShowBoardShootoutUpdate','Left','3-0')" class="btn btn-sm btn-info me-1" type="button"><i class="fa-solid fa-minus"></i></button>
+						<button @click="SendData('ShowBoardShootoutUpdate','Left','3-1')" class="btn btn-sm btn-success me-1" type="button"><i class="fa-solid fa-check"></i></button>
+						<button @click="SendData('ShowBoardShootoutUpdate','Left','3-2')" class="btn btn-sm btn-danger" type="button"><i class="fa-solid fa-xmark fa-lg"></i></button>
+					</div>
+					<div class="col text-center pb-1">
+						<button @click="SendData('ShowBoardShootoutUpdate','Left','4-0')" class="btn btn-sm btn-info me-1" type="button"><i class="fa-solid fa-minus"></i></button>
+						<button @click="SendData('ShowBoardShootoutUpdate','Left','4-1')" class="btn btn-sm btn-success me-1" type="button"><i class="fa-solid fa-check"></i></button>
+						<button @click="SendData('ShowBoardShootoutUpdate','Left','4-2')" class="btn btn-sm btn-danger" type="button"><i class="fa-solid fa-xmark fa-lg"></i></button>
+					</div>
+					<div class="col text-center pb-1">
+						<button @click="SendData('ShowBoardShootoutUpdate','Left','5-0')" class="btn btn-sm btn-info me-1" type="button"><i class="fa-solid fa-minus"></i></button>
+						<button @click="SendData('ShowBoardShootoutUpdate','Left','5-1')" class="btn btn-sm btn-success me-1" type="button"><i class="fa-solid fa-check"></i></button>
+						<button @click="SendData('ShowBoardShootoutUpdate','Left','5-2')" class="btn btn-sm btn-danger" type="button"><i class="fa-solid fa-xmark fa-lg"></i></button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<hr>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-1 text-center pb-1">
+						Правая команда
+					</div>
+					<div class="col text-center pb-3">
+						<button @click="SendData('ShowBoardShootoutUpdate','Right','1-0')" class="btn btn-sm btn-info me-1" type="button"><i class="fa-solid fa-minus"></i></button>
+						<button @click="SendData('ShowBoardShootoutUpdate','Right','1-1')" class="btn btn-sm btn-success me-1" type="button"><i class="fa-solid fa-check"></i></button>
+						<button @click="SendData('ShowBoardShootoutUpdate','Right','1-2')" class="btn btn-sm btn-danger" type="button"><i class="fa-solid fa-xmark fa-lg"></i></button>
+					</div>
+					<div class="col text-center pb-3">
+						<button @click="SendData('ShowBoardShootoutUpdate','Right','2-0')" class="btn btn-sm btn-info me-1" type="button"><i class="fa-solid fa-minus"></i></button>
+						<button @click="SendData('ShowBoardShootoutUpdate','Right','2-1')" class="btn btn-sm btn-success me-1" type="button"><i class="fa-solid fa-check"></i></button>
+						<button @click="SendData('ShowBoardShootoutUpdate','Right','2-2')" class="btn btn-sm btn-danger" type="button"><i class="fa-solid fa-xmark fa-lg"></i></button>
+					</div>
+					<div class="col text-center pb-3">
+						<button @click="SendData('ShowBoardShootoutUpdate','Right','3-0')" class="btn btn-sm btn-info me-1" type="button"><i class="fa-solid fa-minus"></i></button>
+						<button @click="SendData('ShowBoardShootoutUpdate','Right','3-1')" class="btn btn-sm btn-success me-1" type="button"><i class="fa-solid fa-check"></i></button>
+						<button @click="SendData('ShowBoardShootoutUpdate','Right','3-2')" class="btn btn-sm btn-danger" type="button"><i class="fa-solid fa-xmark fa-lg"></i></button>
+					</div>
+					<div class="col text-center pb-3">
+						<button @click="SendData('ShowBoardShootoutUpdate','Right','4-0')" class="btn btn-sm btn-info me-1" type="button"><i class="fa-solid fa-minus"></i></button>
+						<button @click="SendData('ShowBoardShootoutUpdate','Right','4-1')" class="btn btn-sm btn-success me-1" type="button"><i class="fa-solid fa-check"></i></button>
+						<button @click="SendData('ShowBoardShootoutUpdate','Right','4-2')" class="btn btn-sm btn-danger" type="button"><i class="fa-solid fa-xmark fa-lg"></i></button>
+					</div>
+					<div class="col text-center pb-3">
+						<button @click="SendData('ShowBoardShootoutUpdate','Right','5-0')" class="btn btn-sm btn-info me-1" type="button"><i class="fa-solid fa-minus"></i></button>
+						<button @click="SendData('ShowBoardShootoutUpdate','Right','5-1')" class="btn btn-sm btn-success me-1" type="button"><i class="fa-solid fa-check"></i></button>
+						<button @click="SendData('ShowBoardShootoutUpdate','Right','5-2')" class="btn btn-sm btn-danger" type="button"><i class="fa-solid fa-xmark fa-lg"></i></button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<hr>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col text-center bg-info text-white pt-3">
+						<div class="row">
+							<div class="col">
+								<h2 class="text-center">Левая команда</h2>
+								<h4 class="text-center">{{ PlayerLeft['FullName'] }}</h4>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col text-center bg-primary text-white pb-3">
+								Состав команды<br>
+								<button @click="SendData('ShowBoardListPlayer','Left')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+								<button @click="SendData('HideListPlayer')" class="btn btn-lg btn-success" type="button">----</button>
+							</div>
+							<div class="col text-center bg-warning text-dark pb-3">
+								Стартовая пятёрка<br>
+								<button @click="SendData('ShowBoardStart5Player','Left')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+								<button @click="SendData('HideStart5Player')" class="btn btn-lg btn-success" type="button">----</button>
+							</div>
+							<div class="col text-center bg-light text-dark pb-3">
+								Раздевалка<br>
+								<button @click="SendData('ShowBoardTeamRoom','Left')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+								<button @click="SendData('HideTeamRoom')" class="btn btn-lg btn-success" type="button">----</button>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col text-center bg-primary text-white pb-3">
+								Гол<br>
+								<button @click="SendData('ShowBoardGoal','Left')" class="btn btn-lg btn-danger" type="button">&lt;++</button>
+							</div>
+							<div class="col text-center bg-primary text-white pb-3">
+								Пустые ворота<br>
+								<button @click="SendData('ShowBoardEmptyNet','Left')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+								<button @click="SendData('HideEmptyNet')" class="btn btn-lg btn-success" type="button">----</button>
+							</div>
+							<div class="col text-center bg-primary text-white pb-3">
+								Штрафной бросок<br>
+								<button @click="SendData('ShowBoardPenaltyShot','Left')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+								<button @click="SendData('HidePenaltyShot')" class="btn btn-lg btn-success" type="button">----</button>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col text-center bg-secondary text-white pb-3">
+								Отложенный штраф<br>
+								<button @click="SendData('ShowBoardDelayedPenalty','Left')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+								<button @click="SendData('HideDelayedPenalty')" class="btn btn-lg btn-success" type="button">----</button>
+							</div>
+							<div class="col text-center bg-secondary text-white pb-3">
+								Замена вратаря<br>
+								<button @click="SendData('ShowBoardPullGoalie','Left')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+								<button @click="SendData('HidePullGoalie')" class="btn btn-lg btn-success" type="button">----</button>
+							</div>
+							<div class="col text-center bg-secondary text-white pb-3">
+								Счёт команды<br>
+								<button @click="SendData('CountPlayerPlus','','All','Left')"  class="btn btn-lg btn-warning me-2" type="button">+1</button>
+								<button @click="SendData('CountPlayerMinus','','All','Left')" class="btn btn-lg btn-warning" type="button">-1</button>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col text-center bg-secondary text-white pb-3">
+								Гол отдельный<br>
+								<button @click="SendData('ShowBoardGoal2','Left')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+								<button @click="SendData('HideGoal2')" class="btn btn-lg btn-success" type="button">----</button>
+							</div>
+						</div>
+					</div>
+					<div class="col text-center bg-secondary text-white pt-3">
+						<div class="row">
+							<div class="col">
+								<h2 class="text-center">Правая команда</h2>
+								<h4 class="text-center">{{ PlayerRight['FullName'] }}</h4></div>
+						</div>
+						<div class="row">
+							<div class="col text-center bg-primary text-white pb-3">
+								Состав команды<br>
+								<button @click="SendData('ShowBoardListPlayer','Right')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+								<button @click="SendData('HideListPlayer')" class="btn btn-lg btn-success" type="button">----</button>
+							</div>
+							<div class="col text-center bg-warning text-dark pb-3">
+								Стартовая пятёрка<br>
+								<button @click="SendData('ShowBoardStart5Player','Right')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+								<button @click="SendData('HideStart5Player')" class="btn btn-lg btn-success" type="button">----</button>
+							</div>
+							<div class="col text-center bg-light text-dark pb-3">
+								Раздевалка<br>
+								<button @click="SendData('ShowBoardTeamRoom','Right')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+								<button @click="SendData('HideTeamRoom')" class="btn btn-lg btn-success" type="button">----</button>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col text-center bg-primary text-white pb-3">
+								Гол <small>счёт</small><br>
+								<button @click="SendData('ShowBoardGoal','Right')" class="btn btn-lg btn-danger" type="button">++&gt;</button>
+							</div>
+							<div class="col text-center bg-primary text-white pb-3">
+								Пустые ворота<br>
+								<button @click="SendData('ShowBoardEmptyNet','Right')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+								<button @click="SendData('HideEmptyNet')" class="btn btn-lg btn-success" type="button">----</button>
+							</div>
+							<div class="col text-center bg-primary text-white pb-3">
+								Штрафной бросок<br>
+								<button @click="SendData('ShowBoardPenaltyShot','Right')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+								<button @click="SendData('HidePenaltyShot')" class="btn btn-lg btn-success" type="button">----</button>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col text-center bg-info text-dark pb-3">
+								Отложенный штраф<br>
+								<button @click="SendData('ShowBoardDelayedPenalty','Right')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+								<button @click="SendData('HideDelayedPenalty')" class="btn btn-lg btn-success" type="button">----</button>
+							</div>
+							<div class="col text-center bg-info text-dark pb-3">
+								Замена вратаря<br>
+								<button @click="SendData('ShowBoardPullGoalie','Right')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+								<button @click="SendData('HidePullGoalie')" class="btn btn-lg btn-success" type="button">----</button>
+							</div>
+							<div class="col text-center bg-info text-dark pb-3">
+								Счёт команды<br>
+								<button @click="SendData('CountPlayerPlus','','All','Right')"  class="btn btn-lg btn-warning me-2" type="button">+1</button>
+								<button @click="SendData('CountPlayerMinus','','All','Right')" class="btn btn-lg btn-warning" type="button">-1</button>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col text-center bg-info text-dark pb-3">
+								Гол отдельный<br>
+								<button @click="SendData('ShowBoardGoal2','Right')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+								<button @click="SendData('HideGoal2')" class="btn btn-lg btn-success" type="button">----</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col bg-info text-white pt-3 pb-3">
+						<div class="h3 text-center">Официальные лица:</div>
+						<div class="container-fluid">
+							<div class="row row-cols-3">
+								<div class="col text-center pt-3 pb-2">
+									Тренер<br>
+									<button @click="SendData('ShowBoardTrainerTeam','Left')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+									<button @click="SendData('HideTrainerTeam')" class="btn btn-lg btn-success" type="button">----</button>
+								</div>
+								<div class="col text-center pt-3 pb-2">
+									
+								</div>
+								<div class="col text-center pt-3 pb-2">
+									
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col bg-secondary text-white pt-3 pb-3">
+						<div class="h3 text-center">Официальные лица:</div>
+						<div class="container-fluid">
+							<div class="row row-cols-3">
+								<div class="col text-center pt-3 pb-2">
+									Тренер<br>
+									<button @click="SendData('ShowBoardTrainerTeam','Right')" class="btn btn-lg btn-danger me-2" type="button">+++</button>
+									<button @click="SendData('HideTrainerTeam')" class="btn btn-lg btn-success" type="button">----</button>
+								</div>
+								<div class="col text-center pt-3 pb-2">
+									
+								</div>
+								<div class="col text-center pt-3 pb-2">
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col bg-info text-white pt-3 pb-3">
+						<div class="h3 text-center">Игроки:</div>
+						<div class="container-fluid">
+							<div class="row row-cols-3">
+								<div v-for="item in PlayerLeft['Players']" class="col text-center pt-3 pb-2">
+									<div class="pb-2 h2">№ {{ item.Key }}</div>
+									Инфо по игроку<br>
+									<button @click="SendData('ShowBoardPlayerTeam','Left', item.Key )" class="btn btn-lg btn-danger me-2" type="button">++</button>
+									<button @click="SendData('HidePlayerTeam')" class="btn btn-lg btn-success" type="button">---</button><br>
+									Забил гол<br>
+									<button @click="SendData('ShowBoardPlayerGoal','Left', item.Key )" class="btn btn-lg btn-danger me-2" type="button">++</button>
+									<button @click="SendData('HidePlayerGoal')" class="btn btn-lg btn-success" type="button">---</button><br>
+									Удаление<br>
+									<button @click="SendData('ShowBoardPlayerEjection','Left', item.Key )" class="btn btn-lg btn-danger me-2" type="button">++</button>
+									<button @click="SendData('HidePlayerEjection')" class="btn btn-lg btn-success" type="button">---</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col bg-secondary text-white pt-3 pb-3">
+						<div class="h3 text-center">Игроки:</div>
+						<div class="container-fluid">
+							<div class="row row-cols-3">
+								<div v-for="item in PlayerRight['Players']" class="col text-center pt-3 pb-2">
+									<div class="pb-2 h2">№ {{ item.Key }}</div>
+									Инфо по игроку<br>
+									<button @click="SendData('ShowBoardPlayerTeam','Right', item.Key )" class="btn btn-lg btn-danger me-2" type="button">++</button>
+									<button @click="SendData('HidePlayerTeam')" class="btn btn-lg btn-success" type="button">---</button><br>
+									Забил гол<br>
+									<button @click="SendData('ShowBoardPlayerGoal','Right', item.Key )" class="btn btn-lg btn-danger me-2" type="button">++</button>
+									<button @click="SendData('HidePlayerGoal')" class="btn btn-lg btn-success" type="button">---</button><br>
+									Удаление<br>
+									<button @click="SendData('ShowBoardPlayerEjection','Right', item.Key )" class="btn btn-lg btn-danger me-2" type="button">++</button>
+									<button @click="SendData('HidePlayerEjection')" class="btn btn-lg btn-success" type="button">---</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			<div class="container mt-3 mb-5">
+				<div class="row">
+					<div class="col text-center">
+						<div class="accordion  mb-5" id="accordionOne">
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="headingOne">
+									<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">Настройки</button>
+								</h2>
+								<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionOne">
+									<div class="accordion-body">
+										
+										<button @click="SendData('UpdateBoardCount')" class="btn btn-lg btn-warning me-2" type="button">Обновить счёт</button>
+										<button @click="SendData('Clear')" class="btn btn-lg btn-warning me-2" type="button">Очистить Титры</button>
+										<button @click="SendData('Reload')" class="btn btn-lg btn-danger" type="button">Перезагрузить Титры</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" charset="utf-8" src="/admin/js/Panel.js"></script>
+</body>
+</html>
