@@ -1,0 +1,4760 @@
+/**
+ * Проект "Информатор спортивных соревнований: Хоккей"
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the MIT-LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @author    Бурдин А.Н. <support@it-sakh.net>
+ * @copyright Бурдин А.Н. <support@it-sakh.net>
+ * @link      http://www.it-sakh.info/SportInfo/
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
+ * @version	  1.0.5
+ */
+
+ /**
+ * Шаблоны для титров
+ */
+
+@font-face {
+    font-family: 'Alumni Sans Update';
+	font-style: normal;
+    font-weight: 600;
+    src: local('Alumni Sans Update'), url('font/AlumniSans.ttf') format('truetype');
+}
+
+html,body {
+	font-family: 'Alumni Sans Update';
+}
+
+/* ################################################################################################
+Информационная панель:
+    Welcome; - Заставка
+*/
+.cl_boardWelcomeWrap {
+	position: absolute;
+	bottom: 120px;
+	left: 220px;
+	font-weight: 600;
+	font-size: 30pt;
+}
+.cl_boardWelcomeWrap, .cl_boardWelcome {
+	width: 800px;
+	height: 152px;
+}
+.cl_boardWelcome {
+	overflow:hidden;
+	float: right;
+	transform: skewX(350deg);
+	border-radius: 20px;
+	color: #fff;
+	background-color: #6B0B15;
+}
+.cl_WelcomeLayer2 {
+	position: absolute;
+	background-color: #CF1717;
+	right: 0;
+	bottom: 0;
+	height: 45px;
+	width: 100%;
+}
+.cl_WelcomeLayer2_1 {
+	position: absolute;
+	background-color: #CF1717;
+	left: -100px;
+	height: 100%;
+	width: 100px;
+}
+.cl_WelcomeLayer2_2 {
+	position: absolute;
+	background-color: #CF1717;
+	right: -100px;
+	height: 100%;
+	width: 100px;
+}
+
+.cl_boardWelcome>.cl_WelcomeLayer3_Date, .cl_boardWelcome>.cl_WelcomeLayer3_Place, .cl_boardWelcome>.cl_WelcomeLayer3_ArenaName {
+	left: 36px;
+}
+.cl_boardWelcome>.cl_WelcomeLayer3_Date,.cl_boardWelcome>.cl_WelcomeLayer3_LocalTime {
+	position: absolute;
+	bottom: 0;
+	line-height: 45px;
+}
+.cl_boardWelcome>.cl_WelcomeLayer3_LocalTime {
+	width: 200px;
+	text-align: right;
+}
+.cl_boardWelcome>.cl_WelcomeLayer3_Temperature, .cl_boardWelcome>.cl_WelcomeLayer3_LocalTime {
+	right: 62px;
+}
+.cl_boardWelcome>.cl_WelcomeLayer3_Temperature {
+	position: absolute;
+	top: 0;
+	font-size: 68pt;
+}
+.cl_boardWelcome>.cl_WelcomeLayer3_Temperature::after {
+	content: "°C";
+}
+.cl_boardWelcome>.cl_WelcomeLayer3_Weather {
+	position: absolute;
+	right: 210px;
+    top: 0px;
+    width: 100px;
+	text-align: center;
+}
+.cl_boardWelcome>.cl_WelcomeLayer3_Place {
+	position: absolute;
+	top: 56px;
+	text-transform: uppercase;
+	font-size: 25pt;
+}
+.cl_boardWelcome>.cl_WelcomeLayer3_ArenaName {
+	position: absolute;
+	top: 11px;
+	text-transform: uppercase;
+	font-size: 40pt;
+}
+
+@keyframes Welcome_Layer2_In {
+	0%   {
+		width: 0%;
+	}
+	100% {
+		width: 100%;
+	}
+}
+@keyframes Welcome_Layer2_Out {
+	0% {
+		left: 0%;
+		right: auto;
+		width: 100%;
+	}
+	100%   {
+		left: 0%;
+		right: auto;
+		width: 5%;
+	}
+}
+@keyframes WelcomeAnimLastIn {
+	0% {
+		float: right;
+		width: 0%;
+		border-radius: 0px;
+	}
+	80% {
+		border-radius: 0px;
+	}
+	100% {
+		width: 100%;
+		float: right;
+		border-radius: 20px;
+	}
+}
+@keyframes WelcomeAnimLastOut {
+	0% {
+		float: left;
+		border-radius: 20px;
+		width: 100%;
+	}
+	50% {
+		border-radius: 0px;
+	}
+	100% {
+		float: left;
+		width: 0%;
+		border-radius: 0px;
+	}
+}
+@keyframes Welcome_Layer3_Frozen_In {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes Welcome_Layer3_Frozen_Out {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes Welcome_Layer2_1_In {
+	0% {
+		left: 0px;
+	}
+	100% {
+		left: -100px;
+	}
+}
+@keyframes Welcome_Layer2_2_Out {
+	0% {
+		right: -100px;
+	}
+	50% {
+		right: 0px;
+	}
+	100% {
+		right: -90px;
+	}
+}
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_boardWelcomeWrap.cl_boardIn .cl_boardWelcome {
+	animation: WelcomeAnimLastIn 1000ms linear 0ms normal backwards;
+}
+.cl_boardWelcomeWrap.cl_boardIn .cl_WelcomeLayer2  {
+	animation: Welcome_Layer2_In 1000ms linear 0ms normal backwards;
+}
+.cl_boardWelcomeWrap.cl_boardIn .cl_WelcomeLayer2_1  {
+	animation: Welcome_Layer2_1_In 1000ms linear 0ms normal backwards;
+}
+.cl_boardWelcomeWrap.cl_boardIn .cl_WelcomeLayer3_Date, 
+.cl_boardWelcomeWrap.cl_boardIn .cl_WelcomeLayer3_ArenaName, 
+.cl_boardWelcomeWrap.cl_boardIn .cl_WelcomeLayer3_Place,
+.cl_boardWelcomeWrap.cl_boardIn .cl_WelcomeLayer3_Weather, 
+.cl_boardWelcomeWrap.cl_boardIn .cl_WelcomeLayer3_LocalTime, 
+.cl_boardWelcomeWrap.cl_boardIn .cl_WelcomeLayer3_Temperature {
+	animation: Welcome_Layer3_Frozen_In 300ms linear 900ms normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_boardWelcomeWrap.cl_boardOut .cl_boardWelcome {
+	animation: WelcomeAnimLastOut 1000ms linear 400ms normal forwards;
+}
+.cl_boardWelcomeWrap.cl_boardOut .cl_WelcomeLayer2  {
+	animation: Welcome_Layer2_Out 1000ms linear 500ms normal forwards;
+}
+.cl_boardWelcomeWrap.cl_boardOut .cl_WelcomeLayer3_Date, 
+.cl_boardWelcomeWrap.cl_boardOut .cl_WelcomeLayer3_ArenaName, 
+.cl_boardWelcomeWrap.cl_boardOut .cl_WelcomeLayer3_Place,
+.cl_boardWelcomeWrap.cl_boardOut .cl_WelcomeLayer3_Weather, 
+.cl_boardWelcomeWrap.cl_boardOut .cl_WelcomeLayer3_LocalTime, 
+.cl_boardWelcomeWrap.cl_boardOut .cl_WelcomeLayer3_Temperature {
+	animation: Welcome_Layer3_Frozen_Out 400ms linear 0ms normal forwards;
+}
+.cl_boardWelcomeWrap.cl_boardOut .cl_WelcomeLayer2_2  {
+	animation: Welcome_Layer2_2_Out 1000ms linear 400ms normal forwards;
+}
+
+
+/* ################################################################################################
+Информационная панель:
+    Start; - Стартовая
+*/
+.cl_StartWrap {
+    position: absolute;
+    top: 165px;
+    left: 265px;
+}
+.cl_StartWrap, .cl_Start,.cl_Start_Layer1 {
+    height: 745px;
+}
+.cl_StartWrap, .cl_Start,.cl_Start_Layer1,.cl_Start_Layer6,.cl_Start_Layer7,.cl_Start_Layer9 {
+    width: 1404px;
+}
+.cl_Start {
+	overflow:hidden;
+	float: right;
+	transform: skewX(351deg);
+	border-radius: 40px;
+	color: #fff;
+	background-color: #6B0B15;
+}
+.cl_Start_Layer1 {
+	position: absolute;
+}
+.cl_Start_Layer2_1 {
+	position: absolute;
+    bottom: 218px;
+    left: 148px;
+	background-color: #cf17175c;
+    width: 765px;
+    height: 100px;
+    border-radius: 60px 60px 0 0;
+}
+.cl_Start_Layer2_2 {
+	position: absolute;
+    top: 0;
+    left: 30px;
+    background-color: #cf17175c;
+    width: 705px;
+    height: 208px;
+    border-radius: 0 0 50px 50px;
+}
+.cl_Start_Layer2_3 {
+	position: absolute;
+    top: 0;
+    right: 0px;
+    background-color: #cf17175c;
+    width: 184px;
+    height: 390px;
+    border-radius: 50px 0 0 50px;
+}
+.cl_Start_Layer3 {
+    position: absolute;
+	bottom: 117px;
+	width: 100%;
+
+    background-color: #CF1717;
+}
+.cl_Start_Layer3, .cl_Start_Layer7, .cl_Start_Layer7_Left, .cl_Start_Layer7_Right {
+    height: 130px;
+}
+
+.cl_Start_Layer4_1 {
+	position: absolute;
+	background-color: #CF1717;
+	left: -400px;
+	width: 400px;
+	height: 100%;
+}
+.cl_Start_Layer4_2 {
+	position: absolute;
+	background-color: #CF1717;
+	right: -400px;
+	width: 400px;
+	height: 100%;
+}
+.cl_Start_Layer6 {
+	position: absolute;
+	top: 163px;
+}
+.cl_Start_Layer6_1, .cl_Start_Layer6_2 {
+	position: absolute;
+    width: 350px;
+    height: 300px;
+    font-size: 10pt;
+	transform: skewX(10deg);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.cl_Start_Layer6_1 {
+	left: 185px;
+    background-image:url('/LogoTeamLocal/DefaultLeft.png');
+}
+.cl_Start_Layer6_2 {
+	right: 185px;
+    background-image:url('/LogoTeamLocal/DefaultRight.png');
+}
+.cl_Start_Layer10 {
+	position: absolute;
+	top: 232px;
+	width: 100%;
+	text-align: center;
+	font-size: 114pt;
+	font-weight: 600;
+}
+/* Название команд*/
+.cl_Start_Layer7 {
+	position: absolute;
+	top: 514px;
+}
+.cl_Start_Layer7_Left,.cl_Start_Layer7_Right {
+	position: absolute;
+    width: 600px;
+	overflow: hidden;
+	text-align: center;
+}
+.cl_Start_Layer7_Left {
+    left: 16px;
+}
+.cl_Start_Layer7_Right {
+    right: 16px;
+}
+#StartClassPlayerLeftName,#StartClassPlayerRightName {
+    width: 100%;
+    font-size: 60pt;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+.cl_Start_Layer8,.cl_Start_Layer9 {
+    position: absolute;
+    text-align: center;
+}
+.cl_Start_Layer8 {
+    top: 47px;
+    left: 225px;
+    width: 1010px;
+    font-size: 32pt;
+}
+.cl_Start_Layer9 {
+	bottom: 37px;
+    width: 100%;
+    font-size: 38pt;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.cl_Start_Layer11 {
+	position: absolute;
+	top: 23px;
+    left: 400px;
+    width: 100px;
+    height: 114px;
+	/*background-image: url(img/LOGO_JHL_2025-2026_ENG.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;*/
+}
+@keyframes StartAnimLastIn {
+	0% {
+		float: right;
+		width: 0%;
+		border-radius: 0px;
+	}
+	80% {
+		width: 100%;
+		border-radius: 0px;
+	}
+	100% {
+		width: 100%;
+		float: right;
+		border-radius: 40px;
+	}
+}
+@keyframes StartAnimLastOut {
+	0% {
+		float: left;
+		border-radius: 40px;
+		width: 100%;
+	}
+	20% {
+		border-radius: 0px;
+	}
+	80% {
+		width: 0%;
+		border-radius: 0px;
+	}
+	100% {
+		float: left;
+		width: 0%;
+		border-radius: 0px;
+	}
+}
+@keyframes Start_Layer4_1_In {
+	0% {
+		left: 0px;
+	}
+	100% {
+		left: -400px;
+	}
+}
+@keyframes Start_Layer4_2_Out {
+	0% {
+		right: -400px;
+	}
+	50% {
+		right: 0px;
+	}
+	100% {
+		right: -350px;
+	}
+}
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_StartWrap.cl_boardIn .cl_Start_Layer1 {
+	left: auto;
+	right: 0;
+}
+.cl_StartWrap.cl_boardIn .cl_Start  {
+	animation: StartAnimLastIn 1000ms linear 0ms normal backwards;
+}
+.cl_StartWrap.cl_boardIn .cl_Start_Layer4_1  {
+	animation: Start_Layer4_1_In 1000ms linear 0ms normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_StartWrap.cl_boardOut .cl_Start_Layer1 {
+	left: 0;
+	right: auto;
+}
+.cl_StartWrap.cl_boardOut .cl_Start {
+	animation: StartAnimLastOut 1000ms linear 400ms normal forwards;
+}
+.cl_StartWrap.cl_boardOut .cl_Start_Layer4_2  {
+	animation: Start_Layer4_2_Out 1000ms linear 400ms normal forwards;
+}
+/* ################################################################################################
+Информационная панель:
+    Judges; - Судейский состав
+*/
+.cl_boardJudges {
+	position: absolute;
+	bottom: 121px;
+	left: 0;
+	width: 1920px;
+	overflow:hidden;
+	text-align: right;
+}
+.cl_boardJudges, .JudgesLeft, .JudgesRight, .JudgesClassBoss, .JudgesClassLines  {
+	height: 150px;
+}
+.JudgesLeft, .JudgesRight {
+	position: absolute;
+	top: 0;
+	text-align: right;
+}
+.JudgesLeft {
+	left: 220px;
+}
+.JudgesRight {
+	left: 813px;
+}
+.JudgesClassBoss, .JudgesClassLines {
+	overflow: hidden;
+	white-space: nowrap;
+	text-transform: uppercase;
+	color: #ffffff;
+	transform: skewX(350deg);
+	background-color: #6B0B15;
+	border-radius: 20px;
+	float: right;
+}
+.JudgesClassBoss, .JudgesClassLines, .JudgesBossLayer2, .JudgesBoss_Layer3_Title, .JudgesLeft, .JudgesRight {
+	width: 562px;
+}
+/* Отступ если две плашки */
+/*.JudgesClassBoss,.JudgesClassLines {
+	right: 0px;
+}*/
+/* Отступ если одна плашка */
+.JudgesClassBossOne {
+	left: 650px !important;
+}
+.JudgesBossLayer2 {
+	position: absolute;
+	background-color: #CF1717;
+	right: 0;
+	height: 107px;
+	width: 100%;
+}
+.JudgesBossLayer2_1 {
+	position: absolute;
+	background-color: #CF1717;
+	left: -100px;
+	height: 100%;
+	width: 100px;
+}
+.JudgesBossLayer2_2 {
+	position: absolute;
+	background-color: #CF1717;
+	right: -100px;
+	height: 100%;
+	width: 100px;
+}
+.JudgesBoss_Layer3_Title, .JudgesBoss_Layer3_First, .JudgesBoss_Layer3_Second {
+	position: absolute;
+	font-weight: bold;
+	font-size: 30pt;
+	text-align: left;
+	opacity: 1;
+	width: 98%;
+    overflow: hidden;
+}
+.JudgesBoss_Layer3_First {
+	top: 7px;
+}
+.JudgesBoss_Layer3_Second {
+	top: 50px;
+}
+.JudgesBoss_Layer3_Title {
+	line-height: 43px;
+	bottom: 0px;
+}
+.JudgesBoss_Layer3_First, .JudgesBoss_Layer3_Second, .JudgesBoss_Layer3_Title {
+	color: white;
+}
+
+
+.JudgesBoss_Layer3_Title > span, .JudgesBoss_Layer3_First .JudgesNumber, .JudgesBoss_Layer3_Second .JudgesNumber {
+	margin-left: 39px;
+}
+
+
+.JudgesBoss_Layer3_First .JudgesNumber, .JudgesBoss_Layer3_Second .JudgesNumber {
+	width: 64px;
+    line-height: 26pt;
+    display: inline-block;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #A50F0F;
+	margin-top: 3px;
+	margin-right: 10px;
+}
+@keyframes JudgesAnim1_In {
+	0% {
+		float: right;
+		width: 0px;
+		border-radius: 0px;
+	}
+	10% {
+		width: 560px;
+	}
+	80% {
+		border-radius: 0px;
+	}
+	100% {
+		float: right;
+		border-radius: 20px;
+	}
+}
+@keyframes JudgesBoss_Layer2_In {
+	0%   {
+		width: 0%;
+	}
+	10% {
+		width: 80%;
+	}
+	100% {
+		width: 100%;
+	}
+}
+@keyframes JudgesBoss_Layer2_Out {
+	0% {
+		left: 0%;
+		right: auto;
+		width: 100%;
+	}
+	80% {
+		width: 80%;
+	}
+	100%   {
+		left: 0%;
+		right: auto;
+		width: 5%;
+	}
+}
+@keyframes JudgesBoss_Layer2_1_In {
+	0% {
+		left: 0px;
+	}
+	100% {
+		left: -100px;
+	}
+}
+@keyframes JudgesBoss_Layer2_2_Out {
+	0% {
+		right: -100px;
+	}
+	50% {
+		right: 0px;
+	}
+	100% {
+		right: -90px;
+	}
+}
+@keyframes JudgesBoss_Layer3_Title_In {
+	0% {
+		opacity: 0;
+		left:20px;
+	}
+	100% {
+		opacity: 1;
+		left:0px;
+	}
+}
+@keyframes JudgesBoss_Layer3_Title_Out {
+	0% {
+		opacity: 1;
+		left:0px;
+	}
+	100% {
+		opacity: 0;
+		left:-20px;
+	}
+}
+@keyframes JudgesAnimLastIn {
+	0%   {opacity: 0;}
+	80%  {opacity: 1;}
+	100% {opacity: 1;}
+}
+@keyframes opacityOut {
+	0%   {opacity: 1;}
+	80%  {opacity: 0;}
+	100% {opacity: 0;}
+}
+@keyframes JudgesAnimLastOut {
+	0% {
+		float: left;
+		border-radius: 20px;
+		width: 560px;
+	}
+	50% {
+		border-radius: 0px;
+	}
+	100% {
+		float: left;
+		width: 0px;
+		border-radius: 0px;
+	}
+}
+@keyframes backOutRight1 {
+	0% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+	20% {
+		-webkit-transform: translateX(0) scale(.7);
+		transform: translateX(0) scale(.7);
+	}
+	100% {
+		-webkit-transform: translateX(2000px) scale(.7);
+		transform: translateX(2000px) scale(.7);
+	}
+}
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_boardJudges.cl_boardIn .JudgesClassBoss, .cl_boardJudges.cl_boardIn .JudgesClassLines  {
+	animation: JudgesAnim1_In 1200ms linear 0s normal backwards;
+}
+.cl_boardJudges.cl_boardIn .JudgesBossLayer2  {
+	animation: JudgesBoss_Layer2_In 500ms linear 100ms normal backwards;
+}
+.cl_boardJudges.cl_boardIn .JudgesBossLayer2_1  {
+	animation: JudgesBoss_Layer2_1_In 400ms linear 0ms normal backwards;
+}
+.cl_boardJudges.cl_boardIn .JudgesBoss_Layer3_First, .cl_boardJudges.cl_boardIn .JudgesBoss_Layer3_Second, .cl_boardJudges.cl_boardIn .JudgesBoss_Layer3_Title {
+	animation: JudgesBoss_Layer3_Title_In 500ms linear 300ms normal backwards;
+}
+/*.cl_boardJudges.cl_boardIn .JudgesClassBoss > div, .cl_boardJudges.cl_boardIn .JudgesClassLines > div {
+	animation: JudgesAnimLastIn .5s linear 1s normal backwards;
+}*/
+
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+/*.cl_boardJudges.cl_boardOut .JudgesClassBoss > div, .cl_boardJudges.cl_boardOut .JudgesClassLines > div {
+	animation: opacityOut .5s linear 0s normal forwards;
+}*/
+.cl_boardJudges.cl_boardOut .JudgesClassBoss, .cl_boardJudges.cl_boardOut .JudgesClassLines  {
+	animation: JudgesAnimLastOut 500ms linear 400ms normal forwards;
+}
+.cl_boardJudges.cl_boardOut .JudgesBossLayer2  {
+	animation: JudgesBoss_Layer2_Out 500ms linear 100ms normal forwards;
+}
+.cl_boardJudges.cl_boardOut .JudgesBossLayer2_2  {
+	animation: JudgesBoss_Layer2_2_Out 500ms linear 400ms normal forwards;
+}
+.cl_boardJudges.cl_boardOut .JudgesBoss_Layer3_First, .cl_boardJudges.cl_boardOut .JudgesBoss_Layer3_Second, .cl_boardJudges.cl_boardOut .JudgesBoss_Layer3_Title  {
+	animation: JudgesBoss_Layer3_Title_Out 500ms linear 0ms normal forwards;
+}
+
+/* ################################################################################################
+Информационная панель:
+    Commentators; - Комментаторы
+*/
+.cl_CommentatorsWrap {
+	position: absolute;
+	bottom: 120px;
+	left: 220px;
+	font-weight: 600;
+	font-size: 30pt;
+}
+.cl_CommentatorsWrap, .cl_Commentators  {
+	width: 562px;
+	height: 150px;
+}
+.cl_Commentators {
+	overflow: hidden;
+	white-space: nowrap;
+	text-transform: uppercase;
+	color: #fff;
+	transform: skewX(350deg);
+	background-color: #6B0B15;
+	border-radius: 20px;
+	float: right;
+}
+.cl_Commentators_Layer2 {
+	position: absolute;
+	background-color: #CF1717;
+	right: 0;
+	bottom: 0;
+	height: 45px;
+	width: 100%;
+}
+.cl_Commentators_Layer2_1 {
+	position: absolute;
+	background-color: #CF1717;
+	left: -100px;
+	height: 100%;
+	width: 100px;
+}
+.cl_Commentators_Layer2_2 {
+	position: absolute;
+	background-color: #CF1717;
+	right: -100px;
+	height: 100%;
+	width: 100px;
+}
+.cl_Commentators_Layer3_Title, .cl_Commentators_Layer3_First, .cl_Commentators_Layer3_Second {
+	position: absolute;
+	text-align: left;
+	opacity: 1;
+	width: 98%;
+    overflow: hidden;
+	color: white;
+}
+.cl_Commentators_Layer3_First {
+	top: 7px;
+}
+.cl_Commentators_Layer3_Second {
+	top: 50px;
+}
+.cl_Commentators_Layer3_Title {
+	line-height: 43px;
+	bottom: 0px;
+}
+.cl_Commentators_Layer3_Title > span, .cl_Commentators_Layer3_First > span, .cl_Commentators_Layer3_Second > span {
+	margin-left: 39px;
+}
+@keyframes Commentators_Layer2_In {
+	0%   {
+		width: 0%;
+	}
+	10% {
+		width: 80%;
+	}
+	100% {
+		width: 100%;
+	}
+}
+@keyframes Commentators_Layer2_Out {
+	0% {
+		left: 0%;
+		right: auto;
+		width: 100%;
+	}
+	80% {
+		width: 80%;
+	}
+	100%   {
+		left: 0%;
+		right: auto;
+		width: 15%;
+	}
+}
+@keyframes Commentators_Layer2_1_In {
+	0% {
+		left: 0px;
+	}
+	100% {
+		left: -100px;
+	}
+}
+@keyframes Commentators_Layer2_2_Out {
+	0% {
+		right: -100px;
+	}
+	50% {
+		right: 0px;
+	}
+	100% {
+		right: -90px;
+	}
+}
+@keyframes Commentators_Layer3_Title_In {
+	0% {
+		opacity: 0;
+		left:20px;
+	}
+	100% {
+		opacity: 1;
+		left:0px;
+	}
+}
+@keyframes Commentators_Layer3_Title_Out {
+	0% {
+		opacity: 1;
+		left:0px;
+	}
+	100% {
+		opacity: 0;
+		left:-20px;
+	}
+}
+@keyframes CommentatorsAnimLastIn {
+	0% {
+		float: right;
+		width: 0%;
+		border-radius: 0px;
+	}
+	80% {
+		border-radius: 0px;
+	}
+	100% {
+		width: 100%;
+		float: right;
+		border-radius: 20px;
+	}
+}
+@keyframes CommentatorsAnimLastOut {
+	0% {
+		float: left;
+		border-radius: 20px;
+		width: 100%;
+	}
+	50% {
+		border-radius: 0px;
+	}
+	100% {
+		float: left;
+		width: 0%;
+		border-radius: 0px;
+	}
+}
+@keyframes Commentators_Layer3_Frozen_In {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes Commentators_Layer3_Frozen_Out {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_CommentatorsWrap.cl_boardIn .cl_Commentators  {
+	animation: CommentatorsAnimLastIn 500ms linear 0ms normal backwards;
+}
+.cl_CommentatorsWrap.cl_boardIn .cl_Commentators_Layer2  {
+	animation: Commentators_Layer2_In 500ms linear 100ms normal backwards;
+}
+.cl_CommentatorsWrap.cl_boardIn .cl_Commentators_Layer2_1  {
+	animation: Commentators_Layer2_1_In 400ms linear 0ms normal backwards;
+}
+.cl_CommentatorsWrap.cl_boardIn .cl_Commentators_Layer3_Title,
+.cl_CommentatorsWrap.cl_boardIn .cl_Commentators_Layer3_First,
+.cl_CommentatorsWrap.cl_boardIn .cl_Commentators_Layer3_Second {
+	animation: Commentators_Layer3_Frozen_In 500ms linear 300ms normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_CommentatorsWrap.cl_boardOut .cl_Commentators {
+	animation: CommentatorsAnimLastOut 500ms linear 400ms normal forwards;
+}
+.cl_CommentatorsWrap.cl_boardOut .cl_Commentators_Layer2  {
+	animation: Commentators_Layer2_Out 500ms linear 100ms normal forwards;
+}
+.cl_CommentatorsWrap.cl_boardOut .cl_Commentators_Layer2_2  {
+	animation: Commentators_Layer2_2_Out 500ms linear 300ms normal forwards;
+}
+.cl_CommentatorsWrap.cl_boardOut .cl_Commentators_Layer3_Title,
+.cl_CommentatorsWrap.cl_boardOut .cl_Commentators_Layer3_First,
+.cl_CommentatorsWrap.cl_boardOut .cl_Commentators_Layer3_Second {
+	animation: Commentators_Layer3_Frozen_Out 400ms linear 0ms normal forwards;
+}
+/* ################################################################################################
+Информационная панель:
+    TrainerTeam; - Тренер
+*/
+.cl_boardTrainerTeamWrap {
+	position: absolute;
+	bottom: 90px;
+	left: 220px;
+	font-weight: 600;
+	font-size: 30pt;
+}
+.cl_boardTrainerTeamWrap,
+.cl_boardTrainerTeam,
+.cl_boardTrainerTeam>.cl_TrainerTeamLayer3_1  {
+	height: 180px;
+}
+.cl_boardTrainerTeamWrap,
+.cl_boardTrainerTeam,
+.cl_TrainerTeamLayer2_0_1,
+.cl_TrainerTeamLayer3_1  {
+	width: 1420px;
+}
+.cl_boardTrainerTeam {
+	overflow:hidden;
+	float: right;
+	transform: skewX(350deg);
+	border-radius: 20px;
+	color: #fff;
+	background-color: #6B0B15;
+}
+.cl_TrainerTeamLayer2_0 {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+}
+.cl_TrainerTeamLayer2_0,
+.cl_TrainerTeamLayer2_0_1_2 {
+	height: 55px;
+	background-color: #CF1717;
+}
+.cl_TrainerTeamLayer2_0_1 {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.cl_TrainerTeamLayer2_0_1_1 {
+	position: absolute;
+	top: 0;
+	left: 300px;
+	width: 400px;
+	opacity: 1;
+}
+.cl_TrainerTeamLayer2_0_1_2 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 300px;
+}
+.cl_TrainerTeamLayer2_1 {
+	position: absolute;
+	background-color: #CF1717;
+	left: -100px;
+	height: 100%;
+	width: 100px;
+}
+.cl_TrainerTeamLayer2_2 {
+	position: absolute;
+	background-color: #CF1717;
+	right: -100px;
+	height: 100%;
+	width: 100px;
+}
+.cl_boardTrainerTeam>.cl_TrainerTeamLayer3_Date,.cl_boardTrainerTeam>.cl_TrainerTeamLayer3_LocalTime {
+	position: absolute;
+	bottom: 0;
+	line-height: 45px;
+}
+.cl_boardTrainerTeam>.cl_TrainerTeamLayer3_Place {
+	position: absolute;
+	top: 56px;
+	text-transform: uppercase;
+	font-size: 25pt;
+}
+.cl_TrainerTeamLayer3_1,
+.cl_TrainerTeamLayer3_1_TrainerFullName {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 100%;
+	height: 107px;
+}
+.cl_TrainerTeamLayer3_1_TrainerFullName {
+	text-transform: uppercase;
+	font-size: 60pt;
+	line-height: 133px;
+	width: 1150px;
+	height: 133px;
+}
+.cl_boardTrainerTeam #TeamLogo {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-top: 20px;
+	margin-left: 20px;
+	height: 100px;
+	width: 200px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+@keyframes TrainerTeam_Layer2_In {
+	0%   {
+		width: 0%;
+	}
+	100% {
+		width: 100%;
+	}
+}
+@keyframes TrainerTeam_Layer2_Out {
+	0% {
+		left: 0%;
+		right: auto;
+		width: 100%;
+	}
+	100%   {
+		left: 0%;
+		right: auto;
+		width: 5%;
+	}
+}
+@keyframes TrainerTeam_Layer2_0_1_2_In {
+	0% {
+		left: 0;
+		opacity: 0;
+	}
+	100%   {
+		left: 300px;
+		opacity: 1;
+	}
+}
+@keyframes TrainerTeam_Layer2_0_1_2_Out {
+	0% {
+		left: 300px;
+		opacity: 1;
+	}
+	100%   {
+		left: 0;
+		opacity: 0;
+	}
+}
+
+@keyframes TrainerTeam_Layer3_1_TrainerFullName_In {
+	0% {
+		right: -20px;
+		opacity: 0;
+	}
+	100%   {
+		right: 0;
+		opacity: 1;
+	}
+}
+@keyframes TrainerTeam_Layer3_1_TrainerFullName_Out {
+	0% {
+		right: 0;
+		opacity: 1;
+	}
+	100%   {
+		right: 20px;
+		opacity: 0;
+	}
+}
+
+@keyframes TrainerTeamAnimLastIn {
+	0% {
+		float: right;
+		width: 0%;
+		border-radius: 0px;
+	}
+	80% {
+		border-radius: 0px;
+	}
+	100% {
+		width: 100%;
+		float: right;
+		border-radius: 20px;
+	}
+}
+@keyframes TrainerTeamAnimLastOut {
+	0% {
+		float: left;
+		border-radius: 20px;
+		width: 100%;
+	}
+	50% {
+		border-radius: 0px;
+	}
+	100% {
+		float: left;
+		width: 0%;
+		border-radius: 0px;
+	}
+}
+@keyframes TrainerTeam_Layer3_Frozen_In {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes TrainerTeam_Layer3_Frozen_Out {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes TrainerTeam_LogoTeam_In {
+	0% {
+		opacity: 0;
+		top:30px;
+	}
+	100% {
+		opacity: 1;
+		top:0;
+	}
+}
+@keyframes TrainerTeam_LogoTeam_Out {
+	0% {
+		opacity: 1;
+		top: 0;
+	}
+	100% {
+		opacity: 0;
+		top: 30px;
+	}
+}
+@keyframes TrainerTeam_Layer2_1_In {
+	0% {
+		left: 0px;
+	}
+	100% {
+		left: -100px;
+	}
+}
+@keyframes TrainerTeam_Layer2_2_Out {
+	0% {
+		right: -100px;
+	}
+	50% {
+		right: 0px;
+	}
+	100% {
+		right: -90px;
+	}
+}
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_boardTrainerTeamWrap.cl_boardIn .cl_boardTrainerTeam {
+	animation: TrainerTeamAnimLastIn 500ms linear 0ms normal backwards;
+}
+.cl_boardTrainerTeamWrap.cl_boardIn .cl_TrainerTeamLayer2_0  {
+	animation: TrainerTeam_Layer2_In 500ms linear 0ms normal backwards;
+}
+.cl_boardTrainerTeamWrap.cl_boardIn .cl_TrainerTeamLayer2_1  {
+	animation: TrainerTeam_Layer2_1_In 500ms linear 0ms normal backwards;
+}
+.cl_boardTrainerTeamWrap.cl_boardIn .cl_TrainerTeamLayer2_0_1_1 {
+	animation: TrainerTeam_Layer2_0_1_2_In 400ms linear 800ms normal backwards;
+}
+.cl_boardTrainerTeamWrap.cl_boardIn .cl_TrainerTeamLayer3_1_TrainerFullName {
+	animation: TrainerTeam_Layer3_1_TrainerFullName_In 400ms linear 800ms normal backwards;
+}
+.cl_boardTrainerTeamWrap.cl_boardIn #TeamLogo {
+	animation: TrainerTeam_LogoTeam_In 300ms linear 900ms normal backwards;
+}
+.cl_boardTrainerTeamWrap.cl_boardIn .cl_TrainerTeamLayer3_Place {
+	animation: TrainerTeam_Layer3_Frozen_In 300ms linear 900ms normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_boardTrainerTeamWrap.cl_boardOut .cl_boardTrainerTeam {
+	animation: TrainerTeamAnimLastOut 1000ms linear 400ms normal forwards;
+}
+.cl_boardTrainerTeamWrap.cl_boardOut .cl_TrainerTeamLayer3_1_TrainerFullName {
+	animation: TrainerTeam_Layer3_1_TrainerFullName_Out 200ms linear 0ms normal forwards;
+}
+.cl_boardTrainerTeamWrap.cl_boardOut .cl_TrainerTeamLayer2_0_1_1 {
+	animation: TrainerTeam_Layer2_0_1_1_Out 400ms linear 0ms normal forwards;
+}
+.cl_boardTrainerTeamWrap.cl_boardOut .cl_TrainerTeamLayer2_0 {
+	animation: TrainerTeam_Layer2_Out 1000ms linear 500ms normal forwards;
+}
+.cl_boardTrainerTeamWrap.cl_boardOut #TeamLogo {
+	animation: TrainerTeam_LogoTeam_Out 300ms linear 0ms normal forwards;
+}
+.cl_boardTrainerTeamWrap.cl_boardOut .cl_TrainerTeamLayer3_Place {
+	animation: TrainerTeam_Layer3_Frozen_Out 400ms linear 0ms normal forwards;
+}
+.cl_boardTrainerTeamWrap.cl_boardOut .cl_TrainerTeamLayer2_2  {
+	animation: TrainerTeam_Layer2_2_Out 1000ms linear 400ms normal forwards;
+}
+
+/* ################################################################################################
+Информационная панель:
+    PlayerTeam; - Тренер
+*/
+.cl_boardPlayerTeamWrap {
+	position: absolute;
+	bottom: 120px;
+	left: 220px;
+	font-weight: 600;
+	font-size: 30pt;
+}
+.cl_boardPlayerTeamWrap,
+.cl_boardPlayerTeam,
+.cl_boardPlayerTeam>.cl_PlayerTeamLayer3_1  {
+	height: 188px;
+}
+.cl_boardPlayerTeamWrap,
+.cl_boardPlayerTeam,
+.cl_PlayerTeamLayer2_0_1,
+.cl_PlayerTeamLayer3_1  {
+	width: 1420px;
+}
+.cl_boardPlayerTeam {
+	overflow:hidden;
+	float: right;
+	transform: skewX(350deg);
+	border-radius: 20px;
+	color: #fff;
+	background-color: #6B0B15;
+}
+.cl_PlayerTeamLayer2_0 {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+}
+.cl_PlayerTeamLayer2_0,
+.cl_PlayerTeamLayer2_0_1_2 {
+	height: 55px;
+	background-color: #CF1717;
+}
+.cl_PlayerTeamLayer2_0_1 {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.cl_PlayerTeamLayer2_0_1_1 {
+	position: absolute;
+	top: 0;
+	left: 300px;
+	width: 400px;
+	opacity: 1;
+}
+.cl_PlayerTeamLayer2_0_1_2 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 300px;
+}
+.cl_PlayerTeamLayer2_1 {
+	position: absolute;
+	background-color: #CF1717;
+	left: -100px;
+	height: 100%;
+	width: 100px;
+}
+.cl_PlayerTeamLayer2_2 {
+	position: absolute;
+	background-color: #CF1717;
+	right: -100px;
+	height: 100%;
+	width: 100px;
+}
+.cl_boardPlayerTeam>.cl_PlayerTeamLayer3_Place {
+	position: absolute;
+	top: 56px;
+	text-transform: uppercase;
+	font-size: 25pt;
+}
+.cl_PlayerTeamLayer3_1,
+.cl_PlayerTeamLayer3_1_FullName {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 100%;
+	height: 107px;
+}
+.cl_PlayerTeamLayer3_1_FullName {
+	text-transform: uppercase;
+	font-size: 60pt;
+	line-height: 133px;
+	width: 1150px;
+	height: 133px;
+}
+.cl_boardPlayerTeam #TeamLogo {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-top: 20px;
+	margin-left: 20px;
+	height: 100px;
+	width: 200px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+.cl_boardPlayerTeam_Number {
+	display: inline-block;
+	background-color: #CF1717;
+	font-weight: bold;
+	border-radius: 10px;
+	text-align: center;
+	width: 63px;
+	padding: 10px;
+	margin-right: 5px;
+	height: 63px;
+	line-height: 63px;
+}
+@keyframes PlayerTeam_Layer2_In {
+	0%   {
+		width: 0%;
+	}
+	100% {
+		width: 100%;
+	}
+}
+@keyframes PlayerTeam_Layer2_Out {
+	0% {
+		left: 0%;
+		right: auto;
+		width: 100%;
+	}
+	100%   {
+		left: 0%;
+		right: auto;
+		width: 5%;
+	}
+}
+@keyframes PlayerTeam_Layer2_0_1_2_In {
+	0% {
+		left: 0;
+		opacity: 0;
+	}
+	100%   {
+		left: 300px;
+		opacity: 1;
+	}
+}
+@keyframes PlayerTeam_Layer2_0_1_2_Out {
+	0% {
+		left: 300px;
+		opacity: 1;
+	}
+	100%   {
+		left: 0;
+		opacity: 0;
+	}
+}
+
+@keyframes PlayerTeam_Layer3_1_FullName_In {
+	0% {
+		right: -20px;
+		opacity: 0;
+	}
+	100%   {
+		right: 0;
+		opacity: 1;
+	}
+}
+@keyframes PlayerTeam_Layer3_1_FullName_Out {
+	0% {
+		right: 0;
+		opacity: 1;
+	}
+	100%   {
+		right: 20px;
+		opacity: 0;
+	}
+}
+
+@keyframes PlayerTeamAnimLastIn {
+	0% {
+		float: right;
+		width: 0%;
+		border-radius: 0px;
+	}
+	80% {
+		border-radius: 0px;
+	}
+	100% {
+		width: 100%;
+		float: right;
+		border-radius: 20px;
+	}
+}
+@keyframes PlayerTeamAnimLastOut {
+	0% {
+		float: left;
+		border-radius: 20px;
+		width: 100%;
+	}
+	50% {
+		border-radius: 0px;
+	}
+	100% {
+		float: left;
+		width: 0%;
+		border-radius: 0px;
+	}
+}
+@keyframes PlayerTeam_Layer3_Frozen_In {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes PlayerTeam_Layer3_Frozen_Out {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes PlayerTeam_LogoTeam_In {
+	0% {
+		opacity: 0;
+		top:30px;
+	}
+	100% {
+		opacity: 1;
+		top:0;
+	}
+}
+@keyframes PlayerTeam_LogoTeam_Out {
+	0% {
+		opacity: 1;
+		top: 0;
+	}
+	100% {
+		opacity: 0;
+		top: 30px;
+	}
+}
+@keyframes PlayerTeam_Layer2_1_In {
+	0% {
+		left: 0px;
+	}
+	100% {
+		left: -100px;
+	}
+}
+@keyframes PlayerTeam_Layer2_2_Out {
+	0% {
+		right: -100px;
+	}
+	50% {
+		right: 0px;
+	}
+	100% {
+		right: -90px;
+	}
+}
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_boardPlayerTeamWrap.cl_boardIn .cl_boardPlayerTeam {
+	animation: PlayerTeamAnimLastIn 500ms linear 0ms normal backwards;
+}
+.cl_boardPlayerTeamWrap.cl_boardIn .cl_PlayerTeamLayer2_0  {
+	animation: PlayerTeam_Layer2_In 500ms linear 0ms normal backwards;
+}
+.cl_boardPlayerTeamWrap.cl_boardIn .cl_PlayerTeamLayer2_1  {
+	animation: PlayerTeam_Layer2_1_In 500ms linear 0ms normal backwards;
+}
+.cl_boardPlayerTeamWrap.cl_boardIn .cl_PlayerTeamLayer2_0_1_1 {
+	animation: PlayerTeam_Layer2_0_1_2_In 400ms linear 800ms normal backwards;
+}
+.cl_boardPlayerTeamWrap.cl_boardIn .cl_PlayerTeamLayer3_1_FullName {
+	animation: PlayerTeam_Layer3_1_FullName_In 400ms linear 800ms normal backwards;
+}
+.cl_boardPlayerTeamWrap.cl_boardIn #TeamLogo {
+	animation: PlayerTeam_LogoTeam_In 300ms linear 900ms normal backwards;
+}
+.cl_boardPlayerTeamWrap.cl_boardIn .cl_PlayerTeamLayer3_Place {
+	animation: PlayerTeam_Layer3_Frozen_In 300ms linear 900ms normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_boardPlayerTeamWrap.cl_boardOut .cl_boardPlayerTeam {
+	animation: PlayerTeamAnimLastOut 1000ms linear 400ms normal forwards;
+}
+.cl_boardPlayerTeamWrap.cl_boardOut .cl_PlayerTeamLayer3_1_FullName {
+	animation: PlayerTeam_Layer3_1_FullName_Out 200ms linear 0ms normal forwards;
+}
+.cl_boardPlayerTeamWrap.cl_boardOut .cl_PlayerTeamLayer2_0_1_1 {
+	animation: PlayerTeam_Layer2_0_1_1_Out 400ms linear 0ms normal forwards;
+}
+.cl_boardPlayerTeamWrap.cl_boardOut .cl_PlayerTeamLayer2_0 {
+	animation: PlayerTeam_Layer2_Out 1000ms linear 500ms normal forwards;
+}
+.cl_boardPlayerTeamWrap.cl_boardOut #TeamLogo {
+	animation: PlayerTeam_LogoTeam_Out 300ms linear 0ms normal forwards;
+}
+.cl_boardPlayerTeamWrap.cl_boardOut .cl_PlayerTeamLayer3_Place {
+	animation: PlayerTeam_Layer3_Frozen_Out 400ms linear 0ms normal forwards;
+}
+.cl_boardPlayerTeamWrap.cl_boardOut .cl_PlayerTeamLayer2_2  {
+	animation: PlayerTeam_Layer2_2_Out 1000ms linear 400ms normal forwards;
+}
+/* ################################################################################################
+Информационная панель:
+    PlayerGoal; - Тренер
+*/
+.cl_boardPlayerGoalWrap {
+	position: absolute;
+	bottom: 120px;
+	left: 220px;
+	font-weight: 600;
+	font-size: 30pt;
+}
+.cl_boardPlayerGoalWrap,
+.cl_boardPlayerGoal,
+.cl_boardPlayerGoal>.cl_PlayerGoalLayer3_1  {
+	height: 188px;
+}
+.cl_boardPlayerGoalWrap,
+.cl_boardPlayerGoal,
+.cl_PlayerGoalLayer2_0_1,
+.cl_PlayerGoalLayer3_1  {
+	width: 1420px;
+}
+.cl_boardPlayerGoal {
+	overflow:hidden;
+	float: right;
+	transform: skewX(350deg);
+	border-radius: 20px;
+	color: #fff;
+	background-color: #6B0B15;
+}
+.cl_PlayerGoalLayer2_0 {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+}
+.cl_PlayerGoalLayer2_0,
+.cl_PlayerGoalLayer2_0_1_2 {
+	height: 55px;
+	background-color: #CF1717;
+}
+.cl_PlayerGoalLayer2_0_1 {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.cl_PlayerGoalLayer2_0_1_1 {
+	position: absolute;
+	top: 0;
+	left: 300px;
+	width: 400px;
+	opacity: 1;
+}
+.cl_PlayerGoalLayer2_0_1_2 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 300px;
+}
+.cl_PlayerGoalLayer2_1 {
+	position: absolute;
+	background-color: #CF1717;
+	left: -100px;
+	height: 100%;
+	width: 100px;
+}
+.cl_PlayerGoalLayer2_2 {
+	position: absolute;
+	background-color: #CF1717;
+	right: -100px;
+	height: 100%;
+	width: 100px;
+}
+.cl_boardPlayerGoal>.cl_PlayerGoalLayer3_Place {
+	position: absolute;
+	top: 56px;
+	text-transform: uppercase;
+	font-size: 25pt;
+}
+.cl_PlayerGoalLayer3_1,
+.cl_PlayerGoalLayer3_1_FullName {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 100%;
+	height: 107px;
+}
+.cl_PlayerGoalLayer3_1_FullName {
+	text-transform: uppercase;
+	font-size: 60pt;
+	line-height: 133px;
+	width: 1150px;
+	height: 133px;
+}
+.cl_boardPlayerGoal #TeamLogo {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-top: 20px;
+	margin-left: 20px;
+	height: 100px;
+	width: 200px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+.cl_boardPlayerGoal_Number {
+	display: inline-block;
+	background-color: #CF1717;
+	font-weight: bold;
+	border-radius: 10px;
+	text-align: center;
+	width: 63px;
+	padding: 10px;
+	margin-right: 5px;
+	height: 63px;
+	line-height: 63px;
+}
+@keyframes PlayerGoal_Layer2_In {
+	0%   {
+		width: 0%;
+	}
+	100% {
+		width: 100%;
+	}
+}
+@keyframes PlayerGoal_Layer2_Out {
+	0% {
+		left: 0%;
+		right: auto;
+		width: 100%;
+	}
+	100%   {
+		left: 0%;
+		right: auto;
+		width: 5%;
+	}
+}
+@keyframes PlayerGoal_Layer2_0_1_2_In {
+	0% {
+		left: 0;
+		opacity: 0;
+	}
+	100%   {
+		left: 300px;
+		opacity: 1;
+	}
+}
+@keyframes PlayerGoal_Layer2_0_1_2_Out {
+	0% {
+		left: 300px;
+		opacity: 1;
+	}
+	100%   {
+		left: 0;
+		opacity: 0;
+	}
+}
+
+@keyframes PlayerGoal_Layer3_1_FullName_In {
+	0% {
+		right: -20px;
+		opacity: 0;
+	}
+	100%   {
+		right: 0;
+		opacity: 1;
+	}
+}
+@keyframes PlayerGoal_Layer3_1_FullName_Out {
+	0% {
+		right: 0;
+		opacity: 1;
+	}
+	100%   {
+		right: 20px;
+		opacity: 0;
+	}
+}
+
+@keyframes PlayerGoalAnimLastIn {
+	0% {
+		float: right;
+		width: 0%;
+		border-radius: 0px;
+	}
+	80% {
+		border-radius: 0px;
+	}
+	100% {
+		width: 100%;
+		float: right;
+		border-radius: 20px;
+	}
+}
+@keyframes PlayerGoalAnimLastOut {
+	0% {
+		float: left;
+		border-radius: 20px;
+		width: 100%;
+	}
+	50% {
+		border-radius: 0px;
+	}
+	100% {
+		float: left;
+		width: 0%;
+		border-radius: 0px;
+	}
+}
+@keyframes PlayerGoal_Layer3_Frozen_In {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes PlayerGoal_Layer3_Frozen_Out {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes PlayerGoal_LogoTeam_In {
+	0% {
+		opacity: 0;
+		top:30px;
+	}
+	100% {
+		opacity: 1;
+		top:0;
+	}
+}
+@keyframes PlayerGoal_LogoTeam_Out {
+	0% {
+		opacity: 1;
+		top: 0;
+	}
+	100% {
+		opacity: 0;
+		top: 30px;
+	}
+}
+@keyframes PlayerGoal_Layer2_1_In {
+	0% {
+		left: 0px;
+	}
+	100% {
+		left: -100px;
+	}
+}
+@keyframes PlayerGoal_Layer2_2_Out {
+	0% {
+		right: -100px;
+	}
+	50% {
+		right: 0px;
+	}
+	100% {
+		right: -90px;
+	}
+}
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_boardPlayerGoalWrap.cl_boardIn .cl_boardPlayerGoal {
+	animation: PlayerGoalAnimLastIn 500ms linear 0ms normal backwards;
+}
+.cl_boardPlayerGoalWrap.cl_boardIn .cl_PlayerGoalLayer2_0  {
+	animation: PlayerGoal_Layer2_In 500ms linear 0ms normal backwards;
+}
+.cl_boardPlayerGoalWrap.cl_boardIn .cl_PlayerGoalLayer2_1  {
+	animation: PlayerGoal_Layer2_1_In 500ms linear 0ms normal backwards;
+}
+.cl_boardPlayerGoalWrap.cl_boardIn .cl_PlayerGoalLayer2_0_1_1 {
+	animation: PlayerGoal_Layer2_0_1_2_In 400ms linear 800ms normal backwards;
+}
+.cl_boardPlayerGoalWrap.cl_boardIn .cl_PlayerGoalLayer3_1_FullName {
+	animation: PlayerGoal_Layer3_1_FullName_In 400ms linear 800ms normal backwards;
+}
+.cl_boardPlayerGoalWrap.cl_boardIn #TeamLogo {
+	animation: PlayerGoal_LogoTeam_In 300ms linear 900ms normal backwards;
+}
+.cl_boardPlayerGoalWrap.cl_boardIn .cl_PlayerGoalLayer3_Place {
+	animation: PlayerGoal_Layer3_Frozen_In 300ms linear 900ms normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_boardPlayerGoalWrap.cl_boardOut .cl_boardPlayerGoal {
+	animation: PlayerGoalAnimLastOut 1000ms linear 400ms normal forwards;
+}
+.cl_boardPlayerGoalWrap.cl_boardOut .cl_PlayerGoalLayer3_1_FullName {
+	animation: PlayerGoal_Layer3_1_FullName_Out 200ms linear 0ms normal forwards;
+}
+.cl_boardPlayerGoalWrap.cl_boardOut .cl_PlayerGoalLayer2_0_1_1 {
+	animation: PlayerGoal_Layer2_0_1_1_Out 400ms linear 0ms normal forwards;
+}
+.cl_boardPlayerGoalWrap.cl_boardOut .cl_PlayerGoalLayer2_0 {
+	animation: PlayerGoal_Layer2_Out 1000ms linear 500ms normal forwards;
+}
+.cl_boardPlayerGoalWrap.cl_boardOut #TeamLogo {
+	animation: PlayerGoal_LogoTeam_Out 300ms linear 0ms normal forwards;
+}
+.cl_boardPlayerGoalWrap.cl_boardOut .cl_PlayerGoalLayer3_Place {
+	animation: PlayerGoal_Layer3_Frozen_Out 400ms linear 0ms normal forwards;
+}
+.cl_boardPlayerGoalWrap.cl_boardOut .cl_PlayerGoalLayer2_2  {
+	animation: PlayerGoal_Layer2_2_Out 1000ms linear 400ms normal forwards;
+}
+/* ################################################################################################
+Информационная панель:
+    PlayerEjection; - Тренер
+*/
+.cl_boardPlayerEjectionWrap {
+	position: absolute;
+	bottom: 120px;
+	left: 220px;
+	font-weight: 600;
+	font-size: 30pt;
+}
+.cl_boardPlayerEjectionWrap,
+.cl_boardPlayerEjection,
+.cl_boardPlayerEjection>.cl_PlayerEjectionLayer3_1  {
+	height: 188px;
+}
+.cl_boardPlayerEjectionWrap,
+.cl_boardPlayerEjection,
+.cl_PlayerEjectionLayer2_0_1,
+.cl_PlayerEjectionLayer3_1  {
+	width: 1420px;
+}
+.cl_boardPlayerEjection {
+	overflow:hidden;
+	float: right;
+	transform: skewX(350deg);
+	border-radius: 20px;
+	color: #fff;
+	background-color: #6B0B15;
+}
+.cl_PlayerEjectionLayer2_0 {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+}
+.cl_PlayerEjectionLayer2_0,
+.cl_PlayerEjectionLayer2_0_1_2 {
+	height: 55px;
+	background-color: #CF1717;
+}
+.cl_PlayerEjectionLayer2_0_1 {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.cl_PlayerEjectionLayer2_0_1_1 {
+	position: absolute;
+	top: 0;
+	left: 300px;
+	width: 400px;
+	opacity: 1;
+}
+.cl_PlayerEjectionLayer2_0_1_2 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 300px;
+}
+.cl_PlayerEjectionLayer2_1 {
+	position: absolute;
+	background-color: #CF1717;
+	left: -100px;
+	height: 100%;
+	width: 100px;
+}
+.cl_PlayerEjectionLayer2_2 {
+	position: absolute;
+	background-color: #CF1717;
+	right: -100px;
+	height: 100%;
+	width: 100px;
+}
+.cl_boardPlayerEjection>.cl_PlayerEjectionLayer3_Place {
+	position: absolute;
+	top: 56px;
+	text-transform: uppercase;
+	font-size: 25pt;
+}
+.cl_PlayerEjectionLayer3_1,
+.cl_PlayerEjectionLayer3_1_FullName {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 100%;
+	height: 107px;
+}
+.cl_PlayerEjectionLayer3_1_FullName {
+	text-transform: uppercase;
+	font-size: 60pt;
+	line-height: 133px;
+	width: 1150px;
+	height: 133px;
+}
+.cl_boardPlayerEjection #TeamLogo {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-top: 20px;
+	margin-left: 20px;
+	height: 100px;
+	width: 200px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+.cl_boardPlayerEjection_Number {
+	display: inline-block;
+	background-color: #CF1717;
+	font-weight: bold;
+	border-radius: 10px;
+	text-align: center;
+	width: 63px;
+	padding: 10px;
+	margin-right: 5px;
+	height: 63px;
+	line-height: 63px;
+}
+@keyframes PlayerEjection_Layer2_In {
+	0%   {
+		width: 0%;
+	}
+	100% {
+		width: 100%;
+	}
+}
+@keyframes PlayerEjection_Layer2_Out {
+	0% {
+		left: 0%;
+		right: auto;
+		width: 100%;
+	}
+	100%   {
+		left: 0%;
+		right: auto;
+		width: 5%;
+	}
+}
+@keyframes PlayerEjection_Layer2_0_1_2_In {
+	0% {
+		left: 0;
+		opacity: 0;
+	}
+	100%   {
+		left: 300px;
+		opacity: 1;
+	}
+}
+@keyframes PlayerEjection_Layer2_0_1_2_Out {
+	0% {
+		left: 300px;
+		opacity: 1;
+	}
+	100%   {
+		left: 0;
+		opacity: 0;
+	}
+}
+
+@keyframes PlayerEjection_Layer3_1_FullName_In {
+	0% {
+		right: -20px;
+		opacity: 0;
+	}
+	100%   {
+		right: 0;
+		opacity: 1;
+	}
+}
+@keyframes PlayerEjection_Layer3_1_FullName_Out {
+	0% {
+		right: 0;
+		opacity: 1;
+	}
+	100%   {
+		right: 20px;
+		opacity: 0;
+	}
+}
+
+@keyframes PlayerEjectionAnimLastIn {
+	0% {
+		float: right;
+		width: 0%;
+		border-radius: 0px;
+	}
+	80% {
+		border-radius: 0px;
+	}
+	100% {
+		width: 100%;
+		float: right;
+		border-radius: 20px;
+	}
+}
+@keyframes PlayerEjectionAnimLastOut {
+	0% {
+		float: left;
+		border-radius: 20px;
+		width: 100%;
+	}
+	50% {
+		border-radius: 0px;
+	}
+	100% {
+		float: left;
+		width: 0%;
+		border-radius: 0px;
+	}
+}
+@keyframes PlayerEjection_Layer3_Frozen_In {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes PlayerEjection_Layer3_Frozen_Out {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes PlayerEjection_LogoTeam_In {
+	0% {
+		opacity: 0;
+		top:30px;
+	}
+	100% {
+		opacity: 1;
+		top:0;
+	}
+}
+@keyframes PlayerEjection_LogoTeam_Out {
+	0% {
+		opacity: 1;
+		top: 0;
+	}
+	100% {
+		opacity: 0;
+		top: 30px;
+	}
+}
+@keyframes PlayerEjection_Layer2_1_In {
+	0% {
+		left: 0px;
+	}
+	100% {
+		left: -100px;
+	}
+}
+@keyframes PlayerEjection_Layer2_2_Out {
+	0% {
+		right: -100px;
+	}
+	50% {
+		right: 0px;
+	}
+	100% {
+		right: -90px;
+	}
+}
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_boardPlayerEjectionWrap.cl_boardIn .cl_boardPlayerEjection {
+	animation: PlayerEjectionAnimLastIn 500ms linear 0ms normal backwards;
+}
+.cl_boardPlayerEjectionWrap.cl_boardIn .cl_PlayerEjectionLayer2_0  {
+	animation: PlayerEjection_Layer2_In 500ms linear 0ms normal backwards;
+}
+.cl_boardPlayerEjectionWrap.cl_boardIn .cl_PlayerEjectionLayer2_1  {
+	animation: PlayerEjection_Layer2_1_In 500ms linear 0ms normal backwards;
+}
+.cl_boardPlayerEjectionWrap.cl_boardIn .cl_PlayerEjectionLayer2_0_1_1 {
+	animation: PlayerEjection_Layer2_0_1_2_In 400ms linear 800ms normal backwards;
+}
+.cl_boardPlayerEjectionWrap.cl_boardIn .cl_PlayerEjectionLayer3_1_FullName {
+	animation: PlayerEjection_Layer3_1_FullName_In 400ms linear 800ms normal backwards;
+}
+.cl_boardPlayerEjectionWrap.cl_boardIn #TeamLogo {
+	animation: PlayerEjection_LogoTeam_In 300ms linear 900ms normal backwards;
+}
+.cl_boardPlayerEjectionWrap.cl_boardIn .cl_PlayerEjectionLayer3_Place {
+	animation: PlayerEjection_Layer3_Frozen_In 300ms linear 900ms normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_boardPlayerEjectionWrap.cl_boardOut .cl_boardPlayerEjection {
+	animation: PlayerEjectionAnimLastOut 1000ms linear 400ms normal forwards;
+}
+.cl_boardPlayerEjectionWrap.cl_boardOut .cl_PlayerEjectionLayer3_1_FullName {
+	animation: PlayerEjection_Layer3_1_FullName_Out 200ms linear 0ms normal forwards;
+}
+.cl_boardPlayerEjectionWrap.cl_boardOut .cl_PlayerEjectionLayer2_0_1_1 {
+	animation: PlayerEjection_Layer2_0_1_1_Out 400ms linear 0ms normal forwards;
+}
+.cl_boardPlayerEjectionWrap.cl_boardOut .cl_PlayerEjectionLayer2_0 {
+	animation: PlayerEjection_Layer2_Out 1000ms linear 500ms normal forwards;
+}
+.cl_boardPlayerEjectionWrap.cl_boardOut #TeamLogo {
+	animation: PlayerEjection_LogoTeam_Out 300ms linear 0ms normal forwards;
+}
+.cl_boardPlayerEjectionWrap.cl_boardOut .cl_PlayerEjectionLayer3_Place {
+	animation: PlayerEjection_Layer3_Frozen_Out 400ms linear 0ms normal forwards;
+}
+.cl_boardPlayerEjectionWrap.cl_boardOut .cl_PlayerEjectionLayer2_2  {
+	animation: PlayerEjection_Layer2_2_Out 1000ms linear 400ms normal forwards;
+}
+
+/* ################################################################################################
+Информационная панель:
+    StartPeriod; - Начало и конец периода
+*/
+.cl_StartPeriod_Layer2_1,
+.cl_StartPeriod_Layer2_2,
+.cl_StartPeriod_Layer2_3,
+.cl_StartPeriod_Layer2_3_1,
+.cl_StartPeriod_Layer2_3_2,
+.cl_boardStartPeriod__PlayerLeftLogo, 
+.cl_boardStartPeriod__PlayerLeftName, 
+.cl_boardStartPeriod__PlayerLeftPlace, 
+.cl_boardStartPeriod__PlayerLeftCount,
+.cl_boardStartPeriod__PlayerRightLogo, 
+.cl_boardStartPeriod__PlayerRightName, 
+.cl_boardStartPeriod__PlayerRightPlace, 
+.cl_boardStartPeriod__PlayerRightCount, 
+.cl_boardStartPeriod__PeriodNumber,
+.cl_boardStartPeriod__PlayerCountRazdel {
+	position: absolute;
+}
+.cl_StartPeriodWrap {
+	position: absolute;
+	bottom: 155px;
+	left: 227px;
+}
+.cl_StartPeriodWrap,
+.cl_StartPeriod_Layer2_1,
+.cl_StartPeriod_Layer2_2,
+.cl_StartPeriod_Layer2_3,
+.cl_StartPeriod_Layer2_3_1,
+.cl_StartPeriod_Layer2_3_2 {
+	width: 1500px;
+	height: 150px;
+}
+.cl_StartPeriod_Layer2_1,
+.cl_StartPeriod_Layer2_2,
+.cl_StartPeriod_Layer2_3 {
+	right: 0;
+	top: 0;
+	transform: skewX(350deg);
+}
+.cl_StartPeriod_Layer2_1 {
+	background-color: #a5020a;
+	opacity: 0;
+}
+.cl_StartPeriod_Layer2_2 {
+	background-color: #ffffff;
+	opacity: 0;
+}
+.cl_StartPeriod_Layer2_3 {
+	background-color: #6e0409;
+	color: #fff;
+	border-radius: 20px;
+}
+.cl_StartPeriod_Layer2_3_1,
+.cl_StartPeriod_Layer2_3_2 {
+	right: 0;
+	top: 0;
+}
+.cl_StartPeriod_Layer2_3 {
+	height: 150px;
+}
+.cl_boardStartPeriod__PlayerLeftLogo, .cl_boardStartPeriod__PlayerRightLogo {
+	top: 25px;
+    width: 100px;
+    height: 100px;
+    transform: skewX(10deg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+.cl_boardStartPeriod__PlayerLeftLogo {
+	left: 480px;
+}
+.cl_boardStartPeriod__PlayerRightLogo {
+	right: 480px;
+}
+.cl_boardStartPeriod__PlayerLeftName, .cl_boardStartPeriod__PlayerRightName {
+	top: 20px;
+	font-size: 3.2rem;
+}
+.cl_boardStartPeriod__PlayerLeftName {
+	width: 440px;
+}
+.cl_boardStartPeriod__PlayerRightName {
+	width: 446px;
+}
+.cl_boardStartPeriod__PlayerLeftPlace, .cl_boardStartPeriod__PlayerRightPlace {
+	top: 70px;
+	font-size: 2.2rem;
+}
+.cl_boardStartPeriod__PlayerLeftPlace {
+	width: 446px;
+}
+.cl_boardStartPeriod__PlayerRightPlace {
+	width: 440px;
+}
+.cl_boardStartPeriod__PlayerLeftName,.cl_boardStartPeriod__PlayerLeftPlace {
+	left: 0px;
+	text-align: right;
+	text-transform: uppercase;
+}
+.cl_boardStartPeriod__PlayerRightName,.cl_boardStartPeriod__PlayerRightPlace {
+	right: 0px;
+	text-align: left;
+	text-transform: uppercase;
+}
+.cl_boardStartPeriod__PlayerLeftCount, .cl_boardStartPeriod__PlayerRightCount {
+	top: 0px;
+	width: 140px;
+	height: 150px;
+	font-size: 90pt;
+	font-weight: 600;
+	text-align: center;
+}
+.cl_boardStartPeriod__PlayerLeftCount {
+	left: 0px;
+}
+.cl_boardStartPeriod__PlayerRightCount {
+	right: 0px;
+}
+.cl_boardStartPeriod__PlayerCountRazdel {
+	top: 30px;
+	left: 140px;
+	height: 90px;
+	border-left: 2px solid #fff;
+}
+.cl_boardStartPeriod__PeriodNumber {
+	top: 0px;
+    left: 610px;
+    width: 280px;
+    height: 205px;
+    text-align: center;
+	overflow: hidden;
+}
+.cl_boardStartPeriod__PeriodNumber__Top {
+	width: 100%;
+	height: 150px;
+	background-color: rgb(165 2 10);
+	overflow: hidden;
+}
+.cl_boardStartPeriod__PeriodNumber__Bottom {
+	width: 100%;
+	height: 55px;
+	line-height: 55px;
+	font-size: 30pt;
+	background-color: rgb(110, 4, 9);
+	border-radius: 0 0 40px 40px;
+	overflow: hidden;
+}
+
+.StartPeriodClassTitle {
+	font-weight: bold;
+	text-align: center;
+	letter-spacing: 4px;
+	padding-top: 20px;
+}
+.StartPeriodClassHide {
+	display: none;
+}
+.StartPeriodClassFullName, .StartPeriodClassTitle {
+	padding-bottom: 15px;
+}
+.StartPeriodClassRole {
+    margin-left: 30px;
+	margin-top: 58px;
+	text-align: center;
+}
+.StartPeriodClassFullName {
+    margin-left: 20px;
+	text-align: center;
+}
+.StartPeriodClassNumber {
+	display: inline-block;
+	background-color: #990000;
+	font-weight: bold;
+	border-radius: 10px;
+	text-align: center;
+	width: 63px;
+	padding: 10px 0;
+    margin-right: 5px;
+}
+#StartPeriodPhoto {
+	width: 200px;
+    height: 175px;
+    position: absolute;
+    top: -161px;
+    left: 42px;
+}
+@keyframes StartPeriod_Width_1_In {
+	0%   {right: 0;width: 0;opacity: 1;border-radius: 0;}
+	90%  {right: 0;width: 100%;opacity: 1;border-radius: 0;}
+	99%  {right: 0;width: 100%;opacity: 1;}
+	100% {right: 0;width: 100%;opacity: 0;border-radius: 20px;}
+}
+@keyframes StartPeriodAnimLastOut {
+	0%   {right: auto;left:0;width: 100%;opacity: 0;border-radius: 20px;}
+	1%   {right: auto;left:0;width: 100%;opacity: 1;border-radius: 20px;}
+	10%  {right: auto;left:0;width: 100%;opacity: 1;border-radius: 20px;}
+	100% {right: auto;left:0;width: 0;   opacity: 1;border-radius: 0;}
+}
+
+@keyframes StartPeriod_Width_2_In {
+	0%   {right: 0;width: 0;border-radius: 0;}
+	90%  {right: 0;width: 100%;border-radius: 0;}
+	100% {right: 0;width: 100%;border-radius: 20px;}
+}
+@keyframes StartPeriod_Width_2_Out {
+	0%   {right: auto;left:0;width: 100%;border-radius: 20px;}
+	10%  {right: auto;left:0;width: 100%;border-radius: 20px;}
+	100% {right: auto;left:0;width: 0;border-radius: 0;}
+}
+
+@keyframes StartPeriodAnimLastIn {
+	0%   {opacity: 0;}
+	100% {opacity: 1;}
+}
+@keyframes StartPeriod_Opacity_Out {
+	0%   {opacity: 1;}
+	100% {opacity: 0;}
+}
+
+@keyframes StartPeriod_PeriodNumber_Bottom_In {
+	0%   {opacity: 0;height: 0;}
+	100% {opacity: 1;height: 205px;}
+}
+@keyframes StartPeriod_PeriodNumber_Bottom_Out {
+	0%   {opacity: 1;height: 205px;}
+	100% {opacity: 0;height: 0;}
+}
+
+
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_StartPeriodWrap.cl_boardIn .cl_StartPeriod_Layer2_1 {
+	animation: StartPeriod_Width_1_In 1000ms linear 0ms normal backwards;
+}
+.cl_StartPeriodWrap.cl_boardIn .cl_StartPeriod_Layer2_2 {
+	animation: StartPeriod_Width_1_In 1000ms linear 50ms normal backwards;
+}
+.cl_StartPeriodWrap.cl_boardIn .cl_StartPeriod_Layer2_3 {
+	animation: StartPeriod_Width_2_In 1000ms linear 100ms normal backwards;
+}
+.cl_StartPeriodWrap.cl_boardIn .cl_boardStartPeriod__PlayerLeftName,
+.cl_StartPeriodWrap.cl_boardIn .cl_boardStartPeriod__PlayerRightName,
+.cl_StartPeriodWrap.cl_boardIn .cl_boardStartPeriod__PlayerLeftPlace,
+.cl_StartPeriodWrap.cl_boardIn .cl_boardStartPeriod__PlayerRightPlace {
+	animation: StartPeriodAnimLastIn 400ms linear 900ms normal backwards;
+}
+.cl_StartPeriodWrap.cl_boardIn .cl_boardStartPeriod__PlayerLeftLogo,
+.cl_StartPeriodWrap.cl_boardIn .cl_boardStartPeriod__PlayerRightLogo {
+	animation: StartPeriodAnimLastIn 400ms linear 1000ms normal backwards;
+}
+.cl_StartPeriodWrap.cl_boardIn .cl_boardStartPeriod__PeriodNumber {
+	animation: StartPeriod_PeriodNumber_Bottom_In 400ms linear 700ms normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_StartPeriodWrap.cl_boardOut .cl_StartPeriod_Layer2_1 {
+	animation: StartPeriodAnimLastOut 1000ms linear 200ms normal forwards;
+}
+.cl_StartPeriodWrap.cl_boardOut .cl_StartPeriod_Layer2_2 {
+	animation: StartPeriodAnimLastOut 1000ms linear 150ms normal forwards;
+}
+.cl_StartPeriodWrap.cl_boardOut .cl_StartPeriod_Layer2_3 {
+	animation: StartPeriod_Width_2_Out 1000ms linear 100ms normal forwards;
+}
+.cl_StartPeriodWrap.cl_boardOut .cl_boardStartPeriod__PlayerLeftName,
+.cl_StartPeriodWrap.cl_boardOut .cl_boardStartPeriod__PlayerRightName,
+.cl_StartPeriodWrap.cl_boardOut .cl_boardStartPeriod__PlayerLeftPlace,
+.cl_StartPeriodWrap.cl_boardOut .cl_boardStartPeriod__PlayerRightPlace {
+	animation: StartPeriod_Opacity_Out 300ms linear 0ms normal forwards;
+}
+.cl_StartPeriodWrap.cl_boardOut .cl_boardStartPeriod__PlayerLeftLogo,
+.cl_StartPeriodWrap.cl_boardOut .cl_boardStartPeriod__PlayerRightLogo {
+	animation: StartPeriod_Opacity_Out 300ms linear 0ms normal forwards;
+}
+.cl_StartPeriodWrap.cl_boardOut .cl_boardStartPeriod__PeriodNumber {
+	animation: StartPeriod_PeriodNumber_Bottom_Out 400ms linear 0ms normal forwards;
+}
+/* ################################################################################################
+Информационная панель:
+    EndPeriod; - Начало и конец периода
+*/
+.cl_EndPeriod_Layer2_1,
+.cl_EndPeriod_Layer2_2,
+.cl_EndPeriod_Layer2_3,
+.cl_EndPeriod_Layer2_3_1,
+.cl_EndPeriod_Layer2_3_2,
+.cl_boardEndPeriod__PlayerLeftLogo, 
+.cl_boardEndPeriod__PlayerLeftName, 
+.cl_boardEndPeriod__PlayerLeftPlace, 
+.cl_boardEndPeriod__PlayerLeftCount,
+.cl_boardEndPeriod__PlayerRightLogo, 
+.cl_boardEndPeriod__PlayerRightName, 
+.cl_boardEndPeriod__PlayerRightPlace, 
+.cl_boardEndPeriod__PlayerRightCount, 
+.cl_boardEndPeriod__PeriodNumber,
+.cl_boardEndPeriod__PlayerCountRazdel {
+	position: absolute;
+}
+.cl_EndPeriodWrap {
+	position: absolute;
+	bottom: 155px;
+	left: 227px;
+}
+.cl_EndPeriodWrap,
+.cl_EndPeriod_Layer2_1,
+.cl_EndPeriod_Layer2_2,
+.cl_EndPeriod_Layer2_3,
+.cl_EndPeriod_Layer2_3_1,
+.cl_EndPeriod_Layer2_3_2 {
+	width: 1500px;
+	height: 150px;
+}
+.cl_EndPeriod_Layer2_1,
+.cl_EndPeriod_Layer2_2,
+.cl_EndPeriod_Layer2_3 {
+	right: 0;
+	top: 0;
+	transform: skewX(350deg);
+}
+.cl_EndPeriod_Layer2_1 {
+	background-color: #a5020a;
+	opacity: 0;
+}
+.cl_EndPeriod_Layer2_2 {
+	background-color: #ffffff;
+	opacity: 0;
+}
+.cl_EndPeriod_Layer2_3 {
+	background-color: #6e0409;
+	color: #dadada;
+	border-radius: 20px;
+}
+.cl_EndPeriod_Layer2_3_1,
+.cl_EndPeriod_Layer2_3_2 {
+	right: 0;
+	top: 0;
+}
+.cl_EndPeriod_Layer2_3 {
+	height: 150px;
+}
+.cl_boardEndPeriod__PlayerLeftLogo, .cl_boardEndPeriod__PlayerRightLogo {
+	top: 25px;
+    width: 100px;
+    height: 100px;
+    transform: skewX(10deg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+.cl_boardEndPeriod__PlayerLeftLogo {
+	left: 480px;
+}
+.cl_boardEndPeriod__PlayerRightLogo {
+	right: 480px;
+}
+.cl_boardEndPeriod__PlayerLeftName, .cl_boardEndPeriod__PlayerRightName {
+	top: 20px;
+	font-size: 3.2rem;
+}
+.cl_boardEndPeriod__PlayerLeftName {
+	width: 440px;
+}
+.cl_boardEndPeriod__PlayerRightName {
+	width: 446px;
+}
+.cl_boardEndPeriod__PlayerLeftPlace, .cl_boardEndPeriod__PlayerRightPlace {
+	top: 70px;
+	font-size: 2.2rem;
+}
+.cl_boardEndPeriod__PlayerLeftPlace {
+	width: 446px;
+}
+.cl_boardEndPeriod__PlayerRightPlace {
+	width: 440px;
+}
+.cl_boardEndPeriod__PlayerLeftName,.cl_boardEndPeriod__PlayerLeftPlace {
+	left: 0px;
+	text-align: right;
+	text-transform: uppercase;
+}
+.cl_boardEndPeriod__PlayerRightName,.cl_boardEndPeriod__PlayerRightPlace {
+	right: 0px;
+	text-align: left;
+	text-transform: uppercase;
+}
+.cl_boardEndPeriod__PlayerLeftCount, .cl_boardEndPeriod__PlayerRightCount {
+	top: 0px;
+	width: 140px;
+	height: 150px;
+	font-size: 90pt;
+	font-weight: 600;
+	text-align: center;
+}
+.cl_boardEndPeriod__PlayerLeftCount {
+	left: 0px;
+}
+.cl_boardEndPeriod__PlayerRightCount {
+	right: 0px;
+}
+.cl_boardEndPeriod__PlayerCountRazdel {
+	top: 30px;
+	left: 140px;
+	height: 90px;
+	border-left: 2px solid #fff;
+}
+.cl_boardEndPeriod__PeriodNumber {
+	top: 0px;
+    left: 610px;
+    width: 280px;
+    height: 205px;
+    text-align: center;
+	overflow: hidden;
+}
+.cl_boardEndPeriod__PeriodNumber__Top {
+	width: 100%;
+	height: 150px;
+	background-color: rgb(165 2 10);
+	overflow: hidden;
+}
+.cl_boardEndPeriod__PeriodNumber__Bottom {
+	width: 100%;
+	height: 55px;
+	line-height: 55px;
+	font-size: 30pt;
+	background-color: rgb(110, 4, 9);
+	border-radius: 0 0 40px 40px;
+	overflow: hidden;
+}
+
+.EndPeriodClassTitle {
+	font-weight: bold;
+	text-align: center;
+	letter-spacing: 4px;
+	padding-top: 20px;
+}
+.EndPeriodClassHide {
+	display: none;
+}
+.EndPeriodClassFullName, .EndPeriodClassTitle {
+	padding-bottom: 15px;
+}
+.EndPeriodClassRole {
+    margin-left: 30px;
+	margin-top: 58px;
+	text-align: center;
+}
+.EndPeriodClassFullName {
+    margin-left: 20px;
+	text-align: center;
+}
+.EndPeriodClassNumber {
+	display: inline-block;
+	background-color: #990000;
+	font-weight: bold;
+	border-radius: 10px;
+	text-align: center;
+	width: 63px;
+	padding: 10px 0;
+    margin-right: 5px;
+}
+#EndPeriodPhoto {
+	width: 200px;
+    height: 175px;
+    position: absolute;
+    top: -161px;
+    left: 42px;
+}
+@keyframes EndPeriod_Width_1_In {
+	0%   {right: 0;width: 0;opacity: 1;border-radius: 0;}
+	90%  {right: 0;width: 100%;opacity: 1;border-radius: 0;}
+	99%  {right: 0;width: 100%;opacity: 1;}
+	100% {right: 0;width: 100%;opacity: 0;border-radius: 20px;}
+}
+@keyframes EndPeriodAnimLastOut {
+	0%   {right: auto;left:0;width: 100%;opacity: 0;border-radius: 20px;}
+	1%   {right: auto;left:0;width: 100%;opacity: 1;border-radius: 20px;}
+	10%  {right: auto;left:0;width: 100%;opacity: 1;border-radius: 20px;}
+	100% {right: auto;left:0;width: 0;   opacity: 1;border-radius: 0;}
+}
+
+@keyframes EndPeriod_Width_2_In {
+	0%   {right: 0;width: 0;border-radius: 0;}
+	90%  {right: 0;width: 100%;border-radius: 0;}
+	100% {right: 0;width: 100%;border-radius: 20px;}
+}
+@keyframes EndPeriod_Width_2_Out {
+	0%   {right: auto;left:0;width: 100%;border-radius: 20px;}
+	10%  {right: auto;left:0;width: 100%;border-radius: 20px;}
+	100% {right: auto;left:0;width: 0;border-radius: 0;}
+}
+
+@keyframes EndPeriodAnimLastIn {
+	0%   {opacity: 0;}
+	100% {opacity: 1;}
+}
+@keyframes EndPeriod_Opacity_Out {
+	0%   {opacity: 1;}
+	100% {opacity: 0;}
+}
+
+@keyframes EndPeriod_PeriodNumber_Bottom_In {
+	0%   {opacity: 0;height: 0;}
+	100% {opacity: 1;height: 205px;}
+}
+@keyframes EndPeriod_PeriodNumber_Bottom_Out {
+	0%   {opacity: 1;height: 205px;}
+	100% {opacity: 0;height: 0;}
+}
+
+
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_EndPeriodWrap.cl_boardIn .cl_EndPeriod_Layer2_1 {
+	animation: EndPeriod_Width_1_In 1000ms linear 0ms normal backwards;
+}
+.cl_EndPeriodWrap.cl_boardIn .cl_EndPeriod_Layer2_2 {
+	animation: EndPeriod_Width_1_In 1000ms linear 50ms normal backwards;
+}
+.cl_EndPeriodWrap.cl_boardIn .cl_EndPeriod_Layer2_3 {
+	animation: EndPeriod_Width_2_In 1000ms linear 100ms normal backwards;
+}
+.cl_EndPeriodWrap.cl_boardIn .cl_boardEndPeriod__PlayerLeftName,
+.cl_EndPeriodWrap.cl_boardIn .cl_boardEndPeriod__PlayerRightName,
+.cl_EndPeriodWrap.cl_boardIn .cl_boardEndPeriod__PlayerLeftPlace,
+.cl_EndPeriodWrap.cl_boardIn .cl_boardEndPeriod__PlayerRightPlace {
+	animation: EndPeriodAnimLastIn 400ms linear 900ms normal backwards;
+}
+.cl_EndPeriodWrap.cl_boardIn .cl_boardEndPeriod__PlayerLeftLogo,
+.cl_EndPeriodWrap.cl_boardIn .cl_boardEndPeriod__PlayerRightLogo {
+	animation: EndPeriodAnimLastIn 400ms linear 1000ms normal backwards;
+}
+.cl_EndPeriodWrap.cl_boardIn .cl_boardEndPeriod__PeriodNumber {
+	animation: EndPeriod_PeriodNumber_Bottom_In 400ms linear 700ms normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_EndPeriodWrap.cl_boardOut .cl_EndPeriod_Layer2_1 {
+	animation: EndPeriodAnimLastOut 1000ms linear 200ms normal forwards;
+}
+.cl_EndPeriodWrap.cl_boardOut .cl_EndPeriod_Layer2_2 {
+	animation: EndPeriodAnimLastOut 1000ms linear 150ms normal forwards;
+}
+.cl_EndPeriodWrap.cl_boardOut .cl_EndPeriod_Layer2_3 {
+	animation: EndPeriod_Width_2_Out 1000ms linear 100ms normal forwards;
+}
+.cl_EndPeriodWrap.cl_boardOut .cl_boardEndPeriod__PlayerLeftName,
+.cl_EndPeriodWrap.cl_boardOut .cl_boardEndPeriod__PlayerRightName,
+.cl_EndPeriodWrap.cl_boardOut .cl_boardEndPeriod__PlayerLeftPlace,
+.cl_EndPeriodWrap.cl_boardOut .cl_boardEndPeriod__PlayerRightPlace {
+	animation: EndPeriod_Opacity_Out 300ms linear 0ms normal forwards;
+}
+.cl_EndPeriodWrap.cl_boardOut .cl_boardEndPeriod__PlayerLeftLogo,
+.cl_EndPeriodWrap.cl_boardOut .cl_boardEndPeriod__PlayerRightLogo {
+	animation: EndPeriod_Opacity_Out 300ms linear 0ms normal forwards;
+}
+.cl_EndPeriodWrap.cl_boardOut .cl_boardEndPeriod__PeriodNumber {
+	animation: EndPeriod_PeriodNumber_Bottom_Out 400ms linear 0ms normal forwards;
+}
+/* ################################################################################################
+Информационная панель:
+    Count; - Счёт
+*/
+.cl_boardCountWrap {
+    position: absolute;
+    top: 110px;
+    left: 125px;
+    margin: 0 auto;
+    color: white;
+}
+.cl_boardCountWrap,.CountClassScores,.CountClassLayer1,.CountClassLayer_Goal,.CountClassLayer3 {
+	width: 255px;
+    height: 135px;
+}
+.CountClassScores {
+    transform: skewX(350deg);
+	background-color: red;
+	border-radius: 15px;
+	overflow: hidden;
+	font-size: 22pt;
+}
+.CountClassLayer1,.CountClassLayer_Goal,.CountClassLayer3 {
+	position: absolute;
+}
+.CountClassLayer1 {
+	z-index: 100;
+}
+.CountClassLayer_Goal {
+	z-index: 110;
+}
+.CountClassLayer3 {
+	z-index: 120;
+	opacity: 0;
+}
+#CountClassPlayerLeftLogo,#CountClassPlayerRightLogo,#CountClassLayer_Goal_LeftLogo,#CountClassLayer_Goal_RightLogo {
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.CountClassLinePlayerLeft, .CountClassLinePlayerRight, .CountClassLineCount {
+	width: 100%;
+	height: 45px;
+	overflow: hidden;
+}
+.CountClassLinePlayerLeft {
+	background-color: #990000;
+	border-radius: 15px 15px 0 0;
+}
+.CountClassLinePlayerRight {
+	background-color: #990000;
+}
+.CountClassLineCount {
+	background-color: #4b0101;
+}
+.CountClassLineCount {
+	border-radius: 0 0 15px 15px;
+}
+.CountClassCountPowerPlayScores {
+	background-color: white;
+	color: #4b0101;
+}
+.CountClassLinePlayerLeft > div, .CountClassLinePlayerRight > div, .CountClassLineCount > div {
+	display: inline-block;
+}
+.CountClassLinePlayerLeft.select, .CountClassLinePlayerRight.select {
+	background-color: #fff;
+	color: #990000;
+}
+.CountClassLayer1 #CountClassPlayerLeftLogo,.CountClassLayer1 #CountClassPlayerRightLogo {
+	width: 100px;
+	height: 45px;
+	line-height: 45px;
+	font-size: 32pt;
+	vertical-align: bottom;
+}
+#CountClassPlayerLeftShortName,#CountClassPlayerLeftCount,#CountClassPlayerRightShortName,#CountClassPlayerRightCount,.CountClassPeriod {
+    text-align: center;
+	line-height: 45px;
+	font-size: 32pt;
+	vertical-align: bottom;
+}
+#CountClassPlayerLeftShortName,#CountClassPlayerRightShortName {
+    width: 105px;
+    text-align: left;
+	font-size: 32pt;
+}
+/*#CountClassPlayerLeftCount,#CountClassPlayerRightCount,#CountClassTime,#CountClassPeriodBlock {
+	font-family:sans-serif;
+}*/
+#CountClassPlayerLeftCount,#CountClassPlayerRightCount {
+	width: 48px;
+	font-size: 32pt;
+}
+#CountClassTime {
+    width: 100px;
+	text-align: center;
+	line-height: 45px;
+	font-size: 32pt;
+	vertical-align: bottom;
+}
+#CountClassTimeHR {
+    width: 110px;
+	vertical-align: top;
+	line-height: 45px;
+	font-size: 32pt;
+	vertical-align: bottom;
+}
+#CountClassPeriodBlock {
+    color: #fff;
+    text-align: center;
+    width: 30px;
+	line-height: 45px;
+	font-size: 32pt;
+	vertical-align: bottom;
+}
+.CountPeriodUP {
+	font-size: 22px;
+    position: absolute;
+    top: 85px;
+}
+.CountClassPeriodPost {
+    font-size: 10pt;
+    vertical-align: top;
+    line-height: 22pt;
+}
+#CountClassPause,#CountClassWarmUp {
+    line-height: 45px;
+    text-align: center;
+	font-size: 22pt;
+}
+.CountClassLayer_Goal {
+	z-index: 110;
+	vertical-align: middle;
+	text-align: center;
+	background-color: red;
+	opacity: 0;
+	border-radius: 15px;
+}
+.CountClassLayer_Goal_Text, .CountClassLayer_TimeOut_Text {
+	vertical-align: middle;
+    line-height: 135px;
+    font-size: 80pt;
+	position: absolute;
+    width: 100%;
+    height: 100%;
+	left: 100%;
+}
+.CountClassLayer_TimeOut_Text {
+	width: 220%;
+}
+#CountClassLayer_Goal_LeftLogo, #CountClassLayer_Goal_RightLogo {
+	position: absolute;
+	width: 70%;
+    height: 70%;
+    opacity: 0;
+    margin-top: 7%;
+    margin-left: 13%;
+}
+
+.cl_boardCountPowerPlay {
+    position: absolute;
+    top: 67px;
+    left: 144px;
+    margin: 0 auto;
+    color: white;
+}
+.cl_boardCountPowerPlay,.CountClassPowerPlay,.CountClassCountPowerPlayScores {
+	width: 255px;
+	height: 40px;
+	font-size: 15pt;
+	font-weight: bold;
+	line-height: 40px;
+}
+.CountClassCountPowerPlayScores {
+	transform: skewX(350deg);
+	border-radius: 10px;
+	overflow: hidden;
+}
+.CountClassCountPowerPlayScores_Time {
+	width: 35%;
+    height: 100%;
+    overflow: hidden;
+    display: inline-block;
+    text-align: center;
+	font-size: 22pt;
+}
+.CountClassCountPowerPlayScores_Text {
+	width: 65%;
+	height: 100%;
+	overflow: hidden;
+	display: inline-block;
+	text-align: center;
+	font-size: 22pt;
+	font-weight: 600;
+}
+.CountClassCountPowerPlayScores_Text span, .CountClassCountPowerPlayScores_Time span {
+	vertical-align: middle;
+	line-height: 40px;
+	height: 40px;
+}
+
+
+@keyframes CountAnimLastIn {
+	0% {
+		-webkit-transform: translateY(-2000px);
+		transform: translateY(-2000px);
+	}
+	80% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+	}
+}
+@keyframes CountAnimLastOut {
+	20% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+	}
+	100% {
+	-webkit-transform: translateY(-2000px);
+	transform: translateY(-2000px);
+	}
+}
+@keyframes CountAnimGoal {
+	0%  {opacity: 0;}
+	5%  {opacity: 1;}
+	10% {opacity: 1;}
+	15% {opacity: 0;}
+	20% {opacity: 0;}
+	25% {opacity: 1;}
+	30% {opacity: 1;}
+	35% {opacity: 0;}
+	40% {opacity: 0;}
+	45% {opacity: 1;}
+	50% {opacity: 1;}
+	55% {opacity: 0;}
+	60% {opacity: 0;}
+	65% {opacity: 1;}
+	70% {opacity: 1;}
+	75% {opacity: 0;}
+	80% {opacity: 0;}
+	85% {opacity: 1;}
+	90% {opacity: 1;}
+	95% {opacity: 0;}
+	100% {opacity: 0;}
+	
+}
+@keyframes CountGoalOpacity {
+	0%   {opacity: 0;}
+	3% {opacity: 1;}
+	97% {opacity: 1;}
+	100% {opacity: 0;}
+}
+@keyframes CountGoalOpacityLogo {
+	0%   {opacity: 0;}
+	30% {opacity: 1;}
+	70% {opacity: 1;}
+	100% {opacity: 0;}
+}
+@keyframes CountGoalTextRightToLeft {
+	0%   {left: 100%;}
+	100% {left: -100%;}
+}
+@keyframes CountGoalTextRightToLeftTimeOut {
+	0%   {left: 100%;}
+	100% {left: -220%;}
+}
+/* Анимация: Гола +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.CountClassLayer_Goal.CountClassGoalAnimation {
+	animation: CountGoalOpacity 5s linear 0s normal backwards;
+}
+.CountClassLayer_Goal.CountClassGoalAnimation .CountClassLayer_Goal_Text {
+	animation: CountGoalTextRightToLeft 5s linear 0s normal backwards;
+}
+.CountClassLayer_Goal.CountClassGoalAnimation .CountClassLayer_TimeOut_Text {
+	animation: CountGoalTextRightToLeftTimeOut 5s linear 0s normal backwards;
+}
+#CountClassLayer_Goal_LeftLogo.CountClassGoalAnimation, #CountClassLayer_Goal_RightLogo.CountClassGoalAnimation {
+    animation: CountAnimGoal 5s linear 0s normal backwards;
+}
+
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_boardCount.cl_boardIn {
+    animation: CountAnimLastIn 1s linear 0s normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_boardCount.cl_boardOut {
+    animation: CountAnimLastOut 1s linear 0s normal forwards;
+    /*transform-origin: top left; */
+}
+
+/* ################################################################################################
+Информационная панель:
+    Logo; - Логотип №1
+*/
+.cl_boardLogo1 {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 92px;
+    height: 91px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_boardLogo1.cl_boardIn {
+    animation: Logo1AnimLastIn 1s linear 0s normal backwards,flip 3s linear 1s infinite;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_boardLogo1.cl_boardOut {
+    animation: Logo1AnimLastOut 1s linear 0s normal forwards;
+}
+@keyframes Logo1AnimLastIn {
+    0%,60%,75%,90%,to {
+        -webkit-animation-timing-function: cubic-bezier(.215,.61,.355,1);
+        animation-timing-function: cubic-bezier(.215,.61,.355,1)
+    }
+
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(3000px,0,0) scaleX(3);
+        transform: translate3d(3000px,0,0) scaleX(3)
+    }
+
+    60% {
+        opacity: 1;
+        -webkit-transform: translate3d(-25px,0,0) scaleX(1);
+        transform: translate3d(-25px,0,0) scaleX(1)
+    }
+
+    75% {
+        -webkit-transform: translate3d(10px,0,0) scaleX(.98);
+        transform: translate3d(10px,0,0) scaleX(.98)
+    }
+
+    90% {
+        -webkit-transform: translate3d(-5px,0,0) scaleX(.995);
+        transform: translate3d(-5px,0,0) scaleX(.995)
+    }
+
+    to {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0)
+    }
+}
+@keyframes Logo1AnimLastOut {
+    20% {
+        opacity: 1;
+        -webkit-transform: translate3d(-20px,0,0) scaleX(.9);
+        transform: translate3d(-20px,0,0) scaleX(.9)
+    }
+
+    to {
+        opacity: 0;
+        -webkit-transform: translate3d(2000px,0,0) scaleX(2);
+        transform: translate3d(2000px,0,0) scaleX(2)
+    }
+}
+/* ------------------------------------------------------------- */
+@keyframes backInLeft1 {
+	0% {
+		-webkit-transform: translateX(-2000px) scale(.7);
+		transform: translateX(-2000px) scale(.7);
+	}
+	80% {
+		-webkit-transform: translateX(0) scale(.7);
+		transform: translateX(0) scale(.7);
+	}
+	100% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+}
+@keyframes backInRight1 {
+	0% {
+		-webkit-transform: translateX(3000px) scale(.7);
+		transform: translateX(3000px) scale(.7);
+	}
+	80% {
+		-webkit-transform: translateX(0) scale(.7);
+		transform: translateX(0) scale(.7);
+	}
+	100% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+}
+@keyframes backOutRight1 {
+	0% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+	20% {
+		-webkit-transform: translateX(0) scale(.7);
+		transform: translateX(0) scale(.7);
+	}
+	100% {
+		-webkit-transform: translateX(2000px) scale(.7);
+		transform: translateX(2000px) scale(.7);
+	}
+}
+
+/* ################################################################################################
+Информационная панель:
+    ListPlayer; - Список игроков
+*/
+.cl_boardListPlayer {
+	position: absolute;
+	top: 50px;
+	left: 135px;
+	width: 1724px;
+	height: 968px;
+	background: url(img/SOSTAV.svg) no-repeat;
+	background-position: center;
+	background-size: contain;
+}
+#ListPlayerClassName, #ListPlayerClassPlace, #ListPlayerClassLogo, #ListPlayerClassMiddleLet, #ListPlayerClassFuncTrainer, #ListPlayerClassTrainer, #ListPlayerClassVratari, #ListPlayerClassSecurity, #ListPlayerClassNapadenie, #ListPlayerClassMiddleLet {
+	position: absolute;
+}
+#ListPlayerClassName {
+	top: 35px;
+	left: 442px;
+	width: 1213px;
+	font-size: 61pt;
+	font-weight: bold;
+}
+#ListPlayerClassPlace {
+	top: 127px;
+	left: 428px;
+	width: 1210px;
+	font-size: 33pt;
+	color: #adb5bd;
+}
+#ListPlayerClassLogo {
+	top: 10px;
+	left: 55px;
+	width: 150px;
+	height: 150px;
+	font-size: 10pt;
+	background-image:url('LogoTeamLocal/DefaultLeft.png');
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+#ListPlayerClassFuncTrainer, #ListPlayerClassTrainer {
+	width: 800px;
+}
+#ListPlayerClassFuncTrainer {
+	left: 419px;
+	top: 197px;
+	font-size: 27pt;
+}
+#ListPlayerClassTrainer {
+	top: 242px;
+	left: 411px;
+	font-size: 30pt;
+	font-weight: bold;
+	text-align: left;
+}
+#ListPlayerClassVratari, #ListPlayerClassNapadenie {
+	top: 310px;
+}
+#ListPlayerClassVratari, #ListPlayerClassSecurity, #ListPlayerClassNapadenie {
+	font-size: 24pt;
+    line-height: 24pt;
+	text-transform: uppercase;
+}
+#ListPlayerClassVratari, #ListPlayerClassSecurity, #ListPlayerClassNapadenie {
+	width: 560px;
+}
+#ListPlayerClassVratari .title, #ListPlayerClassSecurity .title, #ListPlayerClassNapadenie .title {
+	text-align: left;
+	font-size: 30pt;
+    line-height: 32pt;
+	font-weight: 600;
+}
+#ListPlayerClassVratari table,
+#ListPlayerClassSecurity table,
+#ListPlayerClassNapadenie table {
+	width: 100%;
+	border-collapse:separate;
+    border-spacing:0 3px;
+}
+#ListPlayerClassVratari table tr td:first-child,
+#ListPlayerClassSecurity table tr td:first-child,
+#ListPlayerClassNapadenie table tr td:first-child {
+	background-color: #CF1717;
+    font-weight: bold;
+	border-radius: 10px;
+	text-align: center;
+	width: 46px;
+}
+#ListPlayerClassVratari {
+	left: 250px;
+}
+#ListPlayerClassSecurity {
+	top: 470px;
+	left: 250px;
+}
+#ListPlayerClassNapadenie {
+	left: 825px;
+}
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
+.cl_ListPlayerWrap {
+    position: absolute;
+    top: 140px;
+    left: 250px;
+}
+.cl_ListPlayerWrap, .cl_ListPlayer,.cl_ListPlayer_Layer1 {
+    height: 835px;
+}
+.cl_ListPlayerWrap, .cl_ListPlayer,.cl_ListPlayer_Layer1,.cl_ListPlayer_Layer6,.cl_ListPlayer_Layer7,.cl_ListPlayer_Layer9 {
+    width: 1404px;
+}
+.cl_ListPlayer {
+	overflow:hidden;
+	float: right;
+	transform: skewX(351deg);
+	border-radius: 40px;
+	color: #fff;
+	background-color: #6B0B15;
+}
+.cl_ListPlayer_Layer1 {
+	position: absolute;
+}
+.cl_ListPlayer_Layer2_1 {
+	position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: #cf17175c;
+    width: 200px;
+    height: 350px;
+    border-radius: 0 60px 60px 0;
+}
+.cl_ListPlayer_Layer2_2 {
+	position: absolute;
+    top: 240px;
+    left: 390px;
+    background-color: #cf17175c;
+    width: 671px;
+    height: 208px;
+    border-radius: 0 0 50px 50px;
+}
+.cl_ListPlayer_Layer2_3 {
+	position: absolute;
+    bottom: 0;
+    right: 50px;
+    background-color: #cf17175c;
+    width: 600px;
+    height: 150px;
+    border-radius: 50px 50px 0 0;
+}
+.cl_ListPlayer_Layer3 {
+    position: absolute;
+	top: 175px;
+	width: 100%;
+
+    background-color: #CF1717;
+}
+.cl_ListPlayer_Layer3, .cl_ListPlayer_Layer7, .cl_ListPlayer_Layer7_Left, .cl_ListPlayer_Layer7_Right {
+    height: 125px;
+}
+
+.cl_ListPlayer_Layer4_1 {
+	position: absolute;
+	background-color: #CF1717;
+	left: -400px;
+	width: 400px;
+	height: 100%;
+}
+.cl_ListPlayer_Layer4_2 {
+	position: absolute;
+	background-color: #CF1717;
+	right: -400px;
+	width: 400px;
+	height: 100%;
+}
+.cl_ListPlayer_Layer6 {
+	position: absolute;
+	top: 0px;
+}
+.cl_ListPlayer_Layer6_1 {
+	position: absolute;
+    width: 350px;
+    height: 300px;
+    font-size: 10pt;
+	transform: skewX(10deg);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.cl_ListPlayer_Layer6_1 {
+	left: 185px;
+    background-image:url('/LogoTeamLocal/DefaultLeft.png');
+}
+.cl_ListPlayer_Layer10 {
+	position: absolute;
+	top: 241px;
+	left: 250px;
+	width: 900px;
+	text-align: left;
+	font-size: 28pt;
+}
+/* Название команд*/
+.cl_ListPlayer_Layer7 {
+	position: absolute;
+	top: 10px;
+}
+.cl_ListPlayer_Layer7_Left,.cl_ListPlayer_Layer7_Right {
+	position: absolute;
+    width: 600px;
+	overflow: hidden;
+	text-align: left;
+}
+.cl_ListPlayer_Layer7_Left {
+    left: 250px;
+}
+
+#ListPlayerClassPlayerLeftName {
+    width: 100%;
+    font-size: 60pt;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+.cl_ListPlayer_Layer8,.cl_ListPlayer_Layer9 {
+    position: absolute;
+    text-align: left;
+}
+.cl_ListPlayer_Layer8 {
+	top: 190px;
+    left: 250px;
+    width: 1010px;
+    font-size: 40pt;
+    text-transform: uppercase;
+}
+.cl_ListPlayer_Layer9 {
+	top: 87px;
+    left: 250px;
+    width: 900px;
+    font-size: 38pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    /* color: #9a9a9a; */
+}
+.cl_ListPlayer_Layer11 {
+	position: absolute;
+	top: 77px;
+    right: 100px;
+    width: 119px;
+    height: 156px;
+	/*background-image: url(img/LOGO_JHL_2025-2026_ENG.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;*/
+}
+
+@keyframes ListPlayerAnimLastIn {
+	0% {
+		float: right;
+		width: 0%;
+		border-radius: 0px;
+	}
+	80% {
+		width: 100%;
+		border-radius: 0px;
+	}
+	100% {
+		width: 100%;
+		float: right;
+		border-radius: 40px;
+	}
+}
+@keyframes ListPlayerAnimLastOut {
+	0% {
+		float: left;
+		border-radius: 40px;
+		width: 100%;
+	}
+	20% {
+		border-radius: 0px;
+	}
+	80% {
+		width: 0%;
+		border-radius: 0px;
+	}
+	100% {
+		float: left;
+		width: 0%;
+		border-radius: 0px;
+	}
+}
+@keyframes ListPlayer_Layer4_1_In {
+	0% {
+		left: 0px;
+	}
+	100% {
+		left: -400px;
+	}
+}
+@keyframes ListPlayer_Layer4_2_Out {
+	0% {
+		right: -400px;
+	}
+	50% {
+		right: 0px;
+	}
+	100% {
+		right: -350px;
+	}
+}
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_ListPlayerWrap.cl_boardIn .cl_ListPlayer_Layer1 {
+	left: auto;
+	right: 0;
+}
+.cl_ListPlayerWrap.cl_boardIn .cl_ListPlayer  {
+	animation: ListPlayerAnimLastIn 1000ms linear 0ms normal backwards;
+}
+.cl_ListPlayerWrap.cl_boardIn .cl_ListPlayer_Layer4_1  {
+	animation: ListPlayer_Layer4_1_In 1000ms linear 0ms normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_ListPlayerWrap.cl_boardOut .cl_ListPlayer_Layer1 {
+	left: 0;
+	right: auto;
+}
+.cl_ListPlayerWrap.cl_boardOut .cl_ListPlayer {
+	animation: ListPlayerAnimLastOut 1000ms linear 400ms normal forwards;
+}
+.cl_ListPlayerWrap.cl_boardOut .cl_ListPlayer_Layer4_2  {
+	animation: ListPlayer_Layer4_2_Out 1000ms linear 400ms normal forwards;
+}
+/* ################################################################################################
+Информационная панель:
+    Start5; - Стартовая
+*/
+.cl_boardStart5Player {
+	position: absolute;
+	bottom: 40px;
+	left: 0;
+	width: 1920px;
+	overflow:hidden;
+	text-align: right;
+}
+.cl_boardStart5Player,
+.Start5Player_Left,
+.Start5Player_Boss,
+.Start5Player_Lines  {
+	height: 220px;
+}
+.Start5Player_Left {
+	position: absolute;
+	top: 0;
+	text-align: right;
+}
+.Start5Player_Left {
+	left: 408px;
+}
+.Start5Player_Boss,
+.Start5Player_Lines {
+	overflow: hidden;
+	white-space: nowrap;
+	text-transform: uppercase;
+	color: #ffffff;
+	transform: skewX(350deg);
+	background-color: #6B0B15;
+	border-radius: 20px;
+	float: right;
+}
+.Start5Player_Left {
+	width: 680px;
+}
+.Start5Player_Boss,
+.Start5Player_Lines,
+.Start5Player_Boss_Layer2,
+.Start5Player_Boss_Layer3_Title {
+	width: 100%;
+}
+.Start5Player_Boss_Layer2 {
+	position: absolute;
+	background-color: #CF1717;
+	right: 0;
+	height: 107px;
+}
+.Start5Player_Boss_Layer2_1 {
+	position: absolute;
+	background-color: #CF1717;
+	left: -100px;
+	height: 100%;
+	width: 100px;
+}
+.Start5Player_Boss_Layer2_2 {
+	position: absolute;
+	background-color: #CF1717;
+	right: -100px;
+	height: 100%;
+	width: 100px;
+}
+.Start5Player_Boss_Layer3 {
+	position: absolute;
+	background-color: #CF1717;
+	right: 0;
+	width: 75%;
+	height: 100%;
+	border-radius: 20px 0 0 20px;
+}
+.Start5Player_Boss_Layer3_1,
+.Start5Player_Boss_Layer3_2,
+.Start5Player_Boss_Layer3_3,
+.Start5Player_Boss_Layer3_4,
+.Start5Player_Boss_Layer3_5 {
+	position: absolute;
+	font-weight: bold;
+	font-size: 25pt;
+	text-align: left;
+	opacity: 1;
+	width: 98%;
+    overflow: hidden;
+}
+.Start5Player_Boss_Layer3_1 {
+	top: 15px;
+}
+.Start5Player_Boss_Layer3_2 {
+	top: 50px;
+}
+.Start5Player_Boss_Layer3_3 {
+	top: 88px;
+}
+.Start5Player_Boss_Layer3_4 {
+	top: 125px;
+}
+.Start5Player_Boss_Layer3_5 {
+	top: 160px;
+}
+.Start5Player_Boss_Layer3_1 .Start5Player_Number,
+.Start5Player_Boss_Layer3_2 .Start5Player_Number,
+.Start5Player_Boss_Layer3_3 .Start5Player_Number,
+.Start5Player_Boss_Layer3_4 .Start5Player_Number,
+.Start5Player_Boss_Layer3_5 .Start5Player_Number {
+	width: 70px;
+    line-height: 28px;
+	height: 28px;
+    display: inline-block;
+    text-align: center;
+    border-radius: 7px;
+    background-color: #A50F0F;
+	color: white;
+	margin-top: 3px;
+	margin-right: 10px;
+	margin-left: 34px;
+}
+.Start5Player_Boss_Logo {
+	position: absolute;
+	top: 52px;
+	left: 0;
+	width: 185px;
+	height: 110px;
+}
+.cl_boardStart5Player #TeamLeftLogo,
+.cl_boardStart5Player #TeamRightLogo {
+	position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+@keyframes Start5PlayerAnim1_In {
+	0% {
+		float: right;
+		width: 0%;
+		border-radius: 0px;
+	}
+	10% {
+		width: 100%;
+	}
+	80% {
+		border-radius: 0px;
+	}
+	100% {
+		float: right;
+		border-radius: 20px;
+	}
+}
+@keyframes Start5Player_Boss_Layer2_In {
+	0%   {
+		width: 0%;
+	}
+	10% {
+		width: 80%;
+	}
+	100% {
+		width: 100%;
+	}
+}
+@keyframes Start5Player_Boss_Layer2_Out {
+	0% {
+		left: 0%;
+		right: auto;
+		width: 100%;
+	}
+	80% {
+		width: 80%;
+	}
+	100%   {
+		left: 0%;
+		right: auto;
+		width: 5%;
+	}
+}
+@keyframes Start5Player_Boss_Layer2_1_In {
+	0% {
+		left: 0px;
+	}
+	100% {
+		left: -100px;
+	}
+}
+@keyframes Start5Player_Boss_Layer2_2_Out {
+	0% {
+		right: -100px;
+	}
+	50% {
+		right: 0px;
+	}
+	100% {
+		right: -90px;
+	}
+}
+@keyframes Start5Player_Boss_Layer3_Title_In {
+	0% {
+		opacity: 0;
+		left:20px;
+	}
+	100% {
+		opacity: 1;
+		left:0px;
+	}
+}
+@keyframes Start5Player_Boss_Layer3_Title_Out {
+	0% {
+		opacity: 1;
+		left:0px;
+	}
+	100% {
+		opacity: 0;
+		left:-20px;
+	}
+}
+@keyframes Start5PlayerAnimLastIn {
+	0%   {opacity: 0;}
+	80%  {opacity: 1;}
+	100% {opacity: 1;}
+}
+@keyframes opacityOut {
+	0%   {opacity: 1;}
+	80%  {opacity: 0;}
+	100% {opacity: 0;}
+}
+@keyframes Start5PlayerAnimLastOut {
+	0% {
+		float: left;
+		border-radius: 20px;
+		width: 100%;
+	}
+	50% {
+		border-radius: 0px;
+	}
+	100% {
+		float: left;
+		width: 0%;
+		border-radius: 0px;
+	}
+}
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_boardStart5Player.cl_boardIn .Start5Player_Boss,
+.cl_boardStart5Player.cl_boardIn .Start5Player_Lines  {
+	animation: Start5PlayerAnim1_In 1200ms linear 0s normal backwards;
+}
+.cl_boardStart5Player.cl_boardIn .Start5Player_Boss_Layer2  {
+	animation: Start5Player_Boss_Layer2_In 500ms linear 100ms normal backwards;
+}
+.cl_boardStart5Player.cl_boardIn .Start5Player_Boss_Layer2_1  {
+	animation: Start5Player_Boss_Layer2_1_In 400ms linear 0ms normal backwards;
+}
+.cl_boardStart5Player.cl_boardIn .Start5Player_Boss_Layer3_1,
+.cl_boardStart5Player.cl_boardIn .Start5Player_Boss_Layer3_2,
+.cl_boardStart5Player.cl_boardIn .Start5Player_Boss_Layer3_3,
+.cl_boardStart5Player.cl_boardIn .Start5Player_Boss_Layer3_4,
+.cl_boardStart5Player.cl_boardIn .Start5Player_Boss_Layer3_5,
+.cl_boardStart5Player.cl_boardIn .Start5Player_Boss_Layer3_Title {
+	animation: Start5Player_Boss_Layer3_Title_In 500ms linear 300ms normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_boardStart5Player.cl_boardOut .Start5Player_Boss,
+.cl_boardStart5Player.cl_boardOut .Start5Player_Lines {
+	animation: Start5PlayerAnimLastOut 500ms linear 400ms normal forwards;
+}
+.cl_boardStart5Player.cl_boardOut .Start5Player_Boss_Layer2 {
+	animation: Start5Player_Boss_Layer2_Out 500ms linear 100ms normal forwards;
+}
+.cl_boardStart5Player.cl_boardOut .Start5Player_Boss_Layer2_2 {
+	animation: Start5Player_Boss_Layer2_2_Out 500ms linear 400ms normal forwards;
+}
+.cl_boardStart5Player.cl_boardOut .Start5Player_Boss_Layer3_1,
+.cl_boardStart5Player.cl_boardOut .Start5Player_Boss_Layer3_2,
+.cl_boardStart5Player.cl_boardOut .Start5Player_Boss_Layer3_3,
+.cl_boardStart5Player.cl_boardOut .Start5Player_Boss_Layer3_4,
+.cl_boardStart5Player.cl_boardOut .Start5Player_Boss_Layer3_5,
+.cl_boardStart5Player.cl_boardOut .Start5Player_Boss_Layer3_Title {
+	animation: Start5Player_Boss_Layer3_Title_Out 500ms linear 0ms normal forwards;
+}
+/* ################################################################################################
+Информационная панель:
+    TeamRoom; - Раздевалка команды
+*/
+.cl_boardTeamRoom {
+	position: absolute;
+	bottom: 121px;
+	left: 0;
+	width: 1920px;
+	overflow:hidden;
+	text-align: right;
+}
+.cl_boardTeamRoom, .TeamRoomLeft, .TeamRoomClassBoss  {
+	height: 150px;
+}
+.TeamRoomLeft {
+	position: absolute;
+	top: 0;
+	left: 220px;
+	text-align: right;
+}
+.TeamRoomClassBoss {
+	overflow: hidden;
+	white-space: nowrap;
+	text-transform: uppercase;
+	color: #ffffff;
+	transform: skewX(350deg);
+	background-color: #6B0B15;
+	border-radius: 20px;
+	float: right;
+}
+.TeamRoomClassBoss, .TeamRoomBossLayer2, .TeamRoomBoss_Layer3_Title, .TeamRoomLeft {
+	width: 562px;
+}
+.TeamRoomBossLayer2 {
+	position: absolute;
+	background-color: #CF1717;
+	right: 0;
+	height: 107px;
+	width: 100%;
+}
+.TeamRoomBossLayer2_1 {
+	position: absolute;
+	background-color: #CF1717;
+	left: -100px;
+	height: 100%;
+	width: 100px;
+}
+.TeamRoomBossLayer2_2 {
+	position: absolute;
+	background-color: #CF1717;
+	right: -100px;
+	height: 100%;
+	width: 100px;
+}
+.TeamRoomBoss_Layer3_Title, .TeamRoomBoss_Layer3_First, .TeamRoomBoss_Layer3_Second {
+	position: absolute;
+	font-weight: bold;
+	font-size: 30pt;
+	text-align: left;
+	opacity: 1;
+	width: 98%;
+    overflow: hidden;
+}
+.TeamRoomBoss_Layer3_First {
+	top: 22px;
+	left: 0;
+	width: 560px;
+	height: 65px;
+	font-size: 40pt;
+}
+.TeamRoomBoss_Layer3_First_1 {
+	position: absolute;
+	left: 140px;
+}
+.TeamRoomBoss_Layer3_Second {
+	top: 0;
+	width: 140px;
+	height: 110px;
+}
+.TeamRoomBoss_Layer3_Title {
+	line-height: 43px;
+	bottom: 0px;
+	padding-left: 36px;
+}
+#TeamRoomLogo {
+	position: absolute;
+	top: 0;
+	width: 110px;
+	height: 110px;
+	left: 20px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+@keyframes TeamRoomAnim1_In {
+	0% {
+		float: right;
+		width: 0px;
+		border-radius: 0px;
+	}
+	10% {
+		width: 560px;
+	}
+	80% {
+		border-radius: 0px;
+	}
+	100% {
+		float: right;
+		border-radius: 20px;
+	}
+}
+@keyframes TeamRoomBoss_Layer2_In {
+	0%   {
+		width: 0%;
+	}
+	10% {
+		width: 80%;
+	}
+	100% {
+		width: 100%;
+	}
+}
+@keyframes TeamRoomBoss_Layer2_Out {
+	0% {
+		left: 0%;
+		right: auto;
+		width: 100%;
+	}
+	80% {
+		width: 80%;
+	}
+	100%   {
+		left: 0%;
+		right: auto;
+		width: 5%;
+	}
+}
+@keyframes TeamRoomBoss_Layer2_1_In {
+	0% {
+		left: 0px;
+	}
+	100% {
+		left: -100px;
+	}
+}
+@keyframes TeamRoomBoss_Layer2_2_Out {
+	0% {
+		right: -100px;
+	}
+	50% {
+		right: 0px;
+	}
+	100% {
+		right: -90px;
+	}
+}
+@keyframes TeamRoomBoss_Layer3_Title_In {
+	0% {
+		opacity: 0;
+		left:20px;
+	}
+	100% {
+		opacity: 1;
+		left:0px;
+	}
+}
+@keyframes TeamRoomBoss_Layer3_Title_Out {
+	0% {
+		opacity: 1;
+		left:0px;
+	}
+	100% {
+		opacity: 0;
+		left:-20px;
+	}
+}
+@keyframes TeamRoomBoss_Layer3_Logo_In {
+	0% {
+		opacity: 0;
+		top:20px;
+	}
+	100% {
+		opacity: 1;
+		top:0px;
+	}
+}
+@keyframes TeamRoomBoss_Layer3_Logo_Out {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes TeamRoomAnimLastIn {
+	0%   {opacity: 0;}
+	80%  {opacity: 1;}
+	100% {opacity: 1;}
+}
+@keyframes opacityOut {
+	0%   {opacity: 1;}
+	80%  {opacity: 0;}
+	100% {opacity: 0;}
+}
+@keyframes TeamRoomAnimLastOut {
+	0% {
+		float: left;
+		border-radius: 20px;
+		width: 560px;
+	}
+	50% {
+		border-radius: 0px;border-radius: 20px;
+	}
+	100% {
+		float: left;
+		width: 0px;
+		border-radius: 0px;
+	}
+}
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_boardTeamRoom.cl_boardIn .TeamRoomClassBoss  {
+	animation: TeamRoomAnim1_In 1200ms linear 0s normal backwards;
+}
+.cl_boardTeamRoom.cl_boardIn .TeamRoomBossLayer2  {
+	animation: TeamRoomBoss_Layer2_In 500ms linear 100ms normal backwards;
+}
+.cl_boardTeamRoom.cl_boardIn .TeamRoomBossLayer2_1  {
+	animation: TeamRoomBoss_Layer2_1_In 400ms linear 0ms normal backwards;
+}
+.cl_boardTeamRoom.cl_boardIn .TeamRoomBoss_Layer3_First, .cl_boardTeamRoom.cl_boardIn .TeamRoomBoss_Layer3_Second, .cl_boardTeamRoom.cl_boardIn .TeamRoomBoss_Layer3_Title {
+	animation: TeamRoomBoss_Layer3_Title_In 500ms linear 300ms normal backwards;
+}
+.cl_boardTeamRoom.cl_boardIn .TeamRoomBoss_Layer3_Second {
+	animation: TeamRoomBoss_Layer3_Logo_In 500ms linear 300ms normal backwards;
+}
+
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+/*.cl_boardTeamRoom.cl_boardOut .TeamRoomClassBoss > div, .cl_boardTeamRoom.cl_boardOut .TeamRoomClassLines > div {
+	animation: opacityOut .5s linear 0s normal forwards;
+}*/
+.cl_boardTeamRoom.cl_boardOut .TeamRoomClassBoss {
+	animation: TeamRoomAnimLastOut 500ms linear 400ms normal forwards;
+}
+.cl_boardTeamRoom.cl_boardOut .TeamRoomBossLayer2  {
+	animation: TeamRoomBoss_Layer2_Out 500ms linear 100ms normal forwards;
+}
+.cl_boardTeamRoom.cl_boardOut .TeamRoomBossLayer2_2  {
+	animation: TeamRoomBoss_Layer2_2_Out 500ms linear 400ms normal forwards;
+}
+.cl_boardTeamRoom.cl_boardOut .TeamRoomBoss_Layer3_First, .cl_boardTeamRoom.cl_boardOut .TeamRoomBoss_Layer3_Second, .cl_boardTeamRoom.cl_boardOut .TeamRoomBoss_Layer3_Title  {
+	animation: TeamRoomBoss_Layer3_Title_Out 500ms linear 0ms normal forwards;
+}
+.cl_boardTeamRoom.cl_boardOut .TeamRoomBoss_Layer3_Second {
+	animation: TeamRoomBoss_Layer3_Logo_Out 300ms linear 0ms normal forwards;
+}
+/* ################################################################################################
+Информационная панель:
+    Start5LeftAndRight; - Судейский состав
+*/
+.cl_boardStart5LeftAndRight {
+	position: absolute;
+	bottom: 86px;
+	left: 0;
+	width: 1920px;
+	overflow:hidden;
+	text-align: right;
+}
+.cl_boardStart5LeftAndRight,
+.Start5LeftAndRight_Left,
+.Start5LeftAndRight_Right,
+.Start5LeftAndRight_Boss,
+.Start5LeftAndRight_Lines  {
+	height: 220px;
+}
+.Start5LeftAndRight_Left,
+.Start5LeftAndRight_Right {
+	position: absolute;
+	top: 0;
+	text-align: right;
+}
+.Start5LeftAndRight_Left {
+	left: 408px;
+}
+.Start5LeftAndRight_Right {
+	left: 971px;
+}
+.Start5LeftAndRight_Boss,
+.Start5LeftAndRight_Lines {
+	overflow: hidden;
+	white-space: nowrap;
+	text-transform: uppercase;
+	color: #ffffff;
+	transform: skewX(350deg);
+	background-color: #6B0B15;
+	border-radius: 20px;
+	float: right;
+}
+.Start5LeftAndRight_Left,
+.Start5LeftAndRight_Right {
+	width: 534px;
+}
+.Start5LeftAndRight_Boss,
+.Start5LeftAndRight_Lines,
+.Start5LeftAndRight_Boss_Layer2,
+.Start5LeftAndRight_Boss_Layer3_Title {
+	width: 100%;
+}
+.Start5LeftAndRight_Boss_Layer2 {
+	position: absolute;
+	background-color: #CF1717;
+	right: 0;
+	height: 107px;
+}
+.Start5LeftAndRight_Boss_Layer2_1 {
+	position: absolute;
+	background-color: #CF1717;
+	left: -100px;
+	height: 100%;
+	width: 100px;
+}
+.Start5LeftAndRight_Boss_Layer2_2 {
+	position: absolute;
+	background-color: #CF1717;
+	right: -100px;
+	height: 100%;
+	width: 100px;
+}
+.Start5LeftAndRight_Boss_Layer3 {
+	position: absolute;
+	background-color: #CF1717;
+	right: 0;
+	width: 65%;
+	height: 100%;
+	border-radius: 20px 0 0 20px;
+}
+.Start5LeftAndRight_Boss_Layer3_1,
+.Start5LeftAndRight_Boss_Layer3_2,
+.Start5LeftAndRight_Boss_Layer3_3,
+.Start5LeftAndRight_Boss_Layer3_4,
+.Start5LeftAndRight_Boss_Layer3_5 {
+	position: absolute;
+	font-weight: bold;
+	font-size: 25pt;
+	text-align: left;
+	opacity: 1;
+	width: 98%;
+    overflow: hidden;
+}
+.Start5LeftAndRight_Boss_Layer3_1 {
+	top: 15px;
+}
+.Start5LeftAndRight_Boss_Layer3_2 {
+	top: 50px;
+}
+.Start5LeftAndRight_Boss_Layer3_3 {
+	top: 88px;
+}
+.Start5LeftAndRight_Boss_Layer3_4 {
+	top: 125px;
+}
+.Start5LeftAndRight_Boss_Layer3_5 {
+	top: 160px;
+}
+.Start5LeftAndRight_Boss_Layer3_1 .Start5LeftAndRight_Number,
+.Start5LeftAndRight_Boss_Layer3_2 .Start5LeftAndRight_Number,
+.Start5LeftAndRight_Boss_Layer3_3 .Start5LeftAndRight_Number,
+.Start5LeftAndRight_Boss_Layer3_4 .Start5LeftAndRight_Number,
+.Start5LeftAndRight_Boss_Layer3_5 .Start5LeftAndRight_Number {
+	width: 70px;
+    line-height: 28px;
+	height: 28px;
+    display: inline-block;
+    text-align: center;
+    border-radius: 7px;
+    background-color: #A50F0F;
+	color: white;
+	margin-top: 3px;
+	margin-right: 10px;
+	margin-left: 34px;
+}
+.Start5LeftAndRight_Boss_Logo {
+	position: absolute;
+	top: 52px;
+	left: 0;
+	width: 185px;
+	height: 110px;
+}
+.cl_boardStart5LeftAndRight #TeamLeftLogo,
+.cl_boardStart5LeftAndRight #TeamRightLogo {
+	position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+@keyframes Start5LeftAndRightAnim1_In {
+	0% {
+		float: right;
+		width: 0%;
+		border-radius: 0px;
+	}
+	10% {
+		width: 100%;
+	}
+	80% {
+		border-radius: 0px;
+	}
+	100% {
+		float: right;
+		border-radius: 20px;
+	}
+}
+@keyframes Start5LeftAndRight_Boss_Layer2_In {
+	0%   {
+		width: 0%;
+	}
+	10% {
+		width: 80%;
+	}
+	100% {
+		width: 100%;
+	}
+}
+@keyframes Start5LeftAndRight_Boss_Layer2_Out {
+	0% {
+		left: 0%;
+		right: auto;
+		width: 100%;
+	}
+	80% {
+		width: 80%;
+	}
+	100%   {
+		left: 0%;
+		right: auto;
+		width: 5%;
+	}
+}
+@keyframes Start5LeftAndRight_Boss_Layer2_1_In {
+	0% {
+		left: 0px;
+	}
+	100% {
+		left: -100px;
+	}
+}
+@keyframes Start5LeftAndRight_Boss_Layer2_2_Out {
+	0% {
+		right: -100px;
+	}
+	50% {
+		right: 0px;
+	}
+	100% {
+		right: -90px;
+	}
+}
+@keyframes Start5LeftAndRight_Boss_Layer3_Title_In {
+	0% {
+		opacity: 0;
+		left:20px;
+	}
+	100% {
+		opacity: 1;
+		left:0px;
+	}
+}
+@keyframes Start5LeftAndRight_Boss_Layer3_Title_Out {
+	0% {
+		opacity: 1;
+		left:0px;
+	}
+	100% {
+		opacity: 0;
+		left:-20px;
+	}
+}
+@keyframes Start5LeftAndRightAnimLastIn {
+	0%   {opacity: 0;}
+	80%  {opacity: 1;}
+	100% {opacity: 1;}
+}
+@keyframes opacityOut {
+	0%   {opacity: 1;}
+	80%  {opacity: 0;}
+	100% {opacity: 0;}
+}
+@keyframes Start5LeftAndRightAnimLastOut {
+	0% {
+		float: left;
+		border-radius: 20px;
+		width: 100%;
+	}
+	50% {
+		border-radius: 0px;
+	}
+	100% {
+		float: left;
+		width: 0%;
+		border-radius: 0px;
+	}
+}
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_boardStart5LeftAndRight.cl_boardIn .Start5LeftAndRight_Boss,
+.cl_boardStart5LeftAndRight.cl_boardIn .Start5LeftAndRight_Lines  {
+	animation: Start5LeftAndRightAnim1_In 1200ms linear 0s normal backwards;
+}
+.cl_boardStart5LeftAndRight.cl_boardIn .Start5LeftAndRight_Boss_Layer2  {
+	animation: Start5LeftAndRight_Boss_Layer2_In 500ms linear 100ms normal backwards;
+}
+.cl_boardStart5LeftAndRight.cl_boardIn .Start5LeftAndRight_Boss_Layer2_1  {
+	animation: Start5LeftAndRight_Boss_Layer2_1_In 400ms linear 0ms normal backwards;
+}
+.cl_boardStart5LeftAndRight.cl_boardIn .Start5LeftAndRight_Boss_Layer3_1,
+.cl_boardStart5LeftAndRight.cl_boardIn .Start5LeftAndRight_Boss_Layer3_2,
+.cl_boardStart5LeftAndRight.cl_boardIn .Start5LeftAndRight_Boss_Layer3_3,
+.cl_boardStart5LeftAndRight.cl_boardIn .Start5LeftAndRight_Boss_Layer3_4,
+.cl_boardStart5LeftAndRight.cl_boardIn .Start5LeftAndRight_Boss_Layer3_5,
+.cl_boardStart5LeftAndRight.cl_boardIn .Start5LeftAndRight_Boss_Layer3_Title {
+	animation: Start5LeftAndRight_Boss_Layer3_Title_In 500ms linear 300ms normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_boardStart5LeftAndRight.cl_boardOut .Start5LeftAndRight_Boss,
+.cl_boardStart5LeftAndRight.cl_boardOut .Start5LeftAndRight_Lines {
+	animation: Start5LeftAndRightAnimLastOut 500ms linear 400ms normal forwards;
+}
+.cl_boardStart5LeftAndRight.cl_boardOut .Start5LeftAndRight_Boss_Layer2 {
+	animation: Start5LeftAndRight_Boss_Layer2_Out 500ms linear 100ms normal forwards;
+}
+.cl_boardStart5LeftAndRight.cl_boardOut .Start5LeftAndRight_Boss_Layer2_2 {
+	animation: Start5LeftAndRight_Boss_Layer2_2_Out 500ms linear 400ms normal forwards;
+}
+.cl_boardStart5LeftAndRight.cl_boardOut .Start5LeftAndRight_Boss_Layer3_1,
+.cl_boardStart5LeftAndRight.cl_boardOut .Start5LeftAndRight_Boss_Layer3_2,
+.cl_boardStart5LeftAndRight.cl_boardOut .Start5LeftAndRight_Boss_Layer3_3,
+.cl_boardStart5LeftAndRight.cl_boardOut .Start5LeftAndRight_Boss_Layer3_4,
+.cl_boardStart5LeftAndRight.cl_boardOut .Start5LeftAndRight_Boss_Layer3_5,
+.cl_boardStart5LeftAndRight.cl_boardOut .Start5LeftAndRight_Boss_Layer3_Title {
+	animation: Start5LeftAndRight_Boss_Layer3_Title_Out 500ms linear 0ms normal forwards;
+}
+
+/* ################################################################################################
+Информационная панель:
+    Shootout; - Послематчевые буллиты
+*/
+.cl_boardShootout_1_5 {
+    position: absolute;
+    top: 65px;
+    left: 125px;
+    margin: 0 auto;
+    color: white;
+	width: 700px;
+	height: 179px;
+	transform: skewX(350deg);
+}
+.ShootoutScores,
+.ShootoutLayer1 {
+	width: 170px;
+}
+.ShootoutLayer2,
+.ShootoutLayer3,
+.ShootoutLayer4,
+.ShootoutLayer5,
+.ShootoutLayer6,
+.ShootoutLayer7 {
+    width: 60px;
+	height: 135px;
+}
+.ShootoutScores,
+.ShootoutLayer1,
+.ShootoutLayer2_0,
+.ShootoutLayer3_0,
+.ShootoutLayer4_0,
+.ShootoutLayer5_0,
+.ShootoutLayer6_0,
+.ShootoutLayer7_0,
+.ShootoutLayer2_1,
+.ShootoutLayer3_1,
+.ShootoutLayer4_1,
+.ShootoutLayer5_1,
+.ShootoutLayer6_1,
+.ShootoutLayer7_1 {
+    height: 90px;
+}
+.ShootoutScores {
+	border-radius: 15px;
+	overflow: hidden;
+	font-size: 22pt;
+	top:45px;
+}
+.ShootoutScores,
+.ShootoutLayer1,
+.ShootoutLayer2,
+.ShootoutLayer2_0,
+.ShootoutLayer2_1,
+.ShootoutLayer3,
+.ShootoutLayer3_0,
+.ShootoutLayer3_1,
+.ShootoutLayer4,
+.ShootoutLayer4_0,
+.ShootoutLayer4_1,
+.ShootoutLayer5,
+.ShootoutLayer5_0,
+.ShootoutLayer5_1,
+.ShootoutLayer6,
+.ShootoutLayer6_0,
+.ShootoutLayer6_1,
+.ShootoutLayer7,
+.ShootoutLayer7_0,
+.ShootoutLayer7_1,
+.ShootoutLayer2_Left,
+.ShootoutLayer3_Left,
+.ShootoutLayer4_Left,
+.ShootoutLayer5_Left,
+.ShootoutLayer6_Left,
+.ShootoutLayer7_Left,
+.ShootoutLayer2_Center,
+.ShootoutLayer3_Center,
+.ShootoutLayer4_Center,
+.ShootoutLayer5_Center,
+.ShootoutLayer6_Center,
+.ShootoutLayer7_Center,
+.ShootoutLayer2_Right,
+.ShootoutLayer3_Right,
+.ShootoutLayer4_Right,
+.ShootoutLayer5_Right,
+.ShootoutLayer6_Right,
+.ShootoutLayer7_Right {
+	position: absolute;
+	z-index: 100;
+}
+.ShootoutLayer2,
+.ShootoutLayer3,
+.ShootoutLayer4,
+.ShootoutLayer5,
+.ShootoutLayer6,
+.ShootoutLayer7 {
+	top: 0;
+	overflow: hidden;
+}
+.ShootoutLayer2 {
+	left: 190px;
+}
+.ShootoutLayer3 {
+	left: 255px;
+}
+.ShootoutLayer4 {
+	left: 320px;
+}
+.ShootoutLayer5 {
+	left: 385px;
+}
+.ShootoutLayer6 {
+	left: 450px;
+}
+.ShootoutLayer7 {
+	left: 535px;
+	width: 90px;
+}
+.ShootoutLayer2_0,
+.ShootoutLayer3_0,
+.ShootoutLayer4_0,
+.ShootoutLayer5_0,
+.ShootoutLayer6_0,
+.ShootoutLayer7_0 {
+	background-color: #fff;
+	width: 100%;
+	border-radius: 5px;
+	top: 0;
+}
+
+
+.ShootoutLayer2_1,
+.ShootoutLayer3_1,
+.ShootoutLayer4_1,
+.ShootoutLayer5_1,
+.ShootoutLayer6_1,
+.ShootoutLayer7_1 {
+	background-color: #4b0101;
+	width: 100%;
+	border-radius: 5px;
+	bottom: 0;
+	overflow: hidden;
+}
+.ShootoutLayer7_1 {
+	background-color: #990000;
+}
+.ShootoutLayer2_Center,
+.ShootoutLayer3_Center,
+.ShootoutLayer4_Center,
+.ShootoutLayer5_Center,
+.ShootoutLayer6_Center,
+.ShootoutLayer7_Center {
+	top: 35px;
+    width: 88%;
+    height: 20px;
+    color: #fff;
+    margin-left: 5%;
+}
+.ShootoutLayer2_Left,
+.ShootoutLayer3_Left,
+.ShootoutLayer4_Left,
+.ShootoutLayer5_Left,
+.ShootoutLayer6_Left,
+.ShootoutLayer7_Left {
+	top: 0px;
+}
+.ShootoutLayer2_Right,
+.ShootoutLayer3_Right,
+.ShootoutLayer4_Right,
+.ShootoutLayer5_Right,
+.ShootoutLayer6_Right,
+.ShootoutLayer7_Right {
+	bottom: 0px;
+}
+.ShootoutLayer2_Left,
+.ShootoutLayer3_Left,
+.ShootoutLayer4_Left,
+.ShootoutLayer5_Left,
+.ShootoutLayer6_Left,
+.ShootoutLayer7_Left,
+.ShootoutLayer2_Right,
+.ShootoutLayer3_Right,
+.ShootoutLayer4_Right,
+.ShootoutLayer5_Right,
+.ShootoutLayer6_Right,
+.ShootoutLayer7_Right {
+	width: 40px;
+	height: 40px;
+	margin-left: 10px;
+	margin-bottom: 4px;
+}
+.ShootoutLayer7_Left,
+.ShootoutLayer7_Right {
+	font-size: 28pt;
+    font-weight: 600;
+    text-align: center;
+    width: 100%;
+    margin-left: 0;
+}
+#ShootoutTeamLeftLogo,#ShootoutTeamRightLogo {
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.ShootoutLinePlayerLeft, .ShootoutLinePlayerRight, .ShootoutLineShootout {
+	width: 100%;
+	height: 45px;
+	overflow: hidden;
+}
+.ShootoutLinePlayerLeft,
+.ShootoutLinePlayerRight {
+	background-color: #990000;
+}
+.ShootoutLinePlayerLeft {
+	border-radius: 15px 15px 0 0;
+}
+.ShootoutLinePlayerRight {
+	border-radius: 0 0 15px 15px;
+}
+.ShootoutLineShootout {
+	background-color: #4b0101;
+}
+.ShootoutLineShootout {
+	border-radius: 0 0 15px 15px;
+}
+.ShootoutShootoutPowerPlayScores {
+	background-color: white;
+	color: #4b0101;
+}
+.ShootoutLinePlayerLeft > div, .ShootoutLinePlayerRight > div, .ShootoutLineShootout > div {
+	display: inline-block;
+}
+.ShootoutLinePlayerLeft.select, .ShootoutLinePlayerRight.select {
+	background-color: #fff;
+	color: red;
+}
+.ShootoutLayer1 #ShootoutTeamLeftLogo,.ShootoutLayer1 #ShootoutTeamRightLogo {
+	width: 90px;
+	height: 45px;
+	line-height: 45px;
+	font-size: 32pt;
+	vertical-align: bottom;
+}
+#ShootoutTeamLeftShortName,#ShootoutTeamRightShortName {
+    text-align: center;
+	line-height: 45px;
+	font-size: 32pt;
+	font-weight: 600;
+	vertical-align: bottom;
+}
+#ShootoutTeamLeftShortName,#ShootoutTeamRightShortName {
+    width: 80px;
+    text-align: left;
+}
+/*#ShootoutPlayerLeftShootout,#ShootoutPlayerRightShootout,#ShootoutTime,#ShootoutPeriodBlock {font-family:sans-serif;}*/
+#ShootoutPlayerLeftShootout,#ShootoutPlayerRightShootout {
+	width: 48px;
+}
+#ShootoutTime {
+    width: 100px;
+	text-align: center;
+	line-height: 45px;
+	font-size: 22pt;
+	vertical-align: bottom;
+}
+#ShootoutTimeHR {
+    width: 110px;
+	vertical-align: top;
+	line-height: 45px;
+	font-size: 22pt;
+	vertical-align: bottom;
+}
+#ShootoutPeriodBlock {
+    color: #fff;
+    text-align: center;
+    width: 45px;
+	line-height: 45px;
+	font-size: 22pt;
+	vertical-align: bottom;
+}
+.ShootoutPeriodPost {
+    font-size: 10pt;
+    vertical-align: top;
+    line-height: 22pt;
+}
+#ShootoutPause,#ShootoutWarmUp {
+    line-height: 45px;
+    text-align: center;
+	font-size: 14pt;
+}
+.ShootoutLayer_Goal {
+	z-index: 110;
+	vertical-align: middle;
+	text-align: center;
+	background-color: red;
+	opacity: 0;
+	border-radius: 15px;
+}
+.ShootoutLayer_Goal_Text, .ShootoutLayer_TimeOut_Text {
+	vertical-align: middle;
+    line-height: 135px;
+    font-size: 50px;
+	position: absolute;
+    width: 100%;
+    height: 100%;
+	left: 100%;
+}
+.ShootoutLayer_TimeOut_Text {
+	width: 220%;
+}
+
+.cl_boardShootoutPowerPlay {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    margin: 0 auto;
+}
+.cl_boardShootoutPowerPlay,
+.ShootoutPowerPlay,
+.ShootoutShootoutPowerPlayScores {
+	width: 170px;
+}
+.cl_boardShootoutPowerPlay,
+.ShootoutPowerPlay,
+.ShootoutShootoutPowerPlayScores,
+.ShootoutLayer2_0,
+.ShootoutLayer3_0,
+.ShootoutLayer4_0,
+.ShootoutLayer5_0,
+.ShootoutLayer6_0,
+.ShootoutLayer7_0 {
+	font-size: 24pt;
+	font-weight: bold;
+	line-height: 40px;
+	height: 40px;
+	text-align: center;
+	color: #4b0101;
+}
+.ShootoutShootoutPowerPlayScores {
+	border-radius: 10px;
+	overflow: hidden;
+}
+.ShootoutShootoutPowerPlayScores_Text span {
+	vertical-align: middle;
+	line-height: 100%;
+}
+.ShootoutShootoutPowerPlayScores_Text {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	display: inline-block;
+	text-align: center;
+}
+
+
+@keyframes Shootout_1_5AnimLastIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes Shootout_1_5_TitleUP {
+	0% {
+		top: 50px;
+		opacity: 0;
+	}
+	1% {
+		top: 50px;
+		opacity: 1;
+	}
+	100% {
+		top: 0px;
+		opacity: 1;
+	}
+}
+@keyframes Shootout_1_5_TitleWidthIn {
+	0% {
+		width: 0%;
+	}
+	100% {
+		width: 100%;
+	}
+}
+@keyframes Shootout_1_5AnimLastOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes Shootout_1_5_TitleDown {
+	0% {
+		top: 0px;
+		opacity: 1;
+	}
+	99% {
+		top: 50px;
+		opacity: 1;
+	}
+	100% {
+		top: 50px;
+		opacity: 0;
+	}
+}
+@keyframes Shootout_1_5_TitleWidthOut {
+	0% {
+		width: 100%;
+	}
+	100% {
+		width: 0%;
+	}
+}
+
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_boardShootout_1_5.cl_boardIn {
+    animation: Shootout_1_5AnimLastIn 500ms linear 0s normal backwards;
+}
+.cl_boardShootout_1_5.cl_boardIn .cl_boardShootoutPowerPlay {
+    animation: Shootout_1_5_TitleUP 300ms linear 500ms normal backwards;
+}
+.cl_boardShootout_1_5.cl_boardIn .ShootoutLayer2_1,
+.cl_boardShootout_1_5.cl_boardIn .ShootoutLayer3_1,
+.cl_boardShootout_1_5.cl_boardIn .ShootoutLayer4_1,
+.cl_boardShootout_1_5.cl_boardIn .ShootoutLayer5_1,
+.cl_boardShootout_1_5.cl_boardIn .ShootoutLayer6_1,
+.cl_boardShootout_1_5.cl_boardIn .ShootoutLayer7_1 {
+    animation: Shootout_1_5_TitleWidthIn 300ms linear 500ms normal backwards;
+}
+.cl_boardShootout_1_5.cl_boardIn .ShootoutLayer2_0,
+.cl_boardShootout_1_5.cl_boardIn .ShootoutLayer3_0,
+.cl_boardShootout_1_5.cl_boardIn .ShootoutLayer4_0,
+.cl_boardShootout_1_5.cl_boardIn .ShootoutLayer5_0,
+.cl_boardShootout_1_5.cl_boardIn .ShootoutLayer6_0,
+.cl_boardShootout_1_5.cl_boardIn .ShootoutLayer7_0 {
+    animation: Shootout_1_5_TitleUP 200ms linear 700ms normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_boardShootout_1_5.cl_boardOut {
+    animation: Shootout_1_5AnimLastOut 500ms linear 0s normal forwards;
+}
+.cl_boardShootout_1_5.cl_boardOut .cl_boardShootoutPowerPlay {
+    animation: Shootout_1_5_TitleUP 300ms linear 500ms normal forwards;
+}
+.cl_boardShootout_1_5.cl_boardOut .ShootoutLayer2_1,
+.cl_boardShootout_1_5.cl_boardOut .ShootoutLayer3_1,
+.cl_boardShootout_1_5.cl_boardOut .ShootoutLayer4_1,
+.cl_boardShootout_1_5.cl_boardOut .ShootoutLayer5_1,
+.cl_boardShootout_1_5.cl_boardOut .ShootoutLayer6_1,
+.cl_boardShootout_1_5.cl_boardOut .ShootoutLayer7_1 {
+    animation: Shootout_1_5_TitleWidthOut 300ms linear 500ms normal forwards;
+}
+.cl_boardShootout_1_5.cl_boardOut .ShootoutLayer2_0,
+.cl_boardShootout_1_5.cl_boardOut .ShootoutLayer3_0,
+.cl_boardShootout_1_5.cl_boardOut .ShootoutLayer4_0,
+.cl_boardShootout_1_5.cl_boardOut .ShootoutLayer5_0,
+.cl_boardShootout_1_5.cl_boardOut .ShootoutLayer6_0,
+.cl_boardShootout_1_5.cl_boardOut .ShootoutLayer7_0 {
+    animation: Shootout_1_5_TitleUP 200ms linear 700ms normal forwards;
+}
