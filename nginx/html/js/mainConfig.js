@@ -15,4 +15,5 @@
 //Общие настройки
 
 // Порт для Web Socket
-const WebSocketPort = 8200;
+const WebSocketURL = 'ws://' + window.location.hostname + ':80/websocket/';
+
