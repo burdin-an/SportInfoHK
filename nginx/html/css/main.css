@@ -45,7 +45,7 @@ html,body,#id_boardTimer {
     margin:0px;
     width: 100%;
     overflow: hidden;
-    font-family:SansationRegular, Geneva, Arial, Helvetica, sans-serif;
+    font-family:sans-serif;/*SansationRegular, Geneva, Arial, Helvetica, */
     background-color: transparent;
     color: white;
 }
@@ -80,4 +80,7 @@ html,body,#id_boardTimer {
     color: red;
     text-align: center;
     font-size: xxx-large;
+}
+.d-blockinline {
+	display: inline-block;
 }
