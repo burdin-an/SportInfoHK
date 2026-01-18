@@ -113,9 +113,9 @@
 					data.PlayersRight = JSONData.PlayersRight;
 					console.log(data.PlayersLeft.Players);
 					data.PlayersLeft.Players.sort((a,b) => a.Key - b.Key);
-					data.PlayersLeft.Players.sort((a, b) => b.Role.localeCompare(a.Role));
+					//data.PlayersLeft.Players.sort((a, b) => b.Role.localeCompare(a.Role));
 					data.PlayersRight.Players.sort((a,b) => a.Key - b.Key);
-					data.PlayersRight.Players.sort((a, b) => b.Role.localeCompare(a.Role));
+					//data.PlayersRight.Players.sort((a, b) => b.Role.localeCompare(a.Role));
 
 					data.EventLoad = 1;
 				}
