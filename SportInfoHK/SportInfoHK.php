@@ -107,38 +107,6 @@ $EventDBDefault = [
 			]
 		]
 	],
-	'BoardStatus' => [
-		'Welcome' => 0,
-		'Count' => 0,
-		'Logo1' => 0,
-		'Start' => 0,
-		'Judges' => 0,
-		'Commentators' => 0,
-		'ListPlayerLeft' => 0,
-		'ListPlayerRight' => 0,
-		'Start5PlayerLeft' => 0,
-		'Start5PlayerRight' => 0,
-		'TrainerTeam' => 0,
-		'PlayerTeam' => 0,
-		'EndPeriod' => 0,
-		'Start5LeftAndRight' => 0,
-		'TeamRoom' => 0,
-	],
-	'BoardWelcomeStatus' => 'disable',
-	'BoardCountStatus' => 'disable',
-	'BoardLogo1Status' => 'disable',
-	'BoardStartStatus' => 'disable',
-	'BoardJudgesStatus' => 'disable',
-	'BoardCommentatorsStatus' => 'disable',
-	'BoardListPlayerLeftStatus' => 'disable',
-	'BoardListPlayerRightStatus' => 'disable',
-	'BoardStart5PlayerLeftStatus' => 'disable',
-	'BoardStart5PlayerRightStatus' => 'disable',
-	'BoardTrainerTeamStatus' => 'disable',
-	'BoardPlayerTeamStatus' => 'disable',
-	'BoardEndPeriod' => 'disable',
-	'BoardTeamRoomStatus' => 'disable',
-	'BoardStart5LeftAndRightStatus' => 'disable',
 	'CountPlayerLeft' => [
 		'Upd'   => 0,
 		'Count' => -1,
@@ -2042,7 +2010,6 @@ function FuncWorks($data, $connection) {
 					break;
 				// Показать комментаторов
 				case "ShowBoardCommentators":
-					$EventDB['BoardCommentatorsStatus'] = 'active';
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
@@ -2054,7 +2021,6 @@ function FuncWorks($data, $connection) {
 				
 				// Показать судейский состав
 				case "ShowBoardJudges":
-					$EventDB['BoardJudgesStatus'] = 'active';
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
@@ -2067,7 +2033,6 @@ function FuncWorks($data, $connection) {
 					break;
 				// Показать информацию по месту проведения матча (Название арены, дата, погода)
 				case "ShowBoardWelcome":
-					$EventDB['BoardWelcomeStatus'] = 'active';
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
@@ -2081,7 +2046,6 @@ function FuncWorks($data, $connection) {
 
 				//
 				case "ShowBoardCount":
-					$EventDB['BoardCountStatus'] = 'active';
 					$ReturnJsonToWeb = $EventDB;
 					$ReturnJsonToWeb["timestamp"] = time();
 					$ReturnJsonToWeb["dAction"]   = $dataJson['Action'];
@@ -2099,7 +2063,6 @@ function FuncWorks($data, $connection) {
 					break;
 				// Показать Логотип №1
 				case "ShowBoardLogo1":
-					$EventDB['BoardLogo1Status'] = 'active';
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
@@ -2109,7 +2072,6 @@ function FuncWorks($data, $connection) {
 					break;
 				// Показать стартовый состав команды
 				case "ShowBoardListPlayer":
-					$EventDB['BoardListPlayer' . $dataJson['TeamPosition'] . 'Status'] = 'active';
 					$PlayerTemp = [
 						"Napadenie" => [],
 						"Security"  => [],
@@ -2144,7 +2106,6 @@ function FuncWorks($data, $connection) {
 
 				// Показать первую пятерку команды
 				case "ShowBoardStart5Player":
-					$EventDB['BoardStart5Player' . $dataJson['TeamPosition'] . 'Status'] = 'active';
 					$tempStart5 = [
 						"Logo" => $EventDB['Player' . $dataJson['TeamPosition']]['Logo'],
 						"FullName" => $EventDB['Player' . $dataJson['TeamPosition']]['FullName'],
@@ -2280,7 +2241,6 @@ function FuncWorks($data, $connection) {
 					break;
 				// Команда без воратаря 6 человек на поле
 				case "ShowBoardEmptyNet":
-					$EventDB['BoardStatus']['EmptyNet'] = 1;
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
@@ -2290,7 +2250,6 @@ function FuncWorks($data, $connection) {
 					break;
 				// Штрафной бросок (Пенальти)
 				case "ShowBoardPenaltyShot":
-					$EventDB['BoardStatus']['PenaltyShot'] = 1;
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
@@ -2300,7 +2259,6 @@ function FuncWorks($data, $connection) {
 					break;
 				// Отложеный штраф
 				case "ShowBoardDelayedPenalty":
-					$EventDB['BoardStatus']['DelayedPenalty'] = 1;
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
@@ -2310,7 +2268,6 @@ function FuncWorks($data, $connection) {
 					break;
 				// Отложеный штраф
 				case "ShowBoardPullGoalie":
-					$EventDB['BoardStatus']['PullGoalie'] = 1;
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
@@ -2336,15 +2293,6 @@ function FuncWorks($data, $connection) {
 						if (is_array($tempTeamPlayerDB)) {
 							$tempTeamPlayerDB["TeamLogo"] = $EventDB['Player'.$dataJson['TeamPosition']]['Logo'];
 							
-							if ($dataJson['Action'] == "ShowBoardPlayerTeam") {
-								$EventDB['BoardStatus']['PlayerTeam'] = 1;
-							}
-							else if ($dataJson['Action'] == "ShowBoardPlayerGoal") {
-								$EventDB['BoardStatus']['PlayerGoal'] = 1;
-							}
-							else if ($dataJson['Action'] == "ShowBoardPlayerEjection") {
-								$EventDB['BoardStatus']['PlayerEjection'] = 1;
-							}
 							$ReturnJsonToWeb = [
 								"timestamp" => time(),
 								"dAction"   => $dataJson['Action'],
@@ -2358,7 +2306,6 @@ function FuncWorks($data, $connection) {
 
 				// Показать тренера команды
 				case "ShowBoardTrainerTeam":
-					$EventDB['BoardStatus']['TrainerTeam'] = 1;
 					$tempTrainer = [
 						"TrainerTitle"    => "Тренер",
 						"TrainerFullName" => $EventDB['Player'.$dataJson['TeamPosition']]['Trainer'],
@@ -2432,7 +2379,6 @@ function FuncWorks($data, $connection) {
 					break;
 				// Показать раздевалку команды
 				case "ShowBoardTeamRoom":
-					$EventDB['BoardTeamRoomStatus'] = 'active';
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
@@ -2531,8 +2477,6 @@ function FuncWorks($data, $connection) {
 					break;
 				// Скрыть комментаторов
 				case "HideCommentators":
-					$EventDB['BoardCommentatorsStatus'] = 'disable';
-					$EventDB['BoardStatus']['Commentators'] = 0;
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
@@ -2541,8 +2485,6 @@ function FuncWorks($data, $connection) {
 					break;
 				// Скрыть судейский состав
 				case "HideJudges":
-					$EventDB['BoardJudgesStatus'] = 'disable';
-					$EventDB['BoardStatus']['Judges'] = 0;
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
@@ -2551,8 +2493,6 @@ function FuncWorks($data, $connection) {
 					break;
 				// Скрыть стартовый состав команды
 				case "HideWelcome":
-					$EventDB['BoardWelcomeStatus'] = 'disable';
-					$EventDB['BoardStatus']['Welcome'] = 0;
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
@@ -2561,18 +2501,14 @@ function FuncWorks($data, $connection) {
 					break;
 				//
 				case "HideCount":
-					$EventDB['BoardCountStatus'] = 'disable';
-					$EventDB['BoardStatus']['Count'] = 0;
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
 						"Board"     => $dataJson['Board'],
-						"Value"     => $EventDB['BoardCountStatus'],
 					];
 					break;
 				//
 				case "HideGoal2":
-					$EventDB['BoardStatus']['Goal2'] = 0;
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
@@ -2581,32 +2517,22 @@ function FuncWorks($data, $connection) {
 					break;
 				// Скрыть Логотип №1
 				case "HideLogo1":
-					$EventDB['BoardLogo1Status'] = 'disable';
-					$EventDB['BoardStatus']['Logo1'] = 0;
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
-						"Board"     => $dataJson['Board'],
-						"Value"     => $EventDB['BoardLogo1Status'],
+						"Board"     => $dataJson['Board']
 					];
 					break;
 				// Скрыть стартовую заставку
 				case "HideStart":
-					$EventDB['BoardStartStatus'] = 'disable';
-					$EventDB['BoardStatus']['Start'] = 0;
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
 						"Board"     => $dataJson['Board'],
-						"Value"     => $EventDB['BoardStartStatus'],
 					];
 					break;
 				// Скрыть стартовый состав команды
 				case "HideListPlayer":
-					$EventDB['BoardListPlayerLeftStatus'] = 'disable';
-					$EventDB['BoardListPlayerRightStatus'] = 'disable';
-					$EventDB['BoardStatus']['ListPlayer'] = 0;
-					$EventDB['BoardStatus']['ListPlayer'] = 0;
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
@@ -2615,9 +2541,6 @@ function FuncWorks($data, $connection) {
 					break;
 				// Скрыть первую пятерку
 				case "HideStart5Player":
-					$EventDB['BoardStart5PlayerLeftStatus'] = 'disable';
-					$EventDB['BoardStart5PlayerRightStatus'] = 'disable';
-					$EventDB['BoardStatus']['Start5Player'] = 0;
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
@@ -2626,8 +2549,6 @@ function FuncWorks($data, $connection) {
 					break;
 				// Скрыть стартовые пятерки команд
 				case "HideStart5LeftAndRight":
-					$EventDB['BoardStart5LeftAndRightStatus'] = 'disable';
-					$EventDB['BoardStatus']['Start5LeftAndRight'] = 0;
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
@@ -2640,15 +2561,6 @@ function FuncWorks($data, $connection) {
 				case "HidePlayerGoal":
 				// Скрыть карточку игрока
 				case "HidePlayerTeam":
-					if ($dataJson['Action'] == "HidePlayerTeam") {
-						$EventDB['BoardStatus']['PlayerTeam'] = 0;
-					}
-					else if ($dataJson['Action'] == "HidePlayerGoal") {
-						$EventDB['BoardStatus']['PlayerGoal'] = 0;
-					}
-					else if ($dataJson['Action'] == "HidePlayerEjection") {
-						$EventDB['BoardStatus']['PlayerEjection'] = 0;
-					}
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
@@ -2657,8 +2569,6 @@ function FuncWorks($data, $connection) {
 					break;
 				// Скрыть тренера
 				case "HideTrainerTeam":
-					$EventDB['BoardTrainerTeamStatus'] = 'disable';
-					$EventDB['BoardStatus']['TrainerTeam'] = 0;
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
@@ -2667,8 +2577,6 @@ function FuncWorks($data, $connection) {
 					break;
 				// Скрыть: Счёт на конец периода
 				case "HideEndPeriod":
-					$EventDB['BoardEndPeriod'] = 'disable';
-					$EventDB['BoardStatus']['EndPeriod'] = 0;
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
@@ -2677,8 +2585,6 @@ function FuncWorks($data, $connection) {
 					break;
 				// Скрыть: Счёт на конец периода
 				case "HideStartPeriod":
-					$EventDB['BoardStartPeriod'] = 'disable';
-					$EventDB['BoardStatus']['StartPeriod'] = 0;
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
@@ -2690,7 +2596,6 @@ function FuncWorks($data, $connection) {
 				case "HidePenaltyShot":
 				case "HideDelayedPenalty":
 				case "HidePullGoalie":
-					$EventDB['BoardStatus']['StartPeriod'] = 0;
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
@@ -2699,8 +2604,6 @@ function FuncWorks($data, $connection) {
 					break;
 				// Скрыть: Раздевалка команды
 				case "HideTeamRoom":
-					$EventDB['BoardTeamRoomStatus'] = 'disable';
-					$EventDB['BoardStatus']['TeamRoom'] = 0;
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
@@ -2709,7 +2612,6 @@ function FuncWorks($data, $connection) {
 					break;
 				// Скрыть: Послематчевые булиты
 				case "HideShootout_1_5":
-					$EventDB['BoardStatus']['HideShootout_1_5'] = 0;
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
@@ -2717,7 +2619,6 @@ function FuncWorks($data, $connection) {
 					];
 					break;
 				case "HideShootout_6_6":
-					$EventDB['BoardStatus']['HideShootout_6_6'] = 0;
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
@@ -2725,7 +2626,6 @@ function FuncWorks($data, $connection) {
 					];
 					break;
 				case "HideShootout_6_7":
-					$EventDB['BoardStatus']['HideShootout_6_7'] = 0;
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],

@@ -390,19 +390,6 @@ window.addEventListener("load", (event) => {
 					EventDB['PlayerRightFullName']  = JsonData.PlayerRight.FullName;
 					EventDB['Period']               = JsonData.Period;
 					EventDB['Timer']                = JsonData.Timer;
-					EventDB['BoardCountStatus']     = JsonData.BoardCountStatus;
-					if (EventDB['BoardCountStatus'] == 'active') {
-						$("#CountClassCountPlayerLeft" ).html(EventDB['CountPlayerLeft']);
-						$("#CountClassCountPlayerRight").html(EventDB['CountPlayerRight']);
-
-						$("#CountClassPlayerLeftFullName"  ).html(EventDB['PlayerLeftFullName']);
-						$("#CountClassPlayerLeftShortName" ).html(EventDB['PlayerLeftShortName']);
-						$("#CountClassPlayerRightFullName" ).html(EventDB['PlayerRightFullName']);
-						$("#CountClassPlayerRightShortName").html(EventDB['PlayerRightShortName']);
-						$("#CountClassTime1"       ).html(EventDB['Timer']);
-						$("#boardCount"            ).addClass("cl_boardIn");
-						boardOpen['Count'] = true;
-					}
 				}
 				else if (BoardType == JsonData.Board || JsonData.Board == 'All') {
 					//const LocationStatic = window.location.search.slice(1).split("&")[0];
