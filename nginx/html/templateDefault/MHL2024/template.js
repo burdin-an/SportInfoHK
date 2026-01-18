@@ -795,3 +795,44 @@ const FS_BoardFinalResultBottom = (data) => `
 		</div>
 	</div>
 </div>`;
+/* ################################################################################################
+    Переменные:
+        1) ${data['NamePlayer1']}  - Название первой команды
+        2) ${data['NamePlayer2']}  - Название второй команды
+        3) ${data['CountPlayer1']} - Счёт первой команды
+        4) ${data['CountPlayer2']} - Счёт первой команды
+        5) ${data['Period']}       - Период
+        6) ${data['Timer']}        - Оставшееся время до окончания периода
+        7) ${data['DeletePlayerLeft1Count']} - 
+        8) ${data['DeletePlayerLeft1Time']}  - 
+*/
+const FS_BoardPause = (data) => `
+<div id="boardPause" class="cl_PauseWrap">
+    <div class="cl_Pause">
+        <div class="cl_Pause_Layer1">
+            <div class="cl_Pause_Layer2_1"></div>
+            <div class="cl_Pause_Layer2_2"></div>
+            <div class="cl_Pause_Layer2_3"></div>
+            <div class="cl_Pause_Layer3"></div>
+            <div class="cl_Pause_Layer6">
+                <div id="PauseClassPlayerLeftLogo" class="cl_Pause_Layer6_1"></div>
+                <div id="PauseClassPlayerRightLogo" class="cl_Pause_Layer6_2"></div>
+            </div>
+            <div class="cl_Pause_Layer10">Перерыв<br><div id="PauseIDTime">${data['Time']}</div></div>
+            <div class="cl_Pause_Layer7">
+                <div class="cl_Pause_Layer7_Left">
+                    <div id="PauseClassPlayerLeftName">${data['PlayerLeftName']}</div>
+                </div>
+                <div class="cl_Pause_Layer7_Right">
+                    <div id="PauseClassPlayerRightName">${data['PlayerRightName']}</div>
+                </div>
+            </div>
+            
+            <div class="cl_Pause_Layer8">${data['GameName']}</div>
+            <div class="cl_Pause_Layer9">${data['GamePlace']}, ${data['GameCity']}</div>
+			<div class="cl_Pause_Layer11"></div>
+        </div>
+        <div class="cl_Pause_Layer4_1"></div>
+        <div class="cl_Pause_Layer4_2"></div>
+    </div>
+</div>`;

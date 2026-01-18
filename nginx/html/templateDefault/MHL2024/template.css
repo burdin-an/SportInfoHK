@@ -3713,7 +3713,7 @@ html,body {
 }
 /* ################################################################################################
 Информационная панель:
-    Start; - Стартовая
+    Start5; - Стартовая
 */
 .cl_boardStart5Player {
 	position: absolute;
@@ -5278,4 +5278,239 @@ html,body {
 }
 .cl_FinalResultBottomWrap.cl_boardOut .cl_boardFinalResultBottom__PeriodNumber {
 	animation: FinalResultBottom_PeriodNumber_Bottom_Out 400ms linear 0ms normal forwards;
+}
+/* ################################################################################################
+Информационная панель:
+    Pause; - Стартовая
+*/
+.cl_PauseWrap {
+    position: absolute;
+    top: 165px;
+    left: 265px;
+}
+.cl_PauseWrap, .cl_Pause,.cl_Pause_Layer1 {
+    height: 745px;
+}
+.cl_PauseWrap, .cl_Pause,.cl_Pause_Layer1,.cl_Pause_Layer6,.cl_Pause_Layer7,.cl_Pause_Layer9 {
+    width: 1404px;
+}
+.cl_Pause {
+	overflow:hidden;
+	float: right;
+	transform: skewX(351deg);
+	border-radius: 40px;
+	color: #fff;
+	background-color: #6B0B15;
+}
+.cl_Pause_Layer1 {
+	position: absolute;
+}
+.cl_Pause_Layer2_1 {
+	position: absolute;
+    bottom: 218px;
+    left: 148px;
+	background-color: #cf17175c;
+    width: 765px;
+    height: 100px;
+    border-radius: 60px 60px 0 0;
+}
+.cl_Pause_Layer2_2 {
+	position: absolute;
+    top: 0;
+    left: 30px;
+    background-color: #cf17175c;
+    width: 705px;
+    height: 208px;
+    border-radius: 0 0 50px 50px;
+}
+.cl_Pause_Layer2_3 {
+	position: absolute;
+    top: 0;
+    right: 0px;
+    background-color: #cf17175c;
+    width: 184px;
+    height: 390px;
+    border-radius: 50px 0 0 50px;
+}
+.cl_Pause_Layer3 {
+    position: absolute;
+	bottom: 117px;
+	width: 100%;
+
+    background-color: #CF1717;
+}
+.cl_Pause_Layer3, .cl_Pause_Layer7, .cl_Pause_Layer7_Left, .cl_Pause_Layer7_Right {
+    height: 130px;
+}
+
+.cl_Pause_Layer4_1 {
+	position: absolute;
+	background-color: #CF1717;
+	left: -400px;
+	width: 400px;
+	height: 100%;
+}
+.cl_Pause_Layer4_2 {
+	position: absolute;
+	background-color: #CF1717;
+	right: -400px;
+	width: 400px;
+	height: 100%;
+}
+.cl_Pause_Layer6 {
+	position: absolute;
+	top: 163px;
+}
+.cl_Pause_Layer6_1, .cl_Pause_Layer6_2 {
+	position: absolute;
+    width: 350px;
+    height: 300px;
+    font-size: 10pt;
+	transform: skewX(10deg);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.cl_Pause_Layer6_1 {
+	left: 185px;
+    background-image:url('/LogoTeamLocal/DefaultLeft.png');
+}
+.cl_Pause_Layer6_2 {
+	right: 185px;
+    background-image:url('/LogoTeamLocal/DefaultRight.png');
+}
+.cl_Pause_Layer10 {
+	position: absolute;
+	top: 232px;
+	width: 100%;
+	text-align: center;
+	font-size: 52pt;
+	font-weight: 600;
+}
+/* Название команд*/
+.cl_Pause_Layer7 {
+	position: absolute;
+	top: 514px;
+}
+.cl_Pause_Layer7_Left,.cl_Pause_Layer7_Right {
+	position: absolute;
+    width: 600px;
+	overflow: hidden;
+	text-align: center;
+}
+.cl_Pause_Layer7_Left {
+    left: 16px;
+}
+.cl_Pause_Layer7_Right {
+    right: 16px;
+}
+#PauseClassPlayerLeftName,#PauseClassPlayerRightName {
+    width: 100%;
+    font-size: 60pt;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+.cl_Pause_Layer8,.cl_Pause_Layer9 {
+    position: absolute;
+    text-align: center;
+}
+.cl_Pause_Layer8 {
+    top: 47px;
+    left: 225px;
+    width: 1010px;
+    font-size: 32pt;
+}
+.cl_Pause_Layer9 {
+	bottom: 37px;
+    width: 100%;
+    font-size: 38pt;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.cl_Pause_Layer11 {
+	position: absolute;
+	top: 23px;
+    left: 400px;
+    width: 100px;
+    height: 114px;
+	/*background-image: url(img/LOGO_JHL_2025-2026_ENG.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;*/
+}
+@keyframes PauseAnimLastIn {
+	0% {
+		float: right;
+		width: 0%;
+		border-radius: 0px;
+	}
+	80% {
+		width: 100%;
+		border-radius: 0px;
+	}
+	100% {
+		width: 100%;
+		float: right;
+		border-radius: 40px;
+	}
+}
+@keyframes PauseAnimLastOut {
+	0% {
+		float: left;
+		border-radius: 40px;
+		width: 100%;
+	}
+	20% {
+		border-radius: 0px;
+	}
+	80% {
+		width: 0%;
+		border-radius: 0px;
+	}
+	100% {
+		float: left;
+		width: 0%;
+		border-radius: 0px;
+	}
+}
+@keyframes Pause_Layer4_1_In {
+	0% {
+		left: 0px;
+	}
+	100% {
+		left: -400px;
+	}
+}
+@keyframes Pause_Layer4_2_Out {
+	0% {
+		right: -400px;
+	}
+	50% {
+		right: 0px;
+	}
+	100% {
+		right: -350px;
+	}
+}
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_PauseWrap.cl_boardIn .cl_Pause_Layer1 {
+	left: auto;
+	right: 0;
+}
+.cl_PauseWrap.cl_boardIn .cl_Pause  {
+	animation: PauseAnimLastIn 1000ms linear 0ms normal backwards;
+}
+.cl_PauseWrap.cl_boardIn .cl_Pause_Layer4_1  {
+	animation: Pause_Layer4_1_In 1000ms linear 0ms normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_PauseWrap.cl_boardOut .cl_Pause_Layer1 {
+	left: 0;
+	right: auto;
+}
+.cl_PauseWrap.cl_boardOut .cl_Pause {
+	animation: PauseAnimLastOut 1000ms linear 400ms normal forwards;
+}
+.cl_PauseWrap.cl_boardOut .cl_Pause_Layer4_2  {
+	animation: Pause_Layer4_2_Out 1000ms linear 400ms normal forwards;
 }
