@@ -11,4 +11,5 @@
 /nginx/html/*-local.html
 /nginx/html/js/*-local.js
 /nginx/html/fontawesome/*
-/.vscode/
+.vscode/
+.vscode/settings.json
