@@ -240,7 +240,6 @@ window.addEventListener("load", (event) => {
 							$('.CountClassLayer_Goal').addClass("CountClassGoalAnimation");
 							$('.CountClassLayer_TimeOut_Text').removeClass("d-none");
 							$('.CountClassLayer_TimeOut_Text').addClass("d-block");
-							console.log(JsonData);
 							if (JsonData.Timer.Type == 4) {
 								$('#CountClassLayer_Goal_LeftLogo').addClass("CountClassGoalAnimation");
 								$("#CountClassTimeOutRight").removeClass("d-none");
@@ -676,7 +675,7 @@ window.addEventListener("load", (event) => {
 			tempSec = JsonData.TimerSecondes;
 		}
 		if (JsonData.TimerMSeconds == null) {
-			tempMSec = JsonData.TimerMSeconds;
+			tempMSec = '00';
 		}
 		else {
 			tempMSec = JsonData.TimerMSeconds;
