@@ -95,8 +95,8 @@ const FS_BoardCommentators = (data) => `
 
 /* ################################################################################################
     Переменные:
-        1) ${data['TrainerTitle']}  - 
-        2) ${data['TrainerFullName']} - 
+        1) ${data['Title']}  - 
+        2) ${data['FullName']} - 
 */
 const FS_BoardTrainerTeam = (data) => `
 <div id="boardTrainerTeam" class="cl_boardTrainerTeamWrap">
@@ -110,7 +110,7 @@ const FS_BoardTrainerTeam = (data) => `
         <div class="cl_TrainerTeamLayer2_1"></div>
         <div class="cl_TrainerTeamLayer2_2"></div>
         <div class="cl_TrainerTeamLayer3_1">
-            <div class="cl_TrainerTeamLayer3_1_TrainerFullName">${data['TrainerFullName']}</div>
+            <div class="cl_TrainerTeamLayer3_1_FullName">${data['FullName']}</div>
         </div>
         <div class="cl_TrainerTeamLayer3_Place"></div>
         <div class="cl_TrainerTeamLayer3_Logo"><div id="TeamLogo"></div></div>
@@ -221,7 +221,12 @@ const FS_BoardCount = (data) => `
 		</div>
 	</div>
 	<div class="cl_boardCountWrap">
-		<div class="CountClassScores">
+		<div class="CountScores">
+			<div class="CountScores_Layer1">
+				<div class="CountScores_Layer1_Left">&nbsp;</div>
+				<div class="CountScores_Layer1_Right">&nbsp;</div>
+				<div class="CountScores_Layer1_Bottom">&nbsp;</div>
+			</div>
 			<div class="CountClassLayer1">
 				<div class="CountClassLinePlayerLeft">
 					<div id="CountClassPlayerLeftLogo">&nbsp;</div><div id="CountClassPlayerLeftShortName">${data['PlayerLeftShortName']}</div><div id="CountClassPlayerLeftCount">${data['CountPlayerLeft']}</div>
@@ -233,13 +238,32 @@ const FS_BoardCount = (data) => `
 					<div id="CountClassTime">${data['Timer']}</div><div id="CountClassTimeHR"><div id="CountClassPause" class="d-none">ПЕРЕРЫВ</div><div id="CountClassWarmUp" class="d-none"></div></div><div id="CountClassPeriodBlock" class="d-blockinline"><span id="CountENPeriod">${data['Period']}</span><span class="CountClassPeriodPost"></span></div>
 				</div>
 			</div>
+			<div class="CountScores_Layer2">
+				<div class="CountScores_Layer2_Left">&nbsp;</div>
+				<div class="CountScores_Layer2_Right">&nbsp;</div>
+				<div class="CountScores_Layer2_Bottom">&nbsp;</div>
+			</div>
 			<div class="CountClassLayer_Goal">
 				<div class="CountClassLayer_Goal_Text d-none">ГООООЛ!</div>
 				<div class="CountClassLayer_TimeOut_Text d-none">ТАЙМАУТ</div>
 				<div id="CountClassLayer_Goal_LeftLogo">&nbsp;</div>
 				<div id="CountClassLayer_Goal_RightLogo">&nbsp;</div>
 			</div>
-			<div class="CountClassLayer3">3</div>
+		</div>
+	</div>
+</div>`;
+/* ################################################################################################
+    Переменные:
+
+*/
+const FS_BoardGoal2 = () => `
+<div id="boardGoal2" class="cl_boardGoal2">
+	<div class="cl_boardGoal2Wrap">
+		<div class="Goal2ClassScores">
+			<div class="Goal2ClassLayer">
+				<div class="Goal2ClassLayer_Text">ГООООЛ!</div>
+				<div id="Goal2ClassLayer_Logo">&nbsp;</div>
+			</div>
 		</div>
 	</div>
 </div>`;
@@ -271,7 +295,7 @@ const FS_BoardStart = (data) => `
                 <div id="StartClassPlayerLeftLogo" class="cl_Start_Layer6_1"></div>
                 <div id="StartClassPlayerRightLogo" class="cl_Start_Layer6_2"></div>
             </div>
-            <div class="cl_Start_Layer10">VS</div>
+            <div class="cl_Start_Layer10"></div>
             <div class="cl_Start_Layer7">
                 <div class="cl_Start_Layer7_Left">
                     <div id="StartClassPlayerLeftName">${data['PlayerLeftName']}</div>

@@ -203,13 +203,13 @@ html,body {
 }
 /* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 .cl_boardWelcomeWrap.cl_boardIn .cl_boardWelcome {
-	animation: WelcomeAnimLastIn 1000ms linear 0ms normal backwards;
+	animation: WelcomeAnimLastIn 400ms linear 0ms normal backwards;
 }
 .cl_boardWelcomeWrap.cl_boardIn .cl_WelcomeLayer2  {
-	animation: Welcome_Layer2_In 1000ms linear 0ms normal backwards;
+	animation: Welcome_Layer2_In 400ms linear 0ms normal backwards;
 }
 .cl_boardWelcomeWrap.cl_boardIn .cl_WelcomeLayer2_1  {
-	animation: Welcome_Layer2_1_In 1000ms linear 0ms normal backwards;
+	animation: Welcome_Layer2_1_In 400ms linear 0ms normal backwards;
 }
 .cl_boardWelcomeWrap.cl_boardIn .cl_WelcomeLayer3_Date, 
 .cl_boardWelcomeWrap.cl_boardIn .cl_WelcomeLayer3_ArenaName, 
@@ -217,14 +217,14 @@ html,body {
 .cl_boardWelcomeWrap.cl_boardIn .cl_WelcomeLayer3_Weather, 
 .cl_boardWelcomeWrap.cl_boardIn .cl_WelcomeLayer3_LocalTime, 
 .cl_boardWelcomeWrap.cl_boardIn .cl_WelcomeLayer3_Temperature {
-	animation: Welcome_Layer3_Frozen_In 300ms linear 900ms normal backwards;
+	animation: Welcome_Layer3_Frozen_In 300ms linear 300ms normal backwards;
 }
 /* Анимация: Закрытие панели ------------------------------------------------------------- */
 .cl_boardWelcomeWrap.cl_boardOut .cl_boardWelcome {
-	animation: WelcomeAnimLastOut 1000ms linear 400ms normal forwards;
+	animation: WelcomeAnimLastOut 400ms linear 400ms normal forwards;
 }
 .cl_boardWelcomeWrap.cl_boardOut .cl_WelcomeLayer2  {
-	animation: Welcome_Layer2_Out 1000ms linear 500ms normal forwards;
+	animation: Welcome_Layer2_Out 400ms linear 500ms normal forwards;
 }
 .cl_boardWelcomeWrap.cl_boardOut .cl_WelcomeLayer3_Date, 
 .cl_boardWelcomeWrap.cl_boardOut .cl_WelcomeLayer3_ArenaName, 
@@ -235,7 +235,7 @@ html,body {
 	animation: Welcome_Layer3_Frozen_Out 400ms linear 0ms normal forwards;
 }
 .cl_boardWelcomeWrap.cl_boardOut .cl_WelcomeLayer2_2  {
-	animation: Welcome_Layer2_2_Out 1000ms linear 400ms normal forwards;
+	animation: Welcome_Layer2_2_Out 400ms linear 400ms normal forwards;
 }
 
 
@@ -704,36 +704,30 @@ html,body {
 }
 /* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 .cl_boardJudges.cl_boardIn .JudgesClassBoss, .cl_boardJudges.cl_boardIn .JudgesClassLines  {
-	animation: JudgesAnim1_In 1200ms linear 0s normal backwards;
+	animation: JudgesAnim1_In 500ms linear 0s normal backwards;
 }
 .cl_boardJudges.cl_boardIn .JudgesBossLayer2  {
-	animation: JudgesBoss_Layer2_In 500ms linear 100ms normal backwards;
+	animation: JudgesBoss_Layer2_In 400ms linear 100ms normal backwards;
 }
 .cl_boardJudges.cl_boardIn .JudgesBossLayer2_1  {
 	animation: JudgesBoss_Layer2_1_In 400ms linear 0ms normal backwards;
 }
 .cl_boardJudges.cl_boardIn .JudgesBoss_Layer3_First, .cl_boardJudges.cl_boardIn .JudgesBoss_Layer3_Second, .cl_boardJudges.cl_boardIn .JudgesBoss_Layer3_Title {
-	animation: JudgesBoss_Layer3_Title_In 500ms linear 300ms normal backwards;
+	animation: JudgesBoss_Layer3_Title_In 400ms linear 300ms normal backwards;
 }
-/*.cl_boardJudges.cl_boardIn .JudgesClassBoss > div, .cl_boardJudges.cl_boardIn .JudgesClassLines > div {
-	animation: JudgesAnimLastIn .5s linear 1s normal backwards;
-}*/
 
 /* Анимация: Закрытие панели ------------------------------------------------------------- */
-/*.cl_boardJudges.cl_boardOut .JudgesClassBoss > div, .cl_boardJudges.cl_boardOut .JudgesClassLines > div {
-	animation: opacityOut .5s linear 0s normal forwards;
-}*/
 .cl_boardJudges.cl_boardOut .JudgesClassBoss, .cl_boardJudges.cl_boardOut .JudgesClassLines  {
-	animation: JudgesAnimLastOut 500ms linear 400ms normal forwards;
+	animation: JudgesAnimLastOut 400ms linear 400ms normal forwards;
 }
 .cl_boardJudges.cl_boardOut .JudgesBossLayer2  {
-	animation: JudgesBoss_Layer2_Out 500ms linear 100ms normal forwards;
+	animation: JudgesBoss_Layer2_Out 400ms linear 100ms normal forwards;
 }
 .cl_boardJudges.cl_boardOut .JudgesBossLayer2_2  {
-	animation: JudgesBoss_Layer2_2_Out 500ms linear 400ms normal forwards;
+	animation: JudgesBoss_Layer2_2_Out 400ms linear 400ms normal forwards;
 }
 .cl_boardJudges.cl_boardOut .JudgesBoss_Layer3_First, .cl_boardJudges.cl_boardOut .JudgesBoss_Layer3_Second, .cl_boardJudges.cl_boardOut .JudgesBoss_Layer3_Title  {
-	animation: JudgesBoss_Layer3_Title_Out 500ms linear 0ms normal forwards;
+	animation: JudgesBoss_Layer3_Title_Out 400ms linear 0ms normal forwards;
 }
 
 /* ################################################################################################
@@ -932,13 +926,13 @@ html,body {
 }
 /* Анимация: Закрытие панели ------------------------------------------------------------- */
 .cl_CommentatorsWrap.cl_boardOut .cl_Commentators {
-	animation: CommentatorsAnimLastOut 500ms linear 400ms normal forwards;
+	animation: CommentatorsAnimLastOut 400ms linear 400ms normal forwards;
 }
 .cl_CommentatorsWrap.cl_boardOut .cl_Commentators_Layer2  {
-	animation: Commentators_Layer2_Out 500ms linear 100ms normal forwards;
+	animation: Commentators_Layer2_Out 400ms linear 100ms normal forwards;
 }
 .cl_CommentatorsWrap.cl_boardOut .cl_Commentators_Layer2_2  {
-	animation: Commentators_Layer2_2_Out 500ms linear 300ms normal forwards;
+	animation: Commentators_Layer2_2_Out 400ms linear 300ms normal forwards;
 }
 .cl_CommentatorsWrap.cl_boardOut .cl_Commentators_Layer3_Title,
 .cl_CommentatorsWrap.cl_boardOut .cl_Commentators_Layer3_First,
@@ -952,7 +946,7 @@ html,body {
 .cl_boardTrainerTeamWrap {
 	position: absolute;
 	bottom: 90px;
-	left: 220px;
+	left: 270px;
 	font-weight: 600;
 	font-size: 30pt;
 }
@@ -971,7 +965,7 @@ html,body {
 	overflow:hidden;
 	float: right;
 	transform: skewX(350deg);
-	border-radius: 20px;
+	border-radius: 30px;
 	color: #fff;
 	background-color: #6B0B15;
 }
@@ -1030,14 +1024,14 @@ html,body {
 	font-size: 25pt;
 }
 .cl_TrainerTeamLayer3_1,
-.cl_TrainerTeamLayer3_1_TrainerFullName {
+.cl_TrainerTeamLayer3_1_FullName {
 	position: absolute;
 	top: 0;
 	right: 0;
 	width: 100%;
 	height: 107px;
 }
-.cl_TrainerTeamLayer3_1_TrainerFullName {
+.cl_TrainerTeamLayer3_1_FullName {
 	text-transform: uppercase;
 	font-size: 60pt;
 	line-height: 133px;
@@ -1098,7 +1092,7 @@ html,body {
 	}
 }
 
-@keyframes TrainerTeam_Layer3_1_TrainerFullName_In {
+@keyframes TrainerTeam_Layer3_1_FullName_In {
 	0% {
 		right: -20px;
 		opacity: 0;
@@ -1108,7 +1102,7 @@ html,body {
 		opacity: 1;
 	}
 }
-@keyframes TrainerTeam_Layer3_1_TrainerFullName_Out {
+@keyframes TrainerTeam_Layer3_1_FullName_Out {
 	0% {
 		right: 0;
 		opacity: 1;
@@ -1206,47 +1200,50 @@ html,body {
 }
 /* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 .cl_boardTrainerTeamWrap.cl_boardIn .cl_boardTrainerTeam {
-	animation: TrainerTeamAnimLastIn 500ms linear 0ms normal backwards;
+	animation: TrainerTeamAnimLastIn 400ms linear 0ms normal backwards;
 }
 .cl_boardTrainerTeamWrap.cl_boardIn .cl_TrainerTeamLayer2_0  {
-	animation: TrainerTeam_Layer2_In 500ms linear 0ms normal backwards;
+	animation: TrainerTeam_Layer2_In 400ms linear 0ms normal backwards;
 }
 .cl_boardTrainerTeamWrap.cl_boardIn .cl_TrainerTeamLayer2_1  {
-	animation: TrainerTeam_Layer2_1_In 500ms linear 0ms normal backwards;
+	animation: TrainerTeam_Layer2_1_In 400ms linear 0ms normal backwards;
 }
 .cl_boardTrainerTeamWrap.cl_boardIn .cl_TrainerTeamLayer2_0_1_1 {
-	animation: TrainerTeam_Layer2_0_1_2_In 400ms linear 800ms normal backwards;
+	animation: TrainerTeam_Layer2_0_1_2_In 200ms linear 400ms normal backwards;
 }
-.cl_boardTrainerTeamWrap.cl_boardIn .cl_TrainerTeamLayer3_1_TrainerFullName {
-	animation: TrainerTeam_Layer3_1_TrainerFullName_In 400ms linear 800ms normal backwards;
+.cl_boardTrainerTeamWrap.cl_boardIn .cl_TrainerTeamLayer3_1_FullName {
+	animation: TrainerTeam_Layer3_1_FullName_In 400ms linear 400ms normal backwards;
 }
 .cl_boardTrainerTeamWrap.cl_boardIn #TeamLogo {
-	animation: TrainerTeam_LogoTeam_In 300ms linear 900ms normal backwards;
+	animation: TrainerTeam_LogoTeam_In 200ms linear 300ms normal backwards;
 }
 .cl_boardTrainerTeamWrap.cl_boardIn .cl_TrainerTeamLayer3_Place {
-	animation: TrainerTeam_Layer3_Frozen_In 300ms linear 900ms normal backwards;
+	animation: TrainerTeam_Layer3_Frozen_In 200ms linear 600ms normal backwards;
 }
 /* Анимация: Закрытие панели ------------------------------------------------------------- */
 .cl_boardTrainerTeamWrap.cl_boardOut .cl_boardTrainerTeam {
-	animation: TrainerTeamAnimLastOut 1000ms linear 400ms normal forwards;
+	animation: TrainerTeamAnimLastOut 400ms linear 100ms normal forwards;
 }
-.cl_boardTrainerTeamWrap.cl_boardOut .cl_TrainerTeamLayer3_1_TrainerFullName {
-	animation: TrainerTeam_Layer3_1_TrainerFullName_Out 200ms linear 0ms normal forwards;
-}
-.cl_boardTrainerTeamWrap.cl_boardOut .cl_TrainerTeamLayer2_0_1_1 {
-	animation: TrainerTeam_Layer2_0_1_1_Out 400ms linear 0ms normal forwards;
-}
-.cl_boardTrainerTeamWrap.cl_boardOut .cl_TrainerTeamLayer2_0 {
-	animation: TrainerTeam_Layer2_Out 1000ms linear 500ms normal forwards;
-}
-.cl_boardTrainerTeamWrap.cl_boardOut #TeamLogo {
-	animation: TrainerTeam_LogoTeam_Out 300ms linear 0ms normal forwards;
+.cl_boardTrainerTeamWrap.cl_boardOut .cl_TrainerTeamLayer3_1_FullName {
+	animation: TrainerTeam_Layer3_1_FullName_Out 100ms linear 0ms normal forwards;
 }
 .cl_boardTrainerTeamWrap.cl_boardOut .cl_TrainerTeamLayer3_Place {
-	animation: TrainerTeam_Layer3_Frozen_Out 400ms linear 0ms normal forwards;
+	animation: TrainerTeam_Layer3_Frozen_Out 200ms linear 0ms normal forwards;
+}
+.cl_boardTrainerTeamWrap.cl_boardOut .cl_TrainerTeamLayer2_0_1_1 {
+	animation: TrainerTeam_Layer2_0_1_2_Out 200ms linear 0ms normal forwards;
+}
+.cl_boardTrainerTeamWrap.cl_boardOut .cl_TrainerTeamLayer2_0 {
+	animation: TrainerTeam_Layer2_Out 500ms linear 400ms normal forwards;
+}
+.cl_boardTrainerTeamWrap.cl_boardOut #TeamLogo {
+	animation: TrainerTeam_LogoTeam_Out 100ms linear 0ms normal forwards;
+}
+.cl_boardTrainerTeamWrap.cl_boardOut .cl_TrainerTeamLayer3_Place {
+	animation: TrainerTeam_Layer3_Frozen_Out 200ms linear 0ms normal forwards;
 }
 .cl_boardTrainerTeamWrap.cl_boardOut .cl_TrainerTeamLayer2_2  {
-	animation: TrainerTeam_Layer2_2_Out 1000ms linear 400ms normal forwards;
+	animation: TrainerTeam_Layer2_2_Out 400ms linear 100ms normal forwards;
 }
 
 /* ################################################################################################
@@ -1255,15 +1252,15 @@ html,body {
 */
 .cl_boardPlayerTeamWrap {
 	position: absolute;
-	bottom: 120px;
-	left: 220px;
+	bottom: 90px;
+	left: 270px;
 	font-weight: 600;
 	font-size: 30pt;
 }
 .cl_boardPlayerTeamWrap,
 .cl_boardPlayerTeam,
 .cl_boardPlayerTeam>.cl_PlayerTeamLayer3_1  {
-	height: 188px;
+	height: 180px;
 }
 .cl_boardPlayerTeamWrap,
 .cl_boardPlayerTeam,
@@ -1275,7 +1272,7 @@ html,body {
 	overflow:hidden;
 	float: right;
 	transform: skewX(350deg);
-	border-radius: 20px;
+	border-radius: 30px;
 	color: #fff;
 	background-color: #6B0B15;
 }
@@ -1516,47 +1513,50 @@ html,body {
 }
 /* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 .cl_boardPlayerTeamWrap.cl_boardIn .cl_boardPlayerTeam {
-	animation: PlayerTeamAnimLastIn 500ms linear 0ms normal backwards;
+	animation: PlayerTeamAnimLastIn 400ms linear 0ms normal backwards;
 }
 .cl_boardPlayerTeamWrap.cl_boardIn .cl_PlayerTeamLayer2_0  {
-	animation: PlayerTeam_Layer2_In 500ms linear 0ms normal backwards;
+	animation: PlayerTeam_Layer2_In 400ms linear 0ms normal backwards;
 }
 .cl_boardPlayerTeamWrap.cl_boardIn .cl_PlayerTeamLayer2_1  {
-	animation: PlayerTeam_Layer2_1_In 500ms linear 0ms normal backwards;
+	animation: PlayerTeam_Layer2_1_In 400ms linear 0ms normal backwards;
 }
 .cl_boardPlayerTeamWrap.cl_boardIn .cl_PlayerTeamLayer2_0_1_1 {
-	animation: PlayerTeam_Layer2_0_1_2_In 400ms linear 800ms normal backwards;
+	animation: PlayerTeam_Layer2_0_1_2_In 200ms linear 400ms normal backwards;
 }
 .cl_boardPlayerTeamWrap.cl_boardIn .cl_PlayerTeamLayer3_1_FullName {
-	animation: PlayerTeam_Layer3_1_FullName_In 400ms linear 800ms normal backwards;
+	animation: PlayerTeam_Layer3_1_FullName_In 400ms linear 400ms normal backwards;
 }
 .cl_boardPlayerTeamWrap.cl_boardIn #TeamLogo {
-	animation: PlayerTeam_LogoTeam_In 300ms linear 900ms normal backwards;
+	animation: PlayerTeam_LogoTeam_In 200ms linear 300ms normal backwards;
 }
 .cl_boardPlayerTeamWrap.cl_boardIn .cl_PlayerTeamLayer3_Place {
-	animation: PlayerTeam_Layer3_Frozen_In 300ms linear 900ms normal backwards;
+	animation: PlayerTeam_Layer3_Frozen_In 200ms linear 600ms normal backwards;
 }
 /* Анимация: Закрытие панели ------------------------------------------------------------- */
 .cl_boardPlayerTeamWrap.cl_boardOut .cl_boardPlayerTeam {
-	animation: PlayerTeamAnimLastOut 1000ms linear 400ms normal forwards;
+	animation: PlayerTeamAnimLastOut 400ms linear 100ms normal forwards;
 }
 .cl_boardPlayerTeamWrap.cl_boardOut .cl_PlayerTeamLayer3_1_FullName {
-	animation: PlayerTeam_Layer3_1_FullName_Out 200ms linear 0ms normal forwards;
-}
-.cl_boardPlayerTeamWrap.cl_boardOut .cl_PlayerTeamLayer2_0_1_1 {
-	animation: PlayerTeam_Layer2_0_1_1_Out 400ms linear 0ms normal forwards;
-}
-.cl_boardPlayerTeamWrap.cl_boardOut .cl_PlayerTeamLayer2_0 {
-	animation: PlayerTeam_Layer2_Out 1000ms linear 500ms normal forwards;
-}
-.cl_boardPlayerTeamWrap.cl_boardOut #TeamLogo {
-	animation: PlayerTeam_LogoTeam_Out 300ms linear 0ms normal forwards;
+	animation: PlayerTeam_Layer3_1_FullName_Out 100ms linear 0ms normal forwards;
 }
 .cl_boardPlayerTeamWrap.cl_boardOut .cl_PlayerTeamLayer3_Place {
-	animation: PlayerTeam_Layer3_Frozen_Out 400ms linear 0ms normal forwards;
+	animation: PlayerTeam_Layer3_Frozen_Out 200ms linear 0ms normal forwards;
+}
+.cl_boardPlayerTeamWrap.cl_boardOut .cl_PlayerTeamLayer2_0_1_1 {
+	animation: PlayerTeam_Layer2_0_1_2_Out 200ms linear 0ms normal forwards;
+}
+.cl_boardPlayerTeamWrap.cl_boardOut .cl_PlayerTeamLayer2_0 {
+	animation: PlayerTeam_Layer2_Out 500ms linear 400ms normal forwards;
+}
+.cl_boardPlayerTeamWrap.cl_boardOut #TeamLogo {
+	animation: PlayerTeam_LogoTeam_Out 100ms linear 0ms normal forwards;
+}
+.cl_boardPlayerTeamWrap.cl_boardOut .cl_PlayerTeamLayer3_Place {
+	animation: PlayerTeam_Layer3_Frozen_Out 200ms linear 0ms normal forwards;
 }
 .cl_boardPlayerTeamWrap.cl_boardOut .cl_PlayerTeamLayer2_2  {
-	animation: PlayerTeam_Layer2_2_Out 1000ms linear 400ms normal forwards;
+	animation: PlayerTeam_Layer2_2_Out 400ms linear 100ms normal forwards;
 }
 /* ################################################################################################
 Информационная панель:
@@ -1564,15 +1564,15 @@ html,body {
 */
 .cl_boardPlayerGoalWrap {
 	position: absolute;
-	bottom: 120px;
-	left: 220px;
+	bottom: 90px;
+	left: 270px;
 	font-weight: 600;
 	font-size: 30pt;
 }
 .cl_boardPlayerGoalWrap,
 .cl_boardPlayerGoal,
 .cl_boardPlayerGoal>.cl_PlayerGoalLayer3_1  {
-	height: 188px;
+	height: 180px;
 }
 .cl_boardPlayerGoalWrap,
 .cl_boardPlayerGoal,
@@ -1584,7 +1584,7 @@ html,body {
 	overflow:hidden;
 	float: right;
 	transform: skewX(350deg);
-	border-radius: 20px;
+	border-radius: 30px;
 	color: #fff;
 	background-color: #6B0B15;
 }
@@ -1825,47 +1825,50 @@ html,body {
 }
 /* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 .cl_boardPlayerGoalWrap.cl_boardIn .cl_boardPlayerGoal {
-	animation: PlayerGoalAnimLastIn 500ms linear 0ms normal backwards;
+	animation: PlayerGoalAnimLastIn 400ms linear 0ms normal backwards;
 }
 .cl_boardPlayerGoalWrap.cl_boardIn .cl_PlayerGoalLayer2_0  {
-	animation: PlayerGoal_Layer2_In 500ms linear 0ms normal backwards;
+	animation: PlayerGoal_Layer2_In 400ms linear 0ms normal backwards;
 }
 .cl_boardPlayerGoalWrap.cl_boardIn .cl_PlayerGoalLayer2_1  {
-	animation: PlayerGoal_Layer2_1_In 500ms linear 0ms normal backwards;
+	animation: PlayerGoal_Layer2_1_In 400ms linear 0ms normal backwards;
 }
 .cl_boardPlayerGoalWrap.cl_boardIn .cl_PlayerGoalLayer2_0_1_1 {
-	animation: PlayerGoal_Layer2_0_1_2_In 400ms linear 800ms normal backwards;
+	animation: PlayerGoal_Layer2_0_1_2_In 200ms linear 400ms normal backwards;
 }
 .cl_boardPlayerGoalWrap.cl_boardIn .cl_PlayerGoalLayer3_1_FullName {
-	animation: PlayerGoal_Layer3_1_FullName_In 400ms linear 800ms normal backwards;
+	animation: PlayerGoal_Layer3_1_FullName_In 400ms linear 400ms normal backwards;
 }
 .cl_boardPlayerGoalWrap.cl_boardIn #TeamLogo {
-	animation: PlayerGoal_LogoTeam_In 300ms linear 900ms normal backwards;
+	animation: PlayerGoal_LogoTeam_In 200ms linear 300ms normal backwards;
 }
 .cl_boardPlayerGoalWrap.cl_boardIn .cl_PlayerGoalLayer3_Place {
-	animation: PlayerGoal_Layer3_Frozen_In 300ms linear 900ms normal backwards;
+	animation: PlayerGoal_Layer3_Frozen_In 200ms linear 600ms normal backwards;
 }
 /* Анимация: Закрытие панели ------------------------------------------------------------- */
 .cl_boardPlayerGoalWrap.cl_boardOut .cl_boardPlayerGoal {
-	animation: PlayerGoalAnimLastOut 1000ms linear 400ms normal forwards;
+	animation: PlayerGoalAnimLastOut 400ms linear 100ms normal forwards;
 }
 .cl_boardPlayerGoalWrap.cl_boardOut .cl_PlayerGoalLayer3_1_FullName {
-	animation: PlayerGoal_Layer3_1_FullName_Out 200ms linear 0ms normal forwards;
-}
-.cl_boardPlayerGoalWrap.cl_boardOut .cl_PlayerGoalLayer2_0_1_1 {
-	animation: PlayerGoal_Layer2_0_1_1_Out 400ms linear 0ms normal forwards;
-}
-.cl_boardPlayerGoalWrap.cl_boardOut .cl_PlayerGoalLayer2_0 {
-	animation: PlayerGoal_Layer2_Out 1000ms linear 500ms normal forwards;
-}
-.cl_boardPlayerGoalWrap.cl_boardOut #TeamLogo {
-	animation: PlayerGoal_LogoTeam_Out 300ms linear 0ms normal forwards;
+	animation: PlayerGoal_Layer3_1_FullName_Out 100ms linear 0ms normal forwards;
 }
 .cl_boardPlayerGoalWrap.cl_boardOut .cl_PlayerGoalLayer3_Place {
-	animation: PlayerGoal_Layer3_Frozen_Out 400ms linear 0ms normal forwards;
+	animation: PlayerGoal_Layer3_Frozen_Out 200ms linear 0ms normal forwards;
+}
+.cl_boardPlayerGoalWrap.cl_boardOut .cl_PlayerGoalLayer2_0_1_1 {
+	animation: PlayerGoal_Layer2_0_1_2_Out 200ms linear 0ms normal forwards;
+}
+.cl_boardPlayerGoalWrap.cl_boardOut .cl_PlayerGoalLayer2_0 {
+	animation: PlayerGoal_Layer2_Out 500ms linear 400ms normal forwards;
+}
+.cl_boardPlayerGoalWrap.cl_boardOut #TeamLogo {
+	animation: PlayerGoal_LogoTeam_Out 100ms linear 0ms normal forwards;
+}
+.cl_boardPlayerGoalWrap.cl_boardOut .cl_PlayerGoalLayer3_Place {
+	animation: PlayerGoal_Layer3_Frozen_Out 200ms linear 0ms normal forwards;
 }
 .cl_boardPlayerGoalWrap.cl_boardOut .cl_PlayerGoalLayer2_2  {
-	animation: PlayerGoal_Layer2_2_Out 1000ms linear 400ms normal forwards;
+	animation: PlayerGoal_Layer2_2_Out 400ms linear 100ms normal forwards;
 }
 /* ################################################################################################
 Информационная панель:
@@ -1873,15 +1876,15 @@ html,body {
 */
 .cl_boardPlayerEjectionWrap {
 	position: absolute;
-	bottom: 120px;
-	left: 220px;
+	bottom: 90px;
+	left: 270px;
 	font-weight: 600;
 	font-size: 30pt;
 }
 .cl_boardPlayerEjectionWrap,
 .cl_boardPlayerEjection,
 .cl_boardPlayerEjection>.cl_PlayerEjectionLayer3_1  {
-	height: 188px;
+	height: 180px;
 }
 .cl_boardPlayerEjectionWrap,
 .cl_boardPlayerEjection,
@@ -1893,7 +1896,7 @@ html,body {
 	overflow:hidden;
 	float: right;
 	transform: skewX(350deg);
-	border-radius: 20px;
+	border-radius: 30px;
 	color: #fff;
 	background-color: #6B0B15;
 }
@@ -2134,47 +2137,50 @@ html,body {
 }
 /* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 .cl_boardPlayerEjectionWrap.cl_boardIn .cl_boardPlayerEjection {
-	animation: PlayerEjectionAnimLastIn 500ms linear 0ms normal backwards;
+	animation: PlayerEjectionAnimLastIn 400ms linear 0ms normal backwards;
 }
 .cl_boardPlayerEjectionWrap.cl_boardIn .cl_PlayerEjectionLayer2_0  {
-	animation: PlayerEjection_Layer2_In 500ms linear 0ms normal backwards;
+	animation: PlayerEjection_Layer2_In 400ms linear 0ms normal backwards;
 }
 .cl_boardPlayerEjectionWrap.cl_boardIn .cl_PlayerEjectionLayer2_1  {
-	animation: PlayerEjection_Layer2_1_In 500ms linear 0ms normal backwards;
+	animation: PlayerEjection_Layer2_1_In 400ms linear 0ms normal backwards;
 }
 .cl_boardPlayerEjectionWrap.cl_boardIn .cl_PlayerEjectionLayer2_0_1_1 {
-	animation: PlayerEjection_Layer2_0_1_2_In 400ms linear 800ms normal backwards;
+	animation: PlayerEjection_Layer2_0_1_2_In 200ms linear 400ms normal backwards;
 }
 .cl_boardPlayerEjectionWrap.cl_boardIn .cl_PlayerEjectionLayer3_1_FullName {
-	animation: PlayerEjection_Layer3_1_FullName_In 400ms linear 800ms normal backwards;
+	animation: PlayerEjection_Layer3_1_FullName_In 400ms linear 400ms normal backwards;
 }
 .cl_boardPlayerEjectionWrap.cl_boardIn #TeamLogo {
-	animation: PlayerEjection_LogoTeam_In 300ms linear 900ms normal backwards;
+	animation: PlayerEjection_LogoTeam_In 200ms linear 300ms normal backwards;
 }
 .cl_boardPlayerEjectionWrap.cl_boardIn .cl_PlayerEjectionLayer3_Place {
-	animation: PlayerEjection_Layer3_Frozen_In 300ms linear 900ms normal backwards;
+	animation: PlayerEjection_Layer3_Frozen_In 200ms linear 600ms normal backwards;
 }
 /* Анимация: Закрытие панели ------------------------------------------------------------- */
 .cl_boardPlayerEjectionWrap.cl_boardOut .cl_boardPlayerEjection {
-	animation: PlayerEjectionAnimLastOut 1000ms linear 400ms normal forwards;
+	animation: PlayerEjectionAnimLastOut 400ms linear 100ms normal forwards;
 }
 .cl_boardPlayerEjectionWrap.cl_boardOut .cl_PlayerEjectionLayer3_1_FullName {
-	animation: PlayerEjection_Layer3_1_FullName_Out 200ms linear 0ms normal forwards;
-}
-.cl_boardPlayerEjectionWrap.cl_boardOut .cl_PlayerEjectionLayer2_0_1_1 {
-	animation: PlayerEjection_Layer2_0_1_1_Out 400ms linear 0ms normal forwards;
-}
-.cl_boardPlayerEjectionWrap.cl_boardOut .cl_PlayerEjectionLayer2_0 {
-	animation: PlayerEjection_Layer2_Out 1000ms linear 500ms normal forwards;
-}
-.cl_boardPlayerEjectionWrap.cl_boardOut #TeamLogo {
-	animation: PlayerEjection_LogoTeam_Out 300ms linear 0ms normal forwards;
+	animation: PlayerEjection_Layer3_1_FullName_Out 100ms linear 0ms normal forwards;
 }
 .cl_boardPlayerEjectionWrap.cl_boardOut .cl_PlayerEjectionLayer3_Place {
-	animation: PlayerEjection_Layer3_Frozen_Out 400ms linear 0ms normal forwards;
+	animation: PlayerEjection_Layer3_Frozen_Out 200ms linear 0ms normal forwards;
+}
+.cl_boardPlayerEjectionWrap.cl_boardOut .cl_PlayerEjectionLayer2_0_1_1 {
+	animation: PlayerEjection_Layer2_0_1_2_Out 200ms linear 0ms normal forwards;
+}
+.cl_boardPlayerEjectionWrap.cl_boardOut .cl_PlayerEjectionLayer2_0 {
+	animation: PlayerEjection_Layer2_Out 500ms linear 400ms normal forwards;
+}
+.cl_boardPlayerEjectionWrap.cl_boardOut #TeamLogo {
+	animation: PlayerEjection_LogoTeam_Out 100ms linear 0ms normal forwards;
+}
+.cl_boardPlayerEjectionWrap.cl_boardOut .cl_PlayerEjectionLayer3_Place {
+	animation: PlayerEjection_Layer3_Frozen_Out 200ms linear 0ms normal forwards;
 }
 .cl_boardPlayerEjectionWrap.cl_boardOut .cl_PlayerEjectionLayer2_2  {
-	animation: PlayerEjection_Layer2_2_Out 1000ms linear 400ms normal forwards;
+	animation: PlayerEjection_Layer2_2_Out 400ms linear 100ms normal forwards;
 }
 
 /* ################################################################################################
@@ -2746,19 +2752,37 @@ html,body {
     margin: 0 auto;
     color: white;
 }
-.cl_boardCountWrap,.CountClassScores,.CountClassLayer1,.CountClassLayer_Goal,.CountClassLayer3 {
+.cl_boardCountWrap,.CountScores,.CountScores_Layer1,.CountScores_Layer2,.CountClassLayer1,.CountClassLayer_Goal,.CountClassLayer3 {
 	width: 255px;
     height: 135px;
 }
-.CountClassScores {
+.CountScores {
     transform: skewX(350deg);
-	background-color: red;
+	background-color: #4b0101;
 	border-radius: 15px;
 	overflow: hidden;
 	font-size: 22pt;
 }
-.CountClassLayer1,.CountClassLayer_Goal,.CountClassLayer3 {
+.CountScores_Layer1,
+.CountScores_Layer1_Left,
+.CountScores_Layer1_Right,
+.CountScores_Layer1_Bottom,
+.CountScores_Layer2,
+.CountScores_Layer2_Left,
+.CountScores_Layer2_Right,
+.CountScores_Layer2_Bottom,
+.CountClassLayer1,
+.CountClassLayer_Goal,
+.CountClassLayer3 {
 	position: absolute;
+}
+.CountScores_Layer1 {
+	left: 0;
+	z-index: 80;
+}
+.CountScores_Layer2 {
+	left: 0;
+	z-index: 90;
 }
 .CountClassLayer1 {
 	z-index: 100;
@@ -2775,22 +2799,63 @@ html,body {
 	background-repeat: no-repeat;
 	background-position: center;
 }
-.CountClassLinePlayerLeft, .CountClassLinePlayerRight, .CountClassLineCount {
+.CountScores_Layer1_Left, .CountScores_Layer1_Right, .CountScores_Layer1_Bottom, .CountScores_Layer2_Left, .CountScores_Layer2_Right, .CountScores_Layer2_Bottom, .CountClassLinePlayerLeft, .CountClassLinePlayerRight, .CountClassLineCount, .CountScores_Layer1_Bottom {
 	width: 100%;
 	height: 45px;
 	overflow: hidden;
 }
-.CountClassLinePlayerLeft {
+.CountScores_Layer1_Left,
+.CountScores_Layer1_Right,
+.CountScores_Layer1_Bottom {
 	background-color: #990000;
+}
+.CountScores_Layer2_Left,
+.CountScores_Layer2_Right,
+.CountScores_Layer2_Bottom {
+	background-color: #fff;
+}
+.CountScores_Layer1_Left,
+.CountScores_Layer2_Left {
+	top: 0px;
+}
+.CountScores_Layer1_Right,
+.CountScores_Layer2_Right {
+	top: 45px;
+}
+.CountScores_Layer1_Bottom,
+.CountScores_Layer2_Bottom {
+	top: 90px;
+}
+.CountScores_Layer1_Left {
+	right: 0%;
+}
+.CountScores_Layer1_Right {
+	right: 0%;
+}
+.CountScores_Layer1_Bottom {
+	right: -100%;
+}
+.CountScores_Layer2_Left {
+	right: -100%;
+}
+.CountScores_Layer2_Right {
+	right: -100%;
+}
+.CountScores_Layer2_Bottom {
+	right: -100%;
+}
+.CountScores_Layer1_Left,
+.CountScores_Layer2_Left,
+.CountClassLinePlayerLeft {
 	border-radius: 15px 15px 0 0;
 }
-.CountClassLinePlayerRight {
+/*.CountClassLinePlayerLeft, .CountClassLinePlayerRight {
 	background-color: #990000;
-}
-.CountClassLineCount {
+}*/
+/*.CountClassLineCount {
 	background-color: #4b0101;
-}
-.CountClassLineCount {
+}*/
+.CountClassLineCount, .CountScores_Layer1_Bottom, .CountScores_Layer2_Bottom {
 	border-radius: 0 0 15px 15px;
 }
 .CountClassCountPowerPlayScores {
@@ -2830,14 +2895,15 @@ html,body {
 	font-size: 32pt;
 }
 #CountClassTime {
-    width: 100px;
-	text-align: center;
+    width: 86px;
+	padding-left: 15px;
+	text-align: left;
 	line-height: 45px;
 	font-size: 32pt;
 	vertical-align: bottom;
 }
 #CountClassTimeHR {
-    width: 110px;
+    width: 100px;
 	vertical-align: top;
 	line-height: 45px;
 	font-size: 32pt;
@@ -2940,22 +3006,18 @@ html,body {
 
 @keyframes CountAnimLastIn {
 	0% {
-		-webkit-transform: translateY(-2000px);
-		transform: translateY(-2000px);
+		width: 0;
 	}
-	80% {
-		-webkit-transform: translateY(0);
-		transform: translateY(0);
+	100% {
+		width: 100%;
 	}
 }
 @keyframes CountAnimLastOut {
-	20% {
-		-webkit-transform: translateY(0);
-		transform: translateY(0);
+	0% {
+		width: 100%;
 	}
 	100% {
-	-webkit-transform: translateY(-2000px);
-	transform: translateY(-2000px);
+		width: 0;
 	}
 }
 @keyframes CountAnimGoal {
@@ -3002,6 +3064,26 @@ html,body {
 	0%   {left: 100%;}
 	100% {left: -220%;}
 }
+@keyframes CountLeftToRight {
+	0%   {right: 100%;}
+	100% {right: -100%;}
+}
+@keyframes CountRightToLeft {
+	0%   {right: -100%;}
+	100% {right: 100%;}
+}
+@keyframes CountLeftToRight2 {
+	0%   {right: 100%;}
+	100% {right: 0%;}
+}
+@keyframes CountOpacityShow {
+	0%   {opacity: 0;}
+	100% {opacity: 1;}
+}
+@keyframes CountOpacityHide {
+	0%   {opacity: 1;}
+	100% {opacity: 0;}
+}
 /* Анимация: Гола +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 .CountClassLayer_Goal.CountClassGoalAnimation {
 	animation: CountGoalOpacity 5s linear 0s normal backwards;
@@ -3017,15 +3099,175 @@ html,body {
 }
 
 /* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-.cl_boardCount.cl_boardIn {
-    animation: CountAnimLastIn 1s linear 0s normal backwards;
+.cl_boardCount.cl_boardIn .CountScores {
+    animation: CountAnimLastIn 400ms linear 0s normal backwards;
+}
+.cl_boardCount.cl_boardIn .CountScores_Layer1 .CountScores_Layer1_Left {
+    animation: CountLeftToRight2 400ms linear 400ms normal backwards;
+}
+.cl_boardCount.cl_boardIn .CountScores_Layer2 .CountScores_Layer2_Left {
+    animation: CountLeftToRight 400ms linear 600ms normal backwards;
+}
+.cl_boardCount.cl_boardIn .CountClassLayer1 .CountClassLinePlayerLeft {
+    animation: CountOpacityShow 0ms linear 800ms normal backwards;
+}
+.cl_boardCount.cl_boardIn .CountScores_Layer1 .CountScores_Layer1_Right {
+    animation: CountLeftToRight2 400ms linear 400ms normal backwards;
+}
+.cl_boardCount.cl_boardIn .CountScores_Layer2 .CountScores_Layer2_Right {
+    animation: CountLeftToRight 400ms linear 500ms normal backwards;
+}
+.cl_boardCount.cl_boardIn .CountClassLayer1 .CountClassLinePlayerRight {
+    animation: CountOpacityShow 0ms linear 700ms normal backwards;
+}
+.cl_boardCount.cl_boardIn .CountScores_Layer2 .CountScores_Layer2_Bottom {
+    animation: CountLeftToRight 400ms linear 400ms normal backwards;
+}
+.cl_boardCount.cl_boardIn .CountClassLayer1 .CountClassLineCount {
+    animation: CountOpacityShow 0ms linear 600ms normal backwards;
 }
 /* Анимация: Закрытие панели ------------------------------------------------------------- */
-.cl_boardCount.cl_boardOut {
-    animation: CountAnimLastOut 1s linear 0s normal forwards;
-    /*transform-origin: top left; */
+.cl_boardCount.cl_boardOut .CountScores_Layer2 .CountScores_Layer2_Left {
+    animation: CountRightToLeft 400ms linear 200ms normal forwards;
+}
+.cl_boardCount.cl_boardOut .CountClassLayer1 .CountClassLinePlayerLeft {
+    animation: CountOpacityHide 0ms linear 400ms normal forwards;
+}
+.cl_boardCount.cl_boardOut .CountScores_Layer2 .CountScores_Layer2_Right {
+    animation: CountRightToLeft 400ms linear 100ms normal forwards;
+}
+.cl_boardCount.cl_boardOut .CountClassLayer1 .CountClassLinePlayerRight {
+    animation: CountOpacityHide 0ms linear 300ms normal forwards;
+}
+/*  */
+.cl_boardCount.cl_boardOut .CountScores_Layer2 .CountScores_Layer2_Bottom {
+    animation: CountRightToLeft 400ms linear 0ms normal forwards;
+}
+.cl_boardCount.cl_boardOut .CountClassLayer1 .CountClassLineCount {
+    animation: CountOpacityHide 0ms linear 200ms normal forwards;
+}
+.cl_boardCount.cl_boardOut .CountScores {
+    animation: CountAnimLastOut 400ms linear 600ms normal forwards;
+}
+/* ################################################################################################
+Информационная панель:
+    Goal2; - Счёт
+*/
+.cl_boardGoal2Wrap {
+    position: absolute;
+    top: 110px;
+    left: 125px;
+    margin: 0 auto;
+    color: white;
+}
+.cl_boardGoal2Wrap,.Goal2ClassScores,.Goal2ClassLayer {
+	width: 255px;
+    height: 135px;
+}
+.Goal2ClassScores {
+    transform: skewX(350deg);
+	background-color: red;
+	border-radius: 15px;
+	overflow: hidden;
+	font-size: 22pt;
+}
+.Goal2ClassLayer {
+	position: absolute;
+}
+.Goal2ClassLayer {
+	z-index: 110;
+}
+#Goal2ClassLayer_Logo {
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
+.Goal2ClassLayer {
+	z-index: 110;
+	vertical-align: middle;
+	text-align: center;
+	background-color: red;
+	opacity: 0;
+	border-radius: 15px;
+}
+.Goal2ClassLayer_Text{
+	vertical-align: middle;
+    line-height: 135px;
+    font-size: 80pt;
+	position: absolute;
+    width: 100%;
+    height: 100%;
+	left: 100%;
+}
+#Goal2ClassLayer_Logo {
+	position: absolute;
+	width: 70%;
+    height: 70%;
+    opacity: 0;
+    margin-top: 7%;
+    margin-left: 13%;
+}
+
+@keyframes Goal2AnimLastIn {
+	0%  {opacity: 0;}
+	100% {opacity: 1;}
+}
+@keyframes Goal2AnimLastOut {
+	0%  {opacity: 1;}
+	100% {opacity: 0;}
+}
+@keyframes Goal2Anim {
+	0%  {opacity: 0;}
+	5%  {opacity: 1;}
+	10% {opacity: 1;}
+	15% {opacity: 0;}
+	20% {opacity: 0;}
+	25% {opacity: 1;}
+	30% {opacity: 1;}
+	35% {opacity: 0;}
+	40% {opacity: 0;}
+	45% {opacity: 1;}
+	50% {opacity: 1;}
+	55% {opacity: 0;}
+	60% {opacity: 0;}
+	65% {opacity: 1;}
+	70% {opacity: 1;}
+	75% {opacity: 0;}
+	80% {opacity: 0;}
+	85% {opacity: 1;}
+	90% {opacity: 1;}
+	95% {opacity: 0;}
+	100% {opacity: 0;}
+	
+}
+@keyframes Goal2Opacity {
+	0%   {opacity: 0;}
+	3% {opacity: 1;}
+	97% {opacity: 1;}
+	100% {opacity: 0;}
+}
+@keyframes Goal2TextRightToLeft {
+	0%   {left: 100%;}
+	100% {left: -100%;}
+}
+/* Анимация: Открытие панели ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+.cl_boardGoal2.cl_boardIn {
+    animation: Goal2AnimLastIn 400ms linear 0s normal backwards;
+}
+.cl_boardGoal2.cl_boardIn .Goal2ClassLayer {
+	animation: Goal2Opacity 5000ms linear 0s normal backwards;
+}
+.cl_boardGoal2.cl_boardIn .Goal2ClassLayer .Goal2ClassLayer_Text {
+	animation: Goal2TextRightToLeft 5000ms linear 0s normal backwards;
+}
+.cl_boardGoal2.cl_boardIn #Goal2ClassLayer_Logo {
+    animation: Goal2Anim 5000ms linear 0ms normal backwards;
+}
+/* Анимация: Закрытие панели ------------------------------------------------------------- */
+.cl_boardGoal2.cl_boardOut {
+    animation: Goal2AnimLastOut 400ms linear 0ms normal forwards;
+}
 /* ################################################################################################
 Информационная панель:
     Logo; - Логотип №1
