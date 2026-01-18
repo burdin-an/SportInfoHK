@@ -2008,6 +2008,23 @@ function FuncWorks($data, $connection) {
 						"Board"        => $dataJson['Board']
 					];
 					break;
+				// Показать: Конец периода
+				case "FixEndPeriod":
+					$EventDB['CountFixPeriod'][$EventDB['Period']['Count']] = [
+						'Left'  => (int)$EventDB['CountPlayerLeft']['Count'],
+						'Right' => (int)$EventDB['CountPlayerRight']['Count']
+					];
+					break;
+				// Показать: Конец матча
+				case "GameOver":
+					$EventDB['CountFixPeriod'][6] = [
+						'Left'  => (int)$EventDB['CountPlayerLeft']['Count'],
+						'Right' => (int)$EventDB['CountPlayerRight']['Count'],
+						'Period' => $EventDB['Period']['Count']
+					];
+					//$EventDB['GameOverTemp'] = 1;
+					break;
+				//#########################################################################
 				// Показать комментаторов
 				case "ShowBoardCommentators":
 					$ReturnJsonToWeb = [
@@ -2239,7 +2256,7 @@ function FuncWorks($data, $connection) {
 						"Logo"      => $EventDB['Player' . $dataJson['TeamPosition']]['Logo']
 					];
 					break;
-				// Команда без воратаря 6 человек на поле
+				// Команда без вратаря 6 человек на поле
 				case "ShowBoardEmptyNet":
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
@@ -2321,26 +2338,8 @@ function FuncWorks($data, $connection) {
 					];
 					unset($tempTrainer);
 					break;
-
-				// Показать: Конец периода
-				case "FixEndPeriod":
-					$EventDB['CountFixPeriod'][$EventDB['Period']['Count']] = [
-						'Left'  => (int)$EventDB['CountPlayerLeft']['Count'],
-						'Right' => (int)$EventDB['CountPlayerRight']['Count']
-					];
-					break;
-				// Показать: Конец матча
-				case "GameOver":
-					$EventDB['CountFixPeriod'][6] = [
-						'Left'  => (int)$EventDB['CountPlayerLeft']['Count'],
-						'Right' => (int)$EventDB['CountPlayerRight']['Count'],
-						'Period' => $EventDB['Period']['Count']
-					];
-					//$EventDB['GameOverTemp'] = 1;
-					break;
 				// Показать: Счёт на конец периода
 				case "ShowBoardEndPeriod":
-					$EventDB['BoardEndPeriod'] = 'active';
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
 						"dAction"   => $dataJson['Action'],
@@ -2355,7 +2354,6 @@ function FuncWorks($data, $connection) {
 
 				// Показать: Счёт на начало периода
 				case "ShowBoardStartPeriod":
-					$EventDB['BoardStartPeriod'] = 'active';
 					$tempNumberPeriod = (int)$dataJson['Value'];
 					if ($tempNumberPeriod > 1) {
 						$tempCountPeriodLeft  = (int)$EventDB['CountFixPeriod'][($tempNumberPeriod - 1)]['Left'];
@@ -2391,7 +2389,6 @@ function FuncWorks($data, $connection) {
 				case "ShowBoardShootout_1_5":
 				case "ShowBoardShootout_6_6":
 				case "ShowBoardShootout_6_7":
-					$EventDB['BoardShootout'] = 'active';
 					unset($tempShootout);
 					$tempShootout = [];
 					$ReturnJsonToWeb = [
@@ -2477,170 +2474,30 @@ function FuncWorks($data, $connection) {
 					break;
 				// Скрыть комментаторов
 				case "HideCommentators":
-					$ReturnJsonToWeb = [
-						"timestamp" => time(),
-						"dAction"   => $dataJson['Action'],
-						"Board"     => $dataJson['Board']
-					];
-					break;
-				// Скрыть судейский состав
 				case "HideJudges":
-					$ReturnJsonToWeb = [
-						"timestamp" => time(),
-						"dAction"   => $dataJson['Action'],
-						"Board"     => $dataJson['Board']
-					];
-					break;
-				// Скрыть стартовый состав команды
 				case "HideWelcome":
-					$ReturnJsonToWeb = [
-						"timestamp" => time(),
-						"dAction"   => $dataJson['Action'],
-						"Board"     => $dataJson['Board']
-					];
-					break;
-				//
 				case "HideCount":
-					$ReturnJsonToWeb = [
-						"timestamp" => time(),
-						"dAction"   => $dataJson['Action'],
-						"Board"     => $dataJson['Board'],
-					];
-					break;
-				//
 				case "HideGoal2":
-					$ReturnJsonToWeb = [
-						"timestamp" => time(),
-						"dAction"   => $dataJson['Action'],
-						"Board"     => $dataJson['Board']
-					];
-					break;
-				// Скрыть Логотип №1
 				case "HideLogo1":
-					$ReturnJsonToWeb = [
-						"timestamp" => time(),
-						"dAction"   => $dataJson['Action'],
-						"Board"     => $dataJson['Board']
-					];
-					break;
-				// Скрыть стартовую заставку
 				case "HideStart":
-					$ReturnJsonToWeb = [
-						"timestamp" => time(),
-						"dAction"   => $dataJson['Action'],
-						"Board"     => $dataJson['Board'],
-					];
-					break;
-				// Скрыть стартовый состав команды
 				case "HideListPlayer":
-					$ReturnJsonToWeb = [
-						"timestamp" => time(),
-						"dAction"   => $dataJson['Action'],
-						"Board"     => $dataJson['Board']
-					];
-					break;
-				// Скрыть первую пятерку
 				case "HideStart5Player":
-					$ReturnJsonToWeb = [
-						"timestamp" => time(),
-						"dAction"   => $dataJson['Action'],
-						"Board"     => $dataJson['Board']
-					];
-					break;
-				// Скрыть стартовые пятерки команд
 				case "HideStart5LeftAndRight":
-					$ReturnJsonToWeb = [
-						"timestamp" => time(),
-						"dAction"   => $dataJson['Action'],
-						"Board"     => $dataJson['Board']
-					];
-					break;
-				// Скрыть карточку оштрафованного игрока
 				case "HidePlayerEjection":
-				// Скрыть карточку игрока забившего гол
 				case "HidePlayerGoal":
-				// Скрыть карточку игрока
 				case "HidePlayerTeam":
-					$ReturnJsonToWeb = [
-						"timestamp" => time(),
-						"dAction"   => $dataJson['Action'],
-						"Board"     => $dataJson['Board']
-					];
-					break;
-				// Скрыть тренера
 				case "HideTrainerTeam":
-					$ReturnJsonToWeb = [
-						"timestamp" => time(),
-						"dAction"   => $dataJson['Action'],
-						"Board"     => $dataJson['Board']
-					];
-					break;
-				// Скрыть: Счёт на конец периода
 				case "HideEndPeriod":
-					$ReturnJsonToWeb = [
-						"timestamp" => time(),
-						"dAction"   => $dataJson['Action'],
-						"Board"     => $dataJson['Board']
-					];
-					break;
-				// Скрыть: Счёт на конец периода
 				case "HideStartPeriod":
-					$ReturnJsonToWeb = [
-						"timestamp" => time(),
-						"dAction"   => $dataJson['Action'],
-						"Board"     => $dataJson['Board']
-					];
-					break;
-				// Скрыть:
 				case "HideEmptyNet":
 				case "HidePenaltyShot":
 				case "HideDelayedPenalty":
 				case "HidePullGoalie":
-					$ReturnJsonToWeb = [
-						"timestamp" => time(),
-						"dAction"   => $dataJson['Action'],
-						"Board"     => $dataJson['Board']
-					];
-					break;
-				// Скрыть: Раздевалка команды
 				case "HideTeamRoom":
-					$ReturnJsonToWeb = [
-						"timestamp" => time(),
-						"dAction"   => $dataJson['Action'],
-						"Board"     => $dataJson['Board']
-					];
-					break;
-				// Скрыть: Послематчевые булиты
 				case "HideShootout_1_5":
-					$ReturnJsonToWeb = [
-						"timestamp" => time(),
-						"dAction"   => $dataJson['Action'],
-						"Board"     => $dataJson['Board']
-					];
-					break;
 				case "HideShootout_6_6":
-					$ReturnJsonToWeb = [
-						"timestamp" => time(),
-						"dAction"   => $dataJson['Action'],
-						"Board"     => $dataJson['Board']
-					];
-					break;
 				case "HideShootout_6_7":
-					$ReturnJsonToWeb = [
-						"timestamp" => time(),
-						"dAction"   => $dataJson['Action'],
-						"Board"     => $dataJson['Board']
-					];
-					break;
-				// Скрыть: Финальный счёт
 				case "HideFinalResultBottom":
-					$ReturnJsonToWeb = [
-						"timestamp" => time(),
-						"dAction"   => $dataJson['Action'],
-						"Board"     => $dataJson['Board']
-					];
-					break;
-				// Скрыть: Перерыв
 				case "HidePause":
 					$ReturnJsonToWeb = [
 						"timestamp" => time(),
@@ -2878,25 +2735,25 @@ $ws_worker->onWorkerStart = function() use (&$EventDB, &$ini, &$EventsTimer, &$E
 						//echo "[Foll Right] => " . (hexdec($byteArray["Chet9"])-12) . "\n";
 					}
 					$index+=10;
-					
 				}
 				// Пакет названия левой команды: 4 ... 10
 				elseif (hexdec($d["data"]) == 4) {
 					if ($ini["PrintConsoleInfo"] == "y") {
-						#echo "4-----------------\n";
+						//echo "4-----------------\n";
 					}
 				}
 				// Пакет названия правой команды: 5 ... 11
 				elseif (hexdec($d["data"]) == 5) {
 					if ($ini["PrintConsoleInfo"] == "y") {
-						#echo "5-----------------\n";
+						//echo "5-----------------\n";
 					}
 				}
 				// Пакет бегущей строки: 6 ... 12
 				elseif (hexdec($d["data"]) == 6) {
 					if ($ini["PrintConsoleInfo"] == "y") {
-						echo "6-----------------\n";
+						//echo "6-----------------\n";
 					}
+					/*
 					$byteArray = unpack("h1Chet1/h1Chet2/h1Chet3/h1Chet3/h1Chet5/c1Chet6/h1Chet7/h1Chet8/h1Chet9/H2Chet10",substr($data, $index+1, 11));
 					echo "=" . hexdec($byteArray["Chet1"]) . "=\n";#1
 					echo "=" . hexdec($byteArray["Chet2"]) . "=\n";#8
@@ -2909,6 +2766,7 @@ $ws_worker->onWorkerStart = function() use (&$EventDB, &$ini, &$EventsTimer, &$E
 					echo "=" . hexdec($byteArray["Chet9"]) . "=\n";
 					echo "=" . hexdec($byteArray["Chet10"]) . "=\n";
 					$index+=11;
+					*/
 				}
 				if (hexdec($d["data"]) == 14) {
 					if ($Modify >= 1) {
