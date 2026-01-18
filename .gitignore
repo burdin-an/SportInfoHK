@@ -11,5 +11,11 @@
 /nginx/html/*-local.html
 /nginx/html/js/*-local.js
 /nginx/html/fontawesome/*
-.vscode/
-.vscode/settings.json
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+# Built Visual Studio Code Extensions
+*.vsix
+*.bak
